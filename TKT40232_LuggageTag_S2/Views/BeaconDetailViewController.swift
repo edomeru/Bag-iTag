@@ -9,6 +9,18 @@
 import UIKit
 import CoreLocation
 
+extension String {
+  
+  func isValidHexNumber() -> Bool {
+    let chars = NSCharacterSet(charactersInString: "0123456789ABCDEF").invertedSet
+    if let _ = self.uppercaseString.rangeOfCharacterFromSet(chars) {
+      return false
+    }
+    return true
+  }
+  
+}
+
 protocol BeaconDetailViewControllerDelegate: NSObjectProtocol {
   func beaconDetailViewController(controller: BeaconDetailViewController, didFinishAddingItem item: BeaconModel)
   func beaconDetailViewController(controller: BeaconDetailViewController, didFinishEditingItem item: BeaconModel)
@@ -78,15 +90,37 @@ class BeaconDetailViewController: UIViewController, UITextFieldDelegate, TKTCore
     return true
   }
   
+  func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    
+    let currentCharacterCount = textField.text?.characters.count ?? 0
+    
+    if (range.length + range.location > currentCharacterCount){
+      return false
+    }
+    let newLength = currentCharacterCount + string.characters.count - range.length
+    
+    if (textField.tag == 1000) {
+      return newLength <= 20 // Character Limit for Beacon Name
+    } else {
+      return newLength <= 12 // Character Limit for Beacon UUID
+    }
+  }
+
+  
   // MARK: Action Methods
   @IBAction func saveBeacon() {
     
     nameTextField.resignFirstResponder()
     uuidTextField.resignFirstResponder()
-    
-    
-    if (nameTextField.text! != "" && uuidTextField.text! != "") {
-      // Check whether the beaconToEdit property contains an object
+
+    if (nameTextField.text! == "" && uuidTextField.text! == "") {
+      showAlert(NSLocalizedString("error", comment: ""), message: NSLocalizedString("input_fields", comment: ""))
+    } else if (nameTextField.text! == "") {
+      showAlert(NSLocalizedString("error", comment: ""), message: NSLocalizedString("input_beacon_name", comment: ""))
+    } else if (uuidTextField.text! == "") {
+      showAlert(NSLocalizedString("error", comment: ""), message: NSLocalizedString("input_beacon_uuid", comment: ""))
+    } else {
+      // Check if the beaconToEdit property contains an object
       // If True then it is a Edit else it is a new Beacon
       if let beaconItem = beaconToEdit {
         let originalStringIndex = beaconItem.UUID.endIndex.advancedBy(-12)
@@ -98,17 +132,27 @@ class BeaconDetailViewController: UIViewController, UITextFieldDelegate, TKTCore
             beaconItem.photo = UIImageJPEGRepresentation(self.imgButton.currentImage!, 1.0)
           }
           
-          beaconItem.name = nameTextField.text!
-          
-          if uuidTextField.text!.characters.count == 12 {
-            beaconItem.UUID = "C2265660-5EC1-4935-9BB3-\(uuidTextField.text!)"
+          if nameTextField.text! != "" {
+            if uuidTextField.text!.characters.count == 12 {
+              if (uuidTextField.text!.isValidHexNumber()) {
+                beaconItem.name = nameTextField.text!
+                beaconItem.UUID = "C2265660-5EC1-4935-9BB3-\(uuidTextField.text!)"
+                beaconItem.major = "1"
+                beaconItem.minor = "5"
+                beaconItem.proximity = Constants.Proximity.Outside
+                beaconItem.isConnected = false
+                
+                delegate?.beaconDetailViewController(self, didFinishAddingItem: beaconItem)
+              } else {
+                showAlert(NSLocalizedString("error", comment: ""), message: NSLocalizedString("invalid_uuid", comment: ""))
+              }
+            } else {
+              showAlert(NSLocalizedString("error", comment: ""), message: NSLocalizedString("uuid_length", comment: ""))
+            }
           } else {
-            beaconItem.UUID = uuidTextField.text!
+            showAlert(NSLocalizedString("error", comment: ""), message: NSLocalizedString("input_beacon_name", comment: ""))
           }
           
-          delegate?.beaconDetailViewController(self, didFinishEditingItem: beaconItem)
-          
-          //MARK: TODO
         } else {
           print("NO Changes made in Beacon")
           dismissViewControllerAnimated(true, completion: nil)
@@ -117,7 +161,7 @@ class BeaconDetailViewController: UIViewController, UITextFieldDelegate, TKTCore
       } else {
         // New Beacon
         let beaconItem = BeaconModel()
-       
+        
         if (isPhotoEdited) {
           beaconItem.photo = UIImageJPEGRepresentation(self.imgButton.currentImage!, 1.0)
         } else {
@@ -125,31 +169,23 @@ class BeaconDetailViewController: UIViewController, UITextFieldDelegate, TKTCore
         }
         
         if uuidTextField.text!.characters.count == 12 {
-          beaconItem.UUID = "C2265660-5EC1-4935-9BB3-\(uuidTextField.text!)"
+          if (uuidTextField.text!.isValidHexNumber()) {
+            beaconItem.name = nameTextField.text!
+            beaconItem.UUID = "C2265660-5EC1-4935-9BB3-\(uuidTextField.text!)"
+            beaconItem.major = "1"
+            beaconItem.minor = "5"
+            beaconItem.proximity = Constants.Proximity.Outside
+            beaconItem.isConnected = false
+            
+            delegate?.beaconDetailViewController(self, didFinishAddingItem: beaconItem)
+          } else {
+            showAlert(NSLocalizedString("error", comment: ""), message: NSLocalizedString("invalid_uuid", comment: ""))
+          }
         } else {
-          beaconItem.UUID = uuidTextField.text!
+          showAlert(NSLocalizedString("error", comment: ""), message: NSLocalizedString("uuid_length", comment: ""))
         }
-
-        beaconItem.name = nameTextField.text!
-        beaconItem.major = "1"
-        beaconItem.minor = "5"
-        beaconItem.isConnected = false
-        
-        delegate?.beaconDetailViewController(self, didFinishAddingItem: beaconItem)
-        
-        /*let isAvailable = checkBeaconAvailability()
-        
-        if (isAvailable) {
-          delegate?.beaconDetailViewController(self, didFinishAddingItem: beaconItem)
-        } else {
-          showAlert()
-        }*/
       }
-    } else {
-      print("NO beacon is Saved, because fields are empty")
-      dismissViewControllerAnimated(true, completion: nil)
     }
-    
   }
   
   @IBAction func deleteBeacon() {
@@ -204,10 +240,10 @@ class BeaconDetailViewController: UIViewController, UITextFieldDelegate, TKTCore
     self.view.frame.origin.y = 0
   }
   
-  private func showAlert() {
-    let alertController = UIAlertController(title: "Bag iTag", message: "This Beacon already Exist!", preferredStyle: .Alert)
+  private func showAlert(title: String, message: String) {
+    let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
     
-    let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+    let okAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: nil)
     alertController.addAction(okAction)
     
     self.presentViewController(alertController, animated: true, completion: nil)

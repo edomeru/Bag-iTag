@@ -9,12 +9,18 @@
 "app_name" = "Bag iTag";
 "ok" = "OK";
 "cancel" = "Cancel";
+"error" = "Error";
 
 /* Alert Box */
 "settings" = "Settings";
 "turn_on_bluetooth" = "Turn On Bluetooth!";
 "location_access_disabled" = "Background Location Access is Disabled";
 "location_access_disabled_settings" = "Please change the location access to \"Always\" in app settings.";
+"uuid_length" = "UUID must be exactly 12 Hex characters";
+"input_beacon_name" = "Please Input Beacon Name";
+"input_beacon_uuid" = "Please Input Beacon UUID";
+"invalid_uuid" = "Invalid UUID";
+"input_fields" = "Please input the Name and UUID of Beacon";
 
 /* Local Notification */
 "has_arrived" = "has arrived!";
