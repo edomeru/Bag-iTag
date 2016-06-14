@@ -1,0 +1,100 @@
+//
+//  ModalViewController.swift
+//  TKT40214_LuggageFinder_S1_iOS
+//
+//  Created by PhTktimac1 on 05/06/2016.
+//  Copyright © 2016 Tektos Limited. All rights reserved.
+//
+
+import UIKit
+
+
+extension UIButton{
+  func roundCorners(corners:UIRectCorner, radius: CGFloat) {
+    let path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+    let mask = CAShapeLayer()
+    mask.path = path.CGPath
+    self.layer.mask = mask
+  }
+}
+
+protocol ModalViewControllerDelegate: NSObjectProtocol {
+  func didFinishPickingMediaWithInfo(image: UIImage)
+}
+
+class ModalViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+  
+  @IBOutlet weak var takePhotoButton: UIButton!
+  @IBOutlet weak var choosePhotoButton: UIButton!
+  @IBOutlet weak var cancelButton: UIButton!
+  
+  weak var delegate: ModalViewControllerDelegate?
+  
+  override func viewDidLayoutSubviews() {
+    takePhotoButton.roundCorners([.TopLeft, .TopRight], radius: 15.0)
+    choosePhotoButton.roundCorners([.BottomLeft, .BottomRight], radius: 15.0)
+  }
+
+  override func viewDidLoad() {
+    super.viewDidLoad()
+  }
+
+  @IBAction func takePhoto(sender: AnyObject) {
+    let cameraPicker = UIImagePickerController()
+    cameraPicker.delegate = self
+    cameraPicker.sourceType = .Camera
+    
+    self.presentViewController(cameraPicker, animated: true, completion: nil)
+  }
+  
+  @IBAction func choosePhoto(sender: AnyObject) {
+    let photoPicker = UIImagePickerController()
+    photoPicker.delegate = self
+    photoPicker.sourceType = .PhotoLibrary
+    self.presentViewController(photoPicker, animated: true, completion: nil)
+  }
+  
+  @IBAction func cancelClicked(sender: AnyObject) {
+    dismissViewControllerAnimated(false, completion: nil)
+  }
+  
+  //MARK: UIImagePickerControllerDelegate
+  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    let size = CGSize(width: 500, height: 500)
+    let image = resizeImage((info[UIImagePickerControllerOriginalImage] as? UIImage)!, targetSize: size)
+    //UIImageWriteToSavedPhotosAlbum(image,nil,nil,nil);
+    
+    delegate?.didFinishPickingMediaWithInfo(image)
+    
+    self.dismissViewControllerAnimated(false, completion: nil)
+    cancelButton.sendActionsForControlEvents(.TouchUpInside)
+  }
+  
+  func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+    let size = image.size
+    
+    let widthRatio  = targetSize.width  / image.size.width
+    let heightRatio = targetSize.height / image.size.height
+    
+    // Figure out what our orientation is, and use that to form the rectangle
+    var newSize: CGSize
+    if(widthRatio > heightRatio) {
+      newSize = CGSizeMake(size.width * heightRatio, size.height * heightRatio)
+    } else {
+      newSize = CGSizeMake(size.width * widthRatio,  size.height * widthRatio)
+    }
+    
+    // This is the rect that we've calculated out and this is what is actually used below
+    let rect = CGRectMake(0, 0, newSize.width, newSize.height)
+    
+    // Actually do the resizing to the rect using the ImageContext stuff
+    UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+    image.drawInRect(rect)
+    let newImage = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    
+    return newImage
+  }
+
+
+}

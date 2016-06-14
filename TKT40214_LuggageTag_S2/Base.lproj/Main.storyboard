@@ -1,0 +1,577 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="fRw-Vc-P7V">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="GADUGI.TTF">
+            <string>Gadugi</string>
+            <string>Gadugi</string>
+            <string>Gadugi</string>
+        </mutableArray>
+        <mutableArray key="GADUGIB.TTF">
+            <string>Gadugi-Bold</string>
+            <string>Gadugi-Bold</string>
+            <string>Gadugi-Bold</string>
+            <string>Gadugi-Bold</string>
+            <string>Gadugi-Bold</string>
+            <string>Gadugi-Bold</string>
+        </mutableArray>
+    </customFonts>
+    <scenes>
+        <!--List View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="ListViewController" customModule="LuggageFinder" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="200" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eSL-Xi-SOn">
+                                <rect key="frame" x="-4" y="164" width="604" height="436"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="lEp-If-2EI" userLabel="footer">
+                                    <rect key="frame" x="0.0" y="228" width="604" height="199"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9e8-Pm-AdT" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
+                                            <rect key="frame" x="29" y="25" width="150" height="150"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="150" id="BBX-uz-cZZ"/>
+                                                <constraint firstAttribute="width" constant="150" id="aLt-bb-iX0"/>
+                                            </constraints>
+                                            <state key="normal" image="add_button"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="75"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <real key="value" value="4"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                    <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <segue destination="Nup-9k-wAl" kind="show" identifier="AddBeacon" id="op5-Nl-NqQ"/>
+                                            </connections>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hqd-dI-xMz">
+                                            <rect key="frame" x="187" y="76" width="45" height="48"/>
+                                            <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="21"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="border_line" translatesAutoresizingMaskIntoConstraints="NO" id="c1m-kH-T6l">
+                                            <rect key="frame" x="0.0" y="194" width="604" height="5"/>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="c1m-kH-T6l" firstAttribute="top" secondItem="9e8-Pm-AdT" secondAttribute="bottom" constant="19" id="5s0-8G-IEy"/>
+                                        <constraint firstItem="9e8-Pm-AdT" firstAttribute="leading" secondItem="lEp-If-2EI" secondAttribute="leading" constant="29" id="Bfj-uO-wqd"/>
+                                        <constraint firstAttribute="bottom" secondItem="c1m-kH-T6l" secondAttribute="bottom" id="Fft-cK-rec"/>
+                                        <constraint firstItem="Hqd-dI-xMz" firstAttribute="top" secondItem="lEp-If-2EI" secondAttribute="top" constant="76" id="Jvf-mr-pmg"/>
+                                        <constraint firstItem="9e8-Pm-AdT" firstAttribute="top" secondItem="lEp-If-2EI" secondAttribute="top" constant="25" id="Lop-nl-I5B"/>
+                                        <constraint firstAttribute="bottom" secondItem="9e8-Pm-AdT" secondAttribute="bottom" constant="24" id="PP4-1l-m4x"/>
+                                        <constraint firstAttribute="trailing" secondItem="c1m-kH-T6l" secondAttribute="trailing" id="d9g-Wr-TGG"/>
+                                        <constraint firstItem="c1m-kH-T6l" firstAttribute="leading" secondItem="lEp-If-2EI" secondAttribute="leading" id="f8W-M8-vnG"/>
+                                        <constraint firstAttribute="bottom" secondItem="Hqd-dI-xMz" secondAttribute="bottom" constant="75" id="gCK-Uj-g2C"/>
+                                        <constraint firstItem="Hqd-dI-xMz" firstAttribute="leading" secondItem="9e8-Pm-AdT" secondAttribute="trailing" constant="8" id="kGo-49-tZx"/>
+                                    </constraints>
+                                </view>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="200" id="NJG-He-PIH" customClass="CustomTableCell" customModule="LuggageFinder" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="604" height="200"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NJG-He-PIH" id="AYw-vx-yQ7">
+                                            <rect key="frame" x="0.0" y="0.0" width="604" height="200"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beacon Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6cT-cj-Irw">
+                                                    <rect key="frame" x="187" y="51" width="409" height="49"/>
+                                                    <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="21"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view tag="1001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gEx-aH-bYy" customClass="DesignableView" customModule="LuggageFinder" customModuleProvider="target">
+                                                    <rect key="frame" x="29" y="25" width="150" height="150"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <rect key="contentStretch" x="0.0" y="0.0" width="0.90000000000000002" height="1"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="75"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="4"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="image" keyPath="image" value="luggage_default"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                                <view tag="1002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uEK-oK-YRh" customClass="DesignableView" customModule="LuggageFinder" customModuleProvider="target">
+                                                    <rect key="frame" x="152" y="117" width="50" height="50"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="50" id="1KX-qS-7nd"/>
+                                                        <constraint firstAttribute="height" constant="50" id="HjF-wh-MMg"/>
+                                                        <constraint firstAttribute="width" constant="50" id="MIA-sh-iVM"/>
+                                                        <constraint firstAttribute="height" constant="50" id="jrc-a6-gBF"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="3"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="25"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="image" keyPath="image" value="off_range"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="1KX-qS-7nd"/>
+                                                            <exclude reference="jrc-a6-gBF"/>
+                                                        </mask>
+                                                    </variation>
+                                                </view>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="border_line" translatesAutoresizingMaskIntoConstraints="NO" id="b9O-DD-W6w">
+                                                    <rect key="frame" x="0.0" y="195" width="604" height="5"/>
+                                                </imageView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZjM-xw-jgZ" customClass="SevenSwitch" customModule="LuggageFinder" customModuleProvider="target">
+                                                    <rect key="frame" x="510" y="124" width="71" height="36"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="71" id="Xi5-l0-F5E"/>
+                                                        <constraint firstAttribute="height" constant="36" id="XoG-J6-cYp"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="on" value="NO"/>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isRounded" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="activeColor">
+                                                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="inactiveColor">
+                                                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="onTintColor">
+                                                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="onThumbTintColor">
+                                                            <color key="value" red="0.82745098039215681" green="0.12156862745098039" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="thumbTintColor">
+                                                            <color key="value" red="0.23529411764705882" green="0.63921568627450975" blue="0.24313725490196078" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="valueChanged:" destination="NJG-He-PIH" eventType="valueChanged" id="yMJ-H3-b8E"/>
+                                                    </connections>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="gEx-aH-bYy" secondAttribute="bottom" constant="25" id="3Xk-aH-6PS"/>
+                                                <constraint firstItem="ZjM-xw-jgZ" firstAttribute="top" secondItem="AYw-vx-yQ7" secondAttribute="topMargin" constant="17" id="4Vm-Ly-S0l"/>
+                                                <constraint firstItem="6cT-cj-Irw" firstAttribute="leading" secondItem="gEx-aH-bYy" secondAttribute="trailing" constant="8" id="5J1-Eg-wSX"/>
+                                                <constraint firstItem="6cT-cj-Irw" firstAttribute="leading" secondItem="AYw-vx-yQ7" secondAttribute="leading" constant="187" id="6u6-iW-tJ1"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="ZjM-xw-jgZ" secondAttribute="bottom" constant="35" id="7Bg-0v-SJb"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="b9O-DD-W6w" secondAttribute="trailing" constant="-8" id="8QE-SN-C6t"/>
+                                                <constraint firstItem="b9O-DD-W6w" firstAttribute="top" secondItem="AYw-vx-yQ7" secondAttribute="top" id="97P-NT-S6v"/>
+                                                <constraint firstItem="ZjM-xw-jgZ" firstAttribute="leading" secondItem="AYw-vx-yQ7" secondAttribute="leadingMargin" constant="502" id="BAI-uE-cTg"/>
+                                                <constraint firstItem="gEx-aH-bYy" firstAttribute="top" secondItem="AYw-vx-yQ7" secondAttribute="top" constant="25" id="CEc-Tt-G1K"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="ZjM-xw-jgZ" secondAttribute="trailing" constant="15" id="CHQ-Rq-C9h"/>
+                                                <constraint firstItem="b9O-DD-W6w" firstAttribute="top" secondItem="uEK-oK-YRh" secondAttribute="bottom" constant="28" id="F0D-N9-OF0"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="ZjM-xw-jgZ" secondAttribute="trailing" constant="15" id="Lp2-3h-A20"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="ZjM-xw-jgZ" secondAttribute="bottom" constant="32" id="Ls0-ft-7oo"/>
+                                                <constraint firstItem="b9O-DD-W6w" firstAttribute="leading" secondItem="AYw-vx-yQ7" secondAttribute="leading" id="Nid-gf-8uW"/>
+                                                <constraint firstItem="ZjM-xw-jgZ" firstAttribute="top" secondItem="6cT-cj-Irw" secondAttribute="bottom" constant="26" id="PIc-zQ-VS2"/>
+                                                <constraint firstAttribute="trailing" secondItem="b9O-DD-W6w" secondAttribute="trailing" id="Rch-Om-oyV"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="b9O-DD-W6w" secondAttribute="bottom" constant="-8" id="UX2-Ep-QMx"/>
+                                                <constraint firstItem="uEK-oK-YRh" firstAttribute="leading" secondItem="gEx-aH-bYy" secondAttribute="trailing" constant="-27" id="VvB-1v-o4v"/>
+                                                <constraint firstItem="gEx-aH-bYy" firstAttribute="top" secondItem="b9O-DD-W6w" secondAttribute="bottom" constant="20" id="WX8-t1-9US"/>
+                                                <constraint firstItem="b9O-DD-W6w" firstAttribute="top" secondItem="gEx-aH-bYy" secondAttribute="bottom" constant="20" id="ZBA-UP-9Qv"/>
+                                                <constraint firstItem="b9O-DD-W6w" firstAttribute="leading" secondItem="AYw-vx-yQ7" secondAttribute="leadingMargin" constant="-8" id="bWn-bP-6Fq"/>
+                                                <constraint firstItem="ZjM-xw-jgZ" firstAttribute="leading" secondItem="uEK-oK-YRh" secondAttribute="trailing" constant="65" id="gg0-tJ-ET1"/>
+                                                <constraint firstItem="gEx-aH-bYy" firstAttribute="leading" secondItem="AYw-vx-yQ7" secondAttribute="leading" constant="29" id="hOf-r2-IW0"/>
+                                                <constraint firstAttribute="bottom" secondItem="6cT-cj-Irw" secondAttribute="bottom" constant="100" id="hnP-Yo-hHn"/>
+                                                <constraint firstItem="6cT-cj-Irw" firstAttribute="top" secondItem="AYw-vx-yQ7" secondAttribute="top" constant="51" id="lpn-Kt-vZx"/>
+                                                <constraint firstAttribute="topMargin" secondItem="ZjM-xw-jgZ" secondAttribute="top" id="nAp-VZ-VNS"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="6cT-cj-Irw" secondAttribute="trailing" id="oP3-IL-asY"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="ZjM-xw-jgZ" secondAttribute="trailing" constant="15" id="xDG-v0-0Xd"/>
+                                                <constraint firstItem="6cT-cj-Irw" firstAttribute="top" secondItem="ZjM-xw-jgZ" secondAttribute="bottom" constant="12" id="zfd-vI-Ujk"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="WX8-t1-9US"/>
+                                                    <exclude reference="zfd-vI-Ujk"/>
+                                                    <exclude reference="97P-NT-S6v"/>
+                                                    <exclude reference="Nid-gf-8uW"/>
+                                                    <exclude reference="Rch-Om-oyV"/>
+                                                    <exclude reference="4Vm-Ly-S0l"/>
+                                                    <exclude reference="7Bg-0v-SJb"/>
+                                                    <exclude reference="BAI-uE-cTg"/>
+                                                    <exclude reference="CHQ-Rq-C9h"/>
+                                                    <exclude reference="PIc-zQ-VS2"/>
+                                                    <exclude reference="gg0-tJ-ET1"/>
+                                                    <exclude reference="nAp-VZ-VNS"/>
+                                                    <exclude reference="xDG-v0-0Xd"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="connection" destination="uEK-oK-YRh" id="DJG-cC-3os"/>
+                                            <outlet property="customSwitch" destination="ZjM-xw-jgZ" id="LsV-8Y-Hph"/>
+                                            <outlet property="name" destination="6cT-cj-Irw" id="vsT-ds-Nma"/>
+                                            <outlet property="photo" destination="gEx-aH-bYy" id="MjZ-xH-Fuj"/>
+                                            <segue destination="Nup-9k-wAl" kind="show" identifier="EditBeacon" id="EQb-Qw-ZeF"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="cTt-gv-Hkf"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="bpQ-pl-CwT"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.93333333333333335" green="0.67450980392156867" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="eSL-Xi-SOn" secondAttribute="trailing" constant="-20" id="60z-0v-HOC"/>
+                            <constraint firstItem="eSL-Xi-SOn" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-24" id="L69-dg-5d7"/>
+                            <constraint firstItem="eSL-Xi-SOn" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="1" id="QcK-zf-5rB"/>
+                            <constraint firstItem="eSL-Xi-SOn" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="100" id="UCy-Rz-Kwy"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="eSL-Xi-SOn" secondAttribute="bottom" id="nQ2-Fa-cso"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="QcK-zf-5rB"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" id="TgH-HH-WXX">
+                        <barButtonItem key="rightBarButtonItem" image="luggage_tag_logo" style="plain" id="zOG-Ig-5nL">
+                            <inset key="imageInsets" minX="0.0" minY="-50" maxX="0.0" maxY="-150"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="eSL-Xi-SOn" id="BcL-kZ-yCK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="996" y="251"/>
+        </scene>
+        <!--Beacon Detail View Controller-->
+        <scene sceneID="Sea-Zr-Eto">
+            <objects>
+                <viewController id="ZKc-tn-hlY" customClass="BeaconDetailViewController" customModule="LuggageFinder" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="APj-Nl-Kal"/>
+                        <viewControllerLayoutGuide type="bottom" id="KIX-hw-2fl"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9VQ-Rq-HtX">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="9C6AFF26DD06" placeholder="IDENTIFIER CODE" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XKN-hw-mUC" customClass="CustomTextField" customModule="LuggageFinder" customModuleProvider="target">
+                                <rect key="frame" x="23" y="425" width="555" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Hl4-yZ-SU9"/>
+                                    <constraint firstAttribute="width" constant="560" id="eCv-8H-vxR"/>
+                                    <constraint firstAttribute="height" constant="50" id="lbG-wx-hPO"/>
+                                </constraints>
+                                <color key="textColor" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="26"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="23"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Hl4-yZ-SU9"/>
+                                        <exclude reference="eCv-8H-vxR"/>
+                                    </mask>
+                                </variation>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rxh-Ln-oZV" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
+                                <rect key="frame" x="23" y="513" width="555" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="uR2-0y-bWv"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="26"/>
+                                <state key="normal" title="DELETE">
+                                    <color key="titleColor" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="23"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="deleteBeacon" destination="ZKc-tn-hlY" eventType="touchUpInside" id="HOU-s4-G3q"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Luggage Tag" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="idS-w2-DuE" customClass="CustomTextField" customModule="LuggageFinder" customModuleProvider="target">
+                                <rect key="frame" x="23" y="356" width="555" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="VMI-QM-lve"/>
+                                    <constraint firstAttribute="width" constant="560" id="YJR-jc-kzB"/>
+                                    <constraint firstAttribute="height" constant="50" id="nZ0-7b-zcj"/>
+                                </constraints>
+                                <color key="textColor" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="26"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="23"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="VMI-QM-lve"/>
+                                        <exclude reference="YJR-jc-kzB"/>
+                                    </mask>
+                                </variation>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not in Range" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NuV-Hd-KOi">
+                                <rect key="frame" x="452" y="327" width="93" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="93" id="fTa-ch-Qcr"/>
+                                    <constraint firstAttribute="height" constant="21" id="hLG-mh-MSo"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T7l-JT-n0W">
+                                <rect key="frame" x="0.0" y="89" width="600" height="220"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" image="cam_logo"/>
+                                <connections>
+                                    <segue destination="itM-6D-3mN" kind="presentation" animates="NO" modalPresentationStyle="overCurrentContext" id="GXa-zS-jLl"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="idS-w2-DuE" firstAttribute="top" secondItem="NuV-Hd-KOi" secondAttribute="bottom" constant="8" symbolic="YES" id="4uB-WI-7ut"/>
+                            <constraint firstItem="Rxh-Ln-oZV" firstAttribute="top" secondItem="XKN-hw-mUC" secondAttribute="bottom" constant="38" id="8ST-yL-Y7k"/>
+                            <constraint firstItem="T7l-JT-n0W" firstAttribute="top" secondItem="APj-Nl-Kal" secondAttribute="bottom" constant="25" id="A1s-Ew-dGK"/>
+                            <constraint firstItem="KIX-hw-2fl" firstAttribute="top" secondItem="Rxh-Ln-oZV" secondAttribute="bottom" constant="37" id="Esm-qr-aCz"/>
+                            <constraint firstItem="XKN-hw-mUC" firstAttribute="trailing" secondItem="Rxh-Ln-oZV" secondAttribute="trailing" id="GsF-C8-fDB"/>
+                            <constraint firstItem="T7l-JT-n0W" firstAttribute="centerX" secondItem="idS-w2-DuE" secondAttribute="centerX" id="V0u-WR-r1t"/>
+                            <constraint firstItem="T7l-JT-n0W" firstAttribute="leading" secondItem="9VQ-Rq-HtX" secondAttribute="leading" id="Vjp-LX-nSP"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="NuV-Hd-KOi" secondAttribute="trailing" constant="35" id="dqZ-EQ-ZCD"/>
+                            <constraint firstItem="NuV-Hd-KOi" firstAttribute="top" secondItem="T7l-JT-n0W" secondAttribute="bottom" constant="18" id="k7U-cf-omf"/>
+                            <constraint firstItem="idS-w2-DuE" firstAttribute="leading" secondItem="XKN-hw-mUC" secondAttribute="leading" id="kjw-Ar-GcO"/>
+                            <constraint firstItem="Rxh-Ln-oZV" firstAttribute="leading" secondItem="9VQ-Rq-HtX" secondAttribute="leadingMargin" constant="3" id="ly4-bK-IHQ"/>
+                            <constraint firstItem="XKN-hw-mUC" firstAttribute="top" secondItem="idS-w2-DuE" secondAttribute="bottom" constant="19" id="nda-ym-ZAj"/>
+                            <constraint firstItem="T7l-JT-n0W" firstAttribute="leading" secondItem="9VQ-Rq-HtX" secondAttribute="leadingMargin" constant="-20" id="oCR-uH-zFH"/>
+                            <constraint firstItem="T7l-JT-n0W" firstAttribute="centerX" secondItem="9VQ-Rq-HtX" secondAttribute="centerXWithinMargins" id="qJN-bL-wRt"/>
+                            <constraint firstItem="idS-w2-DuE" firstAttribute="trailing" secondItem="XKN-hw-mUC" secondAttribute="trailing" id="uUG-oL-gj9"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Rxh-Ln-oZV" secondAttribute="trailing" constant="2" id="yAc-Nb-fX8"/>
+                            <constraint firstItem="XKN-hw-mUC" firstAttribute="leading" secondItem="Rxh-Ln-oZV" secondAttribute="leading" id="zBu-C0-A5T"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="oCR-uH-zFH"/>
+                                <exclude reference="qJN-bL-wRt"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" id="owZ-a5-PAF">
+                        <barButtonItem key="leftBarButtonItem" image="back_button" style="plain" id="GP9-xV-YOX">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="saveBeacon" destination="ZKc-tn-hlY" id="Ob4-EP-guv"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="button" destination="Rxh-Ln-oZV" id="Rjy-4q-oZm"/>
+                        <outlet property="imgButton" destination="T7l-JT-n0W" id="MXU-zW-jlP"/>
+                        <outlet property="nameTextField" destination="idS-w2-DuE" id="rxD-4P-S0y"/>
+                        <outlet property="rangeLabel" destination="NuV-Hd-KOi" id="kHO-c4-SZD"/>
+                        <outlet property="uuidTextField" destination="XKN-hw-mUC" id="gVR-KD-ird"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="R9k-xl-atm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2513" y="251"/>
+        </scene>
+        <!--Modal View Controller-->
+        <scene sceneID="ddT-mB-7Sw">
+            <objects>
+                <viewController id="itM-6D-3mN" customClass="ModalViewController" customModule="LuggageFinder" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qLx-sc-imY"/>
+                        <viewControllerLayoutGuide type="bottom" id="Lwy-AA-9xv"/>
+                    </layoutGuides>
+                    <view key="view" opaque="NO" contentMode="scaleToFill" id="QnT-IS-XVm">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view opaque="NO" alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GeM-Xj-gpn" userLabel="dim_background">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jMb-Pw-tCj">
+                                <rect key="frame" x="20" y="369" width="560" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="Gadugi" family="Gadugi" pointSize="18"/>
+                                <state key="normal" title="Take Photo"/>
+                                <connections>
+                                    <action selector="takePhoto:" destination="itM-6D-3mN" eventType="touchUpInside" id="MZz-7e-Q9R"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LcE-dP-fcW">
+                                <rect key="frame" x="20" y="430" width="560" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="Gadugi" family="Gadugi" pointSize="18"/>
+                                <state key="normal" title="Choose Photo"/>
+                                <connections>
+                                    <action selector="choosePhoto:" destination="itM-6D-3mN" eventType="touchUpInside" id="wql-Dh-zgd"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zEh-qc-q9q" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
+                                <rect key="frame" x="20" y="500" width="560" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="Gadugi" family="Gadugi" pointSize="18"/>
+                                <state key="normal" title="Cancel"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="cancelClicked:" destination="itM-6D-3mN" eventType="touchUpInside" id="LKT-u8-1P4"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="LcE-dP-fcW" firstAttribute="top" secondItem="jMb-Pw-tCj" secondAttribute="bottom" constant="1" id="32B-0A-iif"/>
+                            <constraint firstItem="jMb-Pw-tCj" firstAttribute="leading" secondItem="LcE-dP-fcW" secondAttribute="leading" id="JPg-kK-riu"/>
+                            <constraint firstItem="jMb-Pw-tCj" firstAttribute="trailing" secondItem="LcE-dP-fcW" secondAttribute="trailing" id="KvX-dT-fvm"/>
+                            <constraint firstItem="GeM-Xj-gpn" firstAttribute="bottom" secondItem="Lwy-AA-9xv" secondAttribute="top" id="MtC-a6-jWe"/>
+                            <constraint firstItem="LcE-dP-fcW" firstAttribute="width" secondItem="zEh-qc-q9q" secondAttribute="width" id="RU7-32-F8L"/>
+                            <constraint firstItem="GeM-Xj-gpn" firstAttribute="width" secondItem="QnT-IS-XVm" secondAttribute="width" id="Ri1-5u-Cgk"/>
+                            <constraint firstItem="LcE-dP-fcW" firstAttribute="leading" secondItem="zEh-qc-q9q" secondAttribute="leading" id="TV4-eC-d9Q"/>
+                            <constraint firstItem="GeM-Xj-gpn" firstAttribute="leading" secondItem="QnT-IS-XVm" secondAttribute="leading" id="UT6-wX-DxA"/>
+                            <constraint firstItem="zEh-qc-q9q" firstAttribute="leading" secondItem="QnT-IS-XVm" secondAttribute="leadingMargin" id="bzX-nt-NFA"/>
+                            <constraint firstItem="Lwy-AA-9xv" firstAttribute="top" secondItem="zEh-qc-q9q" secondAttribute="bottom" constant="40" id="c7z-e3-KXo"/>
+                            <constraint firstItem="LcE-dP-fcW" firstAttribute="height" secondItem="zEh-qc-q9q" secondAttribute="height" id="gTc-MQ-6QE"/>
+                            <constraint firstItem="zEh-qc-q9q" firstAttribute="top" secondItem="GeM-Xj-gpn" secondAttribute="bottom" constant="-100" id="kwV-cU-bmr"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="zEh-qc-q9q" secondAttribute="trailing" id="nmc-Cx-W8q"/>
+                            <constraint firstItem="zEh-qc-q9q" firstAttribute="top" secondItem="LcE-dP-fcW" secondAttribute="bottom" constant="10" id="pSJ-un-tjh"/>
+                            <constraint firstItem="jMb-Pw-tCj" firstAttribute="top" secondItem="GeM-Xj-gpn" secondAttribute="bottom" constant="-231" id="uQn-to-aVK"/>
+                            <constraint firstItem="GeM-Xj-gpn" firstAttribute="height" secondItem="QnT-IS-XVm" secondAttribute="height" id="xoj-I5-nhT"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="zEh-qc-q9q" id="XBi-XI-fD0"/>
+                        <outlet property="choosePhotoButton" destination="LcE-dP-fcW" id="R5u-nG-68w"/>
+                        <outlet property="takePhotoButton" destination="jMb-Pw-tCj" id="vwc-0z-vvo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6SV-wY-DMv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3280" y="251"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="A1g-gk-QMw">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fRw-Vc-P7V" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hOS-2m-76K">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Twa-z8-g3F"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WgY-xX-a03" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="265" y="251"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="7Dg-Ax-oxA">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Nup-9k-wAl" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="4R2-W2-LqE"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="aia-Y3-ZyY">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="jde-rM-pPo">
+                        <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="ZKc-tn-hlY" kind="relationship" relationship="rootViewController" id="v47-uX-Ans"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WbJ-Zf-9Lq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1701" y="251"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="add_button" width="50" height="50"/>
+        <image name="back_button" width="25" height="25"/>
+        <image name="border_line" width="3680" height="26"/>
+        <image name="cam_logo" width="150" height="120"/>
+        <image name="luggage_default" width="100" height="130"/>
+        <image name="luggage_tag_logo" width="150" height="99"/>
+        <image name="off_range" width="100" height="100"/>
+    </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="EQb-Qw-ZeF"/>
+    </inferredMetricsTieBreakers>
+</document>
