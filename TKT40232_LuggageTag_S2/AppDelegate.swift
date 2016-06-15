@@ -21,9 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
     application.registerUserNotificationSettings(notificationSettings)
     //self.createLocalNotification()
-    
-    
-    
+
     return true
   }
 
@@ -53,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
     if application.applicationState == .Active {
       // We are Inside The App
-      print("App is in the ForeGround!")
+      UIApplication.sharedApplication().cancelLocalNotification(notification)
     }
   }
 
