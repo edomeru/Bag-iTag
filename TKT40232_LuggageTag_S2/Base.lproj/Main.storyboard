@@ -63,7 +63,7 @@
                                                 <segue destination="Nup-9k-wAl" kind="show" identifier="AddBeacon" id="op5-Nl-NqQ"/>
                                             </connections>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="New" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hqd-dI-xMz">
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hqd-dI-xMz">
                                             <rect key="frame" x="187" y="76" width="45" height="48"/>
                                             <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="21"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -260,12 +260,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="TgH-HH-WXX">
-                        <barButtonItem key="rightBarButtonItem" image="luggage_tag_logo" style="plain" id="zOG-Ig-5nL">
-                            <inset key="imageInsets" minX="0.0" minY="-50" maxX="0.0" maxY="-150"/>
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="TgH-HH-WXX"/>
                     <connections>
                         <outlet property="tableView" destination="eSL-Xi-SOn" id="BcL-kZ-yCK"/>
                     </connections>
@@ -569,7 +564,6 @@
         <image name="border_line" width="3680" height="26"/>
         <image name="cam_logo" width="150" height="120"/>
         <image name="luggage_default" width="100" height="130"/>
-        <image name="luggage_tag_logo" width="150" height="99"/>
         <image name="off_range" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>

@@ -544,7 +544,16 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
     self.navigationController?.navigationBar.shadowImage = UIImage()
     self.navigationController?.navigationBar.translucent = true
-    //self.navigationController?.navigationBar.frame = CGRect(x: 0, y: 0, width: 320, height: 100)
+  
+    let titleView = UIView(frame: CGRectMake(0, 0, 150, 99))
+    let titleImageView = UIImageView(image: UIImage(named: "luggage_tag_logo"))
+    
+    let y: CGFloat = self.navigationController!.navigationBar.frame.size.height
+    let x: CGFloat = (titleView.frame.width) / 2
+
+    titleImageView.frame = CGRectMake(x, y, titleView.frame.width, titleView.frame.height)
+    titleView.addSubview(titleImageView)
+    navigationItem.titleView = titleView
   }
   
 }
