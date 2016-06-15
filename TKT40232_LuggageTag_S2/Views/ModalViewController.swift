@@ -64,6 +64,7 @@ class ModalViewController: UIViewController, UIImagePickerControllerDelegate, UI
     let image = resizeImage((info[UIImagePickerControllerOriginalImage] as? UIImage)!, targetSize: size)
     //UIImageWriteToSavedPhotosAlbum(image,nil,nil,nil);
     
+    //let image = (info[UIImagePickerControllerOriginalImage] as? UIImage)!
     delegate?.didFinishPickingMediaWithInfo(image)
     
     self.dismissViewControllerAnimated(false, completion: nil)

@@ -36,7 +36,8 @@ class CustomTableCell: UITableViewCell {
   func setupWithModel(model: BeaconModel) {
     let size = CGSize(width: 150, height: 150)
     if (model.photo != nil) {
-      photo.image = scaleImage(UIImage(data: model.photo!)!, toSize: size)
+      //photo.image = scaleImage(UIImage(data: model.photo!)!, toSize: size)
+      photo.image = UIImage(data: model.photo!)!
     } else {
       photo.image = UIImage(named: "luggage_default")
     }

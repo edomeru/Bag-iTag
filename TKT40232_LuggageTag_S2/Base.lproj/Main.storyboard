@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -118,7 +117,7 @@
                                                         <userDefinedRuntimeAttribute type="image" keyPath="image" value="luggage_default"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
-                                                <view tag="1002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uEK-oK-YRh" customClass="DesignableView" customModule="LuggageFinder" customModuleProvider="target">
+                                                <view tag="1002" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="uEK-oK-YRh" customClass="DesignableView" customModule="LuggageFinder" customModuleProvider="target">
                                                     <rect key="frame" x="152" y="117" width="50" height="50"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -281,7 +280,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="9C6AFF26DD06" placeholder="IDENTIFIER CODE" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XKN-hw-mUC" customClass="CustomTextField" customModule="LuggageFinder" customModuleProvider="target">
+                            <textField opaque="NO" clipsSubviews="YES" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="IDENTIFIER CODE" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XKN-hw-mUC" customClass="CustomTextField" customModule="LuggageFinder" customModuleProvider="target">
                                 <rect key="frame" x="23" y="425" width="555" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <accessibility key="accessibilityConfiguration" identifier="uuid"/>
@@ -375,41 +374,61 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T7l-JT-n0W">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="evJ-wm-XnQ">
                                 <rect key="frame" x="0.0" y="89" width="600" height="220"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QVg-P1-dhs" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
+                                        <rect key="frame" x="210" y="20" width="180" height="180"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="180" id="LxC-o7-YTl"/>
+                                            <constraint firstAttribute="height" constant="180" id="nKs-gq-9s9"/>
+                                        </constraints>
+                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <inset key="contentEdgeInsets" minX="0.0" minY="-20" maxX="0.0" maxY="0.0"/>
+                                        <size key="titleShadowOffset" width="0.0" height="2.2250738585072014e-308"/>
+                                        <state key="normal" image="cam_logo"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="90"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <segue destination="itM-6D-3mN" kind="presentation" animates="NO" modalPresentationStyle="overCurrentContext" id="dz1-C5-cd7"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" image="cam_logo"/>
-                                <connections>
-                                    <segue destination="itM-6D-3mN" kind="presentation" animates="NO" modalPresentationStyle="overCurrentContext" id="GXa-zS-jLl"/>
-                                </connections>
-                            </button>
+                                <constraints>
+                                    <constraint firstItem="QVg-P1-dhs" firstAttribute="centerY" secondItem="evJ-wm-XnQ" secondAttribute="centerY" id="18p-eL-mpT"/>
+                                    <constraint firstItem="QVg-P1-dhs" firstAttribute="centerX" secondItem="evJ-wm-XnQ" secondAttribute="centerX" id="egW-nc-gUd"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="idS-w2-DuE" firstAttribute="top" secondItem="NuV-Hd-KOi" secondAttribute="bottom" constant="8" symbolic="YES" id="4uB-WI-7ut"/>
                             <constraint firstItem="Rxh-Ln-oZV" firstAttribute="top" secondItem="XKN-hw-mUC" secondAttribute="bottom" constant="38" id="8ST-yL-Y7k"/>
-                            <constraint firstItem="T7l-JT-n0W" firstAttribute="top" secondItem="APj-Nl-Kal" secondAttribute="bottom" constant="25" id="A1s-Ew-dGK"/>
                             <constraint firstItem="KIX-hw-2fl" firstAttribute="top" secondItem="Rxh-Ln-oZV" secondAttribute="bottom" constant="37" id="Esm-qr-aCz"/>
                             <constraint firstItem="XKN-hw-mUC" firstAttribute="trailing" secondItem="Rxh-Ln-oZV" secondAttribute="trailing" id="GsF-C8-fDB"/>
-                            <constraint firstItem="T7l-JT-n0W" firstAttribute="centerX" secondItem="idS-w2-DuE" secondAttribute="centerX" id="V0u-WR-r1t"/>
-                            <constraint firstItem="T7l-JT-n0W" firstAttribute="leading" secondItem="9VQ-Rq-HtX" secondAttribute="leading" id="Vjp-LX-nSP"/>
+                            <constraint firstItem="evJ-wm-XnQ" firstAttribute="leading" secondItem="9VQ-Rq-HtX" secondAttribute="leading" id="ZrC-FW-nF4"/>
+                            <constraint firstItem="evJ-wm-XnQ" firstAttribute="centerX" secondItem="idS-w2-DuE" secondAttribute="centerX" id="a2S-tE-ssx"/>
                             <constraint firstAttribute="trailingMargin" secondItem="NuV-Hd-KOi" secondAttribute="trailing" constant="35" id="dqZ-EQ-ZCD"/>
-                            <constraint firstItem="NuV-Hd-KOi" firstAttribute="top" secondItem="T7l-JT-n0W" secondAttribute="bottom" constant="18" id="k7U-cf-omf"/>
+                            <constraint firstItem="evJ-wm-XnQ" firstAttribute="top" secondItem="APj-Nl-Kal" secondAttribute="bottom" constant="25" id="jzv-PR-bKJ"/>
                             <constraint firstItem="idS-w2-DuE" firstAttribute="leading" secondItem="XKN-hw-mUC" secondAttribute="leading" id="kjw-Ar-GcO"/>
                             <constraint firstItem="Rxh-Ln-oZV" firstAttribute="leading" secondItem="9VQ-Rq-HtX" secondAttribute="leadingMargin" constant="3" id="ly4-bK-IHQ"/>
+                            <constraint firstItem="NuV-Hd-KOi" firstAttribute="top" secondItem="evJ-wm-XnQ" secondAttribute="bottom" constant="18" id="nad-e0-o7f"/>
                             <constraint firstItem="XKN-hw-mUC" firstAttribute="top" secondItem="idS-w2-DuE" secondAttribute="bottom" constant="19" id="nda-ym-ZAj"/>
-                            <constraint firstItem="T7l-JT-n0W" firstAttribute="leading" secondItem="9VQ-Rq-HtX" secondAttribute="leadingMargin" constant="-20" id="oCR-uH-zFH"/>
-                            <constraint firstItem="T7l-JT-n0W" firstAttribute="centerX" secondItem="9VQ-Rq-HtX" secondAttribute="centerXWithinMargins" id="qJN-bL-wRt"/>
                             <constraint firstItem="idS-w2-DuE" firstAttribute="trailing" secondItem="XKN-hw-mUC" secondAttribute="trailing" id="uUG-oL-gj9"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Rxh-Ln-oZV" secondAttribute="trailing" constant="2" id="yAc-Nb-fX8"/>
                             <constraint firstItem="XKN-hw-mUC" firstAttribute="leading" secondItem="Rxh-Ln-oZV" secondAttribute="leading" id="zBu-C0-A5T"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="oCR-uH-zFH"/>
-                                <exclude reference="qJN-bL-wRt"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="owZ-a5-PAF">
                         <barButtonItem key="leftBarButtonItem" image="back_button" style="plain" id="GP9-xV-YOX">
@@ -421,7 +440,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="button" destination="Rxh-Ln-oZV" id="Rjy-4q-oZm"/>
-                        <outlet property="imgButton" destination="T7l-JT-n0W" id="MXU-zW-jlP"/>
+                        <outlet property="imgButton" destination="QVg-P1-dhs" id="iAU-zY-STX"/>
                         <outlet property="nameTextField" destination="idS-w2-DuE" id="rxD-4P-S0y"/>
                         <outlet property="rangeLabel" destination="NuV-Hd-KOi" id="kHO-c4-SZD"/>
                         <outlet property="uuidTextField" destination="XKN-hw-mUC" id="gVR-KD-ird"/>
@@ -563,7 +582,7 @@
         <image name="back_button" width="25" height="25"/>
         <image name="border_line" width="3680" height="26"/>
         <image name="cam_logo" width="150" height="120"/>
-        <image name="luggage_default" width="100" height="130"/>
+        <image name="luggage_default" width="100" height="100"/>
         <image name="off_range" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>

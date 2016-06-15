@@ -35,7 +35,7 @@ class DesignableView : UIView {
   
   override func layoutSubviews() {
     imageView.frame = self.bounds
-    imageView.contentMode = UIViewContentMode.ScaleAspectFit
+    imageView.contentMode = UIViewContentMode.ScaleAspectFill
   }
   
   @IBInspectable var cornerRadius: CGFloat = 0 {
