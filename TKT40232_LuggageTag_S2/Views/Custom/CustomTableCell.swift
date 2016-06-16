@@ -26,7 +26,8 @@ protocol CustomTableCellDelegate: NSObjectProtocol {
 class CustomTableCell: UITableViewCell {
   
   
-  @IBOutlet var photo: DesignableView!
+  //@IBOutlet var photo: DesignableView!
+  @IBOutlet var photo: CustomButton!
   @IBOutlet var name: UILabel!
   @IBOutlet var connection: DesignableView!
   @IBOutlet var customSwitch: SevenSwitch!
@@ -34,13 +35,16 @@ class CustomTableCell: UITableViewCell {
   weak var delegate: CustomTableCellDelegate?
   
   func setupWithModel(model: BeaconModel) {
-    let size = CGSize(width: 150, height: 150)
+    //let size = CGSize(width: 150, height: 150)
     if (model.photo != nil) {
       //photo.image = scaleImage(UIImage(data: model.photo!)!, toSize: size)
-      photo.image = UIImage(data: model.photo!)!
+      photo.setImage(UIImage(data: model.photo!)!, forState: .Normal)
     } else {
-      photo.image = UIImage(named: "luggage_default")
+      //photo.image = UIImage(named: "luggage_default")
+      photo.setImage(UIImage(named: "luggage_default"), forState: .Normal)
     }
+    
+    photo.userInteractionEnabled = false
     
     name.text = model.name
     

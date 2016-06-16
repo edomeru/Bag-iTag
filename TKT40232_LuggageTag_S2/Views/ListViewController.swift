@@ -342,12 +342,14 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   }
   
   private func configureCell(cell: UITableViewCell, withBeaconModel item: BeaconModel) {
-    let size = CGSize(width: 150, height: 150)
+    //let size = CGSize(width: 150, height: 150)
     let label = cell.viewWithTag(1000) as! UILabel
-    let photo = cell.viewWithTag(1001) as! DesignableView
+    let photo = cell.viewWithTag(1001) as! CustomButton
+    //let photo = cell.viewWithTag(1001) as! DesignableView
     
     if (item.photo != nil) {
-      photo.image = scaleImage(UIImage(data: item.photo!)!, toSize: size)
+      //photo.image = scaleImage(UIImage(data: item.photo!)!, toSize: size)
+      photo.setImage(UIImage(data: item.photo!)!, forState: .Normal)
     }
     
     label.text = item.name
@@ -357,10 +359,8 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     let region = cell.viewWithTag(1002) as! DesignableView
     if (connected) {
       region.image = UIImage(named: "in_range")
-      print("CONNECTED")
     } else {
       region.image = UIImage(named: "off_range")
-      print("NOT CONNECTED")
     }
   }
   

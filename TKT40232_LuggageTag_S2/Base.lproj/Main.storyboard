@@ -40,7 +40,16 @@
                                     <rect key="frame" x="0.0" y="228" width="604" height="199"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9e8-Pm-AdT" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hqd-dI-xMz">
+                                            <rect key="frame" x="187" y="76" width="45" height="48"/>
+                                            <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="21"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="border_line" translatesAutoresizingMaskIntoConstraints="NO" id="c1m-kH-T6l">
+                                            <rect key="frame" x="0.0" y="194" width="604" height="5"/>
+                                        </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9e8-Pm-AdT" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
                                             <rect key="frame" x="29" y="25" width="150" height="150"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="150" id="BBX-uz-cZZ"/>
@@ -62,15 +71,6 @@
                                                 <segue destination="Nup-9k-wAl" kind="show" identifier="AddBeacon" id="op5-Nl-NqQ"/>
                                             </connections>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hqd-dI-xMz">
-                                            <rect key="frame" x="187" y="76" width="45" height="48"/>
-                                            <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="21"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="border_line" translatesAutoresizingMaskIntoConstraints="NO" id="c1m-kH-T6l">
-                                            <rect key="frame" x="0.0" y="194" width="604" height="5"/>
-                                        </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
@@ -100,51 +100,24 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view tag="1001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gEx-aH-bYy" customClass="DesignableView" customModule="LuggageFinder" customModuleProvider="target">
+                                                <button opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pMf-VB-0Qj" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
                                                     <rect key="frame" x="29" y="25" width="150" height="150"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <rect key="contentStretch" x="0.0" y="0.0" width="0.90000000000000002" height="1"/>
+                                                    <state key="normal" image="luggage_default">
+                                                        <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </state>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                             <real key="value" value="75"/>
                                                         </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                             <real key="value" value="4"/>
                                                         </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="image" keyPath="image" value="luggage_default"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </view>
-                                                <view tag="1002" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="uEK-oK-YRh" customClass="DesignableView" customModule="LuggageFinder" customModuleProvider="target">
-                                                    <rect key="frame" x="152" y="117" width="50" height="50"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="50" id="1KX-qS-7nd"/>
-                                                        <constraint firstAttribute="height" constant="50" id="HjF-wh-MMg"/>
-                                                        <constraint firstAttribute="width" constant="50" id="MIA-sh-iVM"/>
-                                                        <constraint firstAttribute="height" constant="50" id="jrc-a6-gBF"/>
-                                                    </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                            <real key="value" value="3"/>
-                                                        </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                             <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <real key="value" value="25"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="image" keyPath="image" value="off_range"/>
                                                     </userDefinedRuntimeAttributes>
-                                                    <variation key="default">
-                                                        <mask key="constraints">
-                                                            <exclude reference="1KX-qS-7nd"/>
-                                                            <exclude reference="jrc-a6-gBF"/>
-                                                        </mask>
-                                                    </variation>
-                                                </view>
+                                                </button>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="border_line" translatesAutoresizingMaskIntoConstraints="NO" id="b9O-DD-W6w">
                                                     <rect key="frame" x="0.0" y="195" width="604" height="5"/>
                                                 </imageView>
@@ -179,17 +152,43 @@
                                                         <action selector="valueChanged:" destination="NJG-He-PIH" eventType="valueChanged" id="yMJ-H3-b8E"/>
                                                     </connections>
                                                 </view>
+                                                <view tag="1002" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="uEK-oK-YRh" customClass="DesignableView" customModule="LuggageFinder" customModuleProvider="target">
+                                                    <rect key="frame" x="148" y="117" width="50" height="50"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="50" id="1KX-qS-7nd"/>
+                                                        <constraint firstAttribute="height" constant="50" id="HjF-wh-MMg"/>
+                                                        <constraint firstAttribute="width" constant="50" id="MIA-sh-iVM"/>
+                                                        <constraint firstAttribute="height" constant="50" id="jrc-a6-gBF"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="3"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="25"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="image" keyPath="image" value="off_range"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="1KX-qS-7nd"/>
+                                                            <exclude reference="jrc-a6-gBF"/>
+                                                        </mask>
+                                                    </variation>
+                                                </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="gEx-aH-bYy" secondAttribute="bottom" constant="25" id="3Xk-aH-6PS"/>
                                                 <constraint firstItem="ZjM-xw-jgZ" firstAttribute="top" secondItem="AYw-vx-yQ7" secondAttribute="topMargin" constant="17" id="4Vm-Ly-S0l"/>
-                                                <constraint firstItem="6cT-cj-Irw" firstAttribute="leading" secondItem="gEx-aH-bYy" secondAttribute="trailing" constant="8" id="5J1-Eg-wSX"/>
                                                 <constraint firstItem="6cT-cj-Irw" firstAttribute="leading" secondItem="AYw-vx-yQ7" secondAttribute="leading" constant="187" id="6u6-iW-tJ1"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="ZjM-xw-jgZ" secondAttribute="bottom" constant="35" id="7Bg-0v-SJb"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="b9O-DD-W6w" secondAttribute="trailing" constant="-8" id="8QE-SN-C6t"/>
+                                                <constraint firstItem="pMf-VB-0Qj" firstAttribute="leading" secondItem="AYw-vx-yQ7" secondAttribute="leadingMargin" constant="21" id="93l-7F-jk0"/>
                                                 <constraint firstItem="b9O-DD-W6w" firstAttribute="top" secondItem="AYw-vx-yQ7" secondAttribute="top" id="97P-NT-S6v"/>
                                                 <constraint firstItem="ZjM-xw-jgZ" firstAttribute="leading" secondItem="AYw-vx-yQ7" secondAttribute="leadingMargin" constant="502" id="BAI-uE-cTg"/>
-                                                <constraint firstItem="gEx-aH-bYy" firstAttribute="top" secondItem="AYw-vx-yQ7" secondAttribute="top" constant="25" id="CEc-Tt-G1K"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="ZjM-xw-jgZ" secondAttribute="trailing" constant="15" id="CHQ-Rq-C9h"/>
                                                 <constraint firstItem="b9O-DD-W6w" firstAttribute="top" secondItem="uEK-oK-YRh" secondAttribute="bottom" constant="28" id="F0D-N9-OF0"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="ZjM-xw-jgZ" secondAttribute="trailing" constant="15" id="Lp2-3h-A20"/>
@@ -198,22 +197,22 @@
                                                 <constraint firstItem="ZjM-xw-jgZ" firstAttribute="top" secondItem="6cT-cj-Irw" secondAttribute="bottom" constant="26" id="PIc-zQ-VS2"/>
                                                 <constraint firstAttribute="trailing" secondItem="b9O-DD-W6w" secondAttribute="trailing" id="Rch-Om-oyV"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="b9O-DD-W6w" secondAttribute="bottom" constant="-8" id="UX2-Ep-QMx"/>
-                                                <constraint firstItem="uEK-oK-YRh" firstAttribute="leading" secondItem="gEx-aH-bYy" secondAttribute="trailing" constant="-27" id="VvB-1v-o4v"/>
-                                                <constraint firstItem="gEx-aH-bYy" firstAttribute="top" secondItem="b9O-DD-W6w" secondAttribute="bottom" constant="20" id="WX8-t1-9US"/>
-                                                <constraint firstItem="b9O-DD-W6w" firstAttribute="top" secondItem="gEx-aH-bYy" secondAttribute="bottom" constant="20" id="ZBA-UP-9Qv"/>
+                                                <constraint firstItem="b9O-DD-W6w" firstAttribute="top" secondItem="pMf-VB-0Qj" secondAttribute="bottom" constant="20" id="Z3Y-Ei-Y3B"/>
                                                 <constraint firstItem="b9O-DD-W6w" firstAttribute="leading" secondItem="AYw-vx-yQ7" secondAttribute="leadingMargin" constant="-8" id="bWn-bP-6Fq"/>
+                                                <constraint firstItem="6cT-cj-Irw" firstAttribute="leading" secondItem="pMf-VB-0Qj" secondAttribute="trailing" constant="8" id="d2x-oU-m9S"/>
+                                                <constraint firstItem="pMf-VB-0Qj" firstAttribute="top" secondItem="AYw-vx-yQ7" secondAttribute="topMargin" constant="17" id="gaF-TO-zS2"/>
                                                 <constraint firstItem="ZjM-xw-jgZ" firstAttribute="leading" secondItem="uEK-oK-YRh" secondAttribute="trailing" constant="65" id="gg0-tJ-ET1"/>
-                                                <constraint firstItem="gEx-aH-bYy" firstAttribute="leading" secondItem="AYw-vx-yQ7" secondAttribute="leading" constant="29" id="hOf-r2-IW0"/>
                                                 <constraint firstAttribute="bottom" secondItem="6cT-cj-Irw" secondAttribute="bottom" constant="100" id="hnP-Yo-hHn"/>
                                                 <constraint firstItem="6cT-cj-Irw" firstAttribute="top" secondItem="AYw-vx-yQ7" secondAttribute="top" constant="51" id="lpn-Kt-vZx"/>
                                                 <constraint firstAttribute="topMargin" secondItem="ZjM-xw-jgZ" secondAttribute="top" id="nAp-VZ-VNS"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="pMf-VB-0Qj" secondAttribute="bottom" constant="17" id="oLs-En-g4l"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="6cT-cj-Irw" secondAttribute="trailing" id="oP3-IL-asY"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="ZjM-xw-jgZ" secondAttribute="trailing" constant="15" id="xDG-v0-0Xd"/>
+                                                <constraint firstItem="uEK-oK-YRh" firstAttribute="leading" secondItem="pMf-VB-0Qj" secondAttribute="trailing" constant="-31" id="zEH-qa-arx"/>
                                                 <constraint firstItem="6cT-cj-Irw" firstAttribute="top" secondItem="ZjM-xw-jgZ" secondAttribute="bottom" constant="12" id="zfd-vI-Ujk"/>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="WX8-t1-9US"/>
                                                     <exclude reference="zfd-vI-Ujk"/>
                                                     <exclude reference="97P-NT-S6v"/>
                                                     <exclude reference="Nid-gf-8uW"/>
@@ -234,7 +233,7 @@
                                             <outlet property="connection" destination="uEK-oK-YRh" id="DJG-cC-3os"/>
                                             <outlet property="customSwitch" destination="ZjM-xw-jgZ" id="LsV-8Y-Hph"/>
                                             <outlet property="name" destination="6cT-cj-Irw" id="vsT-ds-Nma"/>
-                                            <outlet property="photo" destination="gEx-aH-bYy" id="MjZ-xH-Fuj"/>
+                                            <outlet property="photo" destination="pMf-VB-0Qj" id="vMv-82-Oxj"/>
                                             <segue destination="Nup-9k-wAl" kind="show" identifier="EditBeacon" id="EQb-Qw-ZeF"/>
                                         </connections>
                                     </tableViewCell>
