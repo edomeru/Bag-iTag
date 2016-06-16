@@ -153,6 +153,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     isMonitoring = true
   }
   
+  
   func didStopMonitoring() {
     isMonitoring = false
   }
@@ -165,7 +166,6 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
           if let index = row.indexOf(beacon) {
             let indexPath = NSIndexPath(forRow: index, inSection: 0)
             if let cell = tableView.cellForRowAtIndexPath(indexPath) {
-              print("TEST ENTER")
               configureCellRegion(cell, withBeaconModel: beacon, connected: true)
               createLocalNotification(region.identifier, message: NSLocalizedString("has_arrived", comment: ""))
             }
@@ -414,6 +414,9 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         if beacon.isConnected {
           var beaconRegion: CLBeaconRegion?
           beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: beacon.UUID)!, identifier: beacon.name)
+          // Stop Beacon First
+          tktCoreLocation.stopMonitoringBeacon(beaconRegion)
+  
           // later, these values can be set from the UI
           beaconRegion!.notifyEntryStateOnDisplay = true
           beaconRegion!.notifyOnEntry = true

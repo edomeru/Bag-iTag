@@ -98,6 +98,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
   func locationManager(manager: CLLocationManager, didDetermineState state: CLRegionState, forRegion region: CLRegion) {
     if state == CLRegionState.Inside {
       print(" - entered region \(region.identifier)")
+      delegate?.didEnterRegion(region)
       //locationManager.startRangingBeaconsInRegion(beaconRegion!)
     } else {
       print(" - exited region \(region.identifier)")
