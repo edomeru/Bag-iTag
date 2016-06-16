@@ -133,6 +133,13 @@ class BeaconDetailViewController: UIViewController, UITextFieldDelegate, TKTCore
                 let isAvailable = checkBeaconAvailability()
                 
                 if (isAvailable) {
+                  if (beaconItem.isConnected) {
+                    // Stop Monitoring for this Beacon
+                    var beaconRegion: CLBeaconRegion?
+                    beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: beaconItem.UUID)!, identifier: beaconItem.name)
+                    tktCoreLocation.stopMonitoringBeacon(beaconRegion)
+                  }
+                  
                   // Beacon is Available
                   if (isPhotoEdited) {
                     beaconItem.photo = UIImageJPEGRepresentation(self.imgButton.currentImage!, 1.0)
@@ -140,20 +147,27 @@ class BeaconDetailViewController: UIViewController, UITextFieldDelegate, TKTCore
                   
                   beaconItem.name = nameTextField.text!
                   beaconItem.UUID = "C2265660-5EC1-4935-9BB3-\(uuidTextField.text!)"
-                  beaconItem.major = "1"
-                  beaconItem.minor = "5"
-                  beaconItem.proximity = Constants.Proximity.Outside
-                  beaconItem.isConnected = false
+                  //beaconItem.major = "1"
+                  //beaconItem.minor = "5"
+                  //beaconItem.proximity = Constants.Proximity.Outside
+                  //beaconItem.isConnected = false
                   
                   delegate?.beaconDetailViewController(self, didFinishEditingItem: beaconItem)
-                } else if (isPhotoEdited && (nameTextField.text! == beaconItem.name) && (uuidTextField.text! == originalString)) {
+                } else if (isPhotoEdited || (nameTextField.text! == beaconItem.name) || (uuidTextField.text! == originalString)) {
+                  if (beaconItem.isConnected) {
+                    // Stop Monitoring for this Beacon
+                    var beaconRegion: CLBeaconRegion?
+                    beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: beaconItem.UUID)!, identifier: beaconItem.name)
+                    tktCoreLocation.stopMonitoringBeacon(beaconRegion)
+                  }
+                  
                   beaconItem.photo = UIImageJPEGRepresentation(self.imgButton.currentImage!, 1.0)
                   beaconItem.name = nameTextField.text!
                   beaconItem.UUID = "C2265660-5EC1-4935-9BB3-\(uuidTextField.text!)"
-                  beaconItem.major = "1"
-                  beaconItem.minor = "5"
-                  beaconItem.proximity = Constants.Proximity.Outside
-                  beaconItem.isConnected = false
+                  //beaconItem.major = "1"
+                  //beaconItem.minor = "5"
+                  //beaconItem.proximity = Constants.Proximity.Outside
+                  //beaconItem.isConnected = false
                   
                   delegate?.beaconDetailViewController(self, didFinishEditingItem: beaconItem)
                 }else {
@@ -240,7 +254,7 @@ class BeaconDetailViewController: UIViewController, UITextFieldDelegate, TKTCore
   func didStopMonitoring() {}
   
   func didEnterRegion(region: CLRegion!) {
-    if (region.identifier == beaconToEdit!.name) {
+    if (region.identifier == beaconToEdit!.name && (beaconToEdit?.isConnected)!) {
       beaconToEdit?.proximity = "Inside"
       rangeLabel.text = "In Range"
     }

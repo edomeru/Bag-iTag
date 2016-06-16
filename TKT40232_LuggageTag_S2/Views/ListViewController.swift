@@ -265,6 +265,11 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         configureCell(cell, withBeaconModel: item)
       }
       
+      if (item.isConnected) {
+        print("EDITED BEACON IS CONNNECTING")
+        startMonitoringforBeacon(item)
+      }
+      
       updateToDatabase(item)
     }
   
