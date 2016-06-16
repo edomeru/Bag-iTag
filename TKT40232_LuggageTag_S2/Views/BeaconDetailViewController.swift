@@ -145,8 +145,18 @@ class BeaconDetailViewController: UIViewController, UITextFieldDelegate, TKTCore
                   beaconItem.proximity = Constants.Proximity.Outside
                   beaconItem.isConnected = false
                   
-                  delegate?.beaconDetailViewController(self, didFinishAddingItem: beaconItem)
-                } else {
+                  delegate?.beaconDetailViewController(self, didFinishEditingItem: beaconItem)
+                } else if (isPhotoEdited && (nameTextField.text! == beaconItem.name) && (uuidTextField.text! == originalString)) {
+                  beaconItem.photo = UIImageJPEGRepresentation(self.imgButton.currentImage!, 1.0)
+                  beaconItem.name = nameTextField.text!
+                  beaconItem.UUID = "C2265660-5EC1-4935-9BB3-\(uuidTextField.text!)"
+                  beaconItem.major = "1"
+                  beaconItem.minor = "5"
+                  beaconItem.proximity = Constants.Proximity.Outside
+                  beaconItem.isConnected = false
+                  
+                  delegate?.beaconDetailViewController(self, didFinishEditingItem: beaconItem)
+                }else {
                   //Beacon already exist
                   showAlert(NSLocalizedString("error", comment: ""), message: NSLocalizedString("beacon_exist", comment: ""))
                 }
