@@ -11,6 +11,10 @@
 "cancel" = "Cancel";
 "error" = "Error";
 
+/* Application Info */
+"tektos_limited" = "Tektos Limited © 2016";
+"alrights_reserved" = "All rights reserved";
+
 /* Alert Box */
 "settings" = "Settings";
 "turn_on_bluetooth" = "Turn On Bluetooth!";

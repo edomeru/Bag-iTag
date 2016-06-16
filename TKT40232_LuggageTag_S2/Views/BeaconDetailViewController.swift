@@ -61,7 +61,7 @@ class BeaconDetailViewController: UIViewController, UITextFieldDelegate, TKTCore
       if (item.proximity == "Inside") {
         rangeLabel.text = "In Range"
       } else {
-        rangeLabel.text = "Not in Range"
+        rangeLabel.text = "Out of Range"
       }
       
       nameTextField.text = item.name
@@ -249,7 +249,7 @@ class BeaconDetailViewController: UIViewController, UITextFieldDelegate, TKTCore
   func didExitRegion(region: CLRegion!) {
     if (region.identifier == beaconToEdit!.name) {
       beaconToEdit?.proximity = "Outside"
-      rangeLabel.text = "Not in Range"
+      rangeLabel.text = "Out of Range"
     }
   }
   

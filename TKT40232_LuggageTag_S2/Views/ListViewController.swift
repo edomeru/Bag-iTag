@@ -21,6 +21,9 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   var frc: NSFetchedResultsController = NSFetchedResultsController()
   
   @IBOutlet var tableView: UITableView!
+  @IBOutlet weak var versionLabel: UILabel!
+  @IBOutlet weak var companyLabel: UILabel!
+  @IBOutlet weak var rightsLabel: UILabel!
   
   var centralManager: CBCentralManager!
 
@@ -56,6 +59,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     super.viewDidLoad()
     
     formatNavigationBar()
+    applicationInfo()
     
     centralManager = CBCentralManager(delegate: self, queue: nil)
     tktCoreLocation = TKTCoreLocation(delegate: self)
@@ -557,6 +561,14 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     titleImageView.frame = CGRectMake(x, y, titleView.frame.width, titleView.frame.height)
     titleView.addSubview(titleImageView)
     navigationItem.titleView = titleView
+  }
+  
+  private func applicationInfo() {
+    if let version = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String {
+      versionLabel.text = "v\(version)"
+    }
+    companyLabel.text = NSLocalizedString("tektos_limited", comment: "")
+    rightsLabel.text = NSLocalizedString("alrights_reserved", comment: "")
   }
   
 }
