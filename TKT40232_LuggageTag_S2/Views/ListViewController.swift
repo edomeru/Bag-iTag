@@ -359,6 +359,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     if (item.photo != nil) {
       //photo.image = scaleImage(UIImage(data: item.photo!)!, toSize: size)
       photo.setImage(UIImage(data: item.photo!)!, forState: .Normal)
+      photo.imageView?.contentMode = UIViewContentMode.Center
     }
     
     label.text = item.name

@@ -56,6 +56,7 @@ class BeaconDetailViewController: UIViewController, UITextFieldDelegate, TKTCore
     if let item = beaconToEdit {
       if (item.photo != nil) {
         imgButton.setImage(UIImage(data: item.photo!), forState: .Normal)
+        imgButton.imageView?.contentMode = UIViewContentMode.Center
       }
       
       if (item.proximity == "Inside") {
@@ -237,6 +238,7 @@ class BeaconDetailViewController: UIViewController, UITextFieldDelegate, TKTCore
   func didFinishPickingMediaWithInfo(image: UIImage) {
     isPhotoEdited = true
     imgButton.setImage(image, forState: .Normal)
+    imgButton.imageView?.contentMode = UIViewContentMode.Center
   }
   
   // MARK: Private Methods

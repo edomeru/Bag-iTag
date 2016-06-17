@@ -39,6 +39,7 @@ class CustomTableCell: UITableViewCell {
     if (model.photo != nil) {
       //photo.image = scaleImage(UIImage(data: model.photo!)!, toSize: size)
       photo.setImage(UIImage(data: model.photo!)!, forState: .Normal)
+      photo.imageView?.contentMode = UIViewContentMode.Center
     } else {
       //photo.image = UIImage(named: "luggage_default")
       photo.setImage(UIImage(named: "luggage_default"), forState: .Normal)
