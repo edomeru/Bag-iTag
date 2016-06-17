@@ -162,7 +162,10 @@ class BeaconDetailViewController: UIViewController, UITextFieldDelegate, TKTCore
                     tktCoreLocation.stopMonitoringBeacon(beaconRegion)
                   }
                   
-                  beaconItem.photo = UIImageJPEGRepresentation(self.imgButton.currentImage!, 1.0)
+                  if (isPhotoEdited) {
+                    beaconItem.photo = UIImageJPEGRepresentation(self.imgButton.currentImage!, 1.0)
+                  }
+                  
                   beaconItem.name = nameTextField.text!
                   beaconItem.UUID = "C2265660-5EC1-4935-9BB3-\(uuidTextField.text!)"
                   //beaconItem.major = "1"
