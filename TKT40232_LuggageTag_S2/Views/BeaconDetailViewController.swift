@@ -133,6 +133,7 @@ class BeaconDetailViewController: UIViewController, UITextFieldDelegate, TKTCore
           
           beaconItem.name = nameTextField.text!
           beaconItem.UUID = "C2265660-5EC1-4935-9BB3-\(uuidTextField.text!)"
+          beaconItem.proximity = Constants.Proximity.Outside
           
           delegate?.beaconDetailViewController(self, didFinishEditingItem: beaconItem)
         } else {

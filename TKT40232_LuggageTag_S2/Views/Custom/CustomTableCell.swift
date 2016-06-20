@@ -45,6 +45,12 @@ class CustomTableCell: UITableViewCell {
       photo.setImage(UIImage(named: "luggage_default"), forState: .Normal)
     }
     
+    if (model.proximity == "Outside" || model.proximity == "unknown") {
+      connection.image = UIImage(named: "off_range")
+    } else {
+      connection.image = UIImage(named: "in_range")
+    }
+    
     photo.userInteractionEnabled = false
     
     name.text = model.name

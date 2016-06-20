@@ -263,10 +263,10 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       let indexPath = NSIndexPath(forRow: index, inSection: 0)
       if let cell = tableView.cellForRowAtIndexPath(indexPath) {
         configureCell(cell, withBeaconModel: item)
+        configureCellRegion(cell, withBeaconModel: item, connected: false)
       }
       
       if (item.isConnected) {
-        print("EDITED BEACON IS CONNNECTING")
         startMonitoringforBeacon(item)
       }
       
@@ -351,13 +351,10 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   }
   
   private func configureCell(cell: UITableViewCell, withBeaconModel item: BeaconModel) {
-    //let size = CGSize(width: 150, height: 150)
     let label = cell.viewWithTag(1000) as! UILabel
     let photo = cell.viewWithTag(1001) as! CustomButton
-    //let photo = cell.viewWithTag(1001) as! DesignableView
     
     if (item.photo != nil) {
-      //photo.image = scaleImage(UIImage(data: item.photo!)!, toSize: size)
       photo.setImage(UIImage(data: item.photo!)!, forState: .Normal)
       photo.imageView?.contentMode = UIViewContentMode.Center
     }
@@ -410,12 +407,10 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       item.isConnected = isConnected
       
       row.append(item)
-      //row.insert(item, atIndex: index)
     }
     
     // Reload TableView
     self.tableView.reloadData()
-
   }
   
   private func startMonitoring() {
