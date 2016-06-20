@@ -20,6 +20,12 @@
 "turn_on_bluetooth" = "Turn On Bluetooth!";
 "location_access_disabled" = "Background Location Access is Disabled";
 "location_access_disabled_settings" = "Please change the location access to \"Always\" in app settings.";
+
+"err_identifier_code_invalid" = "Please enter a valid identifier code";
+"err_luggage_tag_invalid" = "Please enter a valid luggage tag";
+"err_identifier_code_exists" = "Luggage with this identifier code already exists";
+"err_luggage_tag_exists" = "Luggage Tag already exists";
+
 "uuid_length" = "UUID must be exactly 12 Hex characters";
 "input_beacon_name" = "Please Input Beacon Name";
 "input_beacon_uuid" = "Please Input Beacon UUID";

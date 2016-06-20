@@ -108,86 +108,33 @@ class BeaconDetailViewController: UIViewController, UITextFieldDelegate, TKTCore
   
   // MARK: Action Methods
   @IBAction func saveBeacon() {
-    
     nameTextField.resignFirstResponder()
     uuidTextField.resignFirstResponder()
 
-    if (nameTextField.text! == "" && uuidTextField.text! == "") {
-      showAlert(NSLocalizedString("error", comment: ""), message: NSLocalizedString("input_fields", comment: ""))
-    } else if (nameTextField.text! == "") {
-      showAlert(NSLocalizedString("error", comment: ""), message: NSLocalizedString("input_beacon_name", comment: ""))
-    } else if (uuidTextField.text! == "") {
-      showAlert(NSLocalizedString("error", comment: ""), message: NSLocalizedString("input_beacon_uuid", comment: ""))
-    } else {
-      // Check if the beaconToEdit property contains an object
-      // If True then it is a Edit else it is a new Beacon
+    let isValidLuggage = validateLuggage()
+    
+    if (isValidLuggage) {
       if let beaconItem = beaconToEdit {
         let originalStringIndex = beaconItem.UUID.endIndex.advancedBy(-12)
         let originalString = beaconItem.UUID.substringFromIndex(originalStringIndex)
         
         if (isPhotoEdited || (nameTextField.text! != beaconItem.name) || (uuidTextField.text! != originalString)) {
           // Beacon is Edited
-          
-          if nameTextField.text! != "" {
-            if uuidTextField.text!.characters.count == 12 {
-              if (uuidTextField.text!.isValidHexNumber()) {
-                let isAvailable = checkBeaconAvailability()
-                
-                if (isAvailable) {
-                  if (beaconItem.isConnected) {
-                    // Stop Monitoring for this Beacon
-                    var beaconRegion: CLBeaconRegion?
-                    beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: beaconItem.UUID)!, identifier: beaconItem.name)
-                    tktCoreLocation.stopMonitoringBeacon(beaconRegion)
-                  }
-                  
-                  // Beacon is Available
-                  if (isPhotoEdited) {
-                    beaconItem.photo = UIImageJPEGRepresentation(self.imgButton.currentImage!, 1.0)
-                  }
-                  
-                  beaconItem.name = nameTextField.text!
-                  beaconItem.UUID = "C2265660-5EC1-4935-9BB3-\(uuidTextField.text!)"
-                  //beaconItem.major = "1"
-                  //beaconItem.minor = "5"
-                  //beaconItem.proximity = Constants.Proximity.Outside
-                  //beaconItem.isConnected = false
-                  
-                  delegate?.beaconDetailViewController(self, didFinishEditingItem: beaconItem)
-                } else if (isPhotoEdited || (nameTextField.text! == beaconItem.name) || (uuidTextField.text! == originalString)) {
-                  if (beaconItem.isConnected) {
-                    // Stop Monitoring for this Beacon
-                    var beaconRegion: CLBeaconRegion?
-                    beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: beaconItem.UUID)!, identifier: beaconItem.name)
-                    tktCoreLocation.stopMonitoringBeacon(beaconRegion)
-                  }
-                  
-                  if (isPhotoEdited) {
-                    beaconItem.photo = UIImageJPEGRepresentation(self.imgButton.currentImage!, 1.0)
-                  }
-                  
-                  beaconItem.name = nameTextField.text!
-                  beaconItem.UUID = "C2265660-5EC1-4935-9BB3-\(uuidTextField.text!)"
-                  //beaconItem.major = "1"
-                  //beaconItem.minor = "5"
-                  //beaconItem.proximity = Constants.Proximity.Outside
-                  //beaconItem.isConnected = false
-                  
-                  delegate?.beaconDetailViewController(self, didFinishEditingItem: beaconItem)
-                }else {
-                  //Beacon already exist
-                  showAlert(NSLocalizedString("error", comment: ""), message: NSLocalizedString("beacon_exist", comment: ""))
-                }
-              } else {
-                showAlert(NSLocalizedString("error", comment: ""), message: NSLocalizedString("invalid_uuid", comment: ""))
-              }
-            } else {
-              showAlert(NSLocalizedString("error", comment: ""), message: NSLocalizedString("uuid_length", comment: ""))
-            }
-          } else {
-            showAlert(NSLocalizedString("error", comment: ""), message: NSLocalizedString("input_beacon_name", comment: ""))
+          if (beaconItem.isConnected) {
+            // Stop Monitoring for this Beacon
+            var beaconRegion: CLBeaconRegion?
+            beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: beaconItem.UUID)!, identifier: beaconItem.name)
+            tktCoreLocation.stopMonitoringBeacon(beaconRegion)
           }
           
+          if (isPhotoEdited) {
+            beaconItem.photo = UIImageJPEGRepresentation(self.imgButton.currentImage!, 1.0)
+          }
+          
+          beaconItem.name = nameTextField.text!
+          beaconItem.UUID = "C2265660-5EC1-4935-9BB3-\(uuidTextField.text!)"
+          
+          delegate?.beaconDetailViewController(self, didFinishEditingItem: beaconItem)
         } else {
           print("NO Changes made in Beacon")
           dismissViewControllerAnimated(true, completion: nil)
@@ -195,36 +142,22 @@ class BeaconDetailViewController: UIViewController, UITextFieldDelegate, TKTCore
         
       } else {
         // New Beacon
-        if uuidTextField.text!.characters.count == 12 {
-          if (uuidTextField.text!.isValidHexNumber()) {
-            let isAvailable = checkBeaconAvailability()
-          
-            if (isAvailable) {
-              let beaconItem = BeaconModel()
-              
-              if (isPhotoEdited) {
-                beaconItem.photo = UIImageJPEGRepresentation(self.imgButton.currentImage!, 1.0)
-              } else {
-                beaconItem.photo = nil
-              }
-              
-              beaconItem.name = nameTextField.text!
-              beaconItem.UUID = "C2265660-5EC1-4935-9BB3-\(uuidTextField.text!)"
-              beaconItem.major = "1"
-              beaconItem.minor = "5"
-              beaconItem.proximity = Constants.Proximity.Outside
-              beaconItem.isConnected = false
-              
-              delegate?.beaconDetailViewController(self, didFinishAddingItem: beaconItem)
-            } else {
-              showAlert(NSLocalizedString("error", comment: ""), message: NSLocalizedString("beacon_exist", comment: ""))
-            }
-          } else {
-            showAlert(NSLocalizedString("error", comment: ""), message: NSLocalizedString("invalid_uuid", comment: ""))
-          }
+        let beaconItem = BeaconModel()
+        
+        if (isPhotoEdited) {
+          beaconItem.photo = UIImageJPEGRepresentation(self.imgButton.currentImage!, 1.0)
         } else {
-          showAlert(NSLocalizedString("error", comment: ""), message: NSLocalizedString("uuid_length", comment: ""))
+          beaconItem.photo = nil
         }
+        
+        beaconItem.name = nameTextField.text!
+        beaconItem.UUID = "C2265660-5EC1-4935-9BB3-\(uuidTextField.text!)"
+        beaconItem.major = "1"
+        beaconItem.minor = "5"
+        beaconItem.proximity = Constants.Proximity.Outside
+        beaconItem.isConnected = false
+        
+        delegate?.beaconDetailViewController(self, didFinishAddingItem: beaconItem)
       }
     }
   }
@@ -290,15 +223,68 @@ class BeaconDetailViewController: UIViewController, UITextFieldDelegate, TKTCore
     
     self.presentViewController(alertController, animated: true, completion: nil)
   }
+  
+  private func validateLuggage() -> Bool {
+    if (uuidTextField.text! == "" || uuidTextField.text!.characters.count < 12 || !(uuidTextField.text!.isValidHexNumber())) {
+      showAlert(NSLocalizedString("error", comment: ""), message: NSLocalizedString("err_identifier_code_invalid", comment: ""))
+      
+      return false
+    }
+    
+    if (nameTextField.text! == "" || nameTextField.text!.characters.count > 20) {
+      showAlert(NSLocalizedString("error", comment: ""), message: NSLocalizedString("err_luggage_tag_invalid", comment: ""))
+      
+      return false
+    }
+    
+    if (!checkIdentifierCodeAvailability()) {
+      showAlert(NSLocalizedString("error", comment: ""), message: NSLocalizedString("err_identifier_code_exists", comment: ""))
+      
+      return false
+    }
+    
+    if (!checkTagAvailability()) {
+      showAlert(NSLocalizedString("error", comment: ""), message: NSLocalizedString("err_luggage_tag_exists", comment: ""))
+      
+      return false
+    }
 
-  func checkBeaconAvailability() -> Bool{
+    return true
+  }
+  
+  func checkIdentifierCodeAvailability() -> Bool {
     for beacon in beaconReference! {
-      if (beacon.name == nameTextField.text! || beacon.UUID == ("C2265660-5EC1-4935-9BB3-\(uuidTextField.text!)")) {
-       return false
+      if (beacon.UUID == ("C2265660-5EC1-4935-9BB3-\(uuidTextField.text!)")) {
+        if let item = beaconToEdit {
+          if (item.UUID == beacon.UUID) {
+            continue
+          } else {
+            return false
+          }
+        }
+        
+        return false
       }
     }
     
     return true
   }
- 
+  
+  func checkTagAvailability() -> Bool {
+    for beacon in beaconReference! {
+      if (beacon.name == nameTextField.text!) {
+        if let item = beaconToEdit {
+          if(item.name == beacon.name) {
+            continue
+          } else {
+            return false
+          }
+        }
+        
+        return false
+      }
+    }
+    
+    return true
+  }
 }
