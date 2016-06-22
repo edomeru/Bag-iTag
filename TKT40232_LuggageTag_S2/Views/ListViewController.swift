@@ -308,6 +308,8 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     let item = row[(indexPath?.row)!]
     item.isConnected = isConnected
     
+    row[(indexPath?.row)!].proximity = Constants.Proximity.Outside
+    
     if isConnected {
       // Start Monitoring for this Beacon
       var beaconRegion: CLBeaconRegion?

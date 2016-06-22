@@ -193,9 +193,11 @@ class BeaconDetailViewController: UIViewController, UITextFieldDelegate, TKTCore
   func didStopMonitoring() {}
   
   func didEnterRegion(region: CLRegion!) {
-    if (region.identifier == beaconToEdit!.name && (beaconToEdit?.isConnected)!) {
-      beaconToEdit?.proximity = "Inside"
-      rangeLabel.text = "In Range"
+    if let connected = beaconToEdit?.isConnected {
+      if (region.identifier == beaconToEdit!.name && connected) {
+        beaconToEdit?.proximity = "Inside"
+        rangeLabel.text = "In Range"
+      }
     }
   }
   

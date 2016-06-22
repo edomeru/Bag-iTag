@@ -66,7 +66,6 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
   }
   
   func stopMonitoringBeacon(beaconRegion: CLBeaconRegion?) {
-    print("Stop monitoring beacon \(beaconRegion?.proximityUUID.UUIDString)")
     locationManager.stopRangingBeaconsInRegion(beaconRegion!)
     locationManager.stopMonitoringForRegion(beaconRegion!)
     locationManager.stopUpdatingLocation()
