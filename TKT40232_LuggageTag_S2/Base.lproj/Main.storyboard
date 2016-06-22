@@ -37,7 +37,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="200" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eSL-Xi-SOn">
-                                <rect key="frame" x="-4" y="164" width="604" height="436"/>
+                                <rect key="frame" x="-4" y="20" width="604" height="580"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="lEp-If-2EI" userLabel="footer">
                                     <rect key="frame" x="0.0" y="228" width="604" height="199"/>
@@ -103,24 +103,6 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pMf-VB-0Qj" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
-                                                    <rect key="frame" x="29" y="25" width="150" height="150"/>
-                                                    <state key="normal" image="luggage_default">
-                                                        <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <real key="value" value="75"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                            <real key="value" value="4"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </button>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="border_line" translatesAutoresizingMaskIntoConstraints="NO" id="b9O-DD-W6w">
                                                     <rect key="frame" x="0.0" y="195" width="604" height="5"/>
                                                 </imageView>
@@ -155,6 +137,24 @@
                                                         <action selector="valueChanged:" destination="NJG-He-PIH" eventType="valueChanged" id="yMJ-H3-b8E"/>
                                                     </connections>
                                                 </view>
+                                                <button opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pMf-VB-0Qj" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
+                                                    <rect key="frame" x="29" y="25" width="150" height="150"/>
+                                                    <state key="normal" image="luggage_default">
+                                                        <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="75"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="4"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </button>
                                                 <view tag="1002" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="uEK-oK-YRh" customClass="DesignableView" customModule="LuggageFinder" customModuleProvider="target">
                                                     <rect key="frame" x="148" y="117" width="50" height="50"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -292,26 +292,55 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8PL-lm-TF2">
+                                <rect key="frame" x="0.0" y="20" width="600" height="150"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luggage_tag_logo" translatesAutoresizingMaskIntoConstraints="NO" id="BH0-BR-8W6">
+                                        <rect key="frame" x="442" y="25" width="150" height="100"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="BH0-BR-8W6" secondAttribute="trailing" constant="8" id="OB4-vv-zLS"/>
+                                    <constraint firstAttribute="bottom" secondItem="BH0-BR-8W6" secondAttribute="bottom" constant="25" id="n7n-gR-yhn"/>
+                                    <constraint firstAttribute="height" constant="150" id="tvz-Ba-1pk"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.93333333333333335" green="0.67450980392156867" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="eSL-Xi-SOn" secondAttribute="trailing" constant="-20" id="60z-0v-HOC"/>
+                            <constraint firstItem="8PL-lm-TF2" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="20" symbolic="YES" id="6Iw-6z-v93"/>
+                            <constraint firstAttribute="trailing" secondItem="8PL-lm-TF2" secondAttribute="trailing" id="A2x-Dl-FlD"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Llx-x9-ZSM" secondAttribute="trailing" constant="-20" id="Btz-pC-FSs"/>
+                            <constraint firstAttribute="bottom" secondItem="8PL-lm-TF2" secondAttribute="bottom" constant="430" id="L3A-HK-Xd4"/>
                             <constraint firstItem="eSL-Xi-SOn" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-24" id="L69-dg-5d7"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Llx-x9-ZSM" secondAttribute="bottom" id="M70-bC-wfB"/>
                             <constraint firstItem="eSL-Xi-SOn" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="1" id="QcK-zf-5rB"/>
                             <constraint firstItem="Llx-x9-ZSM" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="SjH-tu-DMR"/>
-                            <constraint firstItem="eSL-Xi-SOn" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="100" id="UCy-Rz-Kwy"/>
+                            <constraint firstItem="eSL-Xi-SOn" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-44" id="UCy-Rz-Kwy"/>
                             <constraint firstItem="Llx-x9-ZSM" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="VDB-dU-Bow"/>
                             <constraint firstItem="Llx-x9-ZSM" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="486" id="WGV-LP-F3V"/>
+                            <constraint firstItem="8PL-lm-TF2" firstAttribute="top" secondItem="eSL-Xi-SOn" secondAttribute="top" id="X1e-jZ-de0"/>
                             <constraint firstItem="Llx-x9-ZSM" firstAttribute="trailing" secondItem="eSL-Xi-SOn" secondAttribute="trailing" id="aMA-kd-T2J"/>
+                            <constraint firstItem="8PL-lm-TF2" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="aiC-e4-LZC"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Llx-x9-ZSM" secondAttribute="trailing" constant="-16" id="dSx-EA-tY1"/>
+                            <constraint firstItem="eSL-Xi-SOn" firstAttribute="top" secondItem="8PL-lm-TF2" secondAttribute="bottom" constant="-100" id="eYJ-qL-FbD"/>
+                            <constraint firstItem="8PL-lm-TF2" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="fLH-Pw-WyM"/>
                             <constraint firstItem="Llx-x9-ZSM" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="486" id="fxE-GM-cMD"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="eSL-Xi-SOn" secondAttribute="bottom" id="nQ2-Fa-cso"/>
+                            <constraint firstItem="8PL-lm-TF2" firstAttribute="trailing" secondItem="eSL-Xi-SOn" secondAttribute="trailing" id="tpj-LK-Sey"/>
+                            <constraint firstItem="BH0-BR-8W6" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-19" id="unK-pc-eL9"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="6Iw-6z-v93"/>
+                                <exclude reference="L3A-HK-Xd4"/>
+                                <exclude reference="aiC-e4-LZC"/>
+                                <exclude reference="tpj-LK-Sey"/>
                                 <exclude reference="QcK-zf-5rB"/>
+                                <exclude reference="eYJ-qL-FbD"/>
                                 <exclude reference="M70-bC-wfB"/>
                                 <exclude reference="Btz-pC-FSs"/>
                                 <exclude reference="SjH-tu-DMR"/>
@@ -326,6 +355,7 @@
                         <outlet property="companyLabel" destination="xTY-X6-0Vu" id="b0l-TS-3Of"/>
                         <outlet property="rightsLabel" destination="oSB-ET-I7s" id="Gjt-u3-10b"/>
                         <outlet property="tableView" destination="eSL-Xi-SOn" id="BcL-kZ-yCK"/>
+                        <outlet property="topLogoView" destination="8PL-lm-TF2" id="MU2-Sn-uBR"/>
                         <outlet property="versionLabel" destination="pKa-8v-tbf" id="3KF-Ja-bDc"/>
                     </connections>
                 </viewController>
@@ -662,6 +692,7 @@
         <image name="border_line" width="3680" height="26"/>
         <image name="cam_logo" width="150" height="120"/>
         <image name="luggage_default" width="100" height="100"/>
+        <image name="luggage_tag_logo" width="150" height="99"/>
         <image name="off_range" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>

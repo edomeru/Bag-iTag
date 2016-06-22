@@ -21,6 +21,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   var frc: NSFetchedResultsController = NSFetchedResultsController()
   
   @IBOutlet var tableView: UITableView!
+  @IBOutlet weak var topLogoView: UIView!
   @IBOutlet weak var versionLabel: UILabel!
   @IBOutlet weak var companyLabel: UILabel!
   @IBOutlet weak var rightsLabel: UILabel!
@@ -555,15 +556,21 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     self.navigationController?.navigationBar.shadowImage = UIImage()
     self.navigationController?.navigationBar.translucent = true
   
-    let titleView = UIView(frame: CGRectMake(0, 0, 150, 99))
-    let titleImageView = UIImageView(image: UIImage(named: "luggage_tag_logo"))
+    self.tableView.contentInset = UIEdgeInsetsMake(150.0, 0, 0, 0)
     
-    let y: CGFloat = self.navigationController!.navigationBar.frame.size.height
-    let x: CGFloat = (titleView.frame.width) / 2
-
-    titleImageView.frame = CGRectMake(x, y, titleView.frame.width, titleView.frame.height)
-    titleView.addSubview(titleImageView)
-    navigationItem.titleView = titleView
+    
+    let topColor = UIColor.blackColor().colorWithAlphaComponent(0.7).CGColor
+    let bottomColor = UIColor.clearColor().CGColor
+    
+    let gradientColors: [CGColor] = [topColor, bottomColor]
+    let gradientLocations: [CGFloat] = [0.0, 1.0]
+    
+    let gradientLayer = CAGradientLayer()
+    gradientLayer.colors = gradientColors
+    gradientLayer.locations = gradientLocations
+    
+    gradientLayer.frame = self.topLogoView.bounds
+    self.topLogoView.layer.insertSublayer(gradientLayer, atIndex: 0)
   }
   
   private func applicationInfo() {

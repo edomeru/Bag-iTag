@@ -202,9 +202,11 @@ class BeaconDetailViewController: UIViewController, UITextFieldDelegate, TKTCore
   }
   
   func didExitRegion(region: CLRegion!) {
-    if (region.identifier == beaconToEdit!.name) {
-      beaconToEdit?.proximity = "Outside"
-      rangeLabel.text = "Out of Range"
+    if let luggageTag = beaconToEdit?.name {
+      if (region.identifier == luggageTag) {
+        beaconToEdit?.proximity = "Outside"
+        rangeLabel.text = "Out of Range"
+      }
     }
   }
   
