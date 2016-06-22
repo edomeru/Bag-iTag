@@ -172,7 +172,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
             let indexPath = NSIndexPath(forRow: index, inSection: 0)
             if let cell = tableView.cellForRowAtIndexPath(indexPath) {
               configureCellRegion(cell, withBeaconModel: beacon, connected: true)
-              createLocalNotification(region.identifier, message: NSLocalizedString("has_arrived", comment: ""))
+              createLocalNotification(region.identifier, identifier: beacon.UUID, message: NSLocalizedString("has_arrived", comment: ""))
             }
           }
         }
@@ -189,7 +189,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
             let indexPath = NSIndexPath(forRow: index, inSection: 0)
             if let cell = tableView.cellForRowAtIndexPath(indexPath) {
               configureCellRegion(cell, withBeaconModel: beacon, connected: false)
-              createLocalNotification(region.identifier, message: NSLocalizedString("is_gone", comment: ""))
+              createLocalNotification(region.identifier, identifier: beacon.UUID, message: NSLocalizedString("is_gone", comment: ""))
             }
           }
           
@@ -214,22 +214,18 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
           case CLProximity.Far:
             if (beacon.proximity != "Far") {
               beacon.proximity = "Far"
-              //createLocalNotification(region.identifier, message: "Far")
             }
           case CLProximity.Near:
             if (beacon.proximity != "Near") {
               beacon.proximity = "Near"
-              //createLocalNotification(region.identifier, message: "Near")
             }
           case CLProximity.Immediate:
             if (beacon.proximity != "Immediate") {
               beacon.proximity = "Immediate"
-              //createLocalNotification(region.identifier, message: "Immediate")
             }
           case CLProximity.Unknown:
             if (beacon.proximity != "unknown") {
               beacon.proximity = "unknown"
-             //createLocalNotification(region.identifier, message: "unknown")
             }
           }
           
@@ -287,7 +283,10 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         
         tktCoreLocation.stopMonitoringBeacon(beaconRegion)
       }
-  
+      
+      // Delete LocalNotification
+      deleteLocalNotification(item.name, identifier: item.UUID)
+      
       deleteToDatabase(item.id)
       
       row.removeAtIndex(index)
@@ -322,6 +321,9 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       
       tktCoreLocation.startMonitoring(beaconRegion)
     } else {
+      // Delete LocalNotification
+      deleteLocalNotification(row[(indexPath?.row)!].name, identifier: row[(indexPath?.row)!].UUID)
+      
       row[(indexPath?.row)!].proximity = Constants.Proximity.Outside
       configureCellRegion(cell, withBeaconModel: item, connected: false)
       
@@ -538,17 +540,33 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     }
   }
   
-  private func createLocalNotification(name: String, message: String) {
+  private func createLocalNotification(name: String, identifier: String, message: String) {
     let localNotification = UILocalNotification()
     
     localNotification.fireDate = NSDate(timeIntervalSinceNow: 1)
     localNotification.applicationIconBadgeNumber = 1
     localNotification.soundName = UILocalNotificationDefaultSoundName
     
-    localNotification.userInfo = ["message" : "\(name) is \(message)"]
+    localNotification.userInfo = ["name" : name, "identifier": identifier]
     localNotification.alertBody = "Your Bag \(name) \(message)"
     
     UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+  }
+  
+  private func deleteLocalNotification(name: String, identifier: String) {
+    let scheduledNotifications: NSArray = UIApplication.sharedApplication().scheduledLocalNotifications!
+    
+    if(scheduledNotifications.count > 0) {
+      for  notification in scheduledNotifications {
+        let n = notification as! UILocalNotification
+        let notifName = n.userInfo!["name"] as! String
+        let notifIdentifier = n.userInfo!["identifier"] as! String
+        
+        if (name == notifName && identifier == notifIdentifier) {
+          UIApplication.sharedApplication().cancelLocalNotification(n)
+        }
+      }
+    }
   }
   
   private func formatNavigationBar() {
@@ -559,7 +577,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     self.tableView.contentInset = UIEdgeInsetsMake(150.0, 0, 0, 0)
     
     
-    let topColor = UIColor.blackColor().colorWithAlphaComponent(0.7).CGColor
+    let topColor = UIColor.blackColor().colorWithAlphaComponent(0.4).CGColor
     let bottomColor = UIColor.clearColor().CGColor
     
     let gradientColors: [CGColor] = [topColor, bottomColor]
