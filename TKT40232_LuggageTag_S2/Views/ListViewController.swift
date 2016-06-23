@@ -129,7 +129,6 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       isBluetoothPoweredOn = true
     case .PoweredOff:
       isBluetoothPoweredOn = false
-      showAlertForSettings()
       checkLuggageTagRegion()
     default:
       break
@@ -162,6 +161,8 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   func didStopMonitoring() {
     isMonitoring = false
   }
+  
+  func monitoringDidFail() {}
   
   func didEnterRegion(region: CLRegion!) {
     for beacon in row {
@@ -311,6 +312,10 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     row[(indexPath?.row)!].proximity = Constants.Proximity.Outside
     
     if isConnected {
+      if (!isBluetoothPoweredOn) {
+        showAlertForSettings()
+      }
+      
       // Start Monitoring for this Beacon
       var beaconRegion: CLBeaconRegion?
       beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: item.UUID)!, identifier: item.name)

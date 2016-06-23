@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreBluetooth
 import CoreLocation
 
 extension String {
@@ -27,13 +28,15 @@ protocol BeaconDetailViewControllerDelegate: NSObjectProtocol {
   func deleteBeacon(didDeleteItem item: BeaconModel)
 }
 
-class BeaconDetailViewController: UIViewController, UITextFieldDelegate, TKTCoreLocationDelegate, ModalViewControllerDelegate {
+class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UITextFieldDelegate, TKTCoreLocationDelegate, ModalViewControllerDelegate {
 
   @IBOutlet weak var nameTextField: UITextField!
   @IBOutlet weak var uuidTextField: UITextField!
   @IBOutlet weak var button: UIButton!
   @IBOutlet weak var imgButton: UIButton!
   @IBOutlet weak var rangeLabel: UILabel!
+  
+  var centralManager: CBCentralManager!
   
   var tktCoreLocation: TKTCoreLocation!
   
@@ -51,6 +54,7 @@ class BeaconDetailViewController: UIViewController, UITextFieldDelegate, TKTCore
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BeaconDetailViewController.keyboardWillShow(_:)), name:UIKeyboardWillShowNotification, object: nil);
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BeaconDetailViewController.keyboardWillHide(_:)), name:UIKeyboardWillHideNotification, object: nil);
     
+    centralManager = CBCentralManager(delegate: self, queue: nil)
     tktCoreLocation = TKTCoreLocation(delegate: self)
     
     if let item = beaconToEdit {
@@ -99,12 +103,11 @@ class BeaconDetailViewController: UIViewController, UITextFieldDelegate, TKTCore
     let newLength = currentCharacterCount + string.characters.count - range.length
     
     if (textField.tag == 1000) {
-      return newLength <= 20 // Character Limit for Beacon Name
+      return newLength <= 20 // Character Limit for Luggage Tag
     } else {
-      return newLength <= 12 // Character Limit for Beacon UUID
+      return newLength <= 12 // Character Limit for Identifier Code
     }
   }
-
   
   // MARK: Action Methods
   @IBAction func saveBeacon() {
@@ -185,6 +188,19 @@ class BeaconDetailViewController: UIViewController, UITextFieldDelegate, TKTCore
     self.navigationController?.navigationBar.translucent = true
   }
   
+  // MARK: CBCentralManagerDelegate Methods
+  func centralManagerDidUpdateState(central: CBCentralManager) {
+    switch (central.state) {
+    case .PoweredOn:
+      break
+    case .PoweredOff:
+      beaconToEdit?.proximity = Constants.Proximity.Outside
+      rangeLabel.text = "Out of range"
+    default:
+      break
+    }
+  }
+  
   // MARK: TKTCoreLocationDelegate
   func onBackgroundLocationAccessDisabled() {}
   
@@ -192,10 +208,12 @@ class BeaconDetailViewController: UIViewController, UITextFieldDelegate, TKTCore
   
   func didStopMonitoring() {}
   
+  func monitoringDidFail() {}
+  
   func didEnterRegion(region: CLRegion!) {
     if let connected = beaconToEdit?.isConnected {
       if (region.identifier == beaconToEdit!.name && connected) {
-        beaconToEdit?.proximity = "Inside"
+        beaconToEdit?.proximity = Constants.Proximity.Inside
         rangeLabel.text = "In Range"
       }
     }
@@ -204,7 +222,7 @@ class BeaconDetailViewController: UIViewController, UITextFieldDelegate, TKTCore
   func didExitRegion(region: CLRegion!) {
     if let luggageTag = beaconToEdit?.name {
       if (region.identifier == luggageTag) {
-        beaconToEdit?.proximity = "Outside"
+        beaconToEdit?.proximity = Constants.Proximity.Outside
         rangeLabel.text = "Out of Range"
       }
     }

@@ -12,6 +12,7 @@ protocol TKTCoreLocationDelegate: NSObjectProtocol {
   func onBackgroundLocationAccessDisabled()
   func didStartMonitoring()
   func didStopMonitoring()
+  func monitoringDidFail()
   func didEnterRegion(region: CLRegion!)
   func didExitRegion(region: CLRegion!)
   func didRangeBeacon(manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion)
@@ -91,9 +92,10 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
   }
   
   func locationManager(manager: CLLocationManager, monitoringDidFailForRegion region: CLRegion?, withError error: NSError) {
-    print("monitoringDidFailForRegion - \(manager)")
+    /*print("monitoringDidFailForRegion - \(manager)")
     print("monitoringDidFailForRegion - \(region)")
-    print("monitoringDidFailForRegion - \(error)")
+    print("monitoringDidFailForRegion - \(error)")*/
+    print("\(error.code)")
   }
   
   func locationManager(manager: CLLocationManager, didDetermineState state: CLRegionState, forRegion region: CLRegion) {

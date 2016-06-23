@@ -26,13 +26,6 @@
 "err_identifier_code_exists" = "Luggage with this identifier code already exists";
 "err_luggage_tag_exists" = "Luggage Tag already exists";
 
-"uuid_length" = "UUID must be exactly 12 Hex characters";
-"input_beacon_name" = "Please Input Beacon Name";
-"input_beacon_uuid" = "Please Input Beacon UUID";
-"invalid_uuid" = "Invalid UUID";
-"input_fields" = "Please input the Name and UUID of Beacon";
-"beacon_exist" = "This Beacon already Exist!";
-
 /* Local Notification */
 "has_arrived" = "has arrived!";
 "is_gone" = "is gone!";
