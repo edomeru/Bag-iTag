@@ -26,6 +26,7 @@ protocol BeaconDetailViewControllerDelegate: NSObjectProtocol {
   func beaconDetailViewController(controller: BeaconDetailViewController, didFinishAddingItem item: BeaconModel)
   func beaconDetailViewController(controller: BeaconDetailViewController, didFinishEditingItem item: BeaconModel)
   func deleteBeacon(didDeleteItem item: BeaconModel)
+  func didBluetoothPoweredOff(didPowerOff item: BeaconModel)
 }
 
 class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UITextFieldDelegate, TKTCoreLocationDelegate, ModalViewControllerDelegate {
@@ -45,7 +46,6 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   var beaconReference: [BeaconModel]?
   var beaconToEdit: BeaconModel?
   var isPhotoEdited = false
-  
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -196,6 +196,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     case .PoweredOff:
       beaconToEdit?.proximity = Constants.Proximity.Outside
       rangeLabel.text = "Out of range"
+      delegate?.didBluetoothPoweredOff(didPowerOff: beaconToEdit!)
     default:
       break
     }

@@ -95,7 +95,8 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
     /*print("monitoringDidFailForRegion - \(manager)")
     print("monitoringDidFailForRegion - \(region)")
     print("monitoringDidFailForRegion - \(error)")*/
-    print("\(error.code)")
+    //print("\(error.code)")
+    print("monitoringDidFailForRegion - \(error)")
   }
   
   func locationManager(manager: CLLocationManager, didDetermineState state: CLRegionState, forRegion region: CLRegion) {
@@ -132,8 +133,8 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
   
   func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
     print("didFailWithError \(error)")
-    if (error.code == CLError.Denied.rawValue) {
+    /*if (error.code == CLError.Denied.rawValue) {
       stopMonitoring()
-    }
+    }*/
   }
 }

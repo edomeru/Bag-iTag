@@ -302,6 +302,15 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     dismissViewControllerAnimated(true, completion: nil)
   }
   
+  func didBluetoothPoweredOff(didPowerOff item: BeaconModel) {
+    if let index = row.indexOf(item) {
+      let indexPath = NSIndexPath(forRow: index, inSection: 0)
+      if let cell = tableView.cellForRowAtIndexPath(indexPath) {
+        configureCellRegion(cell, withBeaconModel: item, connected: false)
+      }
+    }
+  }
+  
   // MARK: CustomTableCellDelegate
   func didTappedSwitchCell(cell: CustomTableCell) {
     let indexPath = tableView.indexPathForCell(cell)
