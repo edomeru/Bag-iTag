@@ -540,7 +540,7 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="owZ-a5-PAF">
-                        <barButtonItem key="leftBarButtonItem" image="back_button" style="plain" id="GP9-xV-YOX">
+                        <barButtonItem key="leftBarButtonItem" image="back_button" id="GP9-xV-YOX">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="saveBeacon" destination="ZKc-tn-hlY" id="Ob4-EP-guv"/>

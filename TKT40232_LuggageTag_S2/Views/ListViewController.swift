@@ -113,7 +113,6 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     
     let item = row[indexPath.row]
     cell.delegate = self
-    //configureCell(cell, withBeaconModel: item)
     cell.setupWithModel(item)
     
     return cell
@@ -131,6 +130,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     case .PoweredOff:
       isBluetoothPoweredOn = false
       showAlertForSettings()
+      checkLuggageTagRegion()
     default:
       break
     }
@@ -451,6 +451,23 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     beaconRegion!.notifyOnExit = true
     
     tktCoreLocation.startMonitoring(beaconRegion)
+  }
+  
+  private func checkLuggageTagRegion() {
+    if row.count > 0 {
+      for beacon in row {
+        if (beacon.proximity == Constants.Proximity.Inside) {
+          if let index = row.indexOf(beacon) {
+            let indexPath = NSIndexPath(forRow: index, inSection: 0)
+            row[indexPath.row].proximity = Constants.Proximity.Outside
+            
+            if let cell = tableView.cellForRowAtIndexPath(indexPath) {
+              configureCellRegion(cell, withBeaconModel: beacon, connected: false)
+            }
+          }
+        }
+      }
+    }
   }
   
   private func saveToDatabase(beaconItem: BeaconModel) {

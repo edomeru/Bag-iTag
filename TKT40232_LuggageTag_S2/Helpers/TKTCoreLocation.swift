@@ -91,6 +91,8 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
   }
   
   func locationManager(manager: CLLocationManager, monitoringDidFailForRegion region: CLRegion?, withError error: NSError) {
+    print("monitoringDidFailForRegion - \(manager)")
+    print("monitoringDidFailForRegion - \(region)")
     print("monitoringDidFailForRegion - \(error)")
   }
   

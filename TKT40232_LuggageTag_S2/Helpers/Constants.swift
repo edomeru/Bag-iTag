@@ -13,6 +13,7 @@ struct Constants {
   }
   
   struct Proximity {
+    static let Unknown = "unknown"
     static let Inside = "Inside"
     static let Outside = "Outside"
   }
