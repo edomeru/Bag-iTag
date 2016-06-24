@@ -381,7 +381,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="IDENTIFIER CODE" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XKN-hw-mUC" customClass="CustomTextField" customModule="LuggageFinder" customModuleProvider="target">
-                                <rect key="frame" x="15" y="482" width="571" height="40"/>
+                                <rect key="frame" x="50" y="482" width="500" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <accessibility key="accessibilityConfiguration" identifier="uuid"/>
                                 <constraints>
@@ -403,7 +403,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Luggage Tag" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="idS-w2-DuE" customClass="CustomTextField" customModule="LuggageFinder" customModuleProvider="target">
-                                <rect key="frame" x="15" y="434" width="571" height="40"/>
+                                <rect key="frame" x="50" y="434" width="500" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="4jE-wa-89w"/>
@@ -423,24 +423,6 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Out of Range" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NuV-Hd-KOi">
-                                <rect key="frame" x="487" y="405" width="93" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="C9Z-G9-tYW"/>
-                                    <constraint firstAttribute="width" constant="93" id="Dvb-mS-i7V"/>
-                                    <constraint firstAttribute="height" constant="21" id="YTD-Ur-U9h"/>
-                                    <constraint firstAttribute="width" constant="93" id="lhF-2W-qwf"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="14"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="C9Z-G9-tYW"/>
-                                        <exclude reference="Dvb-mS-i7V"/>
-                                    </mask>
-                                </variation>
-                            </label>
                             <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="evJ-wm-XnQ">
                                 <rect key="frame" x="0.0" y="89" width="600" height="300"/>
                                 <subviews>
@@ -488,7 +470,7 @@
                                 </variation>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rxh-Ln-oZV" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
-                                <rect key="frame" x="15" y="552" width="571" height="40"/>
+                                <rect key="frame" x="50" y="552" width="500" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="CUj-Kl-MBa"/>
@@ -512,6 +494,24 @@
                                     <action selector="deleteBeacon" destination="ZKc-tn-hlY" eventType="touchUpInside" id="HOU-s4-G3q"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Out of Range" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NuV-Hd-KOi">
+                                <rect key="frame" x="457" y="405" width="93" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="C9Z-G9-tYW"/>
+                                    <constraint firstAttribute="width" constant="93" id="Dvb-mS-i7V"/>
+                                    <constraint firstAttribute="height" constant="21" id="YTD-Ur-U9h"/>
+                                    <constraint firstAttribute="width" constant="93" id="lhF-2W-qwf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="C9Z-G9-tYW"/>
+                                        <exclude reference="Dvb-mS-i7V"/>
+                                    </mask>
+                                </variation>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -519,13 +519,13 @@
                             <constraint firstItem="XKN-hw-mUC" firstAttribute="trailing" secondItem="Rxh-Ln-oZV" secondAttribute="trailing" id="4yE-xl-4Ex"/>
                             <constraint firstItem="NuV-Hd-KOi" firstAttribute="top" secondItem="evJ-wm-XnQ" secondAttribute="bottom" constant="16" id="7Uw-nw-bni"/>
                             <constraint firstItem="idS-w2-DuE" firstAttribute="trailing" secondItem="XKN-hw-mUC" secondAttribute="trailing" id="DkW-yJ-hlV"/>
-                            <constraint firstItem="idS-w2-DuE" firstAttribute="leading" secondItem="9VQ-Rq-HtX" secondAttribute="leadingMargin" constant="-5" id="IOz-kG-Yxs"/>
+                            <constraint firstItem="idS-w2-DuE" firstAttribute="leading" secondItem="9VQ-Rq-HtX" secondAttribute="leadingMargin" constant="30" id="IOz-kG-Yxs"/>
                             <constraint firstAttribute="bottom" secondItem="Rxh-Ln-oZV" secondAttribute="bottom" constant="20" symbolic="YES" id="Iop-1l-Dmb"/>
                             <constraint firstItem="idS-w2-DuE" firstAttribute="leading" secondItem="XKN-hw-mUC" secondAttribute="leading" id="KY6-8C-e0g"/>
                             <constraint firstItem="idS-w2-DuE" firstAttribute="top" secondItem="NuV-Hd-KOi" secondAttribute="bottom" constant="8" id="NPG-ap-MsZ"/>
                             <constraint firstItem="idS-w2-DuE" firstAttribute="top" secondItem="NuV-Hd-KOi" secondAttribute="bottom" constant="8" symbolic="YES" id="NcN-pO-Q98"/>
                             <constraint firstItem="evJ-wm-XnQ" firstAttribute="leading" secondItem="9VQ-Rq-HtX" secondAttribute="leading" id="Qph-Yq-ynV"/>
-                            <constraint firstItem="NuV-Hd-KOi" firstAttribute="trailing" secondItem="9VQ-Rq-HtX" secondAttribute="trailingMargin" id="Tn0-a7-2k0"/>
+                            <constraint firstItem="NuV-Hd-KOi" firstAttribute="trailing" secondItem="9VQ-Rq-HtX" secondAttribute="trailingMargin" constant="-30" id="Tn0-a7-2k0"/>
                             <constraint firstItem="Rxh-Ln-oZV" firstAttribute="top" secondItem="XKN-hw-mUC" secondAttribute="bottom" constant="30" id="Tu0-Bm-lI9"/>
                             <constraint firstAttribute="trailing" secondItem="evJ-wm-XnQ" secondAttribute="trailing" id="WjX-jp-Z7b"/>
                             <constraint firstItem="evJ-wm-XnQ" firstAttribute="centerX" secondItem="idS-w2-DuE" secondAttribute="centerX" id="bF1-xg-wMU"/>
