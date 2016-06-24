@@ -22,6 +22,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   
   @IBOutlet var tableView: UITableView!
   @IBOutlet weak var topLogoView: UIView!
+  @IBOutlet weak var appInfoView: UIView!
   @IBOutlet weak var versionLabel: UILabel!
   @IBOutlet weak var companyLabel: UILabel!
   @IBOutlet weak var rightsLabel: UILabel!
@@ -623,6 +624,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   }
   
   private func applicationInfo() {
+    appInfoView.alpha = 0.6
     if let version = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String {
       versionLabel.text = "v\(version)"
     }
