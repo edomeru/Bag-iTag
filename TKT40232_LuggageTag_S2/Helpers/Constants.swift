@@ -7,6 +7,11 @@
 //
 
 struct Constants {
+  
+  struct UUID {
+    static let Identifier = "C2265660-5EC1-4935-9BB3-"
+  }
+  
   struct Segue {
     static let AddBeacon = "AddBeacon"
     static let EditBeacon = "EditBeacon"

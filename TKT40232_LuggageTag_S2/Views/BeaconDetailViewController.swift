@@ -135,7 +135,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
           }
           
           beaconItem.name = nameTextField.text!
-          beaconItem.UUID = "C2265660-5EC1-4935-9BB3-\(uuidTextField.text!)"
+          beaconItem.UUID = "\(Constants.UUID.Identifier)\(uuidTextField.text!)"
           beaconItem.proximity = Constants.Proximity.Outside
           
           delegate?.beaconDetailViewController(self, didFinishEditingItem: beaconItem)
@@ -155,7 +155,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
         }
         
         beaconItem.name = nameTextField.text!
-        beaconItem.UUID = "C2265660-5EC1-4935-9BB3-\(uuidTextField.text!)"
+        beaconItem.UUID = "\(Constants.UUID.Identifier)\(uuidTextField.text!)"
         beaconItem.major = "1"
         beaconItem.minor = "5"
         beaconItem.proximity = Constants.Proximity.Outside
@@ -194,9 +194,11 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     case .PoweredOn:
       break
     case .PoweredOff:
-      beaconToEdit?.proximity = Constants.Proximity.Outside
-      rangeLabel.text = "Out of range"
-      delegate?.didBluetoothPoweredOff(didPowerOff: beaconToEdit!)
+      if let luggageTag = beaconToEdit {
+        luggageTag.proximity = Constants.Proximity.Outside
+        rangeLabel.text = "Out of range"
+        delegate?.didBluetoothPoweredOff(didPowerOff: luggageTag)
+      }
     default:
       break
     }
@@ -278,7 +280,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   
   func checkIdentifierCodeAvailability() -> Bool {
     for beacon in beaconReference! {
-      if (beacon.UUID == ("C2265660-5EC1-4935-9BB3-\(uuidTextField.text!)")) {
+      if (beacon.UUID == ("\(Constants.UUID.Identifier)\(uuidTextField.text!)")) {
         if let item = beaconToEdit {
           if (item.UUID == beacon.UUID) {
             continue
