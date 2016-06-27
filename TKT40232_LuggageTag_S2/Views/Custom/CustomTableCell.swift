@@ -25,8 +25,6 @@ protocol CustomTableCellDelegate: NSObjectProtocol {
 
 class CustomTableCell: UITableViewCell {
   
-  
-  //@IBOutlet var photo: DesignableView!
   @IBOutlet var photo: CustomButton!
   @IBOutlet var name: UILabel!
   @IBOutlet var connection: DesignableView!
@@ -35,13 +33,10 @@ class CustomTableCell: UITableViewCell {
   weak var delegate: CustomTableCellDelegate?
   
   func setupWithModel(model: BeaconModel) {
-    //let size = CGSize(width: 150, height: 150)
     if (model.photo != nil) {
-      //photo.image = scaleImage(UIImage(data: model.photo!)!, toSize: size)
       photo.setImage(UIImage(data: model.photo!)!, forState: .Normal)
       photo.imageView?.contentMode = UIViewContentMode.Center
     } else {
-      //photo.image = UIImage(named: "luggage_default")
       photo.setImage(UIImage(named: "luggage_default"), forState: .Normal)
     }
     
@@ -66,18 +61,5 @@ class CustomTableCell: UITableViewCell {
   
   @IBAction func valueChanged(sender: AnyObject) {
     delegate?.didTappedSwitchCell(self)
-  }
-  
-  func scaleImage(image: UIImage, toSize newSize: CGSize) -> (UIImage) {
-    let newRect = CGRectIntegral(CGRectMake(0,0, newSize.width, newSize.height))
-    UIGraphicsBeginImageContextWithOptions(newSize, false, 0)
-    let context = UIGraphicsGetCurrentContext()
-    CGContextSetInterpolationQuality(context, .High)
-    let flipVertical = CGAffineTransformMake(1, 0, 0, -1, 0, newSize.height)
-    CGContextConcatCTM(context, flipVertical)
-    CGContextDrawImage(context, newRect, image.CGImage)
-    let newImage = UIImage(CGImage: CGBitmapContextCreateImage(context)!)
-    UIGraphicsEndImageContext()
-    return newImage
   }
 }

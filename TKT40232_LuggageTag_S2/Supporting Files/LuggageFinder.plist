@@ -27,7 +27,7 @@
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Detect nearby Bag iTag Beacon?</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Detect nearby beacons and display the color of the closest one</string>
+	<string>Detect nearby Bag iTag Beacons</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>GADUGI.TTF</string>

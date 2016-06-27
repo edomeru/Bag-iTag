@@ -64,9 +64,9 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
       }
       
       if (item.proximity == "Inside") {
-        rangeLabel.text = "In Range"
+        rangeLabel.text = Constants.Range.InRange
       } else {
-        rangeLabel.text = "Out of Range"
+        rangeLabel.text = Constants.Range.OutOfRange
       }
       
       nameTextField.text = item.name
@@ -196,7 +196,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     case .PoweredOff:
       if let luggageTag = beaconToEdit {
         luggageTag.proximity = Constants.Proximity.Outside
-        rangeLabel.text = "Out of range"
+        rangeLabel.text = Constants.Range.OutOfRange
         delegate?.didBluetoothPoweredOff(didPowerOff: luggageTag)
       }
     default:
@@ -217,7 +217,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     if let connected = beaconToEdit?.isConnected {
       if (region.identifier == beaconToEdit!.name && connected) {
         beaconToEdit?.proximity = Constants.Proximity.Inside
-        rangeLabel.text = "In Range"
+        rangeLabel.text = Constants.Range.InRange
       }
     }
   }
@@ -226,7 +226,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     if let luggageTag = beaconToEdit?.name {
       if (region.identifier == luggageTag) {
         beaconToEdit?.proximity = Constants.Proximity.Outside
-        rangeLabel.text = "Out of Range"
+        rangeLabel.text = Constants.Range.OutOfRange
       }
     }
   }

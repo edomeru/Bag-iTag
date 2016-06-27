@@ -389,19 +389,6 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     }
   }
   
-  private func scaleImage(image: UIImage, toSize newSize: CGSize) -> (UIImage) {
-    let newRect = CGRectIntegral(CGRectMake(0,0, newSize.width, newSize.height))
-    UIGraphicsBeginImageContextWithOptions(newSize, false, 0)
-    let context = UIGraphicsGetCurrentContext()
-    CGContextSetInterpolationQuality(context, .High)
-    let flipVertical = CGAffineTransformMake(1, 0, 0, -1, 0, newSize.height)
-    CGContextConcatCTM(context, flipVertical)
-    CGContextDrawImage(context, newRect, image.CGImage)
-    let newImage = UIImage(CGImage: CGBitmapContextCreateImage(context)!)
-    UIGraphicsEndImageContext()
-    return newImage
-  }
-  
   private func loadBeaconItems() {
     // Loop Through All BeaconItem and put it in Model
     for beacon in frc.fetchedObjects! as! [BeaconItem] {
@@ -422,6 +409,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       item.UUID = beacon.uuid!
       item.major = beacon.major!
       item.minor = beacon.minor!
+      item.proximity = Constants.Proximity.Unknown
       item.isConnected = isConnected
       
       row.append(item)

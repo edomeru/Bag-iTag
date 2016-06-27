@@ -92,22 +92,10 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
   }
   
   func locationManager(manager: CLLocationManager, monitoringDidFailForRegion region: CLRegion?, withError error: NSError) {
-    /*print("monitoringDidFailForRegion - \(manager)")
-    print("monitoringDidFailForRegion - \(region)")
-    print("monitoringDidFailForRegion - \(error)")*/
-    //print("\(error.code)")
     print("monitoringDidFailForRegion - \(error)")
   }
   
   func locationManager(manager: CLLocationManager, didDetermineState state: CLRegionState, forRegion region: CLRegion) {
-    /*if state == CLRegionState.Inside {
-      print(" - entered region \(region.identifier)")
-      delegate?.didEnterRegion(region)
-      //locationManager.startRangingBeaconsInRegion(beaconRegion!)
-    } else {
-      print(" - exited region \(region.identifier)")
-      //locationManager.stopRangingBeaconsInRegion(beaconRegion!)
-    }*/
     switch state {
     case CLRegionState.Inside:
       print(" - entered region \(region.identifier)")
@@ -129,12 +117,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
     delegate?.didExitRegion(region)
   }
   
-  func locationManager(manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
-    //print(beacons)
-    /*if (beacons.count > 0) {
-      delegate?.didRangeBeacon(manager, didRangeBeacons: beacons, inRegion: region)
-    }*/
-  }
+  func locationManager(manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {}
   
   func locationManager(manager: CLLocationManager, rangingBeaconsDidFailForRegion region: CLBeaconRegion, withError error: NSError) {
     print("rangingBeaconsDidFailForRegion \(error)")
@@ -142,8 +125,5 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
   
   func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
     print("didFailWithError \(error)")
-    /*if (error.code == CLError.Denied.rawValue) {
-      stopMonitoring()
-    }*/
   }
 }

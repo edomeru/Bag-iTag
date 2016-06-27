@@ -23,4 +23,9 @@ struct Constants {
     static let Outside = "Outside"
   }
   
+  struct Range {
+    static let OutOfRange = "Out of Range"
+    static let InRange = "In Range"
+  }
+  
 }
