@@ -76,7 +76,6 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     }
     
     loadBeaconItems()
-    startMonitoring()
   }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -128,6 +127,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     switch (central.state) {
     case .PoweredOn:
       isBluetoothPoweredOn = true
+      startMonitoring()
     case .PoweredOff:
       isBluetoothPoweredOn = false
       checkLuggageTagRegion()
@@ -253,8 +253,6 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     saveToDatabase(item)
 
     dismissViewControllerAnimated(true, completion: nil)
-    
-    //startMonitoringforBeacon(item)
   }
   
   func beaconDetailViewController(controller: BeaconDetailViewController, didFinishEditingItem item: BeaconModel) {
@@ -472,6 +470,13 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     if row.count > 0 {
       for beacon in row {
         if (beacon.proximity == Constants.Proximity.Inside) {
+          // Stop Monitoring for this Beacon
+          var beaconRegion: CLBeaconRegion?
+          beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: beacon.UUID)!, identifier: beacon.name)
+          
+          // Stop Monitoring this Specific Beacon.
+          tktCoreLocation.stopMonitoringBeacon(beaconRegion)
+          
           if let index = row.indexOf(beacon) {
             let indexPath = NSIndexPath(forRow: index, inSection: 0)
             row[indexPath.row].proximity = Constants.Proximity.Outside

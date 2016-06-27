@@ -46,11 +46,11 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
     case .NotDetermined:
       print("NotDetermined")
       locationManager.requestAlwaysAuthorization()
-    case .Restricted, .Denied, .AuthorizedWhenInUse:
+    case .Restricted, .Denied:
       print(".Restricted, .Denied, .AuthorizedWhenInUse")
       delegate?.onBackgroundLocationAccessDisabled()
-    case .AuthorizedAlways:
-      print(".AuthorizedAlways")
+    case .AuthorizedAlways, .AuthorizedWhenInUse:
+      print(".AuthorizedAlways || .AuthorizedWhenInUse")
       locationManager!.startMonitoringForRegion(beaconRegion!)
       pendingMonitorRequest = false
     }
@@ -100,13 +100,22 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
   }
   
   func locationManager(manager: CLLocationManager, didDetermineState state: CLRegionState, forRegion region: CLRegion) {
-    if state == CLRegionState.Inside {
+    /*if state == CLRegionState.Inside {
       print(" - entered region \(region.identifier)")
       delegate?.didEnterRegion(region)
       //locationManager.startRangingBeaconsInRegion(beaconRegion!)
     } else {
       print(" - exited region \(region.identifier)")
       //locationManager.stopRangingBeaconsInRegion(beaconRegion!)
+    }*/
+    switch state {
+    case CLRegionState.Inside:
+      print(" - entered region \(region.identifier)")
+      delegate?.didEnterRegion(region)
+    case CLRegionState.Outside:
+      print(" - exited region \(region.identifier)")
+    default:
+      print(" - unknown region \(region.identifier)")
     }
   }
   
