@@ -24,6 +24,7 @@ protocol ModalViewControllerDelegate: NSObjectProtocol {
 
 class ModalViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   
+  @IBOutlet weak var dimBackground: UIView!
   @IBOutlet weak var takePhotoButton: UIButton!
   @IBOutlet weak var choosePhotoButton: UIButton!
   @IBOutlet weak var cancelButton: UIButton!
@@ -37,6 +38,8 @@ class ModalViewController: UIViewController, UIImagePickerControllerDelegate, UI
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    let gesture = UITapGestureRecognizer(target: self, action: #selector(ModalViewController.dismissModal))
+    self.view.addGestureRecognizer(gesture)
   }
 
   @IBAction func takePhoto(sender: AnyObject) {
@@ -55,6 +58,10 @@ class ModalViewController: UIViewController, UIImagePickerControllerDelegate, UI
   }
   
   @IBAction func cancelClicked(sender: AnyObject) {
+    dismissViewControllerAnimated(false, completion: nil)
+  }
+  
+  func dismissModal() {
     dismissViewControllerAnimated(false, completion: nil)
   }
   

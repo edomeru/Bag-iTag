@@ -71,11 +71,10 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     
     do {
       try frc.performFetch()
+      loadBeaconItems()
     } catch {
       print("Failed to perform initial fecth.")
     }
-    
-    loadBeaconItems()
   }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -287,10 +286,10 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       // Delete LocalNotification
       deleteLocalNotification(item.name, identifier: item.UUID)
       
-      deleteToDatabase(item.id)
+      let indexPath = NSIndexPath(forRow: index, inSection: 0)
+      deleteToDatabase(indexPath)
       
       row.removeAtIndex(index)
-      let indexPath = NSIndexPath(forRow: index, inSection: 0)
       let indexPaths = [indexPath]
       
       tableView.beginUpdates()
@@ -535,7 +534,19 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   
   }
   
-  private func deleteToDatabase(id: Int) {
+  private func deleteToDatabase(indexPath: NSIndexPath) {
+    let managedObject: NSManagedObject = frc.objectAtIndexPath(indexPath) as! NSManagedObject
+    moc.deleteObject(managedObject)
+    
+    do {
+      try moc.save()
+      print("Successfully Deleted Item")
+    } catch let error as NSError {
+      fatalError("Failed to Delete Item : \(error)")
+    }
+  }
+  
+  /*private func deleteToDatabase(id: Int) {
     let entityDescription = NSEntityDescription.entityForName("BeaconItem", inManagedObjectContext: moc)
     
     let req = NSFetchRequest()
@@ -563,7 +574,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     } catch let error as NSError {
       fatalError("Error: \(error)")
     }
-  }
+  }*/
   
   private func createLocalNotification(name: String, identifier: String, message: String) {
     let localNotification = UILocalNotification()
