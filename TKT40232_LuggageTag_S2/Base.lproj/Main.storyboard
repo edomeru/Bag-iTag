@@ -43,8 +43,8 @@
                                     <rect key="frame" x="0.0" y="228" width="604" height="199"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hqd-dI-xMz">
-                                            <rect key="frame" x="187" y="76" width="45" height="48"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="new" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hqd-dI-xMz">
+                                            <rect key="frame" x="187" y="76" width="41" height="48"/>
                                             <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="21"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
@@ -247,55 +247,45 @@
                                 </connections>
                             </tableView>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Llx-x9-ZSM">
-                                <rect key="frame" x="493" y="549" width="101" height="51"/>
+                                <rect key="frame" x="506" y="567" width="88" height="33"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tektos Limited © 2016" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xTY-X6-0Vu">
-                                        <rect key="frame" x="0.0" y="20" width="100" height="14"/>
-                                        <fontDescription key="fontDescription" name="Gadugi" family="Gadugi" pointSize="10"/>
+                                        <rect key="frame" x="7" y="11" width="80" height="11"/>
+                                        <fontDescription key="fontDescription" name="Gadugi" family="Gadugi" pointSize="8"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All rights reserved" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oSB-ET-I7s">
-                                        <rect key="frame" x="0.0" y="35" width="100" height="14"/>
-                                        <fontDescription key="fontDescription" name="Gadugi" family="Gadugi" pointSize="10"/>
+                                        <rect key="frame" x="7" y="20" width="80" height="11"/>
+                                        <fontDescription key="fontDescription" name="Gadugi" family="Gadugi" pointSize="8"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="v0.0.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pKa-8v-tbf">
-                                        <rect key="frame" x="0.0" y="5" width="100" height="14"/>
-                                        <fontDescription key="fontDescription" name="Gadugi" family="Gadugi" pointSize="10"/>
+                                        <rect key="frame" x="7" y="2" width="80" height="11"/>
+                                        <fontDescription key="fontDescription" name="Gadugi" family="Gadugi" pointSize="8"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="pKa-8v-tbf" secondAttribute="trailing" constant="99" id="7vU-XW-j3R"/>
-                                    <constraint firstItem="oSB-ET-I7s" firstAttribute="centerY" secondItem="Llx-x9-ZSM" secondAttribute="centerY" constant="16.5" id="JdE-cu-5mb"/>
-                                    <constraint firstItem="pKa-8v-tbf" firstAttribute="leading" secondItem="Llx-x9-ZSM" secondAttribute="leading" id="MR6-tn-riI"/>
-                                    <constraint firstItem="xTY-X6-0Vu" firstAttribute="centerX" secondItem="Llx-x9-ZSM" secondAttribute="centerX" id="NKg-Xd-kB5"/>
-                                    <constraint firstItem="pKa-8v-tbf" firstAttribute="centerX" secondItem="Llx-x9-ZSM" secondAttribute="centerX" id="TZj-hz-y9w"/>
-                                    <constraint firstItem="pKa-8v-tbf" firstAttribute="top" secondItem="Llx-x9-ZSM" secondAttribute="top" constant="5" id="XO0-Qt-Ehe"/>
-                                    <constraint firstItem="pKa-8v-tbf" firstAttribute="centerX" secondItem="Llx-x9-ZSM" secondAttribute="centerX" id="Yzn-2a-cfS"/>
-                                    <constraint firstItem="xTY-X6-0Vu" firstAttribute="leading" secondItem="oSB-ET-I7s" secondAttribute="leading" id="cGV-lh-6OX"/>
-                                    <constraint firstItem="xTY-X6-0Vu" firstAttribute="centerY" secondItem="Llx-x9-ZSM" secondAttribute="centerY" constant="1.5" id="g2X-8y-Lgc"/>
-                                    <constraint firstItem="pKa-8v-tbf" firstAttribute="centerY" secondItem="Llx-x9-ZSM" secondAttribute="centerY" constant="-13.5" id="r4o-dr-Gb4"/>
-                                    <constraint firstItem="pKa-8v-tbf" firstAttribute="leading" secondItem="xTY-X6-0Vu" secondAttribute="leading" id="syq-Jo-VKZ"/>
-                                    <constraint firstItem="oSB-ET-I7s" firstAttribute="centerX" secondItem="Llx-x9-ZSM" secondAttribute="centerX" id="xpZ-JG-DxA"/>
-                                    <constraint firstItem="pKa-8v-tbf" firstAttribute="centerY" secondItem="Llx-x9-ZSM" secondAttribute="centerY" id="yHU-7a-kQE"/>
+                                    <constraint firstAttribute="bottom" secondItem="oSB-ET-I7s" secondAttribute="bottom" constant="2" id="7YR-eG-xV9"/>
+                                    <constraint firstAttribute="trailing" secondItem="pKa-8v-tbf" secondAttribute="trailing" constant="1" id="9w5-fa-aiT"/>
+                                    <constraint firstItem="xTY-X6-0Vu" firstAttribute="leading" secondItem="Llx-x9-ZSM" secondAttribute="leading" constant="7" id="AlW-I0-dG1"/>
+                                    <constraint firstItem="pKa-8v-tbf" firstAttribute="leading" secondItem="Llx-x9-ZSM" secondAttribute="leading" constant="7" id="BYH-Nb-gCd"/>
+                                    <constraint firstAttribute="trailing" secondItem="oSB-ET-I7s" secondAttribute="trailing" constant="1" id="FPa-o3-Sbh"/>
+                                    <constraint firstAttribute="trailing" secondItem="xTY-X6-0Vu" secondAttribute="trailing" constant="1" id="IAq-37-rBz"/>
+                                    <constraint firstItem="oSB-ET-I7s" firstAttribute="leading" secondItem="Llx-x9-ZSM" secondAttribute="leading" constant="7" id="QKq-gL-95E"/>
+                                    <constraint firstItem="pKa-8v-tbf" firstAttribute="top" secondItem="Llx-x9-ZSM" secondAttribute="top" constant="2" id="db1-Ku-u9O"/>
+                                    <constraint firstItem="oSB-ET-I7s" firstAttribute="top" secondItem="xTY-X6-0Vu" secondAttribute="bottom" constant="-2" id="lFS-tM-UqM"/>
+                                    <constraint firstItem="xTY-X6-0Vu" firstAttribute="top" secondItem="pKa-8v-tbf" secondAttribute="bottom" constant="-2" id="vg0-mZ-JDK"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="7vU-XW-j3R"/>
-                                        <exclude reference="TZj-hz-y9w"/>
-                                        <exclude reference="yHU-7a-kQE"/>
-                                    </mask>
-                                </variation>
                             </view>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8PL-lm-TF2">
                                 <rect key="frame" x="0.0" y="20" width="600" height="150"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luggage_tag_logo" translatesAutoresizingMaskIntoConstraints="NO" id="BH0-BR-8W6">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luggage_tag_logo" translatesAutoresizingMaskIntoConstraints="NO" id="BH0-BR-8W6">
                                         <rect key="frame" x="472" y="10" width="120" height="70"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="120" id="Wwr-0a-99K"/>
