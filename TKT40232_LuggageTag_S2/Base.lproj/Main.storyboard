@@ -71,7 +71,7 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                             <connections>
-                                                <segue destination="Nup-9k-wAl" kind="show" identifier="AddBeacon" id="op5-Nl-NqQ"/>
+                                                <segue destination="Nup-9k-wAl" kind="presentation" identifier="AddBeacon" id="op5-Nl-NqQ"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -237,7 +237,7 @@
                                             <outlet property="customSwitch" destination="ZjM-xw-jgZ" id="LsV-8Y-Hph"/>
                                             <outlet property="name" destination="6cT-cj-Irw" id="vsT-ds-Nma"/>
                                             <outlet property="photo" destination="pMf-VB-0Qj" id="vMv-82-Oxj"/>
-                                            <segue destination="Nup-9k-wAl" kind="show" identifier="EditBeacon" id="EQb-Qw-ZeF"/>
+                                            <segue destination="Nup-9k-wAl" kind="presentation" identifier="EditBeacon" id="EQb-Qw-ZeF"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -371,11 +371,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="IDENTIFIER CODE" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XKN-hw-mUC" customClass="CustomTextField" customModule="LuggageFinder" customModuleProvider="target">
-                                <rect key="frame" x="50" y="482" width="500" height="40"/>
+                                <rect key="frame" x="50" y="382" width="500" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <accessibility key="accessibilityConfiguration" identifier="uuid"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="2b4-D2-3LK"/>
+                                    <constraint firstAttribute="height" constant="40" id="F4K-hW-RIC"/>
                                 </constraints>
                                 <color key="textColor" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="20"/>
@@ -393,10 +393,10 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Luggage Tag" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="idS-w2-DuE" customClass="CustomTextField" customModule="LuggageFinder" customModuleProvider="target">
-                                <rect key="frame" x="50" y="434" width="500" height="40"/>
+                                <rect key="frame" x="50" y="334" width="500" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="4jE-wa-89w"/>
+                                    <constraint firstAttribute="height" constant="40" id="OKi-TZ-Z4W"/>
                                 </constraints>
                                 <color key="textColor" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="20"/>
@@ -413,17 +413,33 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Out of Range" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NuV-Hd-KOi">
+                                <rect key="frame" x="457" y="305" width="93" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="C9Z-G9-tYW"/>
+                                    <constraint firstAttribute="height" constant="21" id="DjV-Rm-Nua"/>
+                                    <constraint firstAttribute="width" constant="93" id="Dvb-mS-i7V"/>
+                                    <constraint firstAttribute="width" constant="93" id="sFf-em-0Wa"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="C9Z-G9-tYW"/>
+                                        <exclude reference="Dvb-mS-i7V"/>
+                                    </mask>
+                                </variation>
+                            </label>
                             <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="evJ-wm-XnQ">
-                                <rect key="frame" x="0.0" y="89" width="600" height="300"/>
+                                <rect key="frame" x="0.0" y="89" width="600" height="200"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QVg-P1-dhs" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
-                                        <rect key="frame" x="210" y="60" width="180" height="180"/>
+                                        <rect key="frame" x="210" y="10" width="180" height="180"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="180" id="6cQ-u1-qcw"/>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="180" id="YmJ-M0-ytS"/>
-                                            <constraint firstAttribute="width" constant="180" id="gQu-zx-e37"/>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="180" id="p2V-3q-vBG"/>
+                                            <constraint firstAttribute="width" constant="180" id="vLc-c4-qmz"/>
+                                            <constraint firstAttribute="height" constant="180" id="zuZ-er-1d3"/>
                                         </constraints>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <inset key="contentEdgeInsets" minX="0.0" minY="-20" maxX="0.0" maxY="0.0"/>
@@ -448,22 +464,31 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="QVg-P1-dhs" secondAttribute="bottom" id="0u9-ei-VIi"/>
-                                    <constraint firstItem="QVg-P1-dhs" firstAttribute="centerX" secondItem="evJ-wm-XnQ" secondAttribute="centerX" id="3Ho-ui-9Nh"/>
-                                    <constraint firstItem="QVg-P1-dhs" firstAttribute="centerY" secondItem="evJ-wm-XnQ" secondAttribute="centerY" id="OKE-7B-jdI"/>
+                                    <constraint firstAttribute="bottom" secondItem="QVg-P1-dhs" secondAttribute="bottom" constant="10" id="LZ2-ZN-YdU"/>
+                                    <constraint firstItem="QVg-P1-dhs" firstAttribute="centerY" secondItem="evJ-wm-XnQ" secondAttribute="centerY" id="Lka-2h-sTN"/>
+                                    <constraint firstItem="QVg-P1-dhs" firstAttribute="centerX" secondItem="evJ-wm-XnQ" secondAttribute="centerX" id="Lth-t4-4PH"/>
+                                    <constraint firstAttribute="height" constant="200" id="cbo-2h-E3z"/>
+                                    <constraint firstItem="QVg-P1-dhs" firstAttribute="centerY" secondItem="evJ-wm-XnQ" secondAttribute="centerY" id="g5e-io-mmH"/>
                                     <constraint firstItem="QVg-P1-dhs" firstAttribute="top" secondItem="evJ-wm-XnQ" secondAttribute="top" id="ghL-58-4rA"/>
+                                    <constraint firstItem="QVg-P1-dhs" firstAttribute="centerY" secondItem="evJ-wm-XnQ" secondAttribute="centerY" id="kPx-Hz-NuU"/>
+                                    <constraint firstItem="QVg-P1-dhs" firstAttribute="centerX" secondItem="evJ-wm-XnQ" secondAttribute="centerX" id="qh5-Bh-uaC"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="0u9-ei-VIi"/>
+                                        <exclude reference="LZ2-ZN-YdU"/>
+                                        <exclude reference="Lth-t4-4PH"/>
+                                        <exclude reference="g5e-io-mmH"/>
                                         <exclude reference="ghL-58-4rA"/>
+                                        <exclude reference="kPx-Hz-NuU"/>
                                     </mask>
                                 </variation>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rxh-Ln-oZV" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
-                                <rect key="frame" x="50" y="552" width="500" height="40"/>
+                                <rect key="frame" x="50" y="496" width="500" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="CUj-Kl-MBa"/>
+                                    <constraint firstAttribute="height" constant="40" id="zhI-FX-0NE"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="20"/>
                                 <state key="normal" title="DELETE">
@@ -484,52 +509,40 @@
                                     <action selector="deleteBeacon" destination="ZKc-tn-hlY" eventType="touchUpInside" id="HOU-s4-G3q"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Out of Range" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NuV-Hd-KOi">
-                                <rect key="frame" x="457" y="405" width="93" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="C9Z-G9-tYW"/>
-                                    <constraint firstAttribute="width" constant="93" id="Dvb-mS-i7V"/>
-                                    <constraint firstAttribute="height" constant="21" id="YTD-Ur-U9h"/>
-                                    <constraint firstAttribute="width" constant="93" id="lhF-2W-qwf"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="14"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="C9Z-G9-tYW"/>
-                                        <exclude reference="Dvb-mS-i7V"/>
-                                    </mask>
-                                </variation>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="XKN-hw-mUC" firstAttribute="leading" secondItem="Rxh-Ln-oZV" secondAttribute="leading" id="02E-bT-YCb"/>
-                            <constraint firstItem="XKN-hw-mUC" firstAttribute="trailing" secondItem="Rxh-Ln-oZV" secondAttribute="trailing" id="4yE-xl-4Ex"/>
+                            <constraint firstItem="idS-w2-DuE" firstAttribute="trailing" secondItem="XKN-hw-mUC" secondAttribute="trailing" id="1yc-5G-3Tq"/>
+                            <constraint firstItem="Rxh-Ln-oZV" firstAttribute="top" secondItem="XKN-hw-mUC" secondAttribute="bottom" constant="74" id="39Z-xF-rVS"/>
+                            <constraint firstItem="evJ-wm-XnQ" firstAttribute="top" secondItem="APj-Nl-Kal" secondAttribute="bottom" constant="25" id="6IY-aw-Wc0"/>
                             <constraint firstItem="NuV-Hd-KOi" firstAttribute="top" secondItem="evJ-wm-XnQ" secondAttribute="bottom" constant="16" id="7Uw-nw-bni"/>
-                            <constraint firstItem="idS-w2-DuE" firstAttribute="trailing" secondItem="XKN-hw-mUC" secondAttribute="trailing" id="DkW-yJ-hlV"/>
-                            <constraint firstItem="idS-w2-DuE" firstAttribute="leading" secondItem="9VQ-Rq-HtX" secondAttribute="leadingMargin" constant="30" id="IOz-kG-Yxs"/>
+                            <constraint firstItem="Rxh-Ln-oZV" firstAttribute="top" secondItem="APj-Nl-Kal" secondAttribute="bottom" constant="442" id="8hW-Bv-PkP"/>
+                            <constraint firstAttribute="trailing" secondItem="evJ-wm-XnQ" secondAttribute="trailing" id="CV8-64-UFf"/>
                             <constraint firstAttribute="bottom" secondItem="Rxh-Ln-oZV" secondAttribute="bottom" constant="20" symbolic="YES" id="Iop-1l-Dmb"/>
-                            <constraint firstItem="idS-w2-DuE" firstAttribute="leading" secondItem="XKN-hw-mUC" secondAttribute="leading" id="KY6-8C-e0g"/>
-                            <constraint firstItem="idS-w2-DuE" firstAttribute="top" secondItem="NuV-Hd-KOi" secondAttribute="bottom" constant="8" id="NPG-ap-MsZ"/>
+                            <constraint firstItem="NuV-Hd-KOi" firstAttribute="top" secondItem="APj-Nl-Kal" secondAttribute="bottom" constant="241" id="MKZ-Cb-5d9"/>
                             <constraint firstItem="idS-w2-DuE" firstAttribute="top" secondItem="NuV-Hd-KOi" secondAttribute="bottom" constant="8" symbolic="YES" id="NcN-pO-Q98"/>
-                            <constraint firstItem="evJ-wm-XnQ" firstAttribute="leading" secondItem="9VQ-Rq-HtX" secondAttribute="leading" id="Qph-Yq-ynV"/>
-                            <constraint firstItem="NuV-Hd-KOi" firstAttribute="trailing" secondItem="9VQ-Rq-HtX" secondAttribute="trailingMargin" constant="-30" id="Tn0-a7-2k0"/>
-                            <constraint firstItem="Rxh-Ln-oZV" firstAttribute="top" secondItem="XKN-hw-mUC" secondAttribute="bottom" constant="30" id="Tu0-Bm-lI9"/>
-                            <constraint firstAttribute="trailing" secondItem="evJ-wm-XnQ" secondAttribute="trailing" id="WjX-jp-Z7b"/>
-                            <constraint firstItem="evJ-wm-XnQ" firstAttribute="centerX" secondItem="idS-w2-DuE" secondAttribute="centerX" id="bF1-xg-wMU"/>
+                            <constraint firstItem="idS-w2-DuE" firstAttribute="top" secondItem="NuV-Hd-KOi" secondAttribute="bottom" constant="8" symbolic="YES" id="OTY-h6-5bS"/>
+                            <constraint firstItem="XKN-hw-mUC" firstAttribute="trailing" secondItem="Rxh-Ln-oZV" secondAttribute="trailing" id="Y4g-0h-ms7"/>
+                            <constraint firstItem="evJ-wm-XnQ" firstAttribute="centerX" secondItem="idS-w2-DuE" secondAttribute="centerX" id="Ygo-B1-eEc"/>
+                            <constraint firstItem="Rxh-Ln-oZV" firstAttribute="top" secondItem="XKN-hw-mUC" secondAttribute="bottom" constant="44" id="Yqh-bE-Fqu"/>
+                            <constraint firstItem="idS-w2-DuE" firstAttribute="leading" secondItem="9VQ-Rq-HtX" secondAttribute="leadingMargin" constant="30" id="afL-sW-sLB"/>
                             <constraint firstItem="NuV-Hd-KOi" firstAttribute="top" secondItem="evJ-wm-XnQ" secondAttribute="bottom" constant="16" id="d1w-nS-R08"/>
-                            <constraint firstItem="XKN-hw-mUC" firstAttribute="top" secondItem="idS-w2-DuE" secondAttribute="bottom" constant="8" symbolic="YES" id="fDh-Dc-gqB"/>
-                            <constraint firstItem="evJ-wm-XnQ" firstAttribute="top" secondItem="APj-Nl-Kal" secondAttribute="bottom" constant="25" id="iXq-dP-f7f"/>
+                            <constraint firstItem="XKN-hw-mUC" firstAttribute="leading" secondItem="Rxh-Ln-oZV" secondAttribute="leading" id="geL-eQ-vO9"/>
+                            <constraint firstItem="idS-w2-DuE" firstAttribute="leading" secondItem="XKN-hw-mUC" secondAttribute="leading" id="iKm-D3-MGp"/>
+                            <constraint firstItem="XKN-hw-mUC" firstAttribute="top" secondItem="idS-w2-DuE" secondAttribute="bottom" constant="8" id="jey-gb-KvZ"/>
                             <constraint firstItem="NuV-Hd-KOi" firstAttribute="trailing" secondItem="9VQ-Rq-HtX" secondAttribute="trailingMargin" id="kky-9R-94Q"/>
-                            <constraint firstItem="KIX-hw-2fl" firstAttribute="top" secondItem="Rxh-Ln-oZV" secondAttribute="bottom" constant="8" id="vTy-2I-YHp"/>
+                            <constraint firstItem="evJ-wm-XnQ" firstAttribute="leading" secondItem="9VQ-Rq-HtX" secondAttribute="leading" id="mwH-uF-eJd"/>
+                            <constraint firstItem="NuV-Hd-KOi" firstAttribute="top" secondItem="evJ-wm-XnQ" secondAttribute="bottom" constant="16" id="mz9-Hl-NFW"/>
+                            <constraint firstItem="NuV-Hd-KOi" firstAttribute="trailing" secondItem="idS-w2-DuE" secondAttribute="trailing" id="zCc-71-SYF"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="NcN-pO-Q98"/>
+                                <exclude reference="8hW-Bv-PkP"/>
                                 <exclude reference="Iop-1l-Dmb"/>
+                                <exclude reference="Yqh-bE-Fqu"/>
                                 <exclude reference="7Uw-nw-bni"/>
+                                <exclude reference="d1w-nS-R08"/>
                                 <exclude reference="kky-9R-94Q"/>
                             </mask>
                         </variation>
