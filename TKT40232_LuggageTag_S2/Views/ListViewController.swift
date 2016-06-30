@@ -266,7 +266,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         startMonitoringforBeacon(item)
       }
       
-      updateToDatabase(item, indexPath: indexPath)
+      updateToDatabase(item)
     }
   
     dismissViewControllerAnimated(true, completion: nil)
@@ -286,10 +286,10 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       // Delete LocalNotification
       deleteLocalNotification(item.name, identifier: item.UUID)
       
-      let indexPath = NSIndexPath(forRow: index, inSection: 0)
-      deleteToDatabase(indexPath)
+      deleteToDatabase(item.id)
       
       row.removeAtIndex(index)
+      let indexPath = NSIndexPath(forRow: index, inSection: 0)
       let indexPaths = [indexPath]
       
       tableView.beginUpdates()
@@ -347,7 +347,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       tktCoreLocation.stopMonitoringBeacon(beaconRegion)
     }
     
-    updateToDatabase(item, indexPath: indexPath!)
+    updateToDatabase(item)
   }
   
   // MARK: Private Methods
@@ -499,25 +499,44 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     }
   }
   
-  private func updateToDatabase(item: BeaconModel, indexPath: NSIndexPath) {
-    let managedObject: NSManagedObject = frc.objectAtIndexPath(indexPath) as! NSManagedObject
+  private func updateToDatabase(item: BeaconModel) {
+    let entityDescription = NSEntityDescription.entityForName("BeaconItem", inManagedObjectContext: moc)
     
-    managedObject.setValue(item.photo, forKey: "photo")
-    managedObject.setValue(item.name, forKey: "name")
-    managedObject.setValue(item.UUID, forKey: "uuid")
-    managedObject.setValue(item.major, forKey: "major")
-    managedObject.setValue(item.minor, forKey: "minor")
-    managedObject.setValue(item.isConnected, forKey: "connection")
+    let req = NSFetchRequest()
+    req.entity = entityDescription
+    let index = "\(item.id)"
+    
+    let condition = NSPredicate(format: "id == \(index)")
+    
+    req.predicate = condition
     
     do {
-      try moc.save()
-      print("Successfully Updated Database")
-    } catch let error as NSError{
-      fatalError("Failed to updating to Database : \(error)")
+      let result = try moc.executeFetchRequest(req)
+      
+      if result.count > 0 {
+        let beacon = result[0] as! BeaconItem
+        beacon.setValue(item.photo, forKey: "photo")
+        beacon.setValue(item.name, forKey: "name")
+        beacon.setValue(item.UUID, forKey: "uuid")
+        beacon.setValue(item.major, forKey: "major")
+        beacon.setValue(item.minor, forKey: "minor")
+        beacon.setValue(item.isConnected, forKey: "connection")
+        do {
+          try moc.save()
+          print("Successfully Updated Database")
+        } catch let error as NSError{
+          fatalError("Failed to updating to Database : \(error)")
+        }
+      } else {
+        print("No Record Found")
+      }
+    } catch let error as NSError {
+      fatalError("Error: \(error)")
     }
+  
   }
   
-  private func deleteToDatabase(indexPath: NSIndexPath) {
+  /*private func deleteToDatabase(indexPath: NSIndexPath) {
     let managedObject: NSManagedObject = frc.objectAtIndexPath(indexPath) as! NSManagedObject
     moc.deleteObject(managedObject)
     
@@ -526,6 +545,36 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       print("Successfully Deleted Item")
     } catch let error as NSError {
       fatalError("Failed to Delete Item : \(error)")
+    }
+  }*/
+  
+  private func deleteToDatabase(id: Int) {
+    let entityDescription = NSEntityDescription.entityForName("BeaconItem", inManagedObjectContext: moc)
+    
+    let req = NSFetchRequest()
+    req.entity = entityDescription
+    let index = "\(id)"
+    
+    let condition = NSPredicate(format: "id == \(index)")
+    
+    req.predicate = condition
+
+    do {
+      let result = try moc.executeFetchRequest(req) as? [NSManagedObject]
+      
+      if let res = result {
+        if res.count > 0 {
+          moc.deleteObject(res[0])
+          do {
+            try moc.save()
+            print("Successfully Deleted Item")
+          } catch let error as NSError{
+            fatalError("Failed to Delete Item : \(error)")
+          }
+        }
+      }
+    } catch let error as NSError {
+      fatalError("Error: \(error)")
     }
   }
   
