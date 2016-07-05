@@ -217,7 +217,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   func didEnterRegion(region: CLRegion!) {
     if let connected = beaconToEdit?.isConnected {
       if (region.identifier == beaconToEdit!.name && connected) {
-        beaconToEdit?.proximity = Constants.Proximity.Inside
+        //beaconToEdit?.proximity = Constants.Proximity.Inside
         rangeLabel.text = Constants.Range.InRange
       }
     }
@@ -226,7 +226,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   func didExitRegion(region: CLRegion!) {
     if let luggageTag = beaconToEdit?.name {
       if (region.identifier == luggageTag) {
-        beaconToEdit?.proximity = Constants.Proximity.Outside
+        //beaconToEdit?.proximity = Constants.Proximity.Outside
         rangeLabel.text = Constants.Range.OutOfRange
       }
     }
