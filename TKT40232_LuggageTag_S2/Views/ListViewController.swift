@@ -168,13 +168,15 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     for beacon in row {
       if (beacon.name == region.identifier) {
         if (beacon.proximity != Constants.Proximity.Inside) {
-          beacon.proximity = Constants.Proximity.Inside
           if let index = row.indexOf(beacon) {
             let indexPath = NSIndexPath(forRow: index, inSection: 0)
+            row[indexPath.row].proximity = Constants.Proximity.Inside
             if let cell = tableView.cellForRowAtIndexPath(indexPath) {
               configureCellRegion(cell, withBeaconModel: beacon, connected: true)
               createLocalNotification(region.identifier, identifier: beacon.UUID, message: NSLocalizedString("has_arrived", comment: ""))
             }
+            
+            
           }
         }
       }
@@ -185,9 +187,9 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     for beacon in row {
       if (beacon.name == region.identifier) {
         if (beacon.proximity != Constants.Proximity.Outside) {
-          beacon.proximity = Constants.Proximity.Outside
           if let index = row.indexOf(beacon) {
             let indexPath = NSIndexPath(forRow: index, inSection: 0)
+            row[indexPath.row].proximity = Constants.Proximity.Outside
             if let cell = tableView.cellForRowAtIndexPath(indexPath) {
               configureCellRegion(cell, withBeaconModel: beacon, connected: false)
               createLocalNotification(region.identifier, identifier: beacon.UUID, message: NSLocalizedString("is_gone", comment: ""))

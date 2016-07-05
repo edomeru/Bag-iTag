@@ -102,6 +102,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
       delegate?.didEnterRegion(region)
     case CLRegionState.Outside:
       print(" - exited region \(region.identifier)")
+      delegate?.didExitRegion(region)
     default:
       print(" - unknown region \(region.identifier)")
     }
