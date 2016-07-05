@@ -9,6 +9,7 @@
 import UIKit
 import CoreBluetooth
 import CoreLocation
+import Foundation
 
 extension String {
   
@@ -135,7 +136,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
           }
           
           beaconItem.name = nameTextField.text!
-          beaconItem.UUID = "\(Constants.UUID.Identifier)\(uuidTextField.text!)"
+          beaconItem.UUID = "\(Constants.UUID.Identifier)\(uuidTextField.text!.uppercaseString)"
           beaconItem.proximity = Constants.Proximity.Outside
           
           delegate?.beaconDetailViewController(self, didFinishEditingItem: beaconItem)
@@ -153,9 +154,9 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
         } else {
           beaconItem.photo = nil
         }
-        
+
         beaconItem.name = nameTextField.text!
-        beaconItem.UUID = "\(Constants.UUID.Identifier)\(uuidTextField.text!)"
+        beaconItem.UUID = "\(Constants.UUID.Identifier)\(uuidTextField.text!.uppercaseString)"
         beaconItem.major = "1"
         beaconItem.minor = "5"
         beaconItem.proximity = Constants.Proximity.Outside
