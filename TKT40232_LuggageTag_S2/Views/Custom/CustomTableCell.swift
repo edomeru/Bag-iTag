@@ -50,13 +50,13 @@ class CustomTableCell: UITableViewCell {
     
     name.text = model.name
     
-    customSwitch.setOn(!model.isConnected, animated: false)
-    customSwitch.offLabel.text = "ON"
+    customSwitch.setOn(model.isConnected, animated: false)
+    customSwitch.offLabel.text = "OFF"
     customSwitch.offLabel.font = UIFont(name: "Gadugi-Bold", size: 15)
-    customSwitch.offLabel.textColor = UIColor(red: 60, green: 163, blue: 62)
-    customSwitch.onLabel.text = "OFF"
+    customSwitch.offLabel.textColor = UIColor(red: 211, green: 31, blue: 38)
+    customSwitch.onLabel.text = "ON"
     customSwitch.onLabel.font = UIFont(name: "Gadugi-Bold", size: 15)
-    customSwitch.onLabel.textColor = UIColor(red: 211, green: 31, blue: 38)
+    customSwitch.onLabel.textColor = UIColor(red: 60, green: 163, blue: 62)
   }
   
   @IBAction func valueChanged(sender: AnyObject) {

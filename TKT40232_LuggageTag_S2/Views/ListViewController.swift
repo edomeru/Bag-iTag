@@ -314,13 +314,12 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   // MARK: CustomTableCellDelegate
   func didTappedSwitchCell(cell: CustomTableCell) {
     let indexPath = tableView.indexPathForCell(cell)
-    let isConnected = cell.customSwitch.on ? false : true;
     let item = row[(indexPath?.row)!]
-    item.isConnected = isConnected
+    item.isConnected = cell.customSwitch.on
     
     row[(indexPath?.row)!].proximity = Constants.Proximity.Outside
     
-    if isConnected {
+    if cell.customSwitch.on {
       if (!isBluetoothPoweredOn) {
         showAlertForSettings()
       }
