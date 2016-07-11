@@ -310,8 +310,9 @@ import QuartzCore
         
         return true
     }
-    
-    override public func continueTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
+  
+    /* Disabled this animation - Francis 7/11/2016 */
+    /*override public func continueTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
         super.continueTrackingWithTouch(touch, withEvent: event)
         
         // Get touch location
@@ -333,7 +334,7 @@ import QuartzCore
         }
 
         return true
-    }
+    }*/
     
     override public func endTrackingWithTouch(touch: UITouch?, withEvent event: UIEvent?) {
         super.endTrackingWithTouch(touch, withEvent: event)
