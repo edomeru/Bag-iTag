@@ -1,5 +1,5 @@
 //
-//  DesignableView.swift
+//  CustomDetectionView.swift
 //  TKT40214_LuggageFinder_S1_iOS
 //
 //  Created by PhTktimac1 on 02/06/2016.
@@ -9,7 +9,7 @@
 import UIKit
 
 @IBDesignable
-class DesignableView : UIView {
+class CustomDetectionView : UIView {
   
   var imageView: UIImageView!
   

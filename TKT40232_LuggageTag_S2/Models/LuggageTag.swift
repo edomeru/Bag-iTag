@@ -8,13 +8,13 @@
 
 import Foundation
 
-class BeaconModel: NSObject {
+class LuggageTag: NSObject {
   var id: Int = 0
   var photo: NSData? = nil
   var name = ""
-  var UUID = ""
+  var uuid = ""
   var major = ""
   var minor = ""
-  var proximity = "unknown"
+  var regionState = "unknown"
   var isConnected = false
 }

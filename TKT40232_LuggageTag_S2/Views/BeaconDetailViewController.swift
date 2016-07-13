@@ -24,10 +24,10 @@ extension String {
 }
 
 protocol BeaconDetailViewControllerDelegate: NSObjectProtocol {
-  func beaconDetailViewController(controller: BeaconDetailViewController, didFinishAddingItem item: BeaconModel)
-  func beaconDetailViewController(controller: BeaconDetailViewController, didFinishEditingItem item: BeaconModel)
-  func deleteBeacon(didDeleteItem item: BeaconModel)
-  func didBluetoothPoweredOff(didPowerOff item: BeaconModel)
+  func beaconDetailViewController(controller: BeaconDetailViewController, didFinishAddingItem item: LuggageTag)
+  func beaconDetailViewController(controller: BeaconDetailViewController, didFinishEditingItem item: LuggageTag)
+  func deleteBeacon(didDeleteItem item: LuggageTag)
+  func didBluetoothPoweredOff(didPowerOff item: LuggageTag)
 }
 
 class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UITextFieldDelegate, TKTCoreLocationDelegate, ModalViewControllerDelegate {
@@ -44,8 +44,8 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   
   weak var delegate: BeaconDetailViewControllerDelegate?
   
-  var beaconReference: [BeaconModel]?
-  var beaconToEdit: BeaconModel?
+  var beaconReference: [LuggageTag]?
+  var beaconToEdit: LuggageTag?
   var isPhotoEdited = false
   
   override func viewDidLoad() {
@@ -64,7 +64,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
         imgButton.imageView?.contentMode = UIViewContentMode.Center
       }
       
-      if (item.proximity == "Inside") {
+      if (item.regionState == "Inside") {
         rangeLabel.text = Constants.Range.InRange
       } else {
         rangeLabel.text = Constants.Range.OutOfRange
@@ -72,8 +72,8 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
       
       nameTextField.text = item.name
       
-      let stringIndex = item.UUID.endIndex.advancedBy(-12)
-      uuidTextField.text = item.UUID.substringFromIndex(stringIndex)
+      let stringIndex = item.uuid.endIndex.advancedBy(-12)
+      uuidTextField.text = item.uuid.substringFromIndex(stringIndex)
     } else {
       rangeLabel.hidden = true
       button.setTitle("Cancel", forState: .Normal)
@@ -119,15 +119,15 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     
     if (isValidLuggage) {
       if let beaconItem = beaconToEdit {
-        let originalStringIndex = beaconItem.UUID.endIndex.advancedBy(-12)
-        let originalString = beaconItem.UUID.substringFromIndex(originalStringIndex)
+        let originalStringIndex = beaconItem.uuid.endIndex.advancedBy(-12)
+        let originalString = beaconItem.uuid.substringFromIndex(originalStringIndex)
         
         if (isPhotoEdited || (nameTextField.text! != beaconItem.name) || (uuidTextField.text! != originalString)) {
           // Beacon is Edited
           if (beaconItem.isConnected) {
             // Stop Monitoring for this Beacon
             var beaconRegion: CLBeaconRegion?
-            beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: beaconItem.UUID)!, identifier: beaconItem.name)
+            beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: beaconItem.uuid)!, identifier: beaconItem.name)
             tktCoreLocation.stopMonitoringBeacon(beaconRegion)
           }
           
@@ -136,8 +136,8 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
           }
           
           beaconItem.name = nameTextField.text!
-          beaconItem.UUID = "\(Constants.UUID.Identifier)\(uuidTextField.text!.uppercaseString)"
-          beaconItem.proximity = Constants.Proximity.Outside
+          beaconItem.uuid = "\(Constants.UUID.Identifier)\(uuidTextField.text!.uppercaseString)"
+          beaconItem.regionState = Constants.Proximity.Outside
           
           delegate?.beaconDetailViewController(self, didFinishEditingItem: beaconItem)
         } else {
@@ -147,7 +147,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
         
       } else {
         // New Beacon
-        let beaconItem = BeaconModel()
+        let beaconItem = LuggageTag()
         
         if (isPhotoEdited) {
           beaconItem.photo = UIImageJPEGRepresentation(self.imgButton.currentImage!, 1.0)
@@ -156,10 +156,10 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
         }
 
         beaconItem.name = nameTextField.text!
-        beaconItem.UUID = "\(Constants.UUID.Identifier)\(uuidTextField.text!.uppercaseString)"
+        beaconItem.uuid = "\(Constants.UUID.Identifier)\(uuidTextField.text!.uppercaseString)"
         beaconItem.major = "1"
         beaconItem.minor = "5"
-        beaconItem.proximity = Constants.Proximity.Outside
+        beaconItem.regionState = Constants.Proximity.Outside
         beaconItem.isConnected = false
         
         delegate?.beaconDetailViewController(self, didFinishAddingItem: beaconItem)
@@ -196,7 +196,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
       break
     case .PoweredOff:
       if let luggageTag = beaconToEdit {
-        luggageTag.proximity = Constants.Proximity.Outside
+        luggageTag.regionState = Constants.Proximity.Outside
         rangeLabel.text = Constants.Range.OutOfRange
         delegate?.didBluetoothPoweredOff(didPowerOff: luggageTag)
       }
@@ -217,7 +217,6 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   func didEnterRegion(region: CLRegion!) {
     if let connected = beaconToEdit?.isConnected {
       if (region.identifier == beaconToEdit!.name && connected) {
-        //beaconToEdit?.proximity = Constants.Proximity.Inside
         rangeLabel.text = Constants.Range.InRange
       }
     }
@@ -226,7 +225,6 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   func didExitRegion(region: CLRegion!) {
     if let luggageTag = beaconToEdit?.name {
       if (region.identifier == luggageTag) {
-        //beaconToEdit?.proximity = Constants.Proximity.Outside
         rangeLabel.text = Constants.Range.OutOfRange
       }
     }
@@ -281,9 +279,9 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   
   func checkIdentifierCodeAvailability() -> Bool {
     for beacon in beaconReference! {
-      if (beacon.UUID == ("\(Constants.UUID.Identifier)\(uuidTextField.text!)")) {
+      if (beacon.uuid == ("\(Constants.UUID.Identifier)\(uuidTextField.text!)")) {
         if let item = beaconToEdit {
-          if (item.UUID == beacon.UUID) {
+          if (item.uuid == beacon.uuid) {
             continue
           } else {
             return false

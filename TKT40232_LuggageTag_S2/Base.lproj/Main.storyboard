@@ -155,7 +155,7 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </button>
-                                                <view tag="1002" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="uEK-oK-YRh" customClass="DesignableView" customModule="LuggageFinder" customModuleProvider="target">
+                                                <view tag="1002" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="uEK-oK-YRh" customClass="CustomDetectionView" customModule="LuggageFinder" customModuleProvider="target">
                                                     <rect key="frame" x="148" y="117" width="50" height="50"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>

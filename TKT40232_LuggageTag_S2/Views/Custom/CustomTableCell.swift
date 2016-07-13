@@ -27,12 +27,12 @@ class CustomTableCell: UITableViewCell {
   
   @IBOutlet var photo: CustomButton!
   @IBOutlet var name: UILabel!
-  @IBOutlet var connection: DesignableView!
+  @IBOutlet var connection: CustomDetectionView!
   @IBOutlet var customSwitch: SevenSwitch!
   
   weak var delegate: CustomTableCellDelegate?
   
-  func setupWithModel(model: BeaconModel) {
+  func setupWithModel(model: LuggageTag) {
     if (model.photo != nil) {
       photo.setImage(UIImage(data: model.photo!)!, forState: .Normal)
       photo.imageView?.contentMode = UIViewContentMode.Center
@@ -40,7 +40,7 @@ class CustomTableCell: UITableViewCell {
       photo.setImage(UIImage(named: "luggage_default"), forState: .Normal)
     }
     
-    if (model.proximity == "Outside" || model.proximity == "unknown") {
+    if (model.regionState == "Outside" || model.regionState == "unknown") {
       connection.image = UIImage(named: "off_range")
     } else {
       connection.image = UIImage(named: "in_range")

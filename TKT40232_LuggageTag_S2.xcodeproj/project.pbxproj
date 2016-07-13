@@ -10,9 +10,9 @@
 		151451491CF6A96A001EFF5D /* BeaconDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151451481CF6A96A001EFF5D /* BeaconDetailViewController.swift */; };
 		1515472D1D0939920045390E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1515472C1D0939920045390E /* QuartzCore.framework */; };
 		151547301D093B0D0045390E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1515472E1D093B0D0045390E /* Main.storyboard */; };
-		1519913F1CF54F2500EE8725 /* BeaconModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1519913E1CF54F2500EE8725 /* BeaconModel.swift */; };
+		1519913F1CF54F2500EE8725 /* LuggageTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1519913E1CF54F2500EE8725 /* LuggageTag.swift */; };
 		151B2E5E1CFEF194007BCF27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 151B2E5D1CFEF194007BCF27 /* Assets.xcassets */; };
-		151D2D5C1CFFE35B002F5B05 /* DesignableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151D2D5B1CFFE35B002F5B05 /* DesignableView.swift */; };
+		151D2D5C1CFFE35B002F5B05 /* CustomDetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151D2D5B1CFFE35B002F5B05 /* CustomDetectionView.swift */; };
 		151D2D5E1D000BDA002F5B05 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151D2D5D1D000BDA002F5B05 /* CustomButton.swift */; };
 		151D2D601D002122002F5B05 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151D2D5F1D002122002F5B05 /* CustomTextField.swift */; };
 		1550E9551CF8199E00445008 /* BeaconItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1550E9531CF8199E00445008 /* BeaconItem.swift */; };
@@ -35,9 +35,9 @@
 		151451481CF6A96A001EFF5D /* BeaconDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BeaconDetailViewController.swift; path = Views/BeaconDetailViewController.swift; sourceTree = "<group>"; };
 		1515472C1D0939920045390E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		1515472F1D093B0D0045390E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		1519913E1CF54F2500EE8725 /* BeaconModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BeaconModel.swift; path = Models/BeaconModel.swift; sourceTree = "<group>"; };
+		1519913E1CF54F2500EE8725 /* LuggageTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LuggageTag.swift; path = Models/LuggageTag.swift; sourceTree = "<group>"; };
 		151B2E5D1CFEF194007BCF27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		151D2D5B1CFFE35B002F5B05 /* DesignableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DesignableView.swift; path = Views/Custom/DesignableView.swift; sourceTree = "<group>"; };
+		151D2D5B1CFFE35B002F5B05 /* CustomDetectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomDetectionView.swift; path = Views/Custom/CustomDetectionView.swift; sourceTree = "<group>"; };
 		151D2D5D1D000BDA002F5B05 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomButton.swift; path = Views/Custom/CustomButton.swift; sourceTree = "<group>"; };
 		151D2D5F1D002122002F5B05 /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomTextField.swift; path = Views/Custom/CustomTextField.swift; sourceTree = "<group>"; };
 		1550E9531CF8199E00445008 /* BeaconItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BeaconItem.swift; path = Models/CoreData/BeaconItem.swift; sourceTree = "<group>"; };
@@ -85,7 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				151B2E561CFE7FB7007BCF27 /* CoreData */,
-				1519913E1CF54F2500EE8725 /* BeaconModel.swift */,
+				1519913E1CF54F2500EE8725 /* LuggageTag.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -117,7 +117,7 @@
 				151D2D5D1D000BDA002F5B05 /* CustomButton.swift */,
 				157DB7011CF45B6800FC960E /* CustomTableCell.swift */,
 				151D2D5F1D002122002F5B05 /* CustomTextField.swift */,
-				151D2D5B1CFFE35B002F5B05 /* DesignableView.swift */,
+				151D2D5B1CFFE35B002F5B05 /* CustomDetectionView.swift */,
 			);
 			name = Custom;
 			sourceTree = "<group>";
@@ -273,11 +273,11 @@
 				157DB6F91CF4073C00FC960E /* TKTCoreLocation.swift in Sources */,
 				157E64EE1D0667CA0081F6D0 /* BeaconItem+CoreDataProperties.swift in Sources */,
 				157DB7021CF45B6800FC960E /* CustomTableCell.swift in Sources */,
-				1519913F1CF54F2500EE8725 /* BeaconModel.swift in Sources */,
+				1519913F1CF54F2500EE8725 /* LuggageTag.swift in Sources */,
 				157DB6E91CF401CC00FC960E /* ListViewController.swift in Sources */,
 				157E847D1D0FE4B100179F23 /* BeaconCoreDataModel.xcdatamodeld in Sources */,
 				1550E9551CF8199E00445008 /* BeaconItem.swift in Sources */,
-				151D2D5C1CFFE35B002F5B05 /* DesignableView.swift in Sources */,
+				151D2D5C1CFFE35B002F5B05 /* CustomDetectionView.swift in Sources */,
 				151D2D5E1D000BDA002F5B05 /* CustomButton.swift in Sources */,
 				157DB6E71CF401CC00FC960E /* AppDelegate.swift in Sources */,
 				157DB7001CF43B6400FC960E /* Constants.swift in Sources */,

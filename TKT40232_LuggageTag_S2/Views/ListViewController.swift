@@ -14,7 +14,7 @@ import CoreData
 class ListViewController: UIViewController, CBCentralManagerDelegate, TKTCoreLocationDelegate, UITableViewDataSource,
 UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControllerDelegate, CustomTableCellDelegate  {
   
-  var row: [BeaconModel]
+  var row: [LuggageTag]
   
   let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
   
@@ -51,7 +51,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   }
   
   required init?(coder aDecoder: NSCoder) {
-    row = [BeaconModel]()
+    row = [LuggageTag]()
     super.init(coder: aDecoder)
     
   }
@@ -167,13 +167,13 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   func didEnterRegion(region: CLRegion!) {
     for beacon in row {
       if (beacon.name == region.identifier) {
-        if (beacon.proximity != Constants.Proximity.Inside) {
+        if (beacon.regionState != Constants.Proximity.Inside) {
           if let index = row.indexOf(beacon) {
             let indexPath = NSIndexPath(forRow: index, inSection: 0)
-            row[indexPath.row].proximity = Constants.Proximity.Inside
+            row[indexPath.row].regionState = Constants.Proximity.Inside
             if let cell = tableView.cellForRowAtIndexPath(indexPath) {
-              configureCellRegion(cell, withBeaconModel: beacon, connected: true)
-              createLocalNotification(region.identifier, identifier: beacon.UUID, message: NSLocalizedString("has_arrived", comment: ""))
+              configureCellRegion(cell, withLuggageTag: beacon, connected: true)
+              createLocalNotification(region.identifier, identifier: beacon.uuid, message: NSLocalizedString("has_arrived", comment: ""))
             }
             
             
@@ -186,13 +186,13 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   func didExitRegion(region: CLRegion!) {
     for beacon in row {
       if (beacon.name == region.identifier) {
-        if (beacon.proximity != Constants.Proximity.Outside) {
+        if (beacon.regionState != Constants.Proximity.Outside) {
           if let index = row.indexOf(beacon) {
             let indexPath = NSIndexPath(forRow: index, inSection: 0)
-            row[indexPath.row].proximity = Constants.Proximity.Outside
+            row[indexPath.row].regionState = Constants.Proximity.Outside
             if let cell = tableView.cellForRowAtIndexPath(indexPath) {
-              configureCellRegion(cell, withBeaconModel: beacon, connected: false)
-              createLocalNotification(region.identifier, identifier: beacon.UUID, message: NSLocalizedString("is_gone", comment: ""))
+              configureCellRegion(cell, withLuggageTag: beacon, connected: false)
+              createLocalNotification(region.identifier, identifier: beacon.uuid, message: NSLocalizedString("is_gone", comment: ""))
             }
           }
           
@@ -238,7 +238,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   }
   
   // MARK: BeaconDetailViewControllerDelegate Methods
-  func beaconDetailViewController(controller: BeaconDetailViewController, didFinishAddingItem item: BeaconModel) {
+  func beaconDetailViewController(controller: BeaconDetailViewController, didFinishAddingItem item: LuggageTag) {
     let index = row.count
     row.append(item)
     item.id = index
@@ -256,12 +256,12 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     dismissViewControllerAnimated(true, completion: nil)
   }
   
-  func beaconDetailViewController(controller: BeaconDetailViewController, didFinishEditingItem item: BeaconModel) {
+  func beaconDetailViewController(controller: BeaconDetailViewController, didFinishEditingItem item: LuggageTag) {
     if let index = row.indexOf(item) {
       let indexPath = NSIndexPath(forRow: index, inSection: 0)
       if let cell = tableView.cellForRowAtIndexPath(indexPath) {
-        configureCell(cell, withBeaconModel: item)
-        configureCellRegion(cell, withBeaconModel: item, connected: false)
+        configureCell(cell, withLuggageTag: item)
+        configureCellRegion(cell, withLuggageTag: item, connected: false)
       }
       
       if (item.isConnected) {
@@ -274,19 +274,19 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     dismissViewControllerAnimated(true, completion: nil)
   }
   
-  func deleteBeacon(didDeleteItem item: BeaconModel) {
+  func deleteBeacon(didDeleteItem item: LuggageTag) {
     if let index = row.indexOf(item) {
       // Check if item is monitoring
       if item.isConnected {
         // Stop Monitoring for this Beacon
         var beaconRegion: CLBeaconRegion?
-        beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: item.UUID)!, identifier: item.name)
+        beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: item.uuid)!, identifier: item.name)
         
         tktCoreLocation.stopMonitoringBeacon(beaconRegion)
       }
       
       // Delete LocalNotification
-      deleteLocalNotification(item.name, identifier: item.UUID)
+      deleteLocalNotification(item.name, identifier: item.uuid)
       
       deleteToDatabase(item.id)
       
@@ -302,11 +302,11 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     dismissViewControllerAnimated(true, completion: nil)
   }
   
-  func didBluetoothPoweredOff(didPowerOff item: BeaconModel) {
+  func didBluetoothPoweredOff(didPowerOff item: LuggageTag) {
     if let index = row.indexOf(item) {
       let indexPath = NSIndexPath(forRow: index, inSection: 0)
       if let cell = tableView.cellForRowAtIndexPath(indexPath) {
-        configureCellRegion(cell, withBeaconModel: item, connected: false)
+        configureCellRegion(cell, withLuggageTag: item, connected: false)
       }
     }
   }
@@ -317,7 +317,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     let item = row[(indexPath?.row)!]
     item.isConnected = cell.customSwitch.on
     
-    row[(indexPath?.row)!].proximity = Constants.Proximity.Outside
+    row[(indexPath?.row)!].regionState = Constants.Proximity.Outside
     
     if cell.customSwitch.on {
       if (!isBluetoothPoweredOn) {
@@ -326,7 +326,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       
       // Start Monitoring for this Beacon
       var beaconRegion: CLBeaconRegion?
-      beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: item.UUID)!, identifier: item.name)
+      beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: item.uuid)!, identifier: item.name)
       // later, these values can be set from the UI
       beaconRegion!.notifyEntryStateOnDisplay = true
       beaconRegion!.notifyOnEntry = true
@@ -335,14 +335,14 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       tktCoreLocation.startMonitoring(beaconRegion)
     } else {
       // Delete LocalNotification
-      deleteLocalNotification(row[(indexPath?.row)!].name, identifier: row[(indexPath?.row)!].UUID)
+      deleteLocalNotification(row[(indexPath?.row)!].name, identifier: row[(indexPath?.row)!].uuid)
       
-      row[(indexPath?.row)!].proximity = Constants.Proximity.Outside
-      configureCellRegion(cell, withBeaconModel: item, connected: false)
+      row[(indexPath?.row)!].regionState = Constants.Proximity.Outside
+      configureCellRegion(cell, withLuggageTag: item, connected: false)
       
       // Stop Monitoring for this Beacon
       var beaconRegion: CLBeaconRegion?
-      beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: item.UUID)!, identifier: item.name)
+      beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: item.uuid)!, identifier: item.name)
       
       // Stop Monitoring this Specific Beacon.
       tktCoreLocation.stopMonitoringBeacon(beaconRegion)
@@ -368,7 +368,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     self.presentViewController(alertController, animated: true, completion: nil)
   }
   
-  private func configureCell(cell: UITableViewCell, withBeaconModel item: BeaconModel) {
+  private func configureCell(cell: UITableViewCell, withLuggageTag item: LuggageTag) {
     let label = cell.viewWithTag(1000) as! UILabel
     let photo = cell.viewWithTag(1001) as! CustomButton
     
@@ -380,8 +380,8 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     label.text = item.name
   }
   
-  private func configureCellRegion(cell: UITableViewCell, withBeaconModel item: BeaconModel, connected: Bool) {
-    let region = cell.viewWithTag(1002) as! DesignableView
+  private func configureCellRegion(cell: UITableViewCell, withLuggageTag item: LuggageTag, connected: Bool) {
+    let region = cell.viewWithTag(1002) as! CustomDetectionView
     if (connected) {
       region.image = UIImage(named: "in_range")
     } else {
@@ -392,7 +392,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   private func loadBeaconItems() {
     // Loop Through All BeaconItem and put it in Model
     for beacon in frc.fetchedObjects! as! [BeaconItem] {
-      let item = BeaconModel()
+      let item = LuggageTag()
       let index: Int = Int(beacon.id!)
       let i: Int = Int(beacon.connection!)
       var isConnected = false
@@ -406,10 +406,10 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         item.photo = beacon.photo!
       }
       item.name = beacon.name!
-      item.UUID = beacon.uuid!
+      item.uuid = beacon.uuid!
       item.major = beacon.major!
       item.minor = beacon.minor!
-      item.proximity = Constants.Proximity.Unknown
+      item.regionState = Constants.Proximity.Unknown
       item.isConnected = isConnected
       
       row.append(item)
@@ -424,7 +424,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       for beacon in row {
         if beacon.isConnected {
           var beaconRegion: CLBeaconRegion?
-          beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: beacon.UUID)!, identifier: beacon.name)
+          beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: beacon.uuid)!, identifier: beacon.name)
           // Stop Beacon First
           tktCoreLocation.stopMonitoringBeacon(beaconRegion)
   
@@ -443,9 +443,9 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     }
   }
   
-  private func startMonitoringforBeacon(beaconItem: BeaconModel) {
+  private func startMonitoringforBeacon(beaconItem: LuggageTag) {
     var beaconRegion: CLBeaconRegion?
-    beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: beaconItem.UUID)!, identifier: beaconItem.name)
+    beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: beaconItem.uuid)!, identifier: beaconItem.name)
     // later, these values can be set from the UI
     beaconRegion!.notifyEntryStateOnDisplay = true
     beaconRegion!.notifyOnEntry = true
@@ -457,20 +457,20 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   private func checkLuggageTagRegion() {
     if row.count > 0 {
       for beacon in row {
-        if (beacon.proximity == Constants.Proximity.Inside) {
+        if (beacon.regionState == Constants.Proximity.Inside) {
           // Stop Monitoring for this Beacon
           var beaconRegion: CLBeaconRegion?
-          beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: beacon.UUID)!, identifier: beacon.name)
+          beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: beacon.uuid)!, identifier: beacon.name)
           
           // Stop Monitoring this Specific Beacon.
           tktCoreLocation.stopMonitoringBeacon(beaconRegion)
           
           if let index = row.indexOf(beacon) {
             let indexPath = NSIndexPath(forRow: index, inSection: 0)
-            row[indexPath.row].proximity = Constants.Proximity.Outside
+            row[indexPath.row].regionState = Constants.Proximity.Outside
             
             if let cell = tableView.cellForRowAtIndexPath(indexPath) {
-              configureCellRegion(cell, withBeaconModel: beacon, connected: false)
+              configureCellRegion(cell, withLuggageTag: beacon, connected: false)
             }
           }
         }
@@ -478,7 +478,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     }
   }
   
-  private func saveToDatabase(beaconItem: BeaconModel) {
+  private func saveToDatabase(beaconItem: LuggageTag) {
     let entityDescription = NSEntityDescription.entityForName("BeaconItem", inManagedObjectContext: moc)
     
     let item = BeaconItem(entity: entityDescription!, insertIntoManagedObjectContext: moc)
@@ -487,7 +487,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     item.id = id
     item.photo = beaconItem.photo
     item.name = beaconItem.name
-    item.uuid = beaconItem.UUID
+    item.uuid = beaconItem.uuid
     item.major = beaconItem.major
     item.minor = beaconItem.minor
     item.connection = beaconItem.isConnected
@@ -500,7 +500,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     }
   }
   
-  private func updateToDatabase(item: BeaconModel) {
+  private func updateToDatabase(item: LuggageTag) {
     let entityDescription = NSEntityDescription.entityForName("BeaconItem", inManagedObjectContext: moc)
     
     let req = NSFetchRequest()
@@ -518,7 +518,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         let beacon = result[0] as! BeaconItem
         beacon.setValue(item.photo, forKey: "photo")
         beacon.setValue(item.name, forKey: "name")
-        beacon.setValue(item.UUID, forKey: "uuid")
+        beacon.setValue(item.uuid, forKey: "uuid")
         beacon.setValue(item.major, forKey: "major")
         beacon.setValue(item.minor, forKey: "minor")
         beacon.setValue(item.isConnected, forKey: "connection")
