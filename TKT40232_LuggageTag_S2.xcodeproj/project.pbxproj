@@ -27,9 +27,28 @@
 		157DB7021CF45B6800FC960E /* CustomTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157DB7011CF45B6800FC960E /* CustomTableCell.swift */; };
 		157E64EE1D0667CA0081F6D0 /* BeaconItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157E64ED1D0667CA0081F6D0 /* BeaconItem+CoreDataProperties.swift */; };
 		157E847D1D0FE4B100179F23 /* BeaconCoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 157E847B1D0FE4B100179F23 /* BeaconCoreDataModel.xcdatamodeld */; };
+		158F70921D36313200AB3092 /* TKT40232_LuggageTag_S2_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158F70911D36313200AB3092 /* TKT40232_LuggageTag_S2_Tests.swift */; };
+		158F70A51D36336D00AB3092 /* TKT40232_LuggageTag_S2_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158F70A21D36335100AB3092 /* TKT40232_LuggageTag_S2_UITests.swift */; };
 		15F5FA991D05166800E0236C /* GADUGI.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 15F5FA971D05166800E0236C /* GADUGI.TTF */; };
 		15F5FA9A1D05166800E0236C /* GADUGIB.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 15F5FA981D05166800E0236C /* GADUGIB.TTF */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		158F70891D36302100AB3092 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 157DB6DB1CF401CB00FC960E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 157DB6E21CF401CB00FC960E;
+			remoteInfo = LuggageFinder;
+		};
+		158F709C1D36328F00AB3092 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 157DB6DB1CF401CB00FC960E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 157DB6E21CF401CB00FC960E;
+			remoteInfo = LuggageFinder;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		151451481CF6A96A001EFF5D /* BeaconDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BeaconDetailViewController.swift; path = Views/BeaconDetailViewController.swift; sourceTree = "<group>"; };
@@ -54,6 +73,12 @@
 		157DB7011CF45B6800FC960E /* CustomTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomTableCell.swift; path = Views/Custom/CustomTableCell.swift; sourceTree = "<group>"; };
 		157E64ED1D0667CA0081F6D0 /* BeaconItem+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "BeaconItem+CoreDataProperties.swift"; path = "Models/CoreData/BeaconItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		157E847C1D0FE4B100179F23 /* BeaconCoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BeaconCoreDataModel.xcdatamodel; sourceTree = "<group>"; };
+		158F70841D36302100AB3092 /* LuggageFinderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LuggageFinderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		158F70881D36302100AB3092 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		158F70911D36313200AB3092 /* TKT40232_LuggageTag_S2_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TKT40232_LuggageTag_S2_Tests.swift; sourceTree = "<group>"; };
+		158F70971D36328F00AB3092 /* LuggageFinderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LuggageFinderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		158F70A11D36335100AB3092 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		158F70A21D36335100AB3092 /* TKT40232_LuggageTag_S2_UITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TKT40232_LuggageTag_S2_UITests.swift; sourceTree = "<group>"; };
 		15F5FA971D05166800E0236C /* GADUGI.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; name = GADUGI.TTF; path = "Supporting Files/Fonts/GADUGI.TTF"; sourceTree = "<group>"; };
 		15F5FA981D05166800E0236C /* GADUGIB.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; name = GADUGIB.TTF; path = "Supporting Files/Fonts/GADUGIB.TTF"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -64,6 +89,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				1515472D1D0939920045390E /* QuartzCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		158F70811D36302100AB3092 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		158F70941D36328F00AB3092 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -162,6 +201,8 @@
 			children = (
 				156C0E701D0AB2A5002E0DD7 /* Frameworks */,
 				157DB6E51CF401CC00FC960E /* TKT40232_LuggageTag_S2 */,
+				158F70851D36302100AB3092 /* TKT40232_LuggageTag_S2_Tests */,
+				158F70981D36328F00AB3092 /* TKT40232_LuggageTag_S2_UITests */,
 				157DB6E41CF401CB00FC960E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -170,6 +211,8 @@
 			isa = PBXGroup;
 			children = (
 				157DB6E31CF401CB00FC960E /* LuggageFinder.app */,
+				158F70841D36302100AB3092 /* LuggageFinderTests.xctest */,
+				158F70971D36328F00AB3092 /* LuggageFinderUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -186,6 +229,24 @@
 				151B2E541CFE7F26007BCF27 /* Supporting Files */,
 			);
 			path = TKT40232_LuggageTag_S2;
+			sourceTree = "<group>";
+		};
+		158F70851D36302100AB3092 /* TKT40232_LuggageTag_S2_Tests */ = {
+			isa = PBXGroup;
+			children = (
+				158F70911D36313200AB3092 /* TKT40232_LuggageTag_S2_Tests.swift */,
+				158F70881D36302100AB3092 /* Info.plist */,
+			);
+			path = TKT40232_LuggageTag_S2_Tests;
+			sourceTree = "<group>";
+		};
+		158F70981D36328F00AB3092 /* TKT40232_LuggageTag_S2_UITests */ = {
+			isa = PBXGroup;
+			children = (
+				158F70A21D36335100AB3092 /* TKT40232_LuggageTag_S2_UITests.swift */,
+				158F70A11D36335100AB3092 /* Info.plist */,
+			);
+			path = TKT40232_LuggageTag_S2_UITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -208,6 +269,42 @@
 			productReference = 157DB6E31CF401CB00FC960E /* LuggageFinder.app */;
 			productType = "com.apple.product-type.application";
 		};
+		158F70831D36302100AB3092 /* LuggageFinderTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 158F708D1D36302200AB3092 /* Build configuration list for PBXNativeTarget "LuggageFinderTests" */;
+			buildPhases = (
+				158F70801D36302100AB3092 /* Sources */,
+				158F70811D36302100AB3092 /* Frameworks */,
+				158F70821D36302100AB3092 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				158F708A1D36302100AB3092 /* PBXTargetDependency */,
+			);
+			name = LuggageFinderTests;
+			productName = TKT40232_LuggageTag_S2_Tests;
+			productReference = 158F70841D36302100AB3092 /* LuggageFinderTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		158F70961D36328F00AB3092 /* LuggageFinderUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 158F709E1D36328F00AB3092 /* Build configuration list for PBXNativeTarget "LuggageFinderUITests" */;
+			buildPhases = (
+				158F70931D36328F00AB3092 /* Sources */,
+				158F70941D36328F00AB3092 /* Frameworks */,
+				158F70951D36328F00AB3092 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				158F709D1D36328F00AB3092 /* PBXTargetDependency */,
+			);
+			name = LuggageFinderUITests;
+			productName = TKT40232_LuggageTag_S2_UITests;
+			productReference = 158F70971D36328F00AB3092 /* LuggageFinderUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -227,6 +324,14 @@
 							};
 						};
 					};
+					158F70831D36302100AB3092 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = 157DB6E21CF401CB00FC960E;
+					};
+					158F70961D36328F00AB3092 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = 157DB6E21CF401CB00FC960E;
+					};
 				};
 			};
 			buildConfigurationList = 157DB6DE1CF401CB00FC960E /* Build configuration list for PBXProject "TKT40232_LuggageTag_S2" */;
@@ -243,6 +348,8 @@
 			projectRoot = "";
 			targets = (
 				157DB6E21CF401CB00FC960E /* LuggageFinder */,
+				158F70831D36302100AB3092 /* LuggageFinderTests */,
+				158F70961D36328F00AB3092 /* LuggageFinderUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -258,6 +365,20 @@
 				151547301D093B0D0045390E /* Main.storyboard in Resources */,
 				151B2E5E1CFEF194007BCF27 /* Assets.xcassets in Resources */,
 				157DB6F11CF401CC00FC960E /* LaunchScreen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		158F70821D36302100AB3092 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		158F70951D36328F00AB3092 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,7 +407,36 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		158F70801D36302100AB3092 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				158F70921D36313200AB3092 /* TKT40232_LuggageTag_S2_Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		158F70931D36328F00AB3092 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				158F70A51D36336D00AB3092 /* TKT40232_LuggageTag_S2_UITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		158F708A1D36302100AB3092 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 157DB6E21CF401CB00FC960E /* LuggageFinder */;
+			targetProxy = 158F70891D36302100AB3092 /* PBXContainerItemProxy */;
+		};
+		158F709D1D36328F00AB3092 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 157DB6E21CF401CB00FC960E /* LuggageFinder */;
+			targetProxy = 158F709C1D36328F00AB3092 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		1515472E1D093B0D0045390E /* Main.storyboard */ = {
@@ -419,6 +569,56 @@
 			};
 			name = Release;
 		};
+		158F708B1D36302200AB3092 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = TKT40232_LuggageTag_S2_Tests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tektosworld.TKT40232-LuggageTag-S2-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LuggageFinder.app/LuggageFinder";
+			};
+			name = Debug;
+		};
+		158F708C1D36302200AB3092 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = TKT40232_LuggageTag_S2_Tests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tektosworld.TKT40232-LuggageTag-S2-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LuggageFinder.app/LuggageFinder";
+			};
+			name = Release;
+		};
+		158F709F1D36328F00AB3092 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = TKT40232_LuggageTag_S2_UITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tektosworld.TKT40232-LuggageTag-S2-UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = LuggageFinder;
+			};
+			name = Debug;
+		};
+		158F70A01D36328F00AB3092 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = TKT40232_LuggageTag_S2_UITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tektosworld.TKT40232-LuggageTag-S2-UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = LuggageFinder;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -439,6 +639,22 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		158F708D1D36302200AB3092 /* Build configuration list for PBXNativeTarget "LuggageFinderTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				158F708B1D36302200AB3092 /* Debug */,
+				158F708C1D36302200AB3092 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		158F709E1D36328F00AB3092 /* Build configuration list for PBXNativeTarget "LuggageFinderUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				158F709F1D36328F00AB3092 /* Debug */,
+				158F70A01D36328F00AB3092 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 
