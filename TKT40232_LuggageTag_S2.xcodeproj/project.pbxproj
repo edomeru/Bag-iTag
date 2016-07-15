@@ -647,6 +647,7 @@
 				158F708C1D36302200AB3092 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		158F709E1D36328F00AB3092 /* Build configuration list for PBXNativeTarget "LuggageFinderUITests" */ = {
 			isa = XCConfigurationList;
@@ -655,6 +656,7 @@
 				158F70A01D36328F00AB3092 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
