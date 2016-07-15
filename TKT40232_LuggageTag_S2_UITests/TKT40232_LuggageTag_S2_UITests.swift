@@ -56,6 +56,11 @@ class TKT40232_LuggageTag_S2_UITests: XCTestCase {
     func testExample() {
       // Use recording to get started writing UI tests.
       // Use XCTAssert and related functions to verify your tests produce the correct results.
+      sanitationTesting()
+  
+    }
+  
+    func sanitationTesting() {
       let app = XCUIApplication()
       app.launch()
       
@@ -76,7 +81,7 @@ class TKT40232_LuggageTag_S2_UITests: XCTestCase {
       luggagenameField.tap()
       luggagenameField.typeText("LuggageTag")
       app2.buttons["Return"].tap()
-
+      
       identifierField.tap()
       identifierField.typeText("888888888888")
       app2.buttons["Return"].tap()
@@ -91,10 +96,10 @@ class TKT40232_LuggageTag_S2_UITests: XCTestCase {
       identifierField.typeText("777777777777")
       app2.buttons["Return"].tap()
       backButton.tap()
-       
+      
       let okButton = app.alerts["Error"].collectionViews.buttons["OK"]
       okButton.tap()
-       
+      
       luggagenameField.tap()
       luggagenameField.clearAndEnterText("LuggageTag2")
       app2.buttons["Return"].tap()
@@ -116,12 +121,53 @@ class TKT40232_LuggageTag_S2_UITests: XCTestCase {
       okButton.tap()
       
       luggagenameField.tap()
-      luggagenameField.typeText("")
+      luggagenameField.typeText("LuggageTag3")
+      app2.buttons["Return"].tap()
+      
       
       identifierField.tap()
       identifierField.typeText("1234X6ABCDEF")
+      app2.buttons["Return"].tap()
       backButton.tap()
       okButton.tap()
       
+      identifierField.tap()
+      identifierField.clearAndEnterText("123456ABCDEF")
+      app2.buttons["Return"].tap()
+      backButton.tap()
+      
+      let tablesQuery = app.tables
+      tablesQuery.staticTexts["LuggageTag2"].tap()
+      
+      luggagenameField.tap()
+      luggagenameField.clearAndEnterText("LuggageTag")
+      app2.buttons["Return"].tap()
+      
+      identifierField.tap()
+      identifierField.clearAndEnterText("888888888888")
+      app2.buttons["Return"].tap()
+      backButton.tap()
+      okButton.tap()
+      
+      luggagenameField.tap()
+      luggagenameField.clearAndEnterText("LuggageTag2Edit")
+      app2.buttons["Return"].tap()
+      
+      identifierField.tap()
+      identifierField.clearAndEnterText("77777777777A")
+      app2.buttons["Return"].tap()
+      backButton.tap()
+      
+      //Delete LuggageTags
+      tablesQuery.staticTexts["LuggageTag"].tap()
+      app.buttons["DELETE"].tap()
+      
+      tablesQuery.staticTexts["LuggageTag2Edit"].tap()
+      app.buttons["DELETE"].tap()
+      
+      tablesQuery.staticTexts["LuggageTag3"].tap()
+      app.buttons["DELETE"].tap()
+
+
     }
 }
