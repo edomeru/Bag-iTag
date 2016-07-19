@@ -117,6 +117,37 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     return cell
   }
   
+  func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    let luggage = row[indexPath.row]
+    
+    let messageString = String(format: NSLocalizedString("delete_luggage", comment: ""), luggage.name)
+    let alertController = UIAlertController(title: NSLocalizedString("delete_luggage_title", comment: ""), message: messageString, preferredStyle: .Alert)
+    
+    alertController.addAction(
+      UIAlertAction(title: NSLocalizedString("remove", comment: ""), style: .Default) { (action) in
+        
+        if luggage.isConnected {
+          // Stop Monitoring for this Beacon
+          var beaconRegion: CLBeaconRegion?
+          beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: luggage.uuid)!, identifier: luggage.name)
+          
+          self.tktCoreLocation.stopMonitoringBeacon(beaconRegion)
+        }
+        
+        // Delete LocalNotification
+        self.deleteLocalNotification(luggage.name, identifier: luggage.uuid)
+        
+        self.deleteToDatabase(luggage.id)
+        
+        self.row.removeAtIndex(indexPath.row)
+        let indexPaths = [indexPath]
+        tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+      })
+    alertController.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .Cancel, handler: nil))
+    
+    self.presentViewController(alertController, animated: true, completion: nil)
+  }
+  
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     tableView.deselectRowAtIndexPath(indexPath, animated: true)
   }

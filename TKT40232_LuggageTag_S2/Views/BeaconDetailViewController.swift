@@ -34,7 +34,6 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
 
   @IBOutlet weak var nameTextField: UITextField!
   @IBOutlet weak var uuidTextField: UITextField!
-  @IBOutlet weak var button: UIButton!
   @IBOutlet weak var imgButton: UIButton!
   @IBOutlet weak var rangeLabel: UILabel!
   
@@ -76,7 +75,6 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
       uuidTextField.text = item.uuid.substringFromIndex(stringIndex)
     } else {
       rangeLabel.hidden = true
-      button.setTitle("Cancel", forState: .Normal)
     }
     
     nameTextField.delegate = self
@@ -279,7 +277,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   
   func checkIdentifierCodeAvailability() -> Bool {
     for beacon in beaconReference! {
-      if (beacon.uuid == ("\(Constants.UUID.Identifier)\(uuidTextField.text!)")) {
+      if (beacon.uuid == ("\(Constants.UUID.Identifier)\(uuidTextField.text!.uppercaseString)")) {
         if let item = beaconToEdit {
           if (item.uuid == beacon.uuid) {
             continue

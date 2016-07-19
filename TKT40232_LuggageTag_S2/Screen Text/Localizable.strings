@@ -10,6 +10,8 @@
 "ok" = "OK";
 "cancel" = "Cancel";
 "error" = "Error";
+"remove" = "Remove";
+"delete_luggage_title" = "Delete Luggage Tag";
 
 /* Application Info */
 "tektos_limited" = "Tektos Limited © 2016";
@@ -20,6 +22,7 @@
 "turn_on_bluetooth" = "Turn On Bluetooth to detect nearby Bag iTag Beacon";
 "location_access_disabled" = "Background Location Access is Disabled";
 "location_access_disabled_settings" = "Please change the location access to \"Always\" in app settings.";
+"delete_luggage" = "Are you sure want to remove this Luggage \"%@\"";
 
 "err_identifier_code_invalid" = "Please enter a valid identifier code";
 "err_luggage_tag_invalid" = "Please enter a valid luggage tag";

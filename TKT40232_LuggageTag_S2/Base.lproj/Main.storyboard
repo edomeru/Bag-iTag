@@ -20,7 +20,6 @@
             <string>Gadugi-Bold</string>
             <string>Gadugi-Bold</string>
             <string>Gadugi-Bold</string>
-            <string>Gadugi-Bold</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -484,50 +483,19 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rxh-Ln-oZV" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
-                                <rect key="frame" x="50" y="496" width="500" height="40"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="zhI-FX-0NE"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="20"/>
-                                <state key="normal" title="DELETE">
-                                    <color key="titleColor" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="20"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="deleteBeacon" destination="ZKc-tn-hlY" eventType="touchUpInside" id="HOU-s4-G3q"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="idS-w2-DuE" firstAttribute="trailing" secondItem="XKN-hw-mUC" secondAttribute="trailing" id="1yc-5G-3Tq"/>
-                            <constraint firstItem="Rxh-Ln-oZV" firstAttribute="top" secondItem="XKN-hw-mUC" secondAttribute="bottom" constant="74" id="39Z-xF-rVS"/>
                             <constraint firstItem="evJ-wm-XnQ" firstAttribute="top" secondItem="APj-Nl-Kal" secondAttribute="bottom" constant="25" id="6IY-aw-Wc0"/>
                             <constraint firstItem="NuV-Hd-KOi" firstAttribute="top" secondItem="evJ-wm-XnQ" secondAttribute="bottom" constant="16" id="7Uw-nw-bni"/>
-                            <constraint firstItem="Rxh-Ln-oZV" firstAttribute="top" secondItem="APj-Nl-Kal" secondAttribute="bottom" constant="442" id="8hW-Bv-PkP"/>
                             <constraint firstAttribute="trailing" secondItem="evJ-wm-XnQ" secondAttribute="trailing" id="CV8-64-UFf"/>
-                            <constraint firstAttribute="bottom" secondItem="Rxh-Ln-oZV" secondAttribute="bottom" constant="20" symbolic="YES" id="Iop-1l-Dmb"/>
                             <constraint firstItem="NuV-Hd-KOi" firstAttribute="top" secondItem="APj-Nl-Kal" secondAttribute="bottom" constant="241" id="MKZ-Cb-5d9"/>
                             <constraint firstItem="idS-w2-DuE" firstAttribute="top" secondItem="NuV-Hd-KOi" secondAttribute="bottom" constant="8" symbolic="YES" id="NcN-pO-Q98"/>
                             <constraint firstItem="idS-w2-DuE" firstAttribute="top" secondItem="NuV-Hd-KOi" secondAttribute="bottom" constant="8" symbolic="YES" id="OTY-h6-5bS"/>
-                            <constraint firstItem="XKN-hw-mUC" firstAttribute="trailing" secondItem="Rxh-Ln-oZV" secondAttribute="trailing" id="Y4g-0h-ms7"/>
                             <constraint firstItem="evJ-wm-XnQ" firstAttribute="centerX" secondItem="idS-w2-DuE" secondAttribute="centerX" id="Ygo-B1-eEc"/>
-                            <constraint firstItem="Rxh-Ln-oZV" firstAttribute="top" secondItem="XKN-hw-mUC" secondAttribute="bottom" constant="44" id="Yqh-bE-Fqu"/>
                             <constraint firstItem="idS-w2-DuE" firstAttribute="leading" secondItem="9VQ-Rq-HtX" secondAttribute="leadingMargin" constant="30" id="afL-sW-sLB"/>
                             <constraint firstItem="NuV-Hd-KOi" firstAttribute="top" secondItem="evJ-wm-XnQ" secondAttribute="bottom" constant="16" id="d1w-nS-R08"/>
-                            <constraint firstItem="XKN-hw-mUC" firstAttribute="leading" secondItem="Rxh-Ln-oZV" secondAttribute="leading" id="geL-eQ-vO9"/>
                             <constraint firstItem="idS-w2-DuE" firstAttribute="leading" secondItem="XKN-hw-mUC" secondAttribute="leading" id="iKm-D3-MGp"/>
                             <constraint firstItem="XKN-hw-mUC" firstAttribute="top" secondItem="idS-w2-DuE" secondAttribute="bottom" constant="8" id="jey-gb-KvZ"/>
                             <constraint firstItem="NuV-Hd-KOi" firstAttribute="trailing" secondItem="9VQ-Rq-HtX" secondAttribute="trailingMargin" id="kky-9R-94Q"/>
@@ -538,9 +506,6 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="NcN-pO-Q98"/>
-                                <exclude reference="8hW-Bv-PkP"/>
-                                <exclude reference="Iop-1l-Dmb"/>
-                                <exclude reference="Yqh-bE-Fqu"/>
                                 <exclude reference="7Uw-nw-bni"/>
                                 <exclude reference="d1w-nS-R08"/>
                                 <exclude reference="kky-9R-94Q"/>
@@ -556,7 +521,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="button" destination="Rxh-Ln-oZV" id="Rjy-4q-oZm"/>
                         <outlet property="imgButton" destination="QVg-P1-dhs" id="iAU-zY-STX"/>
                         <outlet property="nameTextField" destination="idS-w2-DuE" id="rxD-4P-S0y"/>
                         <outlet property="rangeLabel" destination="NuV-Hd-KOi" id="kHO-c4-SZD"/>
@@ -697,11 +661,11 @@
     </scenes>
     <resources>
         <image name="add_button" width="50" height="50"/>
-        <image name="back_button" width="25" height="25"/>
+        <image name="back_button" width="22" height="22"/>
         <image name="border_line" width="3680" height="26"/>
         <image name="cam_logo" width="150" height="120"/>
         <image name="luggage_default" width="100" height="100"/>
-        <image name="luggage_tag_logo" width="150" height="99"/>
+        <image name="luggage_tag_logo" width="180" height="119"/>
         <image name="off_range" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
