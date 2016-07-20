@@ -125,9 +125,16 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       Drag.placeholderView.center = center
       
       if indexPath != Drag.sourceIndexPath {
+        let sourceOriginalID = row[Drag.sourceIndexPath.row].id
+        row[Drag.sourceIndexPath.row].id = row[indexPath.row].id
+        row[indexPath.row].id = sourceOriginalID
+        
         swap(&row[indexPath.row], &row[Drag.sourceIndexPath.row])
         tableView.moveRowAtIndexPath(Drag.sourceIndexPath, toIndexPath: indexPath)
+        
         Drag.sourceIndexPath = indexPath
+        
+        updateCoreDataModel()
       }
     default:
       if let cell = tableView.cellForRowAtIndexPath(Drag.sourceIndexPath) {
@@ -356,11 +363,13 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   
   // MARK: BeaconDetailViewControllerDelegate Methods
   func beaconDetailViewController(controller: BeaconDetailViewController, didFinishAddingItem item: LuggageTag) {
-    let index = row.count
+    let index = getMaxID() + 1
+    let count = row.count
+    
     row.append(item)
     item.id = index
     
-    let indexPath = NSIndexPath(forRow: index, inSection: 0)
+    let indexPath = NSIndexPath(forRow: count, inSection: 0)
     let indexPaths = [indexPath]
     
     tableView.beginUpdates()
@@ -522,6 +531,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       if beacon.photo != nil {
         item.photo = beacon.photo!
       }
+      
       item.name = beacon.name!
       item.uuid = beacon.uuid!
       item.major = beacon.major!
@@ -593,6 +603,21 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         }
       }
     }
+  }
+  
+  private func getMaxID() -> Int {
+    
+    if row.count > 0 {
+      var ids = [Int]()
+      
+      for luggage in row {
+        ids.append(luggage.id)
+      }
+      
+      return ids.maxElement()!
+    }
+
+    return 0
   }
   
   private func saveToDatabase(beaconItem: LuggageTag) {
@@ -694,6 +719,34 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     } catch let error as NSError {
       fatalError("Error: \(error)")
     }
+  }
+  
+  private func updateCoreDataModel() {
+    do {
+      // Refetch FRC to make sure it is the new CoreData
+      try frc.performFetch()
+      
+      for luggage in row {
+        for beacon in frc.fetchedObjects as! [BeaconItem] {
+          if (luggage.uuid == beacon.uuid!) {
+            if (luggage.id != beacon.id!) {
+              beacon.id = luggage.id
+            }
+          }
+        }
+      }
+      
+      do {
+        try moc.save()
+        print("Succesfuly Update CoreData")
+      } catch let error as NSError{
+        fatalError("Failed to Update CoreData : \(error)")
+      }
+
+    } catch {
+      print("Failed to perform updateCoreDataModel fetch.")
+    }
+    
   }
   
   private func createLocalNotification(name: String, identifier: String, message: String) {
