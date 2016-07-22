@@ -239,10 +239,9 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     let luggage = row[indexPath.row]
     
     let messageString = String(format: NSLocalizedString("delete_luggage", comment: ""), luggage.name)
-    let alertController = UIAlertController(title: NSLocalizedString("delete_luggage_title", comment: ""), message: messageString, preferredStyle: .Alert)
     
-    alertController.addAction(
-      UIAlertAction(title: NSLocalizedString("remove", comment: ""), style: .Default) { (action) in
+    let actions = [
+      UIAlertAction(title: NSLocalizedString("remove", comment: ""), style: .Destructive) { (action) in
         
         if luggage.isConnected {
           // Stop Monitoring for this Beacon
@@ -260,10 +259,11 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         self.row.removeAtIndex(indexPath.row)
         let indexPaths = [indexPath]
         tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
-      })
-    alertController.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .Cancel, handler: nil))
+      },
+      UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .Default, handler: nil)
+    ]
     
-    self.presentViewController(alertController, animated: true, completion: nil)
+    Globals.showAlert(self, title: NSLocalizedString("delete_luggage_title", comment: ""), message: messageString, animated: true, completion: nil, actions: actions)
   }
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -286,20 +286,16 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   
   // MARK: TKTCoreLocationDelegate Methods
   func onBackgroundLocationAccessDisabled() {
-    let alertController = UIAlertController(
-      title: NSLocalizedString("location_access_disabled", comment: ""),
-      message: NSLocalizedString("location_access_disabled_settings", comment: ""),
-      preferredStyle: .Alert)
-    
-    alertController.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .Cancel, handler: nil))
-    
-    alertController.addAction(
+    let actions = [
       UIAlertAction(title: NSLocalizedString("settings", comment: ""), style: .Default) { (action) in
         if let url = NSURL(string:UIApplicationOpenSettingsURLString) {
           UIApplication.sharedApplication().openURL(url)
         }
-      })
-    self.presentViewController(alertController, animated: true, completion: nil)
+      },
+      UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .Cancel, handler: nil)
+    ]
+    
+    Globals.showAlert(self, title: NSLocalizedString("location_access_disabled", comment: ""), message: NSLocalizedString("location_access_disabled_settings", comment: ""), animated: true, completion: nil, actions: actions)
   }
   
   func didStartMonitoring() {
@@ -470,19 +466,16 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   
   // MARK: Private Methods
   private func showAlertForSettings() {
-    let alertController = UIAlertController(title: NSLocalizedString("app_name", comment: ""), message: NSLocalizedString("turn_on_bluetooth", comment: ""), preferredStyle: .Alert)
+    let actions = [
+      UIAlertAction(title: NSLocalizedString("settings", comment: ""), style: .Default) { (action) in
+        if let url = NSURL(string:UIApplicationOpenSettingsURLString) {
+          UIApplication.sharedApplication().openURL(url)
+        }
+      },
+      UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Cancel, handler: nil)
+    ]
     
-    let cancelAction = UIAlertAction(title: NSLocalizedString("settings", comment: ""), style: .Cancel) { (action) in
-      if let url = NSURL(string:UIApplicationOpenSettingsURLString) {
-        UIApplication.sharedApplication().openURL(url)
-      }
-    }
-    alertController.addAction(cancelAction)
-    
-    let okAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: nil)
-    alertController.addAction(okAction)
-    
-    self.presentViewController(alertController, animated: true, completion: nil)
+    Globals.showAlert(self, title: NSLocalizedString("app_name", comment: ""), message: NSLocalizedString("turn_on_bluetooth", comment: ""), animated: true, completion: nil, actions: actions)
   }
   
   private func configureCell(cell: UITableViewCell, withLuggageTag item: LuggageTag) {

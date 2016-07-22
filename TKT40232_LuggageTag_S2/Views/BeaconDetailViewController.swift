@@ -238,36 +238,32 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     self.view.frame.origin.y = 0
   }
   
-  private func showAlert(title: String, message: String) {
-    let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-    
-    let okAction = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Default, handler: nil)
-    alertController.addAction(okAction)
-    
-    self.presentViewController(alertController, animated: true, completion: nil)
+  private func showError(title: String, message: String) {
+    let okAction = [UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Cancel, handler: nil)]
+    Globals.showAlert(self, title: title, message: message, animated: true, completion: nil, actions: okAction)
   }
   
   private func validateLuggage() -> Bool {
     if (uuidTextField.text! == "" || uuidTextField.text!.characters.count < 12 || !(uuidTextField.text!.isValidHexNumber())) {
-      showAlert(NSLocalizedString("error", comment: ""), message: NSLocalizedString("err_identifier_code_invalid", comment: ""))
+      showError(NSLocalizedString("error", comment: ""), message: NSLocalizedString("err_identifier_code_invalid", comment: ""))
       
       return false
     }
     
     if (nameTextField.text! == "" || nameTextField.text!.characters.count > 20) {
-      showAlert(NSLocalizedString("error", comment: ""), message: NSLocalizedString("err_luggage_tag_invalid", comment: ""))
+      showError(NSLocalizedString("error", comment: ""), message: NSLocalizedString("err_luggage_tag_invalid", comment: ""))
       
       return false
     }
     
     if (!checkIdentifierCodeAvailability()) {
-      showAlert(NSLocalizedString("error", comment: ""), message: NSLocalizedString("err_identifier_code_exists", comment: ""))
+      showError(NSLocalizedString("error", comment: ""), message: NSLocalizedString("err_identifier_code_exists", comment: ""))
       
       return false
     }
     
     if (!checkTagAvailability()) {
-      showAlert(NSLocalizedString("error", comment: ""), message: NSLocalizedString("err_luggage_tag_exists", comment: ""))
+      showError(NSLocalizedString("error", comment: ""), message: NSLocalizedString("err_luggage_tag_exists", comment: ""))
       
       return false
     }

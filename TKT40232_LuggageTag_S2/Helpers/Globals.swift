@@ -5,6 +5,7 @@
 //  Created by PhTktimac1 on 22/07/2016.
 //  Copyright © 2016 Tektos Limited. All rights reserved.
 //
+import UIKit
 
 class Globals {
   
@@ -22,6 +23,18 @@ class Globals {
     while idx < endIdx
     
     #endif
+  }
+  
+  // This function is use for displaying Alert Box
+  static func showAlert(viewController: UIViewController, title: String, message: String, animated: Bool, completion: (() -> Void)?, actions: [UIAlertAction]) {
+    
+    let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+    
+    for action in actions {
+      alertController.addAction(action)
+    }
+    
+    viewController.presentViewController(alertController, animated: animated, completion: completion)
   }
   
 }

@@ -58,15 +58,13 @@ class ModalViewController: UIViewController, UIImagePickerControllerDelegate, UI
         }
       })
       
-      let alertController = UIAlertController(title: NSLocalizedString("error", comment: ""), message: NSLocalizedString("camera_restricted", comment: ""), preferredStyle: .Alert)
-      alertController.addAction(UIAlertAction(title: NSLocalizedString("settings", comment: ""), style: .Default) { (action) in
-        //UIApplication.sharedApplication().openURL(NSURL(string:"prefs:root=General")!)
+      let action = [UIAlertAction(title: NSLocalizedString("settings", comment: ""), style: .Default) { (action) in
         if let url = NSURL(string:UIApplicationOpenSettingsURLString) {
           UIApplication.sharedApplication().openURL(url)
         }
-      })
-      alertController.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Cancel, handler: nil))
-      self.presentViewController(alertController, animated: true, completion: nil)
+      }]
+      
+      Globals.showAlert(self, title: NSLocalizedString("error", comment: ""), message: NSLocalizedString("camera_restricted", comment: ""), animated: true, completion: nil, actions: action)
     }
 
   }
