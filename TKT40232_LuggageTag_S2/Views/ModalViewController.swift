@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import AVFoundation
 
 extension UIButton{
   func roundCorners(corners:UIRectCorner, radius: CGFloat) {
@@ -43,6 +43,35 @@ class ModalViewController: UIViewController, UIImagePickerControllerDelegate, UI
   }
 
   @IBAction func takePhoto(sender: AnyObject) {
+    
+    
+    // Check if we have permission taking Camera
+    if AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo) == AVAuthorizationStatus.Authorized {
+      // Already Authorized
+      self.cameraPicker()
+    } else {
+      AVCaptureDevice.requestAccessForMediaType(AVMediaTypeVideo, completionHandler: { (granted: Bool) -> Void in
+        if granted {
+          self.cameraPicker()
+          
+          return
+        }
+      })
+      
+      let alertController = UIAlertController(title: NSLocalizedString("error", comment: ""), message: NSLocalizedString("camera_restricted", comment: ""), preferredStyle: .Alert)
+      alertController.addAction(UIAlertAction(title: NSLocalizedString("settings", comment: ""), style: .Default) { (action) in
+        //UIApplication.sharedApplication().openURL(NSURL(string:"prefs:root=General")!)
+        if let url = NSURL(string:UIApplicationOpenSettingsURLString) {
+          UIApplication.sharedApplication().openURL(url)
+        }
+      })
+      alertController.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Cancel, handler: nil))
+      self.presentViewController(alertController, animated: true, completion: nil)
+    }
+
+  }
+  
+  func cameraPicker() {
     let cameraPicker = UIImagePickerController()
     cameraPicker.delegate = self
     cameraPicker.sourceType = .Camera
@@ -69,9 +98,7 @@ class ModalViewController: UIViewController, UIImagePickerControllerDelegate, UI
   func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
     let size = CGSize(width: 500, height: 500)
     let image = resizeImage((info[UIImagePickerControllerOriginalImage] as? UIImage)!, targetSize: size)
-    //UIImageWriteToSavedPhotosAlbum(image,nil,nil,nil);
     
-    //let image = (info[UIImagePickerControllerOriginalImage] as? UIImage)!
     delegate?.didFinishPickingMediaWithInfo(image)
     
     self.dismissViewControllerAnimated(false, completion: nil)

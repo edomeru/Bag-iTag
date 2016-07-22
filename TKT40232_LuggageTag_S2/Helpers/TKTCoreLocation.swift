@@ -100,9 +100,11 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
     case CLRegionState.Inside:
       print(" - entered region \(region.identifier)")
       delegate?.didEnterRegion(region)
+      //locationManager.startRangingBeaconsInRegion(region as! CLBeaconRegion)
     case CLRegionState.Outside:
       print(" - exited region \(region.identifier)")
       delegate?.didExitRegion(region)
+      //locationManager.stopMonitoringForRegion(region as! CLBeaconRegion)
     default:
       print(" - unknown region \(region.identifier)")
     }
@@ -118,7 +120,11 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
     delegate?.didExitRegion(region)
   }
   
-  func locationManager(manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {}
+  func locationManager(manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
+    print("MANAGER: \(manager)")
+    print("BEACONS: \(beacons)")
+    print("REGION: \(region)")
+  }
   
   func locationManager(manager: CLLocationManager, rangingBeaconsDidFailForRegion region: CLBeaconRegion, withError error: NSError) {
     print("rangingBeaconsDidFailForRegion \(error)")
