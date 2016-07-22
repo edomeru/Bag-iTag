@@ -15,6 +15,7 @@
 		151D2D5C1CFFE35B002F5B05 /* CustomDetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151D2D5B1CFFE35B002F5B05 /* CustomDetectionView.swift */; };
 		151D2D5E1D000BDA002F5B05 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151D2D5D1D000BDA002F5B05 /* CustomButton.swift */; };
 		151D2D601D002122002F5B05 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151D2D5F1D002122002F5B05 /* CustomTextField.swift */; };
+		152DC6041D41EECD00F09BDA /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152DC6031D41EECD00F09BDA /* Globals.swift */; };
 		1550E9551CF8199E00445008 /* BeaconItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1550E9531CF8199E00445008 /* BeaconItem.swift */; };
 		155FE8BF1D043CF800488F2D /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155FE8BE1D043CF800488F2D /* ModalViewController.swift */; };
 		156C0E721D0AB34C002E0DD7 /* SevenSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156C0E711D0AB34C002E0DD7 /* SevenSwitch.swift */; };
@@ -59,6 +60,7 @@
 		151D2D5B1CFFE35B002F5B05 /* CustomDetectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomDetectionView.swift; path = Views/Custom/CustomDetectionView.swift; sourceTree = "<group>"; };
 		151D2D5D1D000BDA002F5B05 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomButton.swift; path = Views/Custom/CustomButton.swift; sourceTree = "<group>"; };
 		151D2D5F1D002122002F5B05 /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomTextField.swift; path = Views/Custom/CustomTextField.swift; sourceTree = "<group>"; };
+		152DC6031D41EECD00F09BDA /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Globals.swift; path = Helpers/Globals.swift; sourceTree = "<group>"; };
 		1550E9531CF8199E00445008 /* BeaconItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BeaconItem.swift; path = Models/CoreData/BeaconItem.swift; sourceTree = "<group>"; };
 		155FE8BE1D043CF800488F2D /* ModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModalViewController.swift; path = Views/ModalViewController.swift; sourceTree = "<group>"; };
 		156C0E711D0AB34C002E0DD7 /* SevenSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SevenSwitch.swift; path = Helpers/SevenSwitch.swift; sourceTree = "<group>"; };
@@ -164,8 +166,9 @@
 		151B2E591CFE8196007BCF27 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				156C0E711D0AB34C002E0DD7 /* SevenSwitch.swift */,
 				157DB6FF1CF43B6400FC960E /* Constants.swift */,
+				152DC6031D41EECD00F09BDA /* Globals.swift */,
+				156C0E711D0AB34C002E0DD7 /* SevenSwitch.swift */,
 				157DB6F81CF4073C00FC960E /* TKTCoreLocation.swift */,
 			);
 			name = Helpers;
@@ -401,6 +404,7 @@
 				151D2D5C1CFFE35B002F5B05 /* CustomDetectionView.swift in Sources */,
 				151D2D5E1D000BDA002F5B05 /* CustomButton.swift in Sources */,
 				157DB6E71CF401CC00FC960E /* AppDelegate.swift in Sources */,
+				152DC6041D41EECD00F09BDA /* Globals.swift in Sources */,
 				157DB7001CF43B6400FC960E /* Constants.swift in Sources */,
 				151451491CF6A96A001EFF5D /* BeaconDetailViewController.swift in Sources */,
 				156C0E721D0AB34C002E0DD7 /* SevenSwitch.swift in Sources */,

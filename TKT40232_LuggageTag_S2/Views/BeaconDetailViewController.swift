@@ -139,7 +139,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
           
           delegate?.beaconDetailViewController(self, didFinishEditingItem: beaconItem)
         } else {
-          print("NO Changes made in Beacon")
+          Globals.log("No Changes made in LuggageTag")
           dismissViewControllerAnimated(true, completion: nil)
         }
         

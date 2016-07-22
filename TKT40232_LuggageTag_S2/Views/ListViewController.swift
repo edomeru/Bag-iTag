@@ -78,7 +78,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       try frc.performFetch()
       loadBeaconItems()
     } catch {
-      print("Failed to perform initial fecth.")
+      Globals.log("Failed to perform initial fetch.")
     }
     
     // Add LongPress Gesture in our TableView
@@ -350,41 +350,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     }
   }
   
-  func didRangeBeacon(manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
-   /* print("*****************************")
-    print("BEACONS \(beacons)")
-    print("REGION \(region)")
-    print("REGION \(manager)")
-    print("*****************************")
-    
-    for beacon in row {
-      for clBeacon in beacons {
-        if beacon.UUID == clBeacon.proximityUUID.UUIDString {
-          print("New Update for \(clBeacon.proximityUUID.UUIDString)")
-          
-          switch (clBeacon.proximity) {
-          case CLProximity.Far:
-            if (beacon.proximity != "Far") {
-              beacon.proximity = "Far"
-            }
-          case CLProximity.Near:
-            if (beacon.proximity != "Near") {
-              beacon.proximity = "Near"
-            }
-          case CLProximity.Immediate:
-            if (beacon.proximity != "Immediate") {
-              beacon.proximity = "Immediate"
-            }
-          case CLProximity.Unknown:
-            if (beacon.proximity != "unknown") {
-              beacon.proximity = "unknown"
-            }
-          }
-          
-        }
-      }
-    }*/
-  }
+  func didRangeBeacon(manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {}
   
   // MARK: BeaconDetailViewControllerDelegate Methods
   func beaconDetailViewController(controller: BeaconDetailViewController, didFinishAddingItem item: LuggageTag) {
@@ -587,11 +553,11 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
           
           tktCoreLocation.startMonitoring(beaconRegion)
         } else {
-          print("\(beacon.name) is disabled")
+          Globals.log("\(beacon.name) is disabled")
         }
       }
     } else {
-      print("No Beacon Available")
+      Globals.log("No Beacon Available")
     }
   }
   
@@ -661,7 +627,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     
     do {
       try moc.save()
-      print("Saved Successfuly to Database")
+      Globals.log("Saved Successfuly to Database")
     } catch let error as NSError{
       fatalError("Failed to saving to Database : \(error)")
     }
@@ -691,30 +657,18 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         beacon.setValue(item.isConnected, forKey: "connection")
         do {
           try moc.save()
-          print("Successfully Updated Database")
+          Globals.log("Successfully Updated Database")
         } catch let error as NSError{
           fatalError("Failed to updating to Database : \(error)")
         }
       } else {
-        print("No Record Found")
+        Globals.log("No Record Found")
       }
     } catch let error as NSError {
       fatalError("Error: \(error)")
     }
   
   }
-  
-  /*private func deleteToDatabase(indexPath: NSIndexPath) {
-    let managedObject: NSManagedObject = frc.objectAtIndexPath(indexPath) as! NSManagedObject
-    moc.deleteObject(managedObject)
-    
-    do {
-      try moc.save()
-      print("Successfully Deleted Item")
-    } catch let error as NSError {
-      fatalError("Failed to Delete Item : \(error)")
-    }
-  }*/
   
   private func deleteToDatabase(id: Int) {
     let entityDescription = NSEntityDescription.entityForName("BeaconItem", inManagedObjectContext: moc)
@@ -735,7 +689,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
           moc.deleteObject(res[0])
           do {
             try moc.save()
-            print("Successfully Deleted Item")
+            Globals.log("Successfully Deleted Item")
           } catch let error as NSError{
             fatalError("Failed to Delete Item : \(error)")
           }
@@ -763,13 +717,13 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       
       do {
         try moc.save()
-        print("Succesfuly Update CoreData")
+        Globals.log("Succesfuly Update CoreData")
       } catch let error as NSError{
         fatalError("Failed to Update CoreData : \(error)")
       }
 
     } catch {
-      print("Failed to perform updateCoreDataModel fetch.")
+      Globals.log("Failed to perform update CoreDataModel fetch.")
     }
     
   }
