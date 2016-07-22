@@ -10,6 +10,8 @@ class Globals {
   
   // This function is use for Logging
   static func log(items: Any..., separator: String = " ", terminator: String = "\n") {
+    #if DEBUG
+    
     var idx = items.startIndex
     let endIdx = items.endIndex
     
@@ -18,6 +20,8 @@ class Globals {
       idx += 1
     }
     while idx < endIdx
+    
+    #endif
   }
   
 }
