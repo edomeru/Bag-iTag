@@ -756,20 +756,6 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     self.navigationController?.navigationBar.translucent = true
   
     self.tableView.contentInset = UIEdgeInsetsMake(150.0, 0, 0, 0)
-    
-    
-    let topColor = UIColor.blackColor().colorWithAlphaComponent(0.4).CGColor
-    let bottomColor = UIColor.clearColor().CGColor
-    
-    let gradientColors: [CGColor] = [topColor, bottomColor]
-    let gradientLocations: [CGFloat] = [0.0, 1.0]
-    
-    let gradientLayer = CAGradientLayer()
-    gradientLayer.colors = gradientColors
-    gradientLayer.locations = gradientLocations
-    
-    gradientLayer.frame = self.topLogoView.bounds
-    self.topLogoView.layer.insertSublayer(gradientLayer, atIndex: 0)
   }
   
   private func applicationInfo() {
