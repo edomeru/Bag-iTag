@@ -346,10 +346,10 @@
                     <navigationItem key="navigationItem" id="TgH-HH-WXX"/>
                     <connections>
                         <outlet property="appInfoView" destination="Llx-x9-ZSM" id="YW1-8P-KW0"/>
+                        <outlet property="appLogo" destination="BH0-BR-8W6" id="3SQ-wx-Jjt"/>
                         <outlet property="companyLabel" destination="xTY-X6-0Vu" id="b0l-TS-3Of"/>
                         <outlet property="rightsLabel" destination="oSB-ET-I7s" id="Gjt-u3-10b"/>
                         <outlet property="tableView" destination="eSL-Xi-SOn" id="BcL-kZ-yCK"/>
-                        <outlet property="topLogoView" destination="8PL-lm-TF2" id="MU2-Sn-uBR"/>
                         <outlet property="versionLabel" destination="pKa-8v-tbf" id="3KF-Ja-bDc"/>
                     </connections>
                 </viewController>

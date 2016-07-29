@@ -26,7 +26,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   var frc: NSFetchedResultsController = NSFetchedResultsController()
   
   @IBOutlet var tableView: UITableView!
-  @IBOutlet weak var topLogoView: UIView!
+  @IBOutlet weak var appLogo: UIImageView!
   @IBOutlet weak var appInfoView: UIView!
   @IBOutlet weak var versionLabel: UILabel!
   @IBOutlet weak var companyLabel: UILabel!
@@ -269,6 +269,19 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     tableView.deselectRowAtIndexPath(indexPath, animated: true)
   }
+  
+  func scrollViewDidScroll(scrollView: UIScrollView) {
+    var height: CGFloat
+    var position: CGFloat
+    var percent: CGFloat
+    
+    height =  appLogo.bounds.size.height / 2
+    position = max(-scrollView.contentOffset.y, 0.0)
+    percent = min(position / height, 1.0)
+    
+    Globals.log(percent)
+    appLogo.alpha = percent
+  }
 
   // MARK: CBCentralManagerDelegate Methods
   func centralManagerDidUpdateState(central: CBCentralManager) {
@@ -320,8 +333,6 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
               configureCellRegion(cell, withLuggageTag: beacon, connected: true)
               createLocalNotification(region.identifier, identifier: beacon.uuid, message: NSLocalizedString("has_arrived", comment: ""))
             }
-            
-            
           }
         }
       }
