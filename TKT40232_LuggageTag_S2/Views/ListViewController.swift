@@ -58,7 +58,6 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   required init?(coder aDecoder: NSCoder) {
     row = [LuggageTag]()
     super.init(coder: aDecoder)
-    
   }
   
   // MARK: Override Methods
@@ -248,7 +247,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
           var beaconRegion: CLBeaconRegion?
           beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: luggage.uuid)!, identifier: luggage.name)
           
-          self.tktCoreLocation.stopMonitoringBeacon(beaconRegion)
+          self.tktCoreLocation.stopMonitoringBeacon(beaconRegion, removeObject: true)
         }
         
         // Delete LocalNotification
@@ -279,7 +278,6 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     position = max(-scrollView.contentOffset.y, 0.0)
     percent = min(position / height, 1.0)
     
-    Globals.log(percent)
     appLogo.alpha = percent
   }
 
@@ -322,9 +320,9 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   
   func monitoringDidFail() {}
   
-  func didEnterRegion(region: CLRegion!) {
+  func didEnterRegion(region: CLBeaconRegion) {
     for beacon in row {
-      if (beacon.name == region.identifier) {
+      if (beacon.name == region.identifier && beacon.uuid == region.proximityUUID.UUIDString) {
         if (beacon.regionState != Constants.Proximity.Inside) {
           if let index = row.indexOf(beacon) {
             let indexPath = NSIndexPath(forRow: index, inSection: 0)
@@ -339,7 +337,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     }
   }
   
-  func didExitRegion(region: CLRegion!) {
+  func didExitRegion(region: CLBeaconRegion) {
     for beacon in row {
       if (beacon.name == region.identifier) {
         if (beacon.regionState != Constants.Proximity.Outside) {
@@ -398,32 +396,10 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     dismissViewControllerAnimated(true, completion: nil)
   }
   
-  func deleteBeacon(didDeleteItem item: LuggageTag) {
-    if let index = row.indexOf(item) {
-      // Check if item is monitoring
-      if item.isConnected {
-        // Stop Monitoring for this Beacon
-        var beaconRegion: CLBeaconRegion?
-        beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: item.uuid)!, identifier: item.name)
-        
-        tktCoreLocation.stopMonitoringBeacon(beaconRegion)
-      }
-      
-      // Delete LocalNotification
-      deleteLocalNotification(item.name, identifier: item.uuid)
-      
-      deleteToDatabase(item.id)
-      
-      row.removeAtIndex(index)
-      let indexPath = NSIndexPath(forRow: index, inSection: 0)
-      let indexPaths = [indexPath]
-      
-      tableView.beginUpdates()
-      tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
-      tableView.endUpdates()
-    }
-    
-    dismissViewControllerAnimated(true, completion: nil)
+  func stopMonitoring(didStopMonitoring item: LuggageTag) {
+    var beaconRegion: CLBeaconRegion?
+    beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: item.uuid)!, identifier: item.name)
+    tktCoreLocation.stopMonitoringBeacon(beaconRegion, removeObject: true)
   }
   
   func didBluetoothPoweredOff(didPowerOff item: LuggageTag) {
@@ -469,7 +445,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: item.uuid)!, identifier: item.name)
       
       // Stop Monitoring this Specific Beacon.
-      tktCoreLocation.stopMonitoringBeacon(beaconRegion)
+      tktCoreLocation.stopMonitoringBeacon(beaconRegion, removeObject: true)
     }
     
     updateToDatabase(item)
@@ -548,7 +524,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
           var beaconRegion: CLBeaconRegion?
           beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: beacon.uuid)!, identifier: beacon.name)
           // Stop Beacon First
-          tktCoreLocation.stopMonitoringBeacon(beaconRegion)
+          tktCoreLocation.stopMonitoringBeacon(beaconRegion, removeObject: false)
   
           // later, these values can be set from the UI
           beaconRegion!.notifyEntryStateOnDisplay = true
@@ -585,7 +561,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
           beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: beacon.uuid)!, identifier: beacon.name)
           
           // Stop Monitoring this Specific Beacon.
-          tktCoreLocation.stopMonitoringBeacon(beaconRegion)
+          tktCoreLocation.stopMonitoringBeacon(beaconRegion, removeObject: false)
           
           if let index = row.indexOf(beacon) {
             let indexPath = NSIndexPath(forRow: index, inSection: 0)

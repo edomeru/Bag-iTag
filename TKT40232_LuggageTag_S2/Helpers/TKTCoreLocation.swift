@@ -13,8 +13,8 @@ protocol TKTCoreLocationDelegate: NSObjectProtocol {
   func didStartMonitoring()
   func didStopMonitoring()
   func monitoringDidFail()
-  func didEnterRegion(region: CLRegion!)
-  func didExitRegion(region: CLRegion!)
+  func didEnterRegion(region: CLBeaconRegion)
+  func didExitRegion(region: CLBeaconRegion)
   func didRangeBeacon(manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion)
   //func onError(error: NSError)
 }
@@ -24,12 +24,14 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
   
   var locationManager: CLLocationManager!
   var beaconRegion: CLBeaconRegion?
+  var beaconRegions: [CLBeaconRegion?]
   var rangedBeacon: CLBeacon! = CLBeacon()
   var pendingMonitorRequest: Bool = false
   
   weak var delegate: TKTCoreLocationDelegate?
   
   init(delegate: TKTCoreLocationDelegate) {
+    self.beaconRegions = [CLBeaconRegion?]()
     super.init()
     self.delegate = delegate
     self.locationManager = CLLocationManager()
@@ -41,6 +43,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
     Globals.log("Start Monitoring: \((beaconRegion?.proximityUUID.UUIDString)!)")
     pendingMonitorRequest = true
     self.beaconRegion = beaconRegion
+    beaconRegions.append(beaconRegion)
     
     switch CLLocationManager.authorizationStatus() {
     case .NotDetermined:
@@ -56,11 +59,16 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
     }
   }
   
-  func stopMonitoringBeacon(beaconRegion: CLBeaconRegion?) {
+  func stopMonitoringBeacon(beaconRegion: CLBeaconRegion?, removeObject: Bool) {
     Globals.log("Stop Monitoring: \((beaconRegion?.proximityUUID.UUIDString)!)")
     locationManager.stopRangingBeaconsInRegion(beaconRegion!)
     locationManager.stopMonitoringForRegion(beaconRegion!)
     locationManager.stopUpdatingLocation()
+    
+    if(removeObject) {
+      let index = getObjectIndex(beaconRegion)
+      beaconRegions.removeAtIndex(index)
+    }
   }
   
   // MARK: CLLocationManagerDelegate Method
@@ -73,6 +81,9 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
       }
       locationManager!.startUpdatingLocation()
     }
+    
+    // Make it Nil to save memory
+    beaconRegion = nil
   }
   
   func locationManager(manager: CLLocationManager, didStartMonitoringForRegion region: CLRegion) {
@@ -86,14 +97,17 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
   }
   
   func locationManager(manager: CLLocationManager, didDetermineState state: CLRegionState, forRegion region: CLRegion) {
+    
     switch state {
     case CLRegionState.Inside:
       Globals.log(" - entered region \(region.identifier)")
-      delegate?.didEnterRegion(region)
+      let beaconRegion = region as! CLBeaconRegion
+      delegate?.didEnterRegion(beaconRegion)
       //locationManager.startRangingBeaconsInRegion(region as! CLBeaconRegion)
     case CLRegionState.Outside:
       Globals.log(" - exited region \(region.identifier)")
-      delegate?.didExitRegion(region)
+      let beaconRegion = region as! CLBeaconRegion
+      delegate?.didExitRegion(beaconRegion)
       //locationManager.stopMonitoringForRegion(region as! CLBeaconRegion)
     default:
       Globals.log(" - unknown region \(region.identifier)")
@@ -101,11 +115,13 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
   }
   
   func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
-    delegate?.didEnterRegion(region)
+    let beaconRegion = region as! CLBeaconRegion
+    delegate?.didEnterRegion(beaconRegion)
   }
   
   func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
-    delegate?.didExitRegion(region)
+    let beaconRegion = region as! CLBeaconRegion
+    delegate?.didExitRegion(beaconRegion)
   }
   
   func locationManager(manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {}
@@ -116,5 +132,16 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
   
   func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
     Globals.log("didFailWithError: \(error)")
+  }
+  
+  // MARK: Private Method
+  func getObjectIndex(beaconRegion: CLBeaconRegion?) -> Int {
+    for (index, element) in beaconRegions.enumerate() {
+      if ((beaconRegion?.proximityUUID.UUIDString == element?.proximityUUID.UUIDString) && (beaconRegion?.identifier == element?.identifier)) {
+        return index
+      }
+    }
+    
+    return 0
   }
 }

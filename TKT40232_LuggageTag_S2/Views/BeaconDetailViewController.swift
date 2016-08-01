@@ -26,7 +26,7 @@ extension String {
 protocol BeaconDetailViewControllerDelegate: NSObjectProtocol {
   func beaconDetailViewController(controller: BeaconDetailViewController, didFinishAddingItem item: LuggageTag)
   func beaconDetailViewController(controller: BeaconDetailViewController, didFinishEditingItem item: LuggageTag)
-  func deleteBeacon(didDeleteItem item: LuggageTag)
+  func stopMonitoring(didStopMonitoring item: LuggageTag)
   func didBluetoothPoweredOff(didPowerOff item: LuggageTag)
 }
 
@@ -46,6 +46,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   var beaconReference: [LuggageTag]?
   var beaconToEdit: LuggageTag?
   var isPhotoEdited = false
+  var trimmedName: String?
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -112,64 +113,66 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   @IBAction func saveBeacon() {
     nameTextField.resignFirstResponder()
     uuidTextField.resignFirstResponder()
-
+    
+    trimmedName = nameTextField.text!.stringByTrimmingCharactersInSet(
+      NSCharacterSet.whitespaceAndNewlineCharacterSet()
+    )
+    
     let isValidLuggage = validateLuggage()
     
     if (isValidLuggage) {
-      if let beaconItem = beaconToEdit {
-        let originalStringIndex = beaconItem.uuid.endIndex.advancedBy(-12)
-        let originalString = beaconItem.uuid.substringFromIndex(originalStringIndex)
+      if let luggageItem = beaconToEdit {
+    
+        let originalStringIndex = luggageItem.uuid.endIndex.advancedBy(-12)
+        let originalString = luggageItem.uuid.substringFromIndex(originalStringIndex)
         
-        if (isPhotoEdited || (nameTextField.text! != beaconItem.name) || (uuidTextField.text! != originalString)) {
+        if (isPhotoEdited || (nameTextField.text! != luggageItem.name) || (uuidTextField.text! != originalString)) {
           // Beacon is Edited
-          if (beaconItem.isConnected) {
+          
+          // Check/Get Luggage's Name
+          assignLuggageName()
+          
+          if (luggageItem.isConnected) {
             // Stop Monitoring for this Beacon
-            var beaconRegion: CLBeaconRegion?
-            beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: beaconItem.uuid)!, identifier: beaconItem.name)
-            tktCoreLocation.stopMonitoringBeacon(beaconRegion)
+            delegate?.stopMonitoring(didStopMonitoring: luggageItem)
           }
           
           if (isPhotoEdited) {
-            beaconItem.photo = UIImageJPEGRepresentation(self.imgButton.currentImage!, 1.0)
+            luggageItem.photo = UIImageJPEGRepresentation(self.imgButton.currentImage!, 1.0)
           }
           
-          beaconItem.name = nameTextField.text!
-          beaconItem.uuid = "\(Constants.UUID.Identifier)\(uuidTextField.text!.uppercaseString)"
-          beaconItem.regionState = Constants.Proximity.Outside
+          luggageItem.name = trimmedName!
+          luggageItem.uuid = "\(Constants.UUID.Identifier)\(uuidTextField.text!.uppercaseString)"
+          luggageItem.regionState = Constants.Proximity.Outside
           
-          delegate?.beaconDetailViewController(self, didFinishEditingItem: beaconItem)
+          delegate?.beaconDetailViewController(self, didFinishEditingItem: luggageItem)
         } else {
           Globals.log("No Changes made in LuggageTag")
           dismissViewControllerAnimated(true, completion: nil)
         }
-        
+
       } else {
-        // New Beacon
-        let beaconItem = LuggageTag()
+        // Check/Get Luggage's Name
+        assignLuggageName()
+        
+        //New Luggage
+        let luggageItem = LuggageTag()
         
         if (isPhotoEdited) {
-          beaconItem.photo = UIImageJPEGRepresentation(self.imgButton.currentImage!, 1.0)
+          luggageItem.photo = UIImageJPEGRepresentation(self.imgButton.currentImage!, 1.0)
         } else {
-          beaconItem.photo = nil
+          luggageItem.photo = nil
         }
-
-        beaconItem.name = nameTextField.text!
-        beaconItem.uuid = "\(Constants.UUID.Identifier)\(uuidTextField.text!.uppercaseString)"
-        beaconItem.major = "1"
-        beaconItem.minor = "5"
-        beaconItem.regionState = Constants.Proximity.Outside
-        beaconItem.isConnected = false
         
-        delegate?.beaconDetailViewController(self, didFinishAddingItem: beaconItem)
+        luggageItem.name = trimmedName!
+        luggageItem.uuid = "\(Constants.UUID.Identifier)\(uuidTextField.text!.uppercaseString)"
+        luggageItem.major = "1"
+        luggageItem.minor = "5"
+        luggageItem.regionState = Constants.Proximity.Outside
+        luggageItem.isConnected = false
+        
+        delegate?.beaconDetailViewController(self, didFinishAddingItem: luggageItem)
       }
-    }
-  }
-  
-  @IBAction func deleteBeacon() {
-    if let beaconItem = beaconToEdit {
-      delegate?.deleteBeacon(didDeleteItem: beaconItem)
-    } else {
-      dismissViewControllerAnimated(true, completion: nil)
     }
   }
   
@@ -212,17 +215,18 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   
   func monitoringDidFail() {}
   
-  func didEnterRegion(region: CLRegion!) {
-    if let connected = beaconToEdit?.isConnected {
-      if (region.identifier == beaconToEdit!.name && connected) {
+  func didEnterRegion(region: CLBeaconRegion) {
+    if let luggageTag = beaconToEdit {
+      let connected = luggageTag.isConnected
+      if (region.identifier == luggageTag.name && region.proximityUUID.UUIDString == luggageTag.uuid && connected) {
         rangeLabel.text = Constants.Range.InRange
       }
     }
   }
   
-  func didExitRegion(region: CLRegion!) {
-    if let luggageTag = beaconToEdit?.name {
-      if (region.identifier == luggageTag) {
+  func didExitRegion(region: CLBeaconRegion) {
+    if let luggageTag = beaconToEdit {
+      if(region.identifier == luggageTag.name && region.proximityUUID.UUIDString == luggageTag.uuid) {
         rangeLabel.text = Constants.Range.OutOfRange
       }
     }
@@ -238,20 +242,58 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     self.view.frame.origin.y = 0
   }
   
+  private func showConfirmation(title: String, message: String) {
+    let actions = [
+      UIAlertAction(title: NSLocalizedString("yes", comment: ""), style: .Cancel) { (action) in
+        Globals.log("Cancel Adding/Editing Luggage")
+        self.dismissViewControllerAnimated(true, completion: nil)
+      },
+      UIAlertAction(title: NSLocalizedString("no", comment: ""), style: .Default, handler: nil)
+    ]
+    
+    Globals.showAlert(self, title: title, message: message, animated: true, completion: nil, actions: actions)
+  }
+  
   private func showError(title: String, message: String) {
     let okAction = [UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Cancel, handler: nil)]
     Globals.showAlert(self, title: title, message: message, animated: true, completion: nil, actions: okAction)
   }
   
+  private func assignLuggageName() {
+    if (trimmedName! == "") {
+      let prefs = NSUserDefaults.standardUserDefaults()
+      
+      if let key = prefs.objectForKey(Constants.Default.LuggageCounter) {
+        if let counter = key as? Int {
+          var num = counter
+          
+          repeat {
+            num = num + 1
+            trimmedName! = "\(Constants.Default.LuggageName) \(num)"
+          } while checkTagAvailability()
+          
+          prefs.setInteger(num, forKey: Constants.Default.LuggageCounter)
+          prefs.synchronize()
+        }
+      } else {
+        trimmedName! = Constants.Default.LuggageName
+        
+        prefs.setInteger(1, forKey: Constants.Default.LuggageCounter)
+        prefs.synchronize()
+      }
+    }
+    
+  }
+  
   private func validateLuggage() -> Bool {
-    if (uuidTextField.text! == "" || uuidTextField.text!.characters.count < 12 || !(uuidTextField.text!.isValidHexNumber())) {
-      showError(NSLocalizedString("error", comment: ""), message: NSLocalizedString("err_identifier_code_invalid", comment: ""))
+    if (uuidTextField.text! == "") {
+      showConfirmation(NSLocalizedString("warning", comment: ""), message: NSLocalizedString("exit_confirmation", comment: ""))
       
       return false
     }
-    
-    if (nameTextField.text! == "" || nameTextField.text!.characters.count > 20) {
-      showError(NSLocalizedString("error", comment: ""), message: NSLocalizedString("err_luggage_tag_invalid", comment: ""))
+     
+    if (uuidTextField.text!.characters.count < 12 || !(uuidTextField.text!.isValidHexNumber())) {
+      showError(NSLocalizedString("error", comment: ""), message: NSLocalizedString("err_identifier_code_invalid", comment: ""))
       
       return false
     }
@@ -262,7 +304,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
       return false
     }
     
-    if (!checkTagAvailability()) {
+    if (checkTagAvailability()) {
       showError(NSLocalizedString("error", comment: ""), message: NSLocalizedString("err_luggage_tag_exists", comment: ""))
       
       return false
@@ -290,20 +332,21 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   }
   
   func checkTagAvailability() -> Bool {
+    
     for beacon in beaconReference! {
-      if (beacon.name == nameTextField.text!) {
+      if (beacon.name == trimmedName!) {
         if let item = beaconToEdit {
           if(item.name == beacon.name) {
             continue
           } else {
-            return false
+            return true
           }
         }
         
-        return false
+        return true
       }
     }
     
-    return true
+    return false
   }
 }
