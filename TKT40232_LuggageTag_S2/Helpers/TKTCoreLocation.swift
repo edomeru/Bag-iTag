@@ -6,7 +6,6 @@
 //  Copyright © 2016 Tektos Limited. All rights reserved.
 //
 
-import UIKit
 import CoreLocation
 
 protocol TKTCoreLocationDelegate: NSObjectProtocol {
@@ -27,13 +26,11 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
   var beaconRegion: CLBeaconRegion?
   var beaconRegions: [String: [String: Int]]
   //var rangedBeacon: CLBeacon! = CLBeacon()
-  var appState: UIApplicationState
   var pendingMonitorRequest: Bool = false
   
   weak var delegate: TKTCoreLocationDelegate?
   
   init(delegate: TKTCoreLocationDelegate) {
-    appState = UIApplication.sharedApplication().applicationState
     self.beaconRegions = [String: [String: Int]]()
     super.init()
     self.delegate = delegate
@@ -107,23 +104,16 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
       Globals.log(" - entered region \(region.identifier)")
       
       let beaconRegion = region as! CLBeaconRegion
-      if (appState == .Active) {
-        delegate?.didEnterRegion(beaconRegion)
-        locationManager.startRangingBeaconsInRegion(beaconRegion)
-      } else if (appState == .Background) {
-        delegate?.didEnterRegion(beaconRegion)
-      }
+      delegate?.didEnterRegion(beaconRegion)
+      locationManager.startRangingBeaconsInRegion(beaconRegion)
       
     case CLRegionState.Outside:
       Globals.log(" - exited region \(region.identifier)")
       
       let beaconRegion = region as! CLBeaconRegion
-      if (appState == .Active) {
-        delegate?.didExitRegion(beaconRegion)
-        locationManager.stopRangingBeaconsInRegion(beaconRegion)
-      } else if (appState == .Background) {
-        delegate?.didExitRegion(beaconRegion)
-      }
+      delegate?.didExitRegion(beaconRegion)
+      locationManager.stopRangingBeaconsInRegion(beaconRegion)
+      
     default:
       Globals.log(" - unknown region \(region.identifier)")
     }
@@ -147,7 +137,8 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
   
   func locationManager(manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
     //Globals.log(beacons)
-     let key = region.proximityUUID.UUIDString
+    
+    let key = region.proximityUUID.UUIDString
     
     if beacons.count > 0 {
       var rangedBeacon: CLBeacon! = CLBeacon()
