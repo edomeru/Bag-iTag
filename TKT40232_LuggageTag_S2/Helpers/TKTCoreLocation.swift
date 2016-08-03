@@ -6,6 +6,7 @@
 //  Copyright © 2016 Tektos Limited. All rights reserved.
 //
 
+import UIKit
 import CoreLocation
 
 protocol TKTCoreLocationDelegate: NSObjectProtocol {
@@ -24,14 +25,16 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
   
   var locationManager: CLLocationManager!
   var beaconRegion: CLBeaconRegion?
-  var beaconRegions: [CLBeaconRegion?]
-  var rangedBeacon: CLBeacon! = CLBeacon()
+  var beaconRegions: [String: [String: Int]]
+  //var rangedBeacon: CLBeacon! = CLBeacon()
+  var appState: UIApplicationState
   var pendingMonitorRequest: Bool = false
   
   weak var delegate: TKTCoreLocationDelegate?
   
   init(delegate: TKTCoreLocationDelegate) {
-    self.beaconRegions = [CLBeaconRegion?]()
+    appState = UIApplication.sharedApplication().applicationState
+    self.beaconRegions = [String: [String: Int]]()
     super.init()
     self.delegate = delegate
     self.locationManager = CLLocationManager()
@@ -43,7 +46,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
     Globals.log("Start Monitoring: \((beaconRegion?.proximityUUID.UUIDString)!)")
     pendingMonitorRequest = true
     self.beaconRegion = beaconRegion
-    beaconRegions.append(beaconRegion)
+    //beaconRegions.append(beaconRegion)
     
     switch CLLocationManager.authorizationStatus() {
     case .NotDetermined:
@@ -59,15 +62,16 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
     }
   }
   
-  func stopMonitoringBeacon(beaconRegion: CLBeaconRegion?, removeObject: Bool) {
+  func stopMonitoringBeacon(beaconRegion: CLBeaconRegion?, key: String) {
     Globals.log("Stop Monitoring: \((beaconRegion?.proximityUUID.UUIDString)!)")
     locationManager.stopRangingBeaconsInRegion(beaconRegion!)
     locationManager.stopMonitoringForRegion(beaconRegion!)
     locationManager.stopUpdatingLocation()
     
-    if(removeObject) {
-      let index = getObjectIndex(beaconRegion)
-      beaconRegions.removeAtIndex(index)
+    if(key != "") {
+      if let removedValue = beaconRegions.removeValueForKey(key) {
+        Globals.log("Removed Dictionary: \(removedValue)")
+      }
     }
   }
   
@@ -101,30 +105,63 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
     switch state {
     case CLRegionState.Inside:
       Globals.log(" - entered region \(region.identifier)")
+      
       let beaconRegion = region as! CLBeaconRegion
-      delegate?.didEnterRegion(beaconRegion)
-      //locationManager.startRangingBeaconsInRegion(region as! CLBeaconRegion)
+      if (appState == .Active) {
+        delegate?.didEnterRegion(beaconRegion)
+        locationManager.startRangingBeaconsInRegion(beaconRegion)
+      } else if (appState == .Background) {
+        delegate?.didEnterRegion(beaconRegion)
+      }
+      
     case CLRegionState.Outside:
       Globals.log(" - exited region \(region.identifier)")
+      
       let beaconRegion = region as! CLBeaconRegion
-      delegate?.didExitRegion(beaconRegion)
-      //locationManager.stopMonitoringForRegion(region as! CLBeaconRegion)
+      if (appState == .Active) {
+        delegate?.didExitRegion(beaconRegion)
+        locationManager.stopRangingBeaconsInRegion(beaconRegion)
+      } else if (appState == .Background) {
+        delegate?.didExitRegion(beaconRegion)
+      }
     default:
       Globals.log(" - unknown region \(region.identifier)")
     }
   }
   
   func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
-    let beaconRegion = region as! CLBeaconRegion
-    delegate?.didEnterRegion(beaconRegion)
+    Globals.log("didEnterRegion")
+    // TODO: I don't know if I will be needing this in the Future for now I'll just comment it - Francis 08/02/2016
+    // didDetermineState's Callback is asynchronous call, and it seems to be doing a good job tracking the RegionState
+    /*let beaconRegion = region as! CLBeaconRegion
+    delegate?.didEnterRegion(beaconRegion)*/
   }
   
   func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
-    let beaconRegion = region as! CLBeaconRegion
-    delegate?.didExitRegion(beaconRegion)
+    Globals.log("didExitRegion")
+    // TODO: I don't know if I will be needing this in the Future for now I'll just comment it - Francis 08/02/2016
+    // didDetermineState's Callback is asynchronous call, and it seems to be doing a good job tracking the RegionState
+    /*let beaconRegion = region as! CLBeaconRegion
+    delegate?.didExitRegion(beaconRegion)*/
   }
   
-  func locationManager(manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {}
+  func locationManager(manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
+    //Globals.log(beacons)
+     let key = region.proximityUUID.UUIDString
+    
+    if beacons.count > 0 {
+      var rangedBeacon: CLBeacon! = CLBeacon()
+      let battery: Int = Int(rangedBeacon.minor)
+      rangedBeacon = beacons[0]
+      
+      if beaconRegions[key] != nil {
+        NSNotificationCenter.defaultCenter().postNotificationName(Constants.Notification.SetBattery, object: nil, userInfo: ["key": key, "minor": rangedBeacon.minor])
+      } else {
+        beaconRegions[key] = [Constants.Key.Battery: battery, Constants.Key.rssi: rangedBeacon.rssi]
+        NSNotificationCenter.defaultCenter().postNotificationName(Constants.Notification.SetBattery, object: nil, userInfo: ["key": key, "minor": rangedBeacon.minor])
+      }
+    }
+  }
   
   func locationManager(manager: CLLocationManager, rangingBeaconsDidFailForRegion region: CLBeaconRegion, withError error: NSError) {
     Globals.log("rangingBeaconsDidFailForRegion: \(error)")
@@ -132,16 +169,5 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
   
   func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
     Globals.log("didFailWithError: \(error)")
-  }
-  
-  // MARK: Private Method
-  func getObjectIndex(beaconRegion: CLBeaconRegion?) -> Int {
-    for (index, element) in beaconRegions.enumerate() {
-      if ((beaconRegion?.proximityUUID.UUIDString == element?.proximityUUID.UUIDString) && (beaconRegion?.identifier == element?.identifier)) {
-        return index
-      }
-    }
-    
-    return 0
   }
 }

@@ -122,15 +122,15 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     
     if (isValidLuggage) {
       if let luggageItem = beaconToEdit {
-    
+        
+        // Check/Get Luggage's Name
+        assignLuggageName()
+        
         let originalStringIndex = luggageItem.uuid.endIndex.advancedBy(-12)
         let originalString = luggageItem.uuid.substringFromIndex(originalStringIndex)
         
-        if (isPhotoEdited || (nameTextField.text! != luggageItem.name) || (uuidTextField.text! != originalString)) {
+        if (isPhotoEdited || (trimmedName! != luggageItem.name) || (uuidTextField.text! != originalString)) {
           // Beacon is Edited
-          
-          // Check/Get Luggage's Name
-          assignLuggageName()
           
           if (luggageItem.isConnected) {
             // Stop Monitoring for this Beacon
@@ -143,6 +143,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
           
           luggageItem.name = trimmedName!
           luggageItem.uuid = "\(Constants.UUID.Identifier)\(uuidTextField.text!.uppercaseString)"
+          luggageItem.minor = "0"
           luggageItem.regionState = Constants.Proximity.Outside
           
           delegate?.beaconDetailViewController(self, didFinishEditingItem: luggageItem)
@@ -166,8 +167,8 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
         
         luggageItem.name = trimmedName!
         luggageItem.uuid = "\(Constants.UUID.Identifier)\(uuidTextField.text!.uppercaseString)"
-        luggageItem.major = "1"
-        luggageItem.minor = "5"
+        luggageItem.major = "0"
+        luggageItem.minor = "0"
         luggageItem.regionState = Constants.Proximity.Outside
         luggageItem.isConnected = false
         

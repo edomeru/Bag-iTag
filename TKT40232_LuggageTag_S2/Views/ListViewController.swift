@@ -83,6 +83,30 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     // Add LongPress Gesture in our TableView
     let longPress = UILongPressGestureRecognizer(target: self, action: #selector(ListViewController.longPressGestureRecognized(_:)))
     tableView.addGestureRecognizer(longPress)
+    
+    // Add NSNotificationCenter Observer for this Controller
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ListViewController.setBattery(_:)), name: Constants.Notification.SetBattery, object: nil)
+  }
+  
+  // MARK: NSNotificationCenter Functions
+  func setBattery(notification: NSNotification) {
+    let key = notification.userInfo!["key"] as! String
+    let percentage = "\(notification.userInfo!["minor"] as! Int)"
+    let rowIndex = getObjectIndex(key)
+    
+    if (row[rowIndex].minor != percentage) {
+      let indexPath = NSIndexPath(forRow: rowIndex, inSection: 0)
+      row[rowIndex].minor = percentage
+      
+      if let cell = tableView.cellForRowAtIndexPath(indexPath) {
+        configureCell(cell, withLuggageTag: row[rowIndex])
+
+        // Asynchronously update Database
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+          self.updateToDatabase(self.row[rowIndex])
+        })
+      }
+    }
   }
   
   func longPressGestureRecognized(gestureRecognizer: UIGestureRecognizer) {
@@ -247,7 +271,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
           var beaconRegion: CLBeaconRegion?
           beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: luggage.uuid)!, identifier: luggage.name)
           
-          self.tktCoreLocation.stopMonitoringBeacon(beaconRegion, removeObject: true)
+          self.tktCoreLocation.stopMonitoringBeacon(beaconRegion, key: luggage.uuid)
         }
         
         // Delete LocalNotification
@@ -399,7 +423,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   func stopMonitoring(didStopMonitoring item: LuggageTag) {
     var beaconRegion: CLBeaconRegion?
     beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: item.uuid)!, identifier: item.name)
-    tktCoreLocation.stopMonitoringBeacon(beaconRegion, removeObject: true)
+    tktCoreLocation.stopMonitoringBeacon(beaconRegion, key: item.uuid)
   }
   
   func didBluetoothPoweredOff(didPowerOff item: LuggageTag) {
@@ -445,7 +469,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: item.uuid)!, identifier: item.name)
       
       // Stop Monitoring this Specific Beacon.
-      tktCoreLocation.stopMonitoringBeacon(beaconRegion, removeObject: true)
+      tktCoreLocation.stopMonitoringBeacon(beaconRegion, key: item.uuid)
     }
     
     updateToDatabase(item)
@@ -468,6 +492,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   private func configureCell(cell: UITableViewCell, withLuggageTag item: LuggageTag) {
     let label = cell.viewWithTag(1000) as! UILabel
     let photo = cell.viewWithTag(1001) as! CustomButton
+    let battery = cell.viewWithTag(1003) as! UILabel
     
     if (item.photo != nil) {
       photo.setImage(UIImage(data: item.photo!)!, forState: .Normal)
@@ -475,6 +500,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     }
     
     label.text = item.name
+    battery.text = "\(item.minor)%"
   }
   
   private func configureCellRegion(cell: UITableViewCell, withLuggageTag item: LuggageTag, connected: Bool) {
@@ -524,7 +550,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
           var beaconRegion: CLBeaconRegion?
           beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: beacon.uuid)!, identifier: beacon.name)
           // Stop Beacon First
-          tktCoreLocation.stopMonitoringBeacon(beaconRegion, removeObject: false)
+          tktCoreLocation.stopMonitoringBeacon(beaconRegion, key: "")
   
           // later, these values can be set from the UI
           beaconRegion!.notifyEntryStateOnDisplay = true
@@ -561,7 +587,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
           beaconRegion = CLBeaconRegion(proximityUUID: NSUUID(UUIDString: beacon.uuid)!, identifier: beacon.name)
           
           // Stop Monitoring this Specific Beacon.
-          tktCoreLocation.stopMonitoringBeacon(beaconRegion, removeObject: false)
+          tktCoreLocation.stopMonitoringBeacon(beaconRegion, key: "")
           
           if let index = row.indexOf(beacon) {
             let indexPath = NSIndexPath(forRow: index, inSection: 0)
@@ -754,6 +780,19 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     rightsLabel.text = NSLocalizedString("alrights_reserved", comment: "")
   }
   
+  private func getObjectIndex(id: String) -> Int {
+    for (index, element) in row.enumerate() {
+      if(id == element.uuid) {
+        return index
+      }
+    }
+    
+    return 0
+  }
+  
+  deinit {
+    NSNotificationCenter.defaultCenter().removeObserver(self)
+  }
 }
 
 

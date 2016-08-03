@@ -29,6 +29,7 @@ class CustomTableCell: UITableViewCell {
   @IBOutlet var name: UILabel!
   @IBOutlet var connection: CustomDetectionView!
   @IBOutlet var customSwitch: SevenSwitch!
+  @IBOutlet var battery: UILabel!
   
   weak var delegate: CustomTableCellDelegate?
   
@@ -49,6 +50,7 @@ class CustomTableCell: UITableViewCell {
     photo.userInteractionEnabled = false
     
     name.text = model.name
+    battery.text = "\(model.minor)%"
     
     customSwitch.setOn(model.isConnected, animated: false)
     customSwitch.offLabel.text = "OFF"

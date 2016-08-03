@@ -33,4 +33,13 @@ struct Constants {
     static let LuggageCounter = "LUGGAGE_NAME_COUNTER"
   }
   
+  struct Key {
+    static let Battery = "battery"
+    static let rssi = "rssi"
+  }
+  
+  struct Notification {
+    static let SetBattery = "SetBatteryID"
+  }
+  
 }

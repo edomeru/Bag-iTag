@@ -182,11 +182,18 @@
                                                         </mask>
                                                     </variation>
                                                 </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="1003" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DD6-nW-Lxz">
+                                                    <rect key="frame" x="22" y="166" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="ZjM-xw-jgZ" firstAttribute="top" secondItem="AYw-vx-yQ7" secondAttribute="topMargin" constant="17" id="4Vm-Ly-S0l"/>
                                                 <constraint firstItem="6cT-cj-Irw" firstAttribute="leading" secondItem="AYw-vx-yQ7" secondAttribute="leading" constant="187" id="6u6-iW-tJ1"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="ZjM-xw-jgZ" secondAttribute="bottom" constant="35" id="7Bg-0v-SJb"/>
+                                                <constraint firstAttribute="leadingMargin" secondItem="DD6-nW-Lxz" secondAttribute="leading" constant="-14" id="7DL-KF-65l"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="b9O-DD-W6w" secondAttribute="trailing" constant="-8" id="8QE-SN-C6t"/>
                                                 <constraint firstItem="pMf-VB-0Qj" firstAttribute="leading" secondItem="AYw-vx-yQ7" secondAttribute="leadingMargin" constant="21" id="93l-7F-jk0"/>
                                                 <constraint firstItem="b9O-DD-W6w" firstAttribute="top" secondItem="AYw-vx-yQ7" secondAttribute="top" id="97P-NT-S6v"/>
@@ -201,6 +208,7 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="b9O-DD-W6w" secondAttribute="bottom" constant="-8" id="UX2-Ep-QMx"/>
                                                 <constraint firstItem="b9O-DD-W6w" firstAttribute="top" secondItem="pMf-VB-0Qj" secondAttribute="bottom" constant="20" id="Z3Y-Ei-Y3B"/>
                                                 <constraint firstItem="b9O-DD-W6w" firstAttribute="leading" secondItem="AYw-vx-yQ7" secondAttribute="leadingMargin" constant="-8" id="bWn-bP-6Fq"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="DD6-nW-Lxz" secondAttribute="bottom" constant="5" id="bwG-gS-ViH"/>
                                                 <constraint firstItem="6cT-cj-Irw" firstAttribute="leading" secondItem="pMf-VB-0Qj" secondAttribute="trailing" constant="8" id="d2x-oU-m9S"/>
                                                 <constraint firstItem="pMf-VB-0Qj" firstAttribute="top" secondItem="AYw-vx-yQ7" secondAttribute="topMargin" constant="17" id="gaF-TO-zS2"/>
                                                 <constraint firstItem="ZjM-xw-jgZ" firstAttribute="leading" secondItem="uEK-oK-YRh" secondAttribute="trailing" constant="65" id="gg0-tJ-ET1"/>
@@ -232,6 +240,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
+                                            <outlet property="battery" destination="DD6-nW-Lxz" id="Sef-6w-uix"/>
                                             <outlet property="connection" destination="uEK-oK-YRh" id="DJG-cC-3os"/>
                                             <outlet property="customSwitch" destination="ZjM-xw-jgZ" id="LsV-8Y-Hph"/>
                                             <outlet property="name" destination="6cT-cj-Irw" id="vsT-ds-Nma"/>
