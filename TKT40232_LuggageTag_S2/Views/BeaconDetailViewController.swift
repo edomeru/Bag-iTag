@@ -143,7 +143,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
           
           luggageItem.name = trimmedName!
           luggageItem.uuid = "\(Constants.UUID.Identifier)\(uuidTextField.text!.uppercaseString)"
-          luggageItem.minor = "0"
+          luggageItem.minor = (uuidTextField.text! != originalString) ? "-1" : luggageItem.minor
           luggageItem.regionState = Constants.Proximity.Outside
           
           delegate?.beaconDetailViewController(self, didFinishEditingItem: luggageItem)
@@ -168,7 +168,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
         luggageItem.name = trimmedName!
         luggageItem.uuid = "\(Constants.UUID.Identifier)\(uuidTextField.text!.uppercaseString)"
         luggageItem.major = "0"
-        luggageItem.minor = "0"
+        luggageItem.minor = "-1"
         luggageItem.regionState = Constants.Proximity.Outside
         luggageItem.isConnected = false
         

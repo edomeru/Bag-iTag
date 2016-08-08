@@ -396,6 +396,12 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
     tableView.endUpdates()
     
+    if let cell = tableView.cellForRowAtIndexPath(indexPath) {
+      let battery = cell.viewWithTag(1003) as! UILabel
+      battery.text = "\(item.minor)%"
+      battery.hidden = (battery.text! == "-1%") ? true : false
+    }
+    
     // Save item in Database
     saveToDatabase(item)
 
@@ -501,6 +507,8 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     
     label.text = item.name
     battery.text = "\(item.minor)%"
+    battery.hidden = (battery.text! == "-1%") ? true : false
+    
   }
   
   private func configureCellRegion(cell: UITableViewCell, withLuggageTag item: LuggageTag, connected: Bool) {

@@ -51,6 +51,7 @@ class CustomTableCell: UITableViewCell {
     
     name.text = model.name
     battery.text = "\(model.minor)%"
+    battery.hidden = (battery.text! == "-1%") ? true : false
     
     customSwitch.setOn(model.isConnected, animated: false)
     customSwitch.offLabel.text = "OFF"
