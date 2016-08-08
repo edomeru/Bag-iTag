@@ -29,7 +29,7 @@ struct Constants {
   }
   
   struct Default {
-    static let LuggageName = "LuggageTag"
+    static let LuggageName = "Luggage"
     static let LuggageCounter = "LUGGAGE_NAME_COUNTER"
   }
   
