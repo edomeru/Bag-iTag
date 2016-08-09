@@ -351,10 +351,11 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
           if let index = row.indexOf(beacon) {
             let indexPath = NSIndexPath(forRow: index, inSection: 0)
             row[indexPath.row].regionState = Constants.Proximity.Inside
+            NSNotificationCenter.defaultCenter().postNotificationName(Constants.Proximity.Inside, object: nil, userInfo: ["region": region])
+            createLocalNotification(region.identifier, identifier: beacon.uuid, message: NSLocalizedString("has_arrived", comment: ""))
+            
             if let cell = tableView.cellForRowAtIndexPath(indexPath) {
               configureCellRegion(cell, withLuggageTag: beacon, connected: true)
-              NSNotificationCenter.defaultCenter().postNotificationName(Constants.Proximity.Inside, object: nil, userInfo: ["region": region])
-              createLocalNotification(region.identifier, identifier: beacon.uuid, message: NSLocalizedString("has_arrived", comment: ""))
             }
           }
         }
@@ -364,18 +365,18 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   
   func didExitRegion(region: CLBeaconRegion) {
     for beacon in row {
-      if (beacon.name == region.identifier) {
+      if (beacon.name == region.identifier && beacon.uuid == region.proximityUUID.UUIDString) {
         if (beacon.regionState != Constants.Proximity.Outside) {
           if let index = row.indexOf(beacon) {
             let indexPath = NSIndexPath(forRow: index, inSection: 0)
             row[indexPath.row].regionState = Constants.Proximity.Outside
+            NSNotificationCenter.defaultCenter().postNotificationName(Constants.Proximity.Outside, object: nil, userInfo: ["region": region])
+            createLocalNotification(region.identifier, identifier: beacon.uuid, message: NSLocalizedString("is_gone", comment: ""))
+            
             if let cell = tableView.cellForRowAtIndexPath(indexPath) {
               configureCellRegion(cell, withLuggageTag: beacon, connected: false)
-              NSNotificationCenter.defaultCenter().postNotificationName(Constants.Proximity.Outside, object: nil, userInfo: ["region": region])
-              createLocalNotification(region.identifier, identifier: beacon.uuid, message: NSLocalizedString("is_gone", comment: ""))
             }
           }
-          
         }
       }
     }
