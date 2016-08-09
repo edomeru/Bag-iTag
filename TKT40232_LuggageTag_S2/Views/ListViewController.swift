@@ -353,6 +353,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
             row[indexPath.row].regionState = Constants.Proximity.Inside
             if let cell = tableView.cellForRowAtIndexPath(indexPath) {
               configureCellRegion(cell, withLuggageTag: beacon, connected: true)
+              NSNotificationCenter.defaultCenter().postNotificationName(Constants.Proximity.Inside, object: nil, userInfo: ["region": region])
               createLocalNotification(region.identifier, identifier: beacon.uuid, message: NSLocalizedString("has_arrived", comment: ""))
             }
           }
@@ -370,6 +371,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
             row[indexPath.row].regionState = Constants.Proximity.Outside
             if let cell = tableView.cellForRowAtIndexPath(indexPath) {
               configureCellRegion(cell, withLuggageTag: beacon, connected: false)
+              NSNotificationCenter.defaultCenter().postNotificationName(Constants.Proximity.Outside, object: nil, userInfo: ["region": region])
               createLocalNotification(region.identifier, identifier: beacon.uuid, message: NSLocalizedString("is_gone", comment: ""))
             }
           }

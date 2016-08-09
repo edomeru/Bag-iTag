@@ -30,7 +30,7 @@ protocol BeaconDetailViewControllerDelegate: NSObjectProtocol {
   func didBluetoothPoweredOff(didPowerOff item: LuggageTag)
 }
 
-class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UITextFieldDelegate, TKTCoreLocationDelegate, ModalViewControllerDelegate {
+class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UITextFieldDelegate, ModalViewControllerDelegate {
 
   @IBOutlet weak var nameTextField: UITextField!
   @IBOutlet weak var uuidTextField: UITextField!
@@ -38,8 +38,6 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   @IBOutlet weak var rangeLabel: UILabel!
   
   var centralManager: CBCentralManager!
-  
-  var tktCoreLocation: TKTCoreLocation!
   
   weak var delegate: BeaconDetailViewControllerDelegate?
   
@@ -52,11 +50,15 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     super.viewDidLoad()
     formatNavigationBar()
     
+    // NSNotification Observer for Keyboard
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BeaconDetailViewController.keyboardWillShow(_:)), name:UIKeyboardWillShowNotification, object: nil);
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BeaconDetailViewController.keyboardWillHide(_:)), name:UIKeyboardWillHideNotification, object: nil);
     
+    // NSNotification Observer for TKTCoreLocation in ListView
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BeaconDetailViewController.setEnterRegion(_:)), name: Constants.Proximity.Inside, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BeaconDetailViewController.setExitRegion(_:)), name: Constants.Proximity.Outside, object: nil)
+    
     centralManager = CBCentralManager(delegate: self, queue: nil)
-    tktCoreLocation = TKTCoreLocation(delegate: self)
     
     if let item = beaconToEdit {
       if (item.photo != nil) {
@@ -184,13 +186,6 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     imgButton.imageView?.contentMode = UIViewContentMode.Center
   }
   
-  // MARK: Private Methods
-  private func formatNavigationBar() {
-    self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
-    self.navigationController?.navigationBar.shadowImage = UIImage()
-    self.navigationController?.navigationBar.translucent = true
-  }
-  
   // MARK: CBCentralManagerDelegate Methods
   func centralManagerDidUpdateState(central: CBCentralManager) {
     switch (central.state) {
@@ -207,16 +202,17 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     }
   }
   
-  // MARK: TKTCoreLocationDelegate
-  func onBackgroundLocationAccessDisabled() {}
+  // MARK: NSNotificationCenter Functions
+  func keyboardWillShow(sender: NSNotification) {
+    self.view.frame.origin.y = -150
+  }
   
-  func didStartMonitoring() {}
+  func keyboardWillHide(sender: NSNotification) {
+    self.view.frame.origin.y = 0
+  }
   
-  func didStopMonitoring() {}
-  
-  func monitoringDidFail() {}
-  
-  func didEnterRegion(region: CLBeaconRegion) {
+  func setEnterRegion(notification: NSNotification) {
+    let region = notification.userInfo!["region"] as! CLBeaconRegion
     if let luggageTag = beaconToEdit {
       let connected = luggageTag.isConnected
       if (region.identifier == luggageTag.name && region.proximityUUID.UUIDString == luggageTag.uuid && connected) {
@@ -225,22 +221,20 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     }
   }
   
-  func didExitRegion(region: CLBeaconRegion) {
+  func setExitRegion(notification: NSNotification) {
+    let region = notification.userInfo!["region"] as! CLBeaconRegion
     if let luggageTag = beaconToEdit {
-      if(region.identifier == luggageTag.name && region.proximityUUID.UUIDString == luggageTag.uuid) {
+      if (region.identifier == luggageTag.name && region.proximityUUID.UUIDString == luggageTag.uuid) {
         rangeLabel.text = Constants.Range.OutOfRange
       }
     }
   }
   
-  func didRangeBeacon(manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {}
-  
-  func keyboardWillShow(sender: NSNotification) {
-    self.view.frame.origin.y = -150
-  }
-  
-  func keyboardWillHide(sender: NSNotification) {
-    self.view.frame.origin.y = 0
+  // MARK: Private Methods
+  private func formatNavigationBar() {
+    self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
+    self.navigationController?.navigationBar.shadowImage = UIImage()
+    self.navigationController?.navigationBar.translucent = true
   }
   
   private func showConfirmation(title: String, message: String) {
@@ -314,7 +308,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     return true
   }
   
-  func checkIdentifierCodeAvailability() -> Bool {
+  private func checkIdentifierCodeAvailability() -> Bool {
     for beacon in beaconReference! {
       if (beacon.uuid == ("\(Constants.UUID.Identifier)\(uuidTextField.text!.uppercaseString)")) {
         if let item = beaconToEdit {
@@ -332,7 +326,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     return true
   }
   
-  func checkTagAvailability() -> Bool {
+  private func checkTagAvailability() -> Bool {
     
     for beacon in beaconReference! {
       if (beacon.name == trimmedName!) {
@@ -349,5 +343,14 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     }
     
     return false
+  }
+  
+  deinit {
+    // Remove all Observer from this Controller to save memory
+    NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+    NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    
+    NSNotificationCenter.defaultCenter().removeObserver(self, name: Constants.Proximity.Inside, object: nil)
+    NSNotificationCenter.defaultCenter().removeObserver(self, name: Constants.Proximity.Outside, object: nil)
   }
 }
