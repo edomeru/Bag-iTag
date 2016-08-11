@@ -5,34 +5,32 @@
   Created by PhTktimac1 on 24/05/2016.
   Copyright © 2016 Tektos Limited. All rights reserved.
 */
-
-"app_name" = "Bag iTag";
-"ok" = "OK";
-"cancel" = "Cancel";
-"yes" = "Yes";
-"no" = "No";
-"error" = "Error";
-"warning" = "Warning";
-"remove" = "Remove";
-"delete_luggage_title" = "Delete Luggage Tag";
-
 /* Application Info */
+"app_name" = "Bag iTag";
 "tektos_limited" = "Tektos Limited © 2016";
 "alrights_reserved" = "All rights reserved";
 
-/* Alert Box */
+/* Alert Box Actions */
+"ok" = "OK";
+"exit" = "Exit";
+"cancel" = "Cancel";
+"remove" = "Remove";
 "settings" = "Settings";
-"turn_on_bluetooth" = "Turn On Bluetooth to detect nearby Bag iTag Beacon";
+
+/* Alert Box Titles */
+"error" = "Error";
+"warning" = "Warning";
+"delete_luggage_title" = "Delete Luggage Tag";
 "location_access_disabled" = "Background Location Access is Disabled";
+
+/* Alert Box Messages */
+"turn_on_bluetooth" = "Turn On Bluetooth to detect nearby Bag iTag Beacon";
 "location_access_disabled_settings" = "Please change the location access to \"Always\" in app settings.";
 "delete_luggage" = "Are you sure want to remove this Luggage \"%@\"";
 "camera_restricted" = "This app does not have access to your Camera. You can enable access in Privacy Settings.";
-"exit_confirmation" = "Do you really want to exit?";
-
-"err_identifier_code_invalid" = "Please enter a valid identifier code";
-"err_luggage_tag_invalid" = "Please enter a valid Luggage Name";
-"err_identifier_code_exists" = "Luggage with this identifier code already exists";
-"err_luggage_tag_exists" = "Luggage Name already exists";
+"photo_restricted" = "This app does not have access to your Photo Library. You can enable access in Privacy Settings.";
+"exit_confirmation" = "Identifier Code missing or incorrect. Do you really want to exit?";
+"err_luggage_exist" = "Luggage exists. Do you really want to exit and discard changes?";
 
 /* Local Notification */
 "has_arrived" = "has arrived!";

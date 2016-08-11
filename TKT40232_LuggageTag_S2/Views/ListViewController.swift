@@ -488,7 +488,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   private func showAlertForSettings() {
     let actions = [
       UIAlertAction(title: NSLocalizedString("settings", comment: ""), style: .Default) { (action) in
-        if let url = NSURL(string:UIApplicationOpenSettingsURLString) {
+        if let url = NSURL(string:"prefs:root=Bluetooth") {
           UIApplication.sharedApplication().openURL(url)
         }
       },

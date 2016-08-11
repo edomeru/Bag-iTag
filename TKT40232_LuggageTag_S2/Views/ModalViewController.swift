@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import Photos
 
 extension UIButton{
   func roundCorners(corners:UIRectCorner, radius: CGFloat) {
@@ -41,10 +42,37 @@ class ModalViewController: UIViewController, UIImagePickerControllerDelegate, UI
     let gesture = UITapGestureRecognizer(target: self, action: #selector(ModalViewController.dismissModal))
     self.view.addGestureRecognizer(gesture)
   }
+  
+  func cameraPicker() {
+    let cameraPicker = UIImagePickerController()
+    cameraPicker.delegate = self
+    cameraPicker.sourceType = .Camera
+    
+    self.presentViewController(cameraPicker, animated: true, completion: nil)
+  }
+  
+  func photoPicker() {
+    let photoPicker = UIImagePickerController()
+    photoPicker.delegate = self
+    photoPicker.sourceType = .PhotoLibrary
+    
+    self.presentViewController(photoPicker, animated: true, completion: nil)
+  }
+  
+  func showAlertforSettings(message: String) {
+    let action = [
+      UIAlertAction(title: NSLocalizedString("settings", comment: ""), style: .Default) { (action) in
+        if let url = NSURL(string:UIApplicationOpenSettingsURLString) {
+          UIApplication.sharedApplication().openURL(url)
+        }
+      },
+      UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Cancel, handler: nil)
+    ]
+    
+    Globals.showAlert(self, title: NSLocalizedString("error", comment: ""), message: message, animated: true, completion: nil, actions: action)
+  }
 
   @IBAction func takePhoto(sender: AnyObject) {
-    
-    
     // Check if we have permission taking Camera
     if AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo) == AVAuthorizationStatus.Authorized {
       // Already Authorized
@@ -58,30 +86,32 @@ class ModalViewController: UIViewController, UIImagePickerControllerDelegate, UI
         }
       })
       
-      let action = [UIAlertAction(title: NSLocalizedString("settings", comment: ""), style: .Default) { (action) in
-        if let url = NSURL(string:UIApplicationOpenSettingsURLString) {
-          UIApplication.sharedApplication().openURL(url)
-        }
-      }]
-      
-      Globals.showAlert(self, title: NSLocalizedString("error", comment: ""), message: NSLocalizedString("camera_restricted", comment: ""), animated: true, completion: nil, actions: action)
+      showAlertforSettings(NSLocalizedString("camera_restricted", comment: ""))
     }
-
-  }
-  
-  func cameraPicker() {
-    let cameraPicker = UIImagePickerController()
-    cameraPicker.delegate = self
-    cameraPicker.sourceType = .Camera
-    
-    self.presentViewController(cameraPicker, animated: true, completion: nil)
   }
   
   @IBAction func choosePhoto(sender: AnyObject) {
-    let photoPicker = UIImagePickerController()
-    photoPicker.delegate = self
-    photoPicker.sourceType = .PhotoLibrary
-    self.presentViewController(photoPicker, animated: true, completion: nil)
+    let status: PHAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
+    
+    switch status {
+    case .Authorized:
+      photoPicker()
+    case .Denied:
+      showAlertforSettings(NSLocalizedString("photo_restricted", comment: ""))
+    case .NotDetermined:
+      // Access has not been determined.
+      PHPhotoLibrary.requestAuthorization({(status: PHAuthorizationStatus) -> Void in
+        if status == .Authorized {
+          self.photoPicker()
+        }
+        else {
+          self.showAlertforSettings(NSLocalizedString("photo_restricted", comment: ""))
+        }
+      })
+    case .Restricted:
+      // Restricted access - normally won't happen.
+      showAlertforSettings(NSLocalizedString("photo_restricted", comment: ""))
+    }
   }
   
   @IBAction func cancelClicked(sender: AnyObject) {

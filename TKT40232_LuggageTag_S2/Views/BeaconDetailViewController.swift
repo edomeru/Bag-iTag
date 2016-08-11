@@ -105,7 +105,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     let newLength = currentCharacterCount + string.characters.count - range.length
     
     if (textField.tag == 1000) {
-      return newLength <= 20 // Character Limit for Luggage Tag
+      return newLength <= 20 // Character Limit for Luggage Name
     } else {
       return newLength <= 12 // Character Limit for Identifier Code
     }
@@ -239,19 +239,14 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   
   private func showConfirmation(title: String, message: String) {
     let actions = [
-      UIAlertAction(title: NSLocalizedString("yes", comment: ""), style: .Cancel) { (action) in
-        Globals.log("Cancel Adding/Editing Luggage")
+      UIAlertAction(title: NSLocalizedString("exit", comment: ""), style: .Cancel) { (action) in
+        Globals.log("Exit Adding/Editing Luggage")
         self.dismissViewControllerAnimated(true, completion: nil)
       },
-      UIAlertAction(title: NSLocalizedString("no", comment: ""), style: .Default, handler: nil)
+      UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .Default, handler: nil)
     ]
     
     Globals.showAlert(self, title: title, message: message, animated: true, completion: nil, actions: actions)
-  }
-  
-  private func showError(title: String, message: String) {
-    let okAction = [UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Cancel, handler: nil)]
-    Globals.showAlert(self, title: title, message: message, animated: true, completion: nil, actions: okAction)
   }
   
   private func assignLuggageName() {
@@ -288,19 +283,19 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     }
      
     if (uuidTextField.text!.characters.count < 12 || !(uuidTextField.text!.isValidHexNumber())) {
-      showError(NSLocalizedString("error", comment: ""), message: NSLocalizedString("err_identifier_code_invalid", comment: ""))
+      showConfirmation(NSLocalizedString("warning", comment: ""), message: NSLocalizedString("exit_confirmation", comment: ""))
       
       return false
     }
     
     if (!checkIdentifierCodeAvailability()) {
-      showError(NSLocalizedString("error", comment: ""), message: NSLocalizedString("err_identifier_code_exists", comment: ""))
+      showConfirmation(NSLocalizedString("warning", comment: ""), message: NSLocalizedString("err_luggage_exist", comment: ""))
       
       return false
     }
     
     if (checkTagAvailability()) {
-      showError(NSLocalizedString("error", comment: ""), message: NSLocalizedString("err_luggage_tag_exists", comment: ""))
+      showConfirmation(NSLocalizedString("warning", comment: ""), message: NSLocalizedString("err_luggage_exist", comment: ""))
       
       return false
     }
