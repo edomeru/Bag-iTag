@@ -264,7 +264,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
           prefs.synchronize()
         }
       } else {
-        var num = 1
+        var num = 0
         
         repeat {
           num = num + 1
