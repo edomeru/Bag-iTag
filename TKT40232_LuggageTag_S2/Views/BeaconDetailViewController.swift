@@ -120,13 +120,13 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
       NSCharacterSet.whitespaceAndNewlineCharacterSet()
     )
     
+    // Check/Get Luggage's Name
+    assignLuggageName()
+    
     let isValidLuggage = validateLuggage()
     
     if (isValidLuggage) {
       if let luggageItem = beaconToEdit {
-        
-        // Check/Get Luggage's Name
-        assignLuggageName()
         
         let originalStringIndex = luggageItem.uuid.endIndex.advancedBy(-12)
         let originalString = luggageItem.uuid.substringFromIndex(originalStringIndex)
@@ -155,9 +155,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
         }
 
       } else {
-        // Check/Get Luggage's Name
-        assignLuggageName()
-        
+
         //New Luggage
         let luggageItem = LuggageTag()
         
@@ -266,9 +264,14 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
           prefs.synchronize()
         }
       } else {
-        trimmedName! = Constants.Default.LuggageName
+        var num = 1
         
-        prefs.setInteger(1, forKey: Constants.Default.LuggageCounter)
+        repeat {
+          num = num + 1
+          trimmedName! = "\(Constants.Default.LuggageName) \(num)"
+        } while checkTagAvailability()
+        
+        prefs.setInteger(num, forKey: Constants.Default.LuggageCounter)
         prefs.synchronize()
       }
     }
