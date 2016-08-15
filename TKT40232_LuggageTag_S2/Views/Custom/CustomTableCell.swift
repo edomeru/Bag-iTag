@@ -41,18 +41,20 @@ class CustomTableCell: UITableViewCell {
       photo.setImage(UIImage(named: "luggage_default"), forState: .Normal)
     }
     
+    battery.text = "\(model.minor)%"
+    
     if (model.regionState == "Outside" || model.regionState == "unknown") {
       connection.image = UIImage(named: "off_range")
+      battery.hidden = true
     } else {
       connection.image = UIImage(named: "in_range")
+      battery.hidden = (battery.text! == "-1%") ? true : false
     }
     
     photo.userInteractionEnabled = false
     
     name.text = model.name
-    battery.text = "\(model.minor)%"
-    battery.hidden = (battery.text! == "-1%") ? true : false
-    
+  
     customSwitch.setOn(model.isConnected, animated: false)
     customSwitch.offLabel.text = "OFF"
     customSwitch.offLabel.font = UIFont(name: "Gadugi-Bold", size: 15)

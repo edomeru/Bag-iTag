@@ -99,8 +99,8 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       row[rowIndex].minor = percentage
       
       if let cell = tableView.cellForRowAtIndexPath(indexPath) {
-        configureCell(cell, withLuggageTag: row[rowIndex])
-
+        configureCellRegion(cell, withLuggageTag: row[rowIndex], connected: true)
+        
         // Asynchronously update Database
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
           self.updateToDatabase(self.row[rowIndex])
@@ -501,7 +501,6 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   private func configureCell(cell: UITableViewCell, withLuggageTag item: LuggageTag) {
     let label = cell.viewWithTag(1000) as! UILabel
     let photo = cell.viewWithTag(1001) as! CustomButton
-    let battery = cell.viewWithTag(1003) as! UILabel
     
     if (item.photo != nil) {
       photo.setImage(UIImage(data: item.photo!)!, forState: .Normal)
@@ -509,17 +508,19 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     }
     
     label.text = item.name
-    battery.text = "\(item.minor)%"
-    battery.hidden = (battery.text! == "-1%") ? true : false
-    
   }
   
   private func configureCellRegion(cell: UITableViewCell, withLuggageTag item: LuggageTag, connected: Bool) {
     let region = cell.viewWithTag(1002) as! CustomDetectionView
+    let battery = cell.viewWithTag(1003) as! UILabel
+    battery.text = "\(item.minor)%"
+  
     if (connected) {
       region.image = UIImage(named: "in_range")
+      battery.hidden = (battery.text! == "-1%") ? true : false
     } else {
       region.image = UIImage(named: "off_range")
+      battery.hidden = true
     }
   }
   
