@@ -780,7 +780,6 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     self.navigationController?.navigationBar.shadowImage = UIImage()
     self.navigationController?.navigationBar.translucent = true
   
-    self.tableView.contentInset = UIEdgeInsetsMake(150.0, 0, 0, 0)
   }
   
   private func applicationInfo() {
