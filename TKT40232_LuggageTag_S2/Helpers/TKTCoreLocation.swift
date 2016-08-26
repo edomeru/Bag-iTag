@@ -104,15 +104,22 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
       Globals.log(" - entered region \(region.identifier)")
       
       let beaconRegion = region as! CLBeaconRegion
-      delegate?.didEnterRegion(beaconRegion)
+      
       locationManager.startRangingBeaconsInRegion(beaconRegion)
+      delegate?.didEnterRegion(beaconRegion)
+      
+      if (beaconRegions[beaconRegion.proximityUUID.UUIDString] != nil) {
+        if (beaconRegions[beaconRegion.proximityUUID.UUIDString]![Constants.Key.Exited] == 1) {
+          beaconRegions.updateValue([Constants.Key.Battery: 0, Constants.Key.rssi: 0, Constants.Key.Proximity: 1, Constants.Key.Exited: 0, Constants.Key.Initialize: 0], forKey: beaconRegion.proximityUUID.UUIDString)
+        }
+      }
       
     case CLRegionState.Outside:
       Globals.log(" - exited region \(region.identifier)")
       
       let beaconRegion = region as! CLBeaconRegion
-      delegate?.didExitRegion(beaconRegion)
       locationManager.stopRangingBeaconsInRegion(beaconRegion)
+      delegate?.didExitRegion(beaconRegion)
       
     default:
       Globals.log(" - unknown region \(region.identifier)")
@@ -136,7 +143,8 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
   }
   
   func locationManager(manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
-    //Globals.log(beacons)
+    //NSLog("BEACON: \(beacons)", "")
+    //NSLog("REGION: \(region)", "")
     
     let key = region.proximityUUID.UUIDString
     
@@ -144,13 +152,65 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
       var rangedBeacon: CLBeacon! = CLBeacon()
       let battery: Int = Int(rangedBeacon.minor)
       rangedBeacon = beacons[0]
+      let absRssiValue = abs(rangedBeacon.rssi)
+      var proximityCode: Int = 0
+      
+      switch rangedBeacon.proximity {
+      case CLProximity.Unknown:
+        proximityCode = 1
+      case CLProximity.Immediate:
+        proximityCode = 2
+      case CLProximity.Near:
+        proximityCode = 3
+      case CLProximity.Far:
+        proximityCode = 4
+      }
       
       if beaconRegions[key] != nil {
+        if (absRssiValue != beaconRegions[key]![Constants.Key.rssi]) {
+          let oldRssiValue = beaconRegions[key]![Constants.Key.rssi]
+          
+          if (absRssiValue == 0 && oldRssiValue > 0) {
+            beaconRegions.updateValue([Constants.Key.Battery: battery, Constants.Key.rssi: absRssiValue, Constants.Key.Proximity: proximityCode, Constants.Key.Exited: 1, Constants.Key.Initialize: 0], forKey: key)
+            delegate?.didExitRegion(region)
+          }
+          
+          if (absRssiValue > 0 && oldRssiValue == 0) {
+            beaconRegions.updateValue([Constants.Key.Battery: battery, Constants.Key.rssi: absRssiValue, Constants.Key.Proximity: proximityCode, Constants.Key.Exited: 0, Constants.Key.Initialize: 0], forKey: key)
+            delegate?.didEnterRegion(region)
+          }
+        }
+        
         NSNotificationCenter.defaultCenter().postNotificationName(Constants.Notification.SetBattery, object: nil, userInfo: ["key": key, "minor": rangedBeacon.minor])
       } else {
-        beaconRegions[key] = [Constants.Key.Battery: battery, Constants.Key.rssi: rangedBeacon.rssi]
+        
+        if (absRssiValue == 0) {
+          beaconRegions[key] = [Constants.Key.Battery: battery, Constants.Key.rssi: absRssiValue, Constants.Key.Proximity: proximityCode, Constants.Key.Exited: 1, Constants.Key.Initialize: 0]
+          delegate?.didExitRegion(region)
+        } else {
+          beaconRegions[key] = [Constants.Key.Battery: battery, Constants.Key.rssi: absRssiValue, Constants.Key.Proximity: proximityCode, Constants.Key.Exited: 0, Constants.Key.Initialize: 0]
+          delegate?.didEnterRegion(region)
+        }
+        
         NSNotificationCenter.defaultCenter().postNotificationName(Constants.Notification.SetBattery, object: nil, userInfo: ["key": key, "minor": rangedBeacon.minor])
       }
+    } else {
+      
+      if (beaconRegions[key] == nil) {
+        
+        beaconRegions[key] = [Constants.Key.Battery: 0, Constants.Key.rssi: 0, Constants.Key.Proximity: 1, Constants.Key.Exited: 1, Constants.Key.Initialize: 1]
+        delegate?.didExitRegion(region)
+        
+      } else if (beaconRegions[key]![Constants.Key.Exited] == 0) {
+        
+        beaconRegions.updateValue([Constants.Key.Battery: 0, Constants.Key.rssi: 0, Constants.Key.Proximity: 1, Constants.Key.Exited: 1, Constants.Key.Initialize: 0], forKey: key)
+        delegate?.didExitRegion(region)
+        
+      } else if (beaconRegions[key]![Constants.Key.Battery] == 0 && beaconRegions[key]![Constants.Key.rssi] == 0 &&
+          beaconRegions[key]![Constants.Key.Proximity] == 1 && beaconRegions[key]![Constants.Key.Exited] == 1 && beaconRegions[key]!["intialize"] == 0) {
+        delegate?.didExitRegion(region)
+      }
+      
     }
   }
   

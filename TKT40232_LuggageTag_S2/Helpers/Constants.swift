@@ -36,6 +36,9 @@ struct Constants {
   struct Key {
     static let Battery = "battery"
     static let rssi = "rssi"
+    static let Proximity = "Proximity"
+    static let Exited = "exited"
+    static let Initialize = "initialize"
   }
   
   struct Notification {
