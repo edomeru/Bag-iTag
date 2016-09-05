@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="fRw-Vc-P7V">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="fRw-Vc-P7V">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -155,7 +155,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </button>
                                                 <view tag="1002" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="uEK-oK-YRh" customClass="CustomDetectionView" customModule="LuggageFinder" customModuleProvider="target">
-                                                    <rect key="frame" x="148" y="117" width="50" height="50"/>
+                                                    <rect key="frame" x="140" y="125" width="50" height="50"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="1KX-qS-7nd"/>
@@ -199,7 +199,7 @@
                                                 <constraint firstItem="b9O-DD-W6w" firstAttribute="top" secondItem="AYw-vx-yQ7" secondAttribute="top" id="97P-NT-S6v"/>
                                                 <constraint firstItem="ZjM-xw-jgZ" firstAttribute="leading" secondItem="AYw-vx-yQ7" secondAttribute="leadingMargin" constant="502" id="BAI-uE-cTg"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="ZjM-xw-jgZ" secondAttribute="trailing" constant="15" id="CHQ-Rq-C9h"/>
-                                                <constraint firstItem="b9O-DD-W6w" firstAttribute="top" secondItem="uEK-oK-YRh" secondAttribute="bottom" constant="28" id="F0D-N9-OF0"/>
+                                                <constraint firstItem="b9O-DD-W6w" firstAttribute="top" secondItem="uEK-oK-YRh" secondAttribute="bottom" constant="20" id="F0D-N9-OF0"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="ZjM-xw-jgZ" secondAttribute="trailing" constant="15" id="Lp2-3h-A20"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="ZjM-xw-jgZ" secondAttribute="bottom" constant="32" id="Ls0-ft-7oo"/>
                                                 <constraint firstItem="b9O-DD-W6w" firstAttribute="leading" secondItem="AYw-vx-yQ7" secondAttribute="leading" id="Nid-gf-8uW"/>
@@ -218,7 +218,7 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="pMf-VB-0Qj" secondAttribute="bottom" constant="17" id="oLs-En-g4l"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="6cT-cj-Irw" secondAttribute="trailing" id="oP3-IL-asY"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="ZjM-xw-jgZ" secondAttribute="trailing" constant="15" id="xDG-v0-0Xd"/>
-                                                <constraint firstItem="uEK-oK-YRh" firstAttribute="leading" secondItem="pMf-VB-0Qj" secondAttribute="trailing" constant="-31" id="zEH-qa-arx"/>
+                                                <constraint firstItem="uEK-oK-YRh" firstAttribute="leading" secondItem="pMf-VB-0Qj" secondAttribute="trailing" constant="-39" id="zEH-qa-arx"/>
                                                 <constraint firstItem="6cT-cj-Irw" firstAttribute="top" secondItem="ZjM-xw-jgZ" secondAttribute="bottom" constant="12" id="zfd-vI-Ujk"/>
                                             </constraints>
                                             <variation key="default">
@@ -677,6 +677,6 @@
         <image name="off_range" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="EQb-Qw-ZeF"/>
+        <segue reference="op5-Nl-NqQ"/>
     </inferredMetricsTieBreakers>
 </document>
