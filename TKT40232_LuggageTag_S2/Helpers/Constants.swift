@@ -43,6 +43,7 @@ struct Constants {
   
   struct Notification {
     static let SetBattery = "SetBatteryID"
+    static let SetImageRange = "SetImageRangeID"
   }
   
 }

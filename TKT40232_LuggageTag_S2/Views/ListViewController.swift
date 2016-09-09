@@ -86,6 +86,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     
     // Add NSNotificationCenter Observer for this Controller
     NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ListViewController.setBattery(_:)), name: Constants.Notification.SetBattery, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ListViewController.setLuggageImageRange(_:)), name: Constants.Notification.SetImageRange, object: nil)
   }
   
   // MARK: NSNotificationCenter Functions
@@ -99,13 +100,27 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       row[rowIndex].minor = percentage
       
       if let cell = tableView.cellForRowAtIndexPath(indexPath) {
-        configureCellRegion(cell, withLuggageTag: row[rowIndex], connected: true)
-        
+        //configureCellRegion(cell, withLuggageTag: row[rowIndex], connected: true)
+        let battery = cell.viewWithTag(1003) as! UILabel
+        battery.text = "\(row[rowIndex].minor)%"
+
         // Asynchronously update Database
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
           self.updateToDatabase(self.row[rowIndex])
         })
       }
+    }
+  }
+  
+  func setLuggageImageRange(notification: NSNotification) {
+    let key = notification.userInfo!["key"] as! String
+    let rangeImage = notification.userInfo!["rangeImage"] as! String
+    let rowIndex = getObjectIndex(key)
+    
+    let indexPath = NSIndexPath(forRow: rowIndex, inSection: 0)
+    if let cell = tableView.cellForRowAtIndexPath(indexPath) {
+      let region = cell.viewWithTag(1002) as! CustomDetectionView
+      region.image = UIImage(named: rangeImage)
     }
   }
   
@@ -516,10 +531,10 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     battery.text = "\(item.minor)%"
   
     if (connected) {
-      region.image = UIImage(named: "in_range")
+      region.image = UIImage(named: "range_close")
       battery.hidden = (battery.text! == "-1%") ? true : false
     } else {
-      region.image = UIImage(named: "off_range")
+      region.image = UIImage(named: "range_no_detection")
       battery.hidden = true
     }
   }
