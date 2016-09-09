@@ -104,15 +104,15 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
       Globals.log(" - entered region \(region.identifier)")
       
       let beaconRegion = region as! CLBeaconRegion
-      delegate?.didEnterRegion(beaconRegion)
       locationManager.startRangingBeaconsInRegion(beaconRegion)
+      delegate?.didEnterRegion(beaconRegion)
       
     case CLRegionState.Outside:
       Globals.log(" - exited region \(region.identifier)")
       
       let beaconRegion = region as! CLBeaconRegion
-      delegate?.didExitRegion(beaconRegion)
       locationManager.stopRangingBeaconsInRegion(beaconRegion)
+      delegate?.didExitRegion(beaconRegion)
       
     default:
       Globals.log(" - unknown region \(region.identifier)")
@@ -136,19 +136,53 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
   }
   
   func locationManager(manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
-    //Globals.log(beacons)
+    //NSLog("BEACON: \(beacons)", "")
+    //NSLog("REGION: \(region)", "")
     
     let key = region.proximityUUID.UUIDString
     
     if beacons.count > 0 {
       var rangedBeacon: CLBeacon! = CLBeacon()
-      let battery: Int = Int(rangedBeacon.minor)
       rangedBeacon = beacons[0]
+      let battery: Int = Int(rangedBeacon.minor)
+      let absRssiValue = abs(rangedBeacon.rssi)
+      var proximityCode: Int = 0
+      var rangeImage: String = ""
+      
+      switch rangedBeacon.proximity {
+      case CLProximity.Unknown:
+        proximityCode = 1
+        rangeImage = "range_far"
+      case CLProximity.Immediate:
+        proximityCode = 2
+        rangeImage = "range_close"
+      case CLProximity.Near:
+        proximityCode = 3
+        rangeImage = "range_intermediary"
+      case CLProximity.Far:
+        proximityCode = 4
+        rangeImage = "range_far"
+      }
       
       if beaconRegions[key] != nil {
-        NSNotificationCenter.defaultCenter().postNotificationName(Constants.Notification.SetBattery, object: nil, userInfo: ["key": key, "minor": rangedBeacon.minor])
+        let oldProximityCode = beaconRegions[key]![Constants.Key.Proximity]
+        let oldBattery = beaconRegions[key]![Constants.Key.Battery]
+        
+        if (oldProximityCode != proximityCode) {
+          //beaconRegions.updateValue([Constants.Key.Battery: battery, Constants.Key.rssi: absRssiValue, Constants.Key.Proximity: proximityCode, Constants.Key.Exited: 1, Constants.Key.Initialize: 0], forKey: key)
+          beaconRegions[key]![Constants.Key.Proximity] = proximityCode
+          NSNotificationCenter.defaultCenter().postNotificationName(Constants.Notification.SetImageRange, object: nil, userInfo: ["key": key, "rangeImage": rangeImage])
+        }
+        
+        if (oldBattery != battery) {
+          //beaconRegions.updateValue([Constants.Key.Battery: battery, Constants.Key.rssi: absRssiValue, Constants.Key.Proximity: proximityCode, Constants.Key.Exited: 1, Constants.Key.Initialize: 0], forKey: key)
+          beaconRegions[key]![Constants.Key.Battery] = battery
+          NSNotificationCenter.defaultCenter().postNotificationName(Constants.Notification.SetBattery, object: nil, userInfo: ["key": key, "minor": rangedBeacon.minor])
+        }
       } else {
-        beaconRegions[key] = [Constants.Key.Battery: battery, Constants.Key.rssi: rangedBeacon.rssi]
+        beaconRegions[key] = [Constants.Key.Battery: battery, Constants.Key.rssi: absRssiValue, Constants.Key.Proximity: proximityCode]
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(Constants.Notification.SetImageRange, object: nil, userInfo: ["key": key, "rangeImage": rangeImage])
         NSNotificationCenter.defaultCenter().postNotificationName(Constants.Notification.SetBattery, object: nil, userInfo: ["key": key, "minor": rangedBeacon.minor])
       }
     }

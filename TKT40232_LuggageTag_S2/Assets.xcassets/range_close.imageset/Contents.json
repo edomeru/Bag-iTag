@@ -2,17 +2,15 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "off_range.png",
+      "filename" : "range_close.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "off_range-1.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "off_range-2.png",
       "scale" : "3x"
     }
   ],

@@ -44,10 +44,10 @@ class CustomTableCell: UITableViewCell {
     battery.text = "\(model.minor)%"
     
     if (model.regionState == "Outside" || model.regionState == "unknown") {
-      connection.image = UIImage(named: "off_range")
+      connection.image = UIImage(named: "range_no_detection")
       battery.hidden = true
     } else {
-      connection.image = UIImage(named: "in_range")
+      connection.image = UIImage(named: "range_close")
       battery.hidden = (battery.text! == "-1%") ? true : false
     }
     
