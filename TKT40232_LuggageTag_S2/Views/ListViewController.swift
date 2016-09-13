@@ -103,6 +103,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         //configureCellRegion(cell, withLuggageTag: row[rowIndex], connected: true)
         let battery = cell.viewWithTag(1003) as! UILabel
         battery.text = "\(row[rowIndex].minor)%"
+        battery.hidden = (battery.text! == "-1%") ? true : false
 
         // Asynchronously update Database
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {

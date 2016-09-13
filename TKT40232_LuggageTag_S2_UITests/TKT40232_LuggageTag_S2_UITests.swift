@@ -56,8 +56,9 @@ class TKT40232_LuggageTag_S2_UITests: XCTestCase {
     func testExample() {
       // Use recording to get started writing UI tests.
       // Use XCTAssert and related functions to verify your tests produce the correct results.
-      sanitationTesting()
-  
+      //sanitationTesting()
+      //addLuggages()
+      //deleteLuggages()
     }
   
     func sanitationTesting() {
@@ -170,4 +171,94 @@ class TKT40232_LuggageTag_S2_UITests: XCTestCase {
 
 
     }
+  
+  func addLuggages() {
+    let app = XCUIApplication()
+    app.launch()
+    
+    app.tables.buttons["add button"].tap()
+    let luggagenameField = app.textFields["Name"]
+    luggagenameField.tap()
+    luggagenameField.typeText("Bag1")
+    app.buttons["Return"].tap()
+    let identifierField = app.textFields["uuid"]
+    identifierField.tap()
+    identifierField.typeText("883314DB17F3")
+    app.buttons["Return"].tap()
+    
+    let backButtonButton = app.navigationBars["LuggageFinder.BeaconDetailView"].buttons["back button"]
+    backButtonButton.tap()
+    
+    app.tables.buttons["add button"].tap()
+    luggagenameField.tap()
+    luggagenameField.typeText("Bag2")
+    app.buttons["Return"].tap()
+    identifierField.tap()
+    identifierField.typeText("E0C79D5FC29B")
+    app.buttons["Return"].tap()
+    
+    backButtonButton.tap()
+    
+    app.tables.buttons["add button"].tap()
+    luggagenameField.tap()
+    luggagenameField.typeText("Bag3")
+    app.buttons["Return"].tap()
+    identifierField.tap()
+    identifierField.typeText("E0C79D5FBE51")
+    app.buttons["Return"].tap()
+    
+    backButtonButton.tap()
+    
+    app.tables.buttons["add button"].tap()
+    luggagenameField.tap()
+    luggagenameField.typeText("Bag4")
+    app.buttons["Return"].tap()
+    identifierField.tap()
+    identifierField.typeText("9C6AFF26DD05")
+    app.buttons["Return"].tap()
+    
+    backButtonButton.tap()
+    
+    app.tables.buttons["add button"].tap()
+    luggagenameField.tap()
+    luggagenameField.typeText("Bag5")
+    app.buttons["Return"].tap()
+    identifierField.tap()
+    identifierField.typeText("9C6AFF26DD06")
+    app.buttons["Return"].tap()
+    
+    backButtonButton.tap()
+
+  }
+  
+  func deleteLuggages() {
+    let app = XCUIApplication()
+    
+    let tablesQuery = app.tables
+    let table = tablesQuery.element
+    table.swipeDown()
+    table.swipeDown()
+    
+    app.tables.staticTexts["Bag1"].swipeLeft()
+    app.tables.buttons["Delete"].tap()
+    
+    let removeButton = app.alerts["Delete Luggage Tag"].collectionViews.buttons["Remove"]
+    removeButton.tap()
+    
+    app.tables.staticTexts["Bag2"].swipeLeft()
+    app.tables.buttons["Delete"].tap()
+    removeButton.tap()
+    
+    app.tables.staticTexts["Bag3"].swipeLeft()
+    app.tables.buttons["Delete"].tap()
+    removeButton.tap()
+    
+    app.tables.staticTexts["Bag4"].swipeLeft()
+    app.tables.buttons["Delete"].tap()
+    removeButton.tap()
+    
+    app.tables.staticTexts["Bag5"].swipeLeft()
+    app.tables.buttons["Delete"].tap()
+    removeButton.tap()
+  }
 }
