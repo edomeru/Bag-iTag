@@ -120,8 +120,12 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     
     let indexPath = NSIndexPath(forRow: rowIndex, inSection: 0)
     if let cell = tableView.cellForRowAtIndexPath(indexPath) {
-      let region = cell.viewWithTag(1002) as! CustomDetectionView
-      region.image = UIImage(named: rangeImage)
+      let customCell = cell as! CustomTableCell
+      
+      if customCell.customSwitch.on {
+        let region = cell.viewWithTag(1002) as! CustomDetectionView
+        region.image = UIImage(named: rangeImage)
+      }
     }
   }
   
