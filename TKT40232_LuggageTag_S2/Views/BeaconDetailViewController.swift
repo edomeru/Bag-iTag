@@ -249,31 +249,12 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   
   private func assignLuggageName() {
     if (trimmedName! == "") {
-      let prefs = NSUserDefaults.standardUserDefaults()
+      var num = 0
       
-      if let key = prefs.objectForKey(Constants.Default.LuggageCounter) {
-        if let counter = key as? Int {
-          var num = counter
-          
-          repeat {
-            num = num + 1
-            trimmedName! = "\(Constants.Default.LuggageName) \(num)"
-          } while checkTagAvailability()
-          
-          prefs.setInteger(num, forKey: Constants.Default.LuggageCounter)
-          prefs.synchronize()
-        }
-      } else {
-        var num = 0
-        
-        repeat {
-          num = num + 1
-          trimmedName! = "\(Constants.Default.LuggageName) \(num)"
-        } while checkTagAvailability()
-        
-        prefs.setInteger(num, forKey: Constants.Default.LuggageCounter)
-        prefs.synchronize()
-      }
+      repeat {
+        num = num + 1
+        trimmedName! = "\(Constants.Default.LuggageName) \(num)"
+      } while checkTagAvailability()
     }
     
   }
