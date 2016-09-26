@@ -23,7 +23,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   
   let moc = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
   
-  var frc: NSFetchedResultsController = NSFetchedResultsController()
+  var frc: NSFetchedResultsController<BeaconItem>  = NSFetchedResultsController()
   
   @IBOutlet var tableView: UITableView!
   @IBOutlet weak var appLogo: UIImageView!
@@ -41,15 +41,15 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
 
   
   // MARK: CoreData Fetching Methods
-  func fetchRequest() -> NSFetchRequest<AnyObject> {
-    let fetchRequest = NSFetchRequest(entityName: "BeaconItem")
+  func fetchRequest() -> NSFetchRequest<BeaconItem> {
+    let request: NSFetchRequest<BeaconItem> = NSFetchRequest(entityName: "BeaconItem")
     let sortDescriptor = NSSortDescriptor(key: "id", ascending: true)
-    fetchRequest.sortDescriptors = [sortDescriptor]
+    request.sortDescriptors = [sortDescriptor]
     
-    return fetchRequest
+    return request
   }
   
-  func getFRC() -> NSFetchedResultsController<AnyObject> {
+  func getFRC() -> NSFetchedResultsController<BeaconItem> {
     frc = NSFetchedResultsController(fetchRequest: fetchRequest(), managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
     
     return frc
@@ -546,7 +546,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   
   fileprivate func loadBeaconItems() {
     // Loop Through All BeaconItem and put it in Model
-    for beacon in frc.fetchedObjects! as! [BeaconItem] {
+    for beacon in frc.fetchedObjects! {
       let item = LuggageTag()
       let index: Int = Int(beacon.id!)
       let i: Int = Int(beacon.connection!)
@@ -674,7 +674,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   fileprivate func updateToDatabase(_ item: LuggageTag) {
     let entityDescription = NSEntityDescription.entity(forEntityName: "BeaconItem", in: moc)
     
-    let req = NSFetchRequest()
+    let req: NSFetchRequest<BeaconItem> = NSFetchRequest()
     req.entity = entityDescription
     let index = "\(item.id)"
     
@@ -686,7 +686,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       let result = try moc.fetch(req)
       
       if result.count > 0 {
-        let beacon = result[0] as! BeaconItem
+        let beacon = result[0]
         beacon.setValue(item.photo, forKey: "photo")
         beacon.setValue(item.name, forKey: "name")
         beacon.setValue(item.uuid, forKey: "uuid")
@@ -711,7 +711,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   fileprivate func deleteToDatabase(_ id: Int) {
     let entityDescription = NSEntityDescription.entity(forEntityName: "BeaconItem", in: moc)
     
-    let req = NSFetchRequest()
+    let req: NSFetchRequest<BeaconItem> = NSFetchRequest()
     req.entity = entityDescription
     let index = "\(id)"
     
@@ -720,7 +720,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     req.predicate = condition
 
     do {
-      let result = try moc.fetch(req) as? [NSManagedObject]
+      let result: [BeaconItem]? = try moc.fetch(req)
       
       if let res = result {
         if res.count > 0 {
@@ -744,10 +744,10 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       try frc.performFetch()
       
       for luggage in row {
-        for beacon in frc.fetchedObjects as! [BeaconItem] {
+        for beacon in frc.fetchedObjects! {
           if (luggage.uuid == beacon.uuid!) {
-            if (luggage.id != beacon.id!) {
-              beacon.id = luggage.id
+            if (luggage.id != beacon.id! as Int) {
+              beacon.id = luggage.id as NSNumber
             }
           }
         }
