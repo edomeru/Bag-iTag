@@ -136,20 +136,20 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
   }
   
   func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
-    NSLog("BEACON: \(beacons)", "")
+    //NSLog("BEACON: \(beacons)", "")
     //NSLog("REGION: \(region)", "")
     
     let key = region.proximityUUID.uuidString
     
     if beacons.count > 0 {
-      var rangedBeacon: CLBeacon! = CLBeacon()
-      rangedBeacon = beacons[0]
-      let battery: Int = Int(rangedBeacon.minor)
-      let absRssiValue = abs(rangedBeacon.rssi)
+      //var rangedBeacon: CLBeacon! = CLBeacon()
+      //rangedBeacon = beacons[0]
+      let battery: Int = Int(beacons.first!.minor)
+      let absRssiValue = abs(beacons.first!.rssi)
       var proximityCode: Int = 0
       var rangeImage: String = ""
       
-      switch rangedBeacon.proximity {
+      switch beacons.first!.proximity {
       case CLProximity.unknown:
         proximityCode = 1
         rangeImage = "range_far"
@@ -172,13 +172,13 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
         
         if (oldBattery != battery) {
           beaconRegions[key]![Constants.Key.Battery] = battery
-          NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.SetBattery), object: nil, userInfo: ["key": key, "minor": rangedBeacon.minor])
+          NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.SetBattery), object: nil, userInfo: ["key": key, "minor": beacons.first!.minor])
         }
       } else {
         beaconRegions[key] = [Constants.Key.Battery: battery, Constants.Key.rssi: absRssiValue, Constants.Key.Proximity: proximityCode]
         
         NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.SetImageRange), object: nil, userInfo: ["key": key, "rangeImage": rangeImage])
-        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.SetBattery), object: nil, userInfo: ["key": key, "minor": rangedBeacon.minor])
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.SetBattery), object: nil, userInfo: ["key": key, "minor": beacons.first!.minor])
       }
     }
   }
