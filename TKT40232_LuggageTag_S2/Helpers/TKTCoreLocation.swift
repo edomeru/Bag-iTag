@@ -13,9 +13,9 @@ protocol TKTCoreLocationDelegate: NSObjectProtocol {
   func didStartMonitoring()
   func didStopMonitoring()
   func monitoringDidFail()
-  func didEnterRegion(region: CLBeaconRegion)
-  func didExitRegion(region: CLBeaconRegion)
-  func didRangeBeacon(manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion)
+  func didEnterRegion(_ region: CLBeaconRegion)
+  func didExitRegion(_ region: CLBeaconRegion)
+  func didRangeBeacon(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion)
   //func onError(error: NSError)
 }
 
@@ -39,45 +39,45 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
   }
   
   // MARK: Action Method
-  func startMonitoring(beaconRegion: CLBeaconRegion?) {
-    Globals.log("Start Monitoring: \((beaconRegion?.proximityUUID.UUIDString)!)")
+  func startMonitoring(_ beaconRegion: CLBeaconRegion?) {
+    Globals.log("Start Monitoring: \((beaconRegion?.proximityUUID.uuidString)!)")
     pendingMonitorRequest = true
     self.beaconRegion = beaconRegion
     //beaconRegions.append(beaconRegion)
     
     switch CLLocationManager.authorizationStatus() {
-    case .NotDetermined:
+    case .notDetermined:
       Globals.log("authorizationStatus: .NotDetermined")
       locationManager.requestAlwaysAuthorization()
-    case .Restricted, .Denied, .AuthorizedWhenInUse:
+    case .restricted, .denied, .authorizedWhenInUse:
       Globals.log("authorizationStatus: .Restricted, .Denied, .AuthorizedWhenInUse")
       delegate?.onBackgroundLocationAccessDisabled()
-    case .AuthorizedAlways:
+    case .authorizedAlways:
       Globals.log("authorizationStatus: .AuthorizedAlways")
-      locationManager!.startMonitoringForRegion(beaconRegion!)
+      locationManager!.startMonitoring(for: beaconRegion!)
       pendingMonitorRequest = false
     }
   }
   
-  func stopMonitoringBeacon(beaconRegion: CLBeaconRegion?, key: String) {
-    Globals.log("Stop Monitoring: \((beaconRegion?.proximityUUID.UUIDString)!)")
-    locationManager.stopRangingBeaconsInRegion(beaconRegion!)
-    locationManager.stopMonitoringForRegion(beaconRegion!)
+  func stopMonitoringBeacon(_ beaconRegion: CLBeaconRegion?, key: String) {
+    Globals.log("Stop Monitoring: \((beaconRegion?.proximityUUID.uuidString)!)")
+    locationManager.stopRangingBeacons(in: beaconRegion!)
+    locationManager.stopMonitoring(for: beaconRegion!)
     locationManager.stopUpdatingLocation()
     
     if(key != "") {
-      if let removedValue = beaconRegions.removeValueForKey(key) {
+      if let removedValue = beaconRegions.removeValue(forKey: key) {
         Globals.log("Removed Dictionary: \(removedValue)")
       }
     }
   }
   
   // MARK: CLLocationManagerDelegate Method
-  func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+  func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
     Globals.log("didChangeAuthorizationStatus: \(status)")
-    if (status == .AuthorizedWhenInUse || status == .AuthorizedAlways) && beaconRegion != nil {
+    if (status == .authorizedWhenInUse || status == .authorizedAlways) && beaconRegion != nil {
       if pendingMonitorRequest {
-        locationManager!.startMonitoringForRegion(beaconRegion!)
+        locationManager!.startMonitoring(for: beaconRegion!)
         pendingMonitorRequest = false
       }
       locationManager!.startUpdatingLocation()
@@ -87,31 +87,31 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
     beaconRegion = nil
   }
   
-  func locationManager(manager: CLLocationManager, didStartMonitoringForRegion region: CLRegion) {
+  func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
     Globals.log("didStartMonitoringForRegion: \(region.identifier)")
     delegate?.didStartMonitoring()
-    locationManager.requestStateForRegion(region)
+    locationManager.requestState(for: region)
   }
   
-  func locationManager(manager: CLLocationManager, monitoringDidFailForRegion region: CLRegion?, withError error: NSError) {
+  func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
     Globals.log("monitoringDidFailForRegion: \(error)")
   }
   
-  func locationManager(manager: CLLocationManager, didDetermineState state: CLRegionState, forRegion region: CLRegion) {
+  func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
     
     switch state {
-    case CLRegionState.Inside:
+    case CLRegionState.inside:
       Globals.log(" - entered region \(region.identifier)")
       
       let beaconRegion = region as! CLBeaconRegion
-      locationManager.startRangingBeaconsInRegion(beaconRegion)
+      locationManager.startRangingBeacons(in: beaconRegion)
       delegate?.didEnterRegion(beaconRegion)
       
-    case CLRegionState.Outside:
+    case CLRegionState.outside:
       Globals.log(" - exited region \(region.identifier)")
       
       let beaconRegion = region as! CLBeaconRegion
-      locationManager.stopRangingBeaconsInRegion(beaconRegion)
+      locationManager.stopRangingBeacons(in: beaconRegion)
       delegate?.didExitRegion(beaconRegion)
       
     default:
@@ -119,7 +119,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
     }
   }
   
-  func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
+  func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
     Globals.log("didEnterRegion")
     // TODO: I don't know if I will be needing this in the Future for now I'll just comment it - Francis 08/02/2016
     // didDetermineState's Callback is asynchronous call, and it seems to be doing a good job tracking the RegionState
@@ -127,7 +127,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
     delegate?.didEnterRegion(beaconRegion)*/
   }
   
-  func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
+  func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
     Globals.log("didExitRegion")
     // TODO: I don't know if I will be needing this in the Future for now I'll just comment it - Francis 08/02/2016
     // didDetermineState's Callback is asynchronous call, and it seems to be doing a good job tracking the RegionState
@@ -135,11 +135,11 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
     delegate?.didExitRegion(beaconRegion)*/
   }
   
-  func locationManager(manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
+  func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
     NSLog("BEACON: \(beacons)", "")
     //NSLog("REGION: \(region)", "")
     
-    let key = region.proximityUUID.UUIDString
+    let key = region.proximityUUID.uuidString
     
     if beacons.count > 0 {
       var rangedBeacon: CLBeacon! = CLBeacon()
@@ -150,16 +150,16 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
       var rangeImage: String = ""
       
       switch rangedBeacon.proximity {
-      case CLProximity.Unknown:
+      case CLProximity.unknown:
         proximityCode = 1
         rangeImage = "range_far"
-      case CLProximity.Immediate:
+      case CLProximity.immediate:
         proximityCode = 2
         rangeImage = "range_close"
-      case CLProximity.Near:
+      case CLProximity.near:
         proximityCode = 3
         rangeImage = "range_intermediary"
-      case CLProximity.Far:
+      case CLProximity.far:
         proximityCode = 4
         rangeImage = "range_far"
       }
@@ -168,26 +168,26 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
         let oldBattery = beaconRegions[key]![Constants.Key.Battery]
         
         beaconRegions[key]![Constants.Key.Proximity] = proximityCode
-        NSNotificationCenter.defaultCenter().postNotificationName(Constants.Notification.SetImageRange, object: nil, userInfo: ["key": key, "rangeImage": rangeImage])
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.SetImageRange), object: nil, userInfo: ["key": key, "rangeImage": rangeImage])
         
         if (oldBattery != battery) {
           beaconRegions[key]![Constants.Key.Battery] = battery
-          NSNotificationCenter.defaultCenter().postNotificationName(Constants.Notification.SetBattery, object: nil, userInfo: ["key": key, "minor": rangedBeacon.minor])
+          NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.SetBattery), object: nil, userInfo: ["key": key, "minor": rangedBeacon.minor])
         }
       } else {
         beaconRegions[key] = [Constants.Key.Battery: battery, Constants.Key.rssi: absRssiValue, Constants.Key.Proximity: proximityCode]
         
-        NSNotificationCenter.defaultCenter().postNotificationName(Constants.Notification.SetImageRange, object: nil, userInfo: ["key": key, "rangeImage": rangeImage])
-        NSNotificationCenter.defaultCenter().postNotificationName(Constants.Notification.SetBattery, object: nil, userInfo: ["key": key, "minor": rangedBeacon.minor])
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.SetImageRange), object: nil, userInfo: ["key": key, "rangeImage": rangeImage])
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.SetBattery), object: nil, userInfo: ["key": key, "minor": rangedBeacon.minor])
       }
     }
   }
   
-  func locationManager(manager: CLLocationManager, rangingBeaconsDidFailForRegion region: CLBeaconRegion, withError error: NSError) {
+  func locationManager(_ manager: CLLocationManager, rangingBeaconsDidFailFor region: CLBeaconRegion, withError error: Error) {
     Globals.log("rangingBeaconsDidFailForRegion: \(error)")
   }
   
-  func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+  func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
     Globals.log("didFailWithError: \(error)")
   }
 }

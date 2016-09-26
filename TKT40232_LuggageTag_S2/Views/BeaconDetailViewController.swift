@@ -14,8 +14,8 @@ import Foundation
 extension String {
   
   func isValidHexNumber() -> Bool {
-    let chars = NSCharacterSet(charactersInString: "0123456789ABCDEF").invertedSet
-    if let _ = self.uppercaseString.rangeOfCharacterFromSet(chars) {
+    let chars = CharacterSet(charactersIn: "0123456789ABCDEF").inverted
+    if let _ = self.uppercased().rangeOfCharacter(from: chars) {
       return false
     }
     return true
@@ -24,8 +24,8 @@ extension String {
 }
 
 protocol BeaconDetailViewControllerDelegate: NSObjectProtocol {
-  func beaconDetailViewController(controller: BeaconDetailViewController, didFinishAddingItem item: LuggageTag)
-  func beaconDetailViewController(controller: BeaconDetailViewController, didFinishEditingItem item: LuggageTag)
+  func beaconDetailViewController(_ controller: BeaconDetailViewController, didFinishAddingItem item: LuggageTag)
+  func beaconDetailViewController(_ controller: BeaconDetailViewController, didFinishEditingItem item: LuggageTag)
   func stopMonitoring(didStopMonitoring item: LuggageTag)
   func didBluetoothPoweredOff(didPowerOff item: LuggageTag)
 }
@@ -51,19 +51,19 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     formatNavigationBar()
     
     // NSNotification Observer for Keyboard
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BeaconDetailViewController.keyboardWillShow(_:)), name:UIKeyboardWillShowNotification, object: nil);
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BeaconDetailViewController.keyboardWillHide(_:)), name:UIKeyboardWillHideNotification, object: nil);
+    NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.keyboardWillShow(_:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
+    NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.keyboardWillHide(_:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
     
     // NSNotification Observer for TKTCoreLocation in ListView
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BeaconDetailViewController.setEnterRegion(_:)), name: Constants.Proximity.Inside, object: nil)
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BeaconDetailViewController.setExitRegion(_:)), name: Constants.Proximity.Outside, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.setEnterRegion(_:)), name: NSNotification.Name(rawValue: Constants.Proximity.Inside), object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.setExitRegion(_:)), name: NSNotification.Name(rawValue: Constants.Proximity.Outside), object: nil)
     
     centralManager = CBCentralManager(delegate: self, queue: nil)
     
     if let item = beaconToEdit {
       if (item.photo != nil) {
-        imgButton.setImage(UIImage(data: item.photo!), forState: .Normal)
-        imgButton.imageView?.contentMode = UIViewContentMode.Center
+        imgButton.setImage(UIImage(data: item.photo! as Data), for: UIControlState())
+        imgButton.imageView?.contentMode = UIViewContentMode.center
       }
       
       if (item.regionState == "Inside") {
@@ -74,28 +74,28 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
       
       nameTextField.text = item.name
       
-      let stringIndex = item.uuid.endIndex.advancedBy(-12)
-      uuidTextField.text = item.uuid.substringFromIndex(stringIndex)
+      let stringIndex = item.uuid.characters.index(item.uuid.endIndex, offsetBy: -12)
+      uuidTextField.text = item.uuid.substring(from: stringIndex)
     } else {
-      rangeLabel.hidden = true
+      rangeLabel.isHidden = true
     }
     
     nameTextField.delegate = self
     uuidTextField.delegate = self
   }
   
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    let controller = segue.destinationViewController as! ModalViewController
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    let controller = segue.destination as! ModalViewController
     controller.delegate = self
   }
   
   // MARK: UITextFieldDelegate Methods
-  func textFieldShouldReturn(textField: UITextField) -> Bool {
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     textField.resignFirstResponder()
     return true
   }
   
-  func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+  func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     
     let currentCharacterCount = textField.text?.characters.count ?? 0
     
@@ -116,8 +116,8 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     nameTextField.resignFirstResponder()
     uuidTextField.resignFirstResponder()
     
-    trimmedName = nameTextField.text!.stringByTrimmingCharactersInSet(
-      NSCharacterSet.whitespaceAndNewlineCharacterSet()
+    trimmedName = nameTextField.text!.trimmingCharacters(
+      in: CharacterSet.whitespacesAndNewlines
     )
     
     // Check/Get Luggage's Name
@@ -128,8 +128,8 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     if (isValidLuggage) {
       if let luggageItem = beaconToEdit {
         
-        let originalStringIndex = luggageItem.uuid.endIndex.advancedBy(-12)
-        let originalString = luggageItem.uuid.substringFromIndex(originalStringIndex)
+        let originalStringIndex = luggageItem.uuid.characters.index(luggageItem.uuid.endIndex, offsetBy: -12)
+        let originalString = luggageItem.uuid.substring(from: originalStringIndex)
         
         if (isPhotoEdited || (trimmedName! != luggageItem.name) || (uuidTextField.text! != originalString)) {
           // Beacon is Edited
@@ -144,14 +144,14 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
           }
           
           luggageItem.name = trimmedName!
-          luggageItem.uuid = "\(Constants.UUID.Identifier)\(uuidTextField.text!.uppercaseString)"
+          luggageItem.uuid = "\(Constants.UUID.Identifier)\(uuidTextField.text!.uppercased())"
           luggageItem.minor = (uuidTextField.text! != originalString) ? "-1" : luggageItem.minor
           luggageItem.regionState = Constants.Proximity.Outside
           
           delegate?.beaconDetailViewController(self, didFinishEditingItem: luggageItem)
         } else {
           Globals.log("No Changes made in LuggageTag")
-          dismissViewControllerAnimated(true, completion: nil)
+          dismiss(animated: true, completion: nil)
         }
 
       } else {
@@ -166,7 +166,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
         }
         
         luggageItem.name = trimmedName!
-        luggageItem.uuid = "\(Constants.UUID.Identifier)\(uuidTextField.text!.uppercaseString)"
+        luggageItem.uuid = "\(Constants.UUID.Identifier)\(uuidTextField.text!.uppercased())"
         luggageItem.major = "0"
         luggageItem.minor = "-1"
         luggageItem.regionState = Constants.Proximity.Outside
@@ -178,18 +178,18 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   }
   
   // MARK: ModalViewControllerDelegate
-  func didFinishPickingMediaWithInfo(image: UIImage) {
+  func didFinishPickingMediaWithInfo(_ image: UIImage) {
     isPhotoEdited = true
-    imgButton.setImage(image, forState: .Normal)
-    imgButton.imageView?.contentMode = UIViewContentMode.Center
+    imgButton.setImage(image, for: UIControlState())
+    imgButton.imageView?.contentMode = UIViewContentMode.center
   }
   
   // MARK: CBCentralManagerDelegate Methods
-  func centralManagerDidUpdateState(central: CBCentralManager) {
+  func centralManagerDidUpdateState(_ central: CBCentralManager) {
     switch (central.state) {
-    case .PoweredOn:
+    case .poweredOn:
       break
-    case .PoweredOff:
+    case .poweredOff:
       if let luggageTag = beaconToEdit {
         luggageTag.regionState = Constants.Proximity.Outside
         rangeLabel.text = Constants.Range.OutOfRange
@@ -201,53 +201,53 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   }
   
   // MARK: NSNotificationCenter Functions
-  func keyboardWillShow(sender: NSNotification) {
+  func keyboardWillShow(_ sender: Notification) {
     self.view.frame.origin.y = -150
   }
   
-  func keyboardWillHide(sender: NSNotification) {
+  func keyboardWillHide(_ sender: Notification) {
     self.view.frame.origin.y = 0
   }
   
-  func setEnterRegion(notification: NSNotification) {
-    let region = notification.userInfo!["region"] as! CLBeaconRegion
+  func setEnterRegion(_ notification: Notification) {
+    let region = (notification as NSNotification).userInfo!["region"] as! CLBeaconRegion
     if let luggageTag = beaconToEdit {
       let connected = luggageTag.isConnected
-      if (region.identifier == luggageTag.name && region.proximityUUID.UUIDString == luggageTag.uuid && connected) {
+      if (region.identifier == luggageTag.name && region.proximityUUID.uuidString == luggageTag.uuid && connected) {
         rangeLabel.text = Constants.Range.InRange
       }
     }
   }
   
-  func setExitRegion(notification: NSNotification) {
-    let region = notification.userInfo!["region"] as! CLBeaconRegion
+  func setExitRegion(_ notification: Notification) {
+    let region = (notification as NSNotification).userInfo!["region"] as! CLBeaconRegion
     if let luggageTag = beaconToEdit {
-      if (region.identifier == luggageTag.name && region.proximityUUID.UUIDString == luggageTag.uuid) {
+      if (region.identifier == luggageTag.name && region.proximityUUID.uuidString == luggageTag.uuid) {
         rangeLabel.text = Constants.Range.OutOfRange
       }
     }
   }
   
   // MARK: Private Methods
-  private func formatNavigationBar() {
-    self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
+  fileprivate func formatNavigationBar() {
+    self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
     self.navigationController?.navigationBar.shadowImage = UIImage()
-    self.navigationController?.navigationBar.translucent = true
+    self.navigationController?.navigationBar.isTranslucent = true
   }
   
-  private func showConfirmation(title: String, message: String) {
+  fileprivate func showConfirmation(_ title: String, message: String) {
     let actions = [
-      UIAlertAction(title: NSLocalizedString("exit", comment: ""), style: .Cancel) { (action) in
+      UIAlertAction(title: NSLocalizedString("exit", comment: ""), style: .cancel) { (action) in
         Globals.log("Exit Adding/Editing Luggage")
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
       },
-      UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .Default, handler: nil)
+      UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .default, handler: nil)
     ]
     
     Globals.showAlert(self, title: title, message: message, animated: true, completion: nil, actions: actions)
   }
   
-  private func assignLuggageName() {
+  fileprivate func assignLuggageName() {
     if (trimmedName! == "") {
       var num = 0
       
@@ -259,7 +259,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     
   }
   
-  private func validateLuggage() -> Bool {
+  fileprivate func validateLuggage() -> Bool {
     if (uuidTextField.text! == "") {
       showConfirmation(NSLocalizedString("warning", comment: ""), message: NSLocalizedString("exit_confirmation", comment: ""))
       
@@ -287,9 +287,9 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     return true
   }
   
-  private func checkIdentifierCodeAvailability() -> Bool {
+  fileprivate func checkIdentifierCodeAvailability() -> Bool {
     for beacon in beaconReference! {
-      if (beacon.uuid == ("\(Constants.UUID.Identifier)\(uuidTextField.text!.uppercaseString)")) {
+      if (beacon.uuid == ("\(Constants.UUID.Identifier)\(uuidTextField.text!.uppercased())")) {
         if let item = beaconToEdit {
           if (item.uuid == beacon.uuid) {
             continue
@@ -305,7 +305,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     return true
   }
   
-  private func checkTagAvailability() -> Bool {
+  fileprivate func checkTagAvailability() -> Bool {
     
     for beacon in beaconReference! {
       if (beacon.name == trimmedName!) {
@@ -326,10 +326,10 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   
   deinit {
     // Remove all Observer from this Controller to save memory
-    NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
-    NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+    NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     
-    NSNotificationCenter.defaultCenter().removeObserver(self, name: Constants.Proximity.Inside, object: nil)
-    NSNotificationCenter.defaultCenter().removeObserver(self, name: Constants.Proximity.Outside, object: nil)
+    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Proximity.Inside), object: nil)
+    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Proximity.Outside), object: nil)
   }
 }

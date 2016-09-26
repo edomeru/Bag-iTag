@@ -11,16 +11,16 @@ import AVFoundation
 import Photos
 
 extension UIButton{
-  func roundCorners(corners:UIRectCorner, radius: CGFloat) {
+  func roundCorners(_ corners:UIRectCorner, radius: CGFloat) {
     let path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
     let mask = CAShapeLayer()
-    mask.path = path.CGPath
+    mask.path = path.cgPath
     self.layer.mask = mask
   }
 }
 
 protocol ModalViewControllerDelegate: NSObjectProtocol {
-  func didFinishPickingMediaWithInfo(image: UIImage)
+  func didFinishPickingMediaWithInfo(_ image: UIImage)
 }
 
 class ModalViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -33,8 +33,8 @@ class ModalViewController: UIViewController, UIImagePickerControllerDelegate, UI
   weak var delegate: ModalViewControllerDelegate?
   
   override func viewDidLayoutSubviews() {
-    takePhotoButton.roundCorners([.TopLeft, .TopRight], radius: 15.0)
-    choosePhotoButton.roundCorners([.BottomLeft, .BottomRight], radius: 15.0)
+    takePhotoButton.roundCorners([.topLeft, .topRight], radius: 15.0)
+    choosePhotoButton.roundCorners([.bottomLeft, .bottomRight], radius: 15.0)
   }
 
   override func viewDidLoad() {
@@ -46,39 +46,39 @@ class ModalViewController: UIViewController, UIImagePickerControllerDelegate, UI
   func cameraPicker() {
     let cameraPicker = UIImagePickerController()
     cameraPicker.delegate = self
-    cameraPicker.sourceType = .Camera
+    cameraPicker.sourceType = .camera
     
-    self.presentViewController(cameraPicker, animated: true, completion: nil)
+    self.present(cameraPicker, animated: true, completion: nil)
   }
   
   func photoPicker() {
     let photoPicker = UIImagePickerController()
     photoPicker.delegate = self
-    photoPicker.sourceType = .PhotoLibrary
+    photoPicker.sourceType = .photoLibrary
     
-    self.presentViewController(photoPicker, animated: true, completion: nil)
+    self.present(photoPicker, animated: true, completion: nil)
   }
   
-  func showAlertforSettings(message: String) {
+  func showAlertforSettings(_ message: String) {
     let action = [
-      UIAlertAction(title: NSLocalizedString("settings", comment: ""), style: .Default) { (action) in
-        if let url = NSURL(string:UIApplicationOpenSettingsURLString) {
-          UIApplication.sharedApplication().openURL(url)
+      UIAlertAction(title: NSLocalizedString("settings", comment: ""), style: .default) { (action) in
+        if let url = URL(string:UIApplicationOpenSettingsURLString) {
+          UIApplication.shared.openURL(url)
         }
       },
-      UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .Cancel, handler: nil)
+      UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .cancel, handler: nil)
     ]
     
     Globals.showAlert(self, title: NSLocalizedString("error", comment: ""), message: message, animated: true, completion: nil, actions: action)
   }
 
-  @IBAction func takePhoto(sender: AnyObject) {
+  @IBAction func takePhoto(_ sender: AnyObject) {
     // Check if we have permission taking Camera
-    if AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo) == AVAuthorizationStatus.Authorized {
+    if AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo) == AVAuthorizationStatus.authorized {
       // Already Authorized
       self.cameraPicker()
     } else {
-      AVCaptureDevice.requestAccessForMediaType(AVMediaTypeVideo, completionHandler: { (granted: Bool) -> Void in
+      AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo, completionHandler: { (granted: Bool) -> Void in
         if granted {
           self.cameraPicker()
           
@@ -90,50 +90,50 @@ class ModalViewController: UIViewController, UIImagePickerControllerDelegate, UI
     }
   }
   
-  @IBAction func choosePhoto(sender: AnyObject) {
+  @IBAction func choosePhoto(_ sender: AnyObject) {
     let status: PHAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
     
     switch status {
-    case .Authorized:
+    case .authorized:
       photoPicker()
-    case .Denied:
+    case .denied:
       showAlertforSettings(NSLocalizedString("photo_restricted", comment: ""))
-    case .NotDetermined:
+    case .notDetermined:
       // Access has not been determined.
       PHPhotoLibrary.requestAuthorization({(status: PHAuthorizationStatus) -> Void in
-        if status == .Authorized {
+        if status == .authorized {
           self.photoPicker()
         }
         else {
           self.showAlertforSettings(NSLocalizedString("photo_restricted", comment: ""))
         }
       })
-    case .Restricted:
+    case .restricted:
       // Restricted access - normally won't happen.
       showAlertforSettings(NSLocalizedString("photo_restricted", comment: ""))
     }
   }
   
-  @IBAction func cancelClicked(sender: AnyObject) {
-    dismissViewControllerAnimated(false, completion: nil)
+  @IBAction func cancelClicked(_ sender: AnyObject) {
+    dismiss(animated: false, completion: nil)
   }
   
   func dismissModal() {
-    dismissViewControllerAnimated(false, completion: nil)
+    dismiss(animated: false, completion: nil)
   }
   
   //MARK: UIImagePickerControllerDelegate
-  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
     let size = CGSize(width: 500, height: 500)
     let image = resizeImage((info[UIImagePickerControllerOriginalImage] as? UIImage)!, targetSize: size)
     
     delegate?.didFinishPickingMediaWithInfo(image)
     
-    self.dismissViewControllerAnimated(false, completion: nil)
-    cancelButton.sendActionsForControlEvents(.TouchUpInside)
+    self.dismiss(animated: false, completion: nil)
+    cancelButton.sendActions(for: .touchUpInside)
   }
   
-  func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+  func resizeImage(_ image: UIImage, targetSize: CGSize) -> UIImage {
     let size = image.size
     
     let widthRatio  = targetSize.width  / image.size.width
@@ -142,21 +142,21 @@ class ModalViewController: UIViewController, UIImagePickerControllerDelegate, UI
     // Figure out what our orientation is, and use that to form the rectangle
     var newSize: CGSize
     if(widthRatio > heightRatio) {
-      newSize = CGSizeMake(size.width * heightRatio, size.height * heightRatio)
+      newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
     } else {
-      newSize = CGSizeMake(size.width * widthRatio,  size.height * widthRatio)
+      newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
     }
     
     // This is the rect that we've calculated out and this is what is actually used below
-    let rect = CGRectMake(0, 0, newSize.width, newSize.height)
+    let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
     
     // Actually do the resizing to the rect using the ImageContext stuff
     UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
-    image.drawInRect(rect)
+    image.draw(in: rect)
     let newImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     
-    return newImage
+    return newImage!
   }
 
 

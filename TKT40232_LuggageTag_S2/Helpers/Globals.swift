@@ -10,7 +10,7 @@ import UIKit
 class Globals {
   
   // This function is use for Logging
-  static func log(items: Any..., separator: String = " ", terminator: String = "\n") {
+  static func log(_ items: Any..., separator: String = " ", terminator: String = "\n") {
     #if DEBUG
     
     var idx = items.startIndex
@@ -26,15 +26,15 @@ class Globals {
   }
   
   // This function is use for displaying Alert Box
-  static func showAlert(viewController: UIViewController, title: String, message: String, animated: Bool, completion: (() -> Void)?, actions: [UIAlertAction]) {
+  static func showAlert(_ viewController: UIViewController, title: String, message: String, animated: Bool, completion: (() -> Void)?, actions: [UIAlertAction]) {
     
-    let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+    let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
     
     for action in actions {
       alertController.addAction(action)
     }
     
-    viewController.presentViewController(alertController, animated: animated, completion: completion)
+    viewController.present(alertController, animated: animated, completion: completion)
   }
   
 }

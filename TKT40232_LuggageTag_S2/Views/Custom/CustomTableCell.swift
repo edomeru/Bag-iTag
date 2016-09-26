@@ -20,7 +20,7 @@ extension UIColor {
 }
 
 protocol CustomTableCellDelegate: NSObjectProtocol {
-  func didTappedSwitchCell(cell: CustomTableCell)
+  func didTappedSwitchCell(_ cell: CustomTableCell)
 }
 
 class CustomTableCell: UITableViewCell {
@@ -33,25 +33,25 @@ class CustomTableCell: UITableViewCell {
   
   weak var delegate: CustomTableCellDelegate?
   
-  func setupWithModel(model: LuggageTag) {
+  func setupWithModel(_ model: LuggageTag) {
     if (model.photo != nil) {
-      photo.setImage(UIImage(data: model.photo!)!, forState: .Normal)
-      photo.imageView?.contentMode = UIViewContentMode.Center
+      photo.setImage(UIImage(data: model.photo! as Data)!, for: UIControlState())
+      photo.imageView?.contentMode = UIViewContentMode.center
     } else {
-      photo.setImage(UIImage(named: "luggage_default"), forState: .Normal)
+      photo.setImage(UIImage(named: "luggage_default"), for: UIControlState())
     }
     
     battery.text = "\(model.minor)%"
     
     if (model.regionState == "Outside" || model.regionState == "unknown") {
       connection.image = UIImage(named: "range_no_detection")
-      battery.hidden = true
+      battery.isHidden = true
     } else {
       connection.image = UIImage(named: "range_close")
-      battery.hidden = (battery.text! == "-1%") ? true : false
+      battery.isHidden = (battery.text! == "-1%") ? true : false
     }
     
-    photo.userInteractionEnabled = false
+    photo.isUserInteractionEnabled = false
     
     name.text = model.name
   
@@ -64,7 +64,7 @@ class CustomTableCell: UITableViewCell {
     customSwitch.onLabel.textColor = UIColor(red: 60, green: 163, blue: 62)
   }
   
-  @IBAction func valueChanged(sender: AnyObject) {
+  @IBAction func valueChanged(_ sender: AnyObject) {
     delegate?.didTappedSwitchCell(self)
   }
 }

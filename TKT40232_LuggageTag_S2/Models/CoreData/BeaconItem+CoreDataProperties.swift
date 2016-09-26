@@ -19,7 +19,7 @@ extension BeaconItem {
     @NSManaged var major: String?
     @NSManaged var minor: String?
     @NSManaged var name: String?
-    @NSManaged var photo: NSData?
+    @NSManaged var photo: Data?
     @NSManaged var uuid: String?
 
 }

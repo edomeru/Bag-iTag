@@ -10,7 +10,7 @@ import Foundation
 
 class LuggageTag: NSObject {
   var id: Int = 0
-  var photo: NSData? = nil
+  var photo: Data? = nil
   var name = ""
   var uuid = ""
   var major = ""

@@ -35,7 +35,7 @@ class CustomDetectionView : UIView {
   
   override func layoutSubviews() {
     imageView.frame = self.bounds
-    imageView.contentMode = UIViewContentMode.ScaleAspectFill
+    imageView.contentMode = UIViewContentMode.scaleAspectFill
   }
   
   @IBInspectable var cornerRadius: CGFloat = 0 {
@@ -53,7 +53,7 @@ class CustomDetectionView : UIView {
   
   @IBInspectable var borderColor: UIColor? {
     didSet {
-      layer.borderColor = borderColor?.CGColor
+      layer.borderColor = borderColor?.cgColor
     }
   }
   
