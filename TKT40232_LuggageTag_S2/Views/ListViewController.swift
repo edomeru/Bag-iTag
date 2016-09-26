@@ -106,9 +106,9 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         battery.isHidden = (battery.text! == "-1%") ? true : false
 
         // Asynchronously update Database
-        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+        DispatchQueue.global().async {
           self.updateToDatabase(self.row[rowIndex])
-        })
+        }
       }
     }
   }
