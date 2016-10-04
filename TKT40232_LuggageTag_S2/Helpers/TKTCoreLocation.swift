@@ -104,14 +104,14 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate {
       Globals.log(" - entered region \(region.identifier)")
       
       let beaconRegion = region as! CLBeaconRegion
-      locationManager.startRangingBeacons(in: beaconRegion)
+      //locationManager.startRangingBeacons(in: beaconRegion)
       delegate?.didEnterRegion(beaconRegion)
       
     case CLRegionState.outside:
       Globals.log(" - exited region \(region.identifier)")
       
       let beaconRegion = region as! CLBeaconRegion
-      locationManager.stopRangingBeacons(in: beaconRegion)
+      //locationManager.stopRangingBeacons(in: beaconRegion)
       delegate?.didExitRegion(beaconRegion)
       
     default:
