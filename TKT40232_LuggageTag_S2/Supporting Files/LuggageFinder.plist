@@ -37,10 +37,14 @@
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Used to Taking Photo of Bag iTag</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Detect nearby Bag iTag Beacon?</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Detect nearby Bag iTag Beacons</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Used for Choosing Photo of Bag iTag</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>GADUGI.TTF</string>
