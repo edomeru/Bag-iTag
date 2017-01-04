@@ -1,26 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="fRw-Vc-P7V">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="fRw-Vc-P7V">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="GADUGI.TTF">
+        <array key="GADUGI.TTF">
             <string>Gadugi</string>
-            <string>Gadugi</string>
-            <string>Gadugi</string>
-            <string>Gadugi</string>
-            <string>Gadugi</string>
-            <string>Gadugi</string>
-        </mutableArray>
-        <mutableArray key="GADUGIB.TTF">
+        </array>
+        <array key="GADUGIB.TTF">
             <string>Gadugi-Bold</string>
-            <string>Gadugi-Bold</string>
-            <string>Gadugi-Bold</string>
-            <string>Gadugi-Bold</string>
-            <string>Gadugi-Bold</string>
-        </mutableArray>
+        </array>
     </customFonts>
     <scenes>
         <!--List View Controller-->
@@ -32,24 +27,24 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="200" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eSL-Xi-SOn">
-                                <rect key="frame" x="-4" y="20" width="604" height="580"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="-8" y="20" width="387" height="647"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="lEp-If-2EI" userLabel="footer">
-                                    <rect key="frame" x="0.0" y="292" width="604" height="199"/>
+                                    <rect key="frame" x="0.0" y="292" width="387" height="199"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="new" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hqd-dI-xMz">
-                                            <rect key="frame" x="187" y="76" width="41" height="48"/>
+                                            <rect key="frame" x="187" y="76" width="39" height="48"/>
                                             <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="21"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="border_line" translatesAutoresizingMaskIntoConstraints="NO" id="c1m-kH-T6l">
-                                            <rect key="frame" x="0.0" y="194" width="604" height="5"/>
+                                            <rect key="frame" x="0.0" y="194" width="387" height="5"/>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9e8-Pm-AdT" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
                                             <rect key="frame" x="29" y="25" width="150" height="150"/>
@@ -66,7 +61,7 @@
                                                     <real key="value" value="4"/>
                                                 </userDefinedRuntimeAttribute>
                                                 <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                    <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                             <connections>
@@ -74,7 +69,7 @@
                                             </connections>
                                         </button>
                                     </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstItem="c1m-kH-T6l" firstAttribute="top" secondItem="9e8-Pm-AdT" secondAttribute="bottom" constant="19" id="5s0-8G-IEy"/>
                                         <constraint firstItem="9e8-Pm-AdT" firstAttribute="leading" secondItem="lEp-If-2EI" secondAttribute="leading" constant="29" id="Bfj-uO-wqd"/>
@@ -90,25 +85,25 @@
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="200" id="NJG-He-PIH" customClass="CustomTableCell" customModule="LuggageFinder" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="92" width="604" height="200"/>
+                                        <rect key="frame" x="0.0" y="28" width="387" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NJG-He-PIH" id="AYw-vx-yQ7">
-                                            <rect key="frame" x="0.0" y="0.0" width="604" height="200"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="387" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beacon Name" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6cT-cj-Irw">
-                                                    <rect key="frame" x="187" y="51" width="409" height="65"/>
+                                                    <rect key="frame" x="187" y="51" width="192" height="65"/>
                                                     <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="21"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="border_line" translatesAutoresizingMaskIntoConstraints="NO" id="b9O-DD-W6w">
-                                                    <rect key="frame" x="0.0" y="195" width="604" height="5"/>
+                                                    <rect key="frame" x="0.0" y="195" width="387" height="5"/>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZjM-xw-jgZ" customClass="SevenSwitch" customModule="LuggageFinder" customModuleProvider="target">
-                                                    <rect key="frame" x="510" y="124" width="71" height="36"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <rect key="frame" x="293" y="124" width="71" height="36"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="71" id="Xi5-l0-F5E"/>
                                                         <constraint firstAttribute="height" constant="36" id="XoG-J6-cYp"/>
@@ -117,19 +112,19 @@
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="on" value="NO"/>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="isRounded" value="YES"/>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="activeColor">
-                                                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="inactiveColor">
-                                                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="onTintColor">
-                                                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="onThumbTintColor">
-                                                            <color key="value" red="0.23529411764705882" green="0.63921568627450975" blue="0.24313725490196078" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="value" red="0.23529411764705882" green="0.63921568627450975" blue="0.24313725490196078" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="thumbTintColor">
-                                                            <color key="value" red="0.82745098039215681" green="0.12156862745098039" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="value" red="0.82745098039215681" green="0.12156862745098039" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
@@ -139,8 +134,8 @@
                                                 <button opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pMf-VB-0Qj" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
                                                     <rect key="frame" x="29" y="25" width="150" height="150"/>
                                                     <state key="normal" image="luggage_default">
-                                                        <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -150,13 +145,13 @@
                                                             <real key="value" value="4"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </button>
                                                 <view tag="1002" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="uEK-oK-YRh" customClass="CustomDetectionView" customModule="LuggageFinder" customModuleProvider="target">
                                                     <rect key="frame" x="140" y="125" width="50" height="50"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="1KX-qS-7nd"/>
                                                         <constraint firstAttribute="height" constant="50" id="HjF-wh-MMg"/>
@@ -168,7 +163,7 @@
                                                             <real key="value" value="3"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </userDefinedRuntimeAttribute>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                             <real key="value" value="25"/>
@@ -185,7 +180,7 @@
                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="1003" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DD6-nW-Lxz">
                                                     <rect key="frame" x="22" y="166" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -238,7 +233,7 @@
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <outlet property="battery" destination="DD6-nW-Lxz" id="Sef-6w-uix"/>
                                             <outlet property="connection" destination="uEK-oK-YRh" id="DJG-cC-3os"/>
@@ -255,28 +250,28 @@
                                 </connections>
                             </tableView>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Llx-x9-ZSM">
-                                <rect key="frame" x="506" y="567" width="88" height="33"/>
+                                <rect key="frame" x="285" y="634" width="88" height="33"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tektos Limited © 2016" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xTY-X6-0Vu">
-                                        <rect key="frame" x="7" y="11" width="80" height="11"/>
+                                        <rect key="frame" x="7" y="11" width="79.5" height="11"/>
                                         <fontDescription key="fontDescription" name="Gadugi" family="Gadugi" pointSize="8"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All rights reserved" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oSB-ET-I7s">
-                                        <rect key="frame" x="7" y="20" width="80" height="11"/>
+                                        <rect key="frame" x="7" y="20" width="79.5" height="11"/>
                                         <fontDescription key="fontDescription" name="Gadugi" family="Gadugi" pointSize="8"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="v0.0.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pKa-8v-tbf">
-                                        <rect key="frame" x="7" y="2" width="80" height="11"/>
+                                        <rect key="frame" x="7" y="2" width="79.5" height="11"/>
                                         <fontDescription key="fontDescription" name="Gadugi" family="Gadugi" pointSize="8"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="oSB-ET-I7s" secondAttribute="bottom" constant="2" id="7YR-eG-xV9"/>
                                     <constraint firstAttribute="trailing" secondItem="pKa-8v-tbf" secondAttribute="trailing" constant="1" id="9w5-fa-aiT"/>
@@ -291,18 +286,18 @@
                                 </constraints>
                             </view>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8PL-lm-TF2">
-                                <rect key="frame" x="0.0" y="20" width="600" height="150"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="150"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luggage_tag_logo" translatesAutoresizingMaskIntoConstraints="NO" id="BH0-BR-8W6">
-                                        <rect key="frame" x="472" y="10" width="120" height="70"/>
+                                        <rect key="frame" x="247" y="10" width="120" height="70"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="120" id="Wwr-0a-99K"/>
                                             <constraint firstAttribute="height" constant="70" id="buq-2Q-1XV"/>
                                         </constraints>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="BH0-BR-8W6" secondAttribute="bottom" constant="70" id="7jR-Tk-Ho9"/>
                                     <constraint firstAttribute="trailing" secondItem="BH0-BR-8W6" secondAttribute="trailing" constant="8" id="EE1-04-Sfj"/>
@@ -311,7 +306,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.93333333333333335" green="0.67450980392156867" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.93333333333333335" green="0.67450980392156867" blue="0.12156862745098039" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="eSL-Xi-SOn" secondAttribute="trailing" constant="-20" id="60z-0v-HOC"/>
                             <constraint firstItem="8PL-lm-TF2" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="20" symbolic="YES" id="6Iw-6z-v93"/>
@@ -375,17 +370,17 @@
                         <viewControllerLayoutGuide type="bottom" id="KIX-hw-2fl"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="9VQ-Rq-HtX">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="IDENTIFIER CODE" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XKN-hw-mUC" customClass="CustomTextField" customModule="LuggageFinder" customModuleProvider="target">
-                                <rect key="frame" x="35" y="405" width="530" height="50"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="31" y="405" width="313" height="50"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <accessibility key="accessibilityConfiguration" identifier="uuid"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="F4K-hW-RIC"/>
                                 </constraints>
-                                <color key="textColor" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <userDefinedRuntimeAttributes>
@@ -396,12 +391,12 @@
                                         <real key="value" value="25"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Out of Range" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NuV-Hd-KOi">
-                                <rect key="frame" x="457" y="310" width="93" height="21"/>
+                                <rect key="frame" x="236" y="310" width="93" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="C9Z-G9-tYW"/>
                                     <constraint firstAttribute="height" constant="21" id="DjV-Rm-Nua"/>
@@ -409,7 +404,7 @@
                                     <constraint firstAttribute="width" constant="93" id="sFf-em-0Wa"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="14"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -419,16 +414,16 @@
                                 </variation>
                             </label>
                             <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="evJ-wm-XnQ">
-                                <rect key="frame" x="0.0" y="89" width="600" height="200"/>
+                                <rect key="frame" x="0.0" y="89" width="375" height="200"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QVg-P1-dhs" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
-                                        <rect key="frame" x="210" y="10" width="180" height="180"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <rect key="frame" x="97.5" y="10" width="180" height="180"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="180" id="vLc-c4-qmz"/>
                                             <constraint firstAttribute="height" constant="180" id="zuZ-er-1d3"/>
                                         </constraints>
-                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <size key="titleShadowOffset" width="0.0" height="2.2250738585072014e-308"/>
                                         <state key="normal" image="cam_logo"/>
                                         <userDefinedRuntimeAttributes>
@@ -439,7 +434,7 @@
                                                 <real key="value" value="0.0"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="value" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -447,7 +442,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="QVg-P1-dhs" secondAttribute="bottom" id="0u9-ei-VIi"/>
                                     <constraint firstAttribute="bottom" secondItem="QVg-P1-dhs" secondAttribute="bottom" constant="10" id="LZ2-ZN-YdU"/>
@@ -471,12 +466,12 @@
                                 </variation>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="idS-w2-DuE" customClass="CustomTextField" customModule="LuggageFinder" customModuleProvider="target">
-                                <rect key="frame" x="35" y="339" width="530" height="50"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="31" y="339" width="313" height="50"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="OKi-TZ-Z4W"/>
                                 </constraints>
-                                <color key="textColor" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <userDefinedRuntimeAttributes>
@@ -484,7 +479,7 @@
                                         <real key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="25"/>
@@ -492,7 +487,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                         </subviews>
-                        <color key="backgroundColor" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="idS-w2-DuE" firstAttribute="trailing" secondItem="XKN-hw-mUC" secondAttribute="trailing" id="1yc-5G-3Tq"/>
                             <constraint firstItem="evJ-wm-XnQ" firstAttribute="top" secondItem="APj-Nl-Kal" secondAttribute="bottom" constant="25" id="6IY-aw-Wc0"/>
@@ -522,7 +517,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="owZ-a5-PAF">
                         <barButtonItem key="leftBarButtonItem" image="back_button" id="GP9-xV-YOX">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="saveBeacon" destination="ZKc-tn-hlY" id="Ob4-EP-guv"/>
                             </connections>
@@ -548,16 +543,16 @@
                         <viewControllerLayoutGuide type="bottom" id="Lwy-AA-9xv"/>
                     </layoutGuides>
                     <view key="view" opaque="NO" contentMode="scaleToFill" id="QnT-IS-XVm">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view opaque="NO" alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GeM-Xj-gpn" userLabel="dim_background">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jMb-Pw-tCj">
-                                <rect key="frame" x="20" y="369" width="560" height="60"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="16" y="436" width="343" height="60"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Gadugi" family="Gadugi" pointSize="18"/>
                                 <state key="normal" title="Take Photo"/>
                                 <connections>
@@ -565,8 +560,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LcE-dP-fcW">
-                                <rect key="frame" x="20" y="430" width="560" height="60"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="16" y="497" width="343" height="60"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Gadugi" family="Gadugi" pointSize="18"/>
                                 <state key="normal" title="Choose Photo"/>
                                 <connections>
@@ -574,13 +569,13 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zEh-qc-q9q" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
-                                <rect key="frame" x="20" y="500" width="560" height="60"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="16" y="567" width="343" height="60"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Gadugi" family="Gadugi" pointSize="18"/>
                                 <state key="normal" title="Cancel"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                         <real key="value" value="1"/>
@@ -594,7 +589,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="LcE-dP-fcW" firstAttribute="top" secondItem="jMb-Pw-tCj" secondAttribute="bottom" constant="1" id="32B-0A-iif"/>
                             <constraint firstItem="jMb-Pw-tCj" firstAttribute="leading" secondItem="LcE-dP-fcW" secondAttribute="leading" id="JPg-kK-riu"/>
@@ -630,7 +625,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fRw-Vc-P7V" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hOS-2m-76K">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="hOS-2m-76K">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -649,7 +644,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Nup-9k-wAl" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="4R2-W2-LqE"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="aia-Y3-ZyY">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="aia-Y3-ZyY">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -671,9 +666,9 @@
         <image name="add_button" width="50" height="50"/>
         <image name="back_button" width="22" height="22"/>
         <image name="border_line" width="3680" height="26"/>
-        <image name="cam_logo" width="100" height="80"/>
+        <image name="cam_logo" width="100" height="79"/>
         <image name="luggage_default" width="100" height="100"/>
-        <image name="luggage_tag_logo" width="180" height="119"/>
+        <image name="luggage_tag_logo" width="105" height="69"/>
         <image name="range_no_detection" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
