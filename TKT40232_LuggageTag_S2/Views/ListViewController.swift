@@ -675,6 +675,9 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     item.major = beaconItem.major
     item.minor = beaconItem.minor
     item.connection = beaconItem.isConnected as NSNumber?
+    item.activation_code = beaconItem.activation_code
+    item.activation_key = beaconItem.activation_key
+    item.activated = beaconItem.activated as NSNumber?
     
     do {
       try moc.save()

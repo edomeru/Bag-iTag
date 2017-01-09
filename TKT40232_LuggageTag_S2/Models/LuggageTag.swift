@@ -17,4 +17,7 @@ class LuggageTag: NSObject {
   var minor = ""
   var regionState = "unknown"
   var isConnected = false
+  var activation_code = ""
+  var activation_key = ""
+  var activated = false
 }

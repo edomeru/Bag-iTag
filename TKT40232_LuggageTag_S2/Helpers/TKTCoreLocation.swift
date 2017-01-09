@@ -150,6 +150,16 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
   func stopAdvertising() {
     Globals.log("Stop Advertising")
     peripheralManager.stopAdvertising()
+    
+    var beaconRegion: CLBeaconRegion?
+    beaconRegion = CLBeaconRegion(proximityUUID: UUID(uuidString: activatedBeaconUUID!)!, identifier: "")
+    locationManager.stopRangingBeacons(in: beaconRegion!)
+    locationManager.stopMonitoring(for: beaconRegion!)
+    locationManager.stopUpdatingLocation()
+    
+    activationCode = nil
+    activationKey = nil
+    activatedBeaconUUID = nil
   }
   
   // MARK: CLLocationManagerDelegate Method

@@ -21,6 +21,14 @@ extension String {
     return true
   }
   
+  func isValidActivationCode() -> Bool {
+    let chars = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz").inverted
+    if let _ = self.uppercased().rangeOfCharacter(from: chars) {
+      return false
+    }
+    return true
+  }
+  
 }
 
 protocol BeaconDetailViewControllerDelegate: NSObjectProtocol {
@@ -110,7 +118,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     if (textField.tag == 1000) {
       return newLength <= 20 // Character Limit for Luggage Name
     } else {
-      return newLength <= 12 // Character Limit for Identifier Code
+      return newLength <= 11 // Character Limit for Identifier Code
     }
   }
   
@@ -168,12 +176,19 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
           luggageItem.photo = nil
         }
         
+        let aCode = Globals.generateActivationCode(code: uuidTextField.text!.lowercased())
+        let aKey = Globals.generateActivationKey(code: aCode)
+        let uuid = Globals.generateUUID(code: aCode)
+        
         luggageItem.name = trimmedName!
-        luggageItem.uuid = "\(Constants.UUID.Identifier)\(uuidTextField.text!.uppercased())"
+        luggageItem.uuid = uuid
         luggageItem.major = "0"
         luggageItem.minor = "-1"
         luggageItem.regionState = Constants.Proximity.Outside
         luggageItem.isConnected = false
+        luggageItem.activation_code = uuidTextField.text!.lowercased()
+        luggageItem.activation_key = aKey
+        luggageItem.activated = false
         
         delegate?.beaconDetailViewController(self, didFinishAddingItem: luggageItem)
       }
@@ -181,22 +196,47 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   }
   
   @IBAction func activate(_ sender: Any) {
-    let aCode: String = uuidTextField.text!.lowercased()
+    trimmedName = nameTextField.text!.trimmingCharacters(
+      in: CharacterSet.whitespacesAndNewlines
+    )
     
-    var BTAddress:Int64 = 0
-    var powIndex = 0
+    // Check/Get Luggage's Name
+    assignLuggageName()
     
-    for char in aCode.characters.reversed() {
-      let characterString = "\(char)"
+    let isValidLuggage = validateLuggage()
+    
+    if (isValidLuggage) {
+      let alertShake = UIAlertController(title: NSLocalizedString("shake_device", comment: ""), message: NSLocalizedString("shake_device_message", comment: ""), preferredStyle: UIAlertControllerStyle.alert)
+      self.present(alertShake, animated: true, completion: nil)
       
-      if let asciiValue = Character(characterString).asciiValue {
-        BTAddress += Int64(asciiValue - 96) * Int64("\(pow(26, powIndex))")!
-        powIndex += 1
+      DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Constants.Time.FifteenSecondsTimeout) {
+        alertShake.dismiss(animated: true, completion: nil)
+        self.trimmedName = ""
+        
+        let errorMessage = UIAlertController(title: NSLocalizedString("error", comment: ""), message: NSLocalizedString("error_activating_message", comment: ""), preferredStyle: UIAlertControllerStyle.alert)
+        let okActionMotor = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: UIAlertActionStyle.default)
+        errorMessage.addAction(okActionMotor)
+        
+        self.present(errorMessage, animated: true, completion: nil)
       }
+      
+      let aCode: String = uuidTextField.text!.lowercased()
+      
+      var BTAddress:Int64 = 0
+      var powIndex = 0
+      
+      for char in aCode.characters.reversed() {
+        let characterString = "\(char)"
+        
+        if let asciiValue = Character(characterString).asciiValue {
+          BTAddress += Int64(asciiValue - 96) * Int64("\(pow(26, powIndex))")!
+          powIndex += 1
+        }
+      }
+      
+      let hexString = String(BTAddress, radix: 16, uppercase: true)
+      NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.TransmitActivationKey), object: hexString, userInfo: nil)
     }
-    
-    let hexString = String(BTAddress, radix: 16, uppercase: true)
-    NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.TransmitActivationKey), object: hexString, userInfo: nil)
   }
   
   // MARK: ModalViewControllerDelegate
@@ -279,6 +319,9 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     luggageItem.minor = "-1"
     luggageItem.regionState = Constants.Proximity.Inside
     luggageItem.isConnected = true
+    luggageItem.activation_code = activationCode.lowercased()
+    luggageItem.activation_key = activationKey.uppercased()
+    luggageItem.activated = true
     
     delegate?.beaconDetailViewController(self, didFinishAddingItem: luggageItem)
   }
@@ -321,7 +364,8 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
       return false
     }
      
-    if (uuidTextField.text!.characters.count < 12 || !(uuidTextField.text!.isValidHexNumber())) {
+    //if (uuidTextField.text!.characters.count < 12 || !(uuidTextField.text!.isValidHexNumber())) {
+    if (uuidTextField.text!.characters.count < 11 || !(uuidTextField.text!.isValidActivationCode())) {
       showConfirmation(NSLocalizedString("warning", comment: ""), message: NSLocalizedString("exit_confirmation", comment: ""))
       
       return false

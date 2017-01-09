@@ -22,6 +22,7 @@
 "warning" = "Warning";
 "delete_luggage_title" = "Delete Luggage Tag";
 "location_access_disabled" = "Background Location Access is Disabled";
+"shake_device" = "Shake Device";
 
 /* Alert Box Messages */
 "turn_on_bluetooth" = "Turn On Bluetooth to detect nearby Bag iTag Beacon";
@@ -31,6 +32,8 @@
 "photo_restricted" = "This app does not have access to your Photo Library. You can enable access in Privacy Settings.";
 "exit_confirmation" = "Identifier Code missing or incorrect. Do you really want to exit?";
 "err_luggage_exist" = "Luggage exists. Do you really want to exit and discard changes?";
+"shake_device_message" = "Shake device until detected.";
+"error_activating_message" = "Device activation failed. Please try Again";
 
 /* Local Notification */
 "has_arrived" = "has arrived!";
