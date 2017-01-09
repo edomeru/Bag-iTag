@@ -1,25 +1,30 @@
 //
 //  BeaconItem+CoreDataProperties.swift
-//  TKT40214_LuggageFinder_S1_iOS
+//  TKT40232_LuggageTag_S2
 //
-//  Created by PhTktimac1 on 07/06/2016.
-//  Copyright © 2016 Tektos Limited. All rights reserved.
-//
-//  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
-//  to delete and recreate this implementation file for your updated model.
+//  Created by PhTktimac1 on 09/01/2017.
+//  Copyright © 2017 Tektos Limited. All rights reserved.
 //
 
 import Foundation
 import CoreData
 
+
 extension BeaconItem {
 
-    @NSManaged var connection: NSNumber?
-    @NSManaged var id: NSNumber?
-    @NSManaged var major: String?
-    @NSManaged var minor: String?
-    @NSManaged var name: String?
-    @NSManaged var photo: Data?
-    @NSManaged var uuid: String?
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<BeaconItem> {
+        return NSFetchRequest<BeaconItem>(entityName: "BeaconItem");
+    }
+
+    @NSManaged public var connection: NSNumber?
+    @NSManaged public var id: NSNumber?
+    @NSManaged public var major: String?
+    @NSManaged public var minor: String?
+    @NSManaged public var name: String?
+    @NSManaged public var photo: NSData?
+    @NSManaged public var uuid: String?
+    @NSManaged public var activation_code: String?
+    @NSManaged public var activation_key: String?
+    @NSManaged public var activated: NSNumber?
 
 }

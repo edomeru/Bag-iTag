@@ -571,7 +571,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       item.id = index
       
       if beacon.photo != nil {
-        item.photo = beacon.photo!
+        item.photo = beacon.photo! as Data
       }
       
       item.name = beacon.name!
@@ -669,7 +669,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     let id = NSNumber(value: beaconItem.id as Int)
     
     item.id = id
-    item.photo = beaconItem.photo
+    item.photo = beaconItem.photo as NSData?
     item.name = beaconItem.name
     item.uuid = beaconItem.uuid
     item.major = beaconItem.major
