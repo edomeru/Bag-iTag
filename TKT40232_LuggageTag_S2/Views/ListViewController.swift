@@ -86,7 +86,10 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     
     // Add NSNotificationCenter Observer for this Controller
     NotificationCenter.default.addObserver(self, selector: #selector(ListViewController.setBattery(_:)), name: NSNotification.Name(rawValue: Constants.Notification.SetBattery), object: nil)
+    
     NotificationCenter.default.addObserver(self, selector: #selector(ListViewController.setLuggageImageRange(_:)), name: NSNotification.Name(rawValue: Constants.Notification.SetImageRange), object: nil)
+    
+    NotificationCenter.default.addObserver(self, selector: #selector(ListViewController.transmitActivationKey(_:)), name: NSNotification.Name(rawValue: Constants.Notification.TransmitActivationKey), object: nil)
   }
   
   // MARK: NSNotificationCenter Functions
@@ -127,6 +130,16 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         region.image = UIImage(named: rangeImage)
       }
     }
+  }
+  
+  func transmitActivationKey(_ notification: Notification) {
+    guard let key = notification.object as? String else {
+      Globals.log("Invalid Activation Key")
+      
+      return
+    }
+    
+    tktCoreLocation.broadcastActivationKey(activationCode: key)
   }
   
   func longPressGestureRecognized(_ gestureRecognizer: UIGestureRecognizer) {

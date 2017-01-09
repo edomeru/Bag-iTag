@@ -58,6 +58,9 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.setEnterRegion(_:)), name: NSNotification.Name(rawValue: Constants.Proximity.Inside), object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.setExitRegion(_:)), name: NSNotification.Name(rawValue: Constants.Proximity.Outside), object: nil)
     
+    // NSNotification Observer for TransmitActivation Key
+    NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.deviceIsActivated(_:)), name: NSNotification.Name(rawValue: Constants.Notification.ActivationSuccessKey), object: nil)
+    
     centralManager = CBCentralManager(delegate: self, queue: nil)
     
     if let item = beaconToEdit {
@@ -177,6 +180,25 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     }
   }
   
+  @IBAction func activate(_ sender: Any) {
+    let aCode: String = uuidTextField.text!.lowercased()
+    
+    var BTAddress:Int64 = 0
+    var powIndex = 0
+    
+    for char in aCode.characters.reversed() {
+      let characterString = "\(char)"
+      
+      if let asciiValue = Character(characterString).asciiValue {
+        BTAddress += Int64(asciiValue - 96) * Int64("\(pow(26, powIndex))")!
+        powIndex += 1
+      }
+    }
+    
+    let hexString = String(BTAddress, radix: 16, uppercase: true)
+    NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.TransmitActivationKey), object: hexString, userInfo: nil)
+  }
+  
   // MARK: ModalViewControllerDelegate
   func didFinishPickingMediaWithInfo(_ image: UIImage) {
     isPhotoEdited = true
@@ -226,6 +248,39 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
         rangeLabel.text = Constants.Range.OutOfRange
       }
     }
+  }
+  
+  func deviceIsActivated(_ notification: Notification) {
+    guard let activationCode = notification.userInfo?[Constants.Key.ActivationCode] as? String, let activationKey = notification.userInfo?[Constants.Key.ActivationKey] as? String, let uuid = notification.userInfo?[Constants.Key.ActivatedUUID] as? String else {
+      Globals.log("Invalid Activated Data")
+      
+      return
+    }
+    
+    trimmedName = nameTextField.text!.trimmingCharacters(
+      in: CharacterSet.whitespacesAndNewlines
+    )
+    
+    // Check/Get Luggage's Name
+    assignLuggageName()
+    
+    //New Luggage
+    let luggageItem = LuggageTag()
+    
+    if (isPhotoEdited) {
+      luggageItem.photo = UIImageJPEGRepresentation(self.imgButton.currentImage!, 1.0)
+    } else {
+      luggageItem.photo = nil
+    }
+    
+    luggageItem.name = trimmedName!
+    luggageItem.uuid = uuid
+    luggageItem.major = "0"
+    luggageItem.minor = "-1"
+    luggageItem.regionState = Constants.Proximity.Inside
+    luggageItem.isConnected = true
+    
+    delegate?.beaconDetailViewController(self, didFinishAddingItem: luggageItem)
   }
   
   // MARK: Private Methods
@@ -325,11 +380,15 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   }
   
   deinit {
+    Globals.log("Deinit called")
     // Remove all Observer from this Controller to save memory
-    NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+    NotificationCenter.default.removeObserver(self)
+    
+    /*NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
     NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     
     NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Proximity.Inside), object: nil)
     NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Proximity.Outside), object: nil)
+    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.TransmitActivationKey, object: nil))*/
   }
 }

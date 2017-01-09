@@ -30,6 +30,7 @@
 		157E847D1D0FE4B100179F23 /* BeaconCoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 157E847B1D0FE4B100179F23 /* BeaconCoreDataModel.xcdatamodeld */; };
 		158F70921D36313200AB3092 /* TKT40232_LuggageTag_S2_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158F70911D36313200AB3092 /* TKT40232_LuggageTag_S2_Tests.swift */; };
 		158F70A51D36336D00AB3092 /* TKT40232_LuggageTag_S2_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158F70A21D36335100AB3092 /* TKT40232_LuggageTag_S2_UITests.swift */; };
+		159B88C61E1DEDD40053AC2C /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159B88C51E1DEDD40053AC2C /* Utils.swift */; };
 		15F5FA991D05166800E0236C /* GADUGI.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 15F5FA971D05166800E0236C /* GADUGI.TTF */; };
 		15F5FA9A1D05166800E0236C /* GADUGIB.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 15F5FA981D05166800E0236C /* GADUGIB.TTF */; };
 /* End PBXBuildFile section */
@@ -81,6 +82,7 @@
 		158F70971D36328F00AB3092 /* LuggageFinderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LuggageFinderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		158F70A11D36335100AB3092 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		158F70A21D36335100AB3092 /* TKT40232_LuggageTag_S2_UITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TKT40232_LuggageTag_S2_UITests.swift; sourceTree = "<group>"; };
+		159B88C51E1DEDD40053AC2C /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = Helpers/Utils.swift; sourceTree = "<group>"; };
 		15F5FA971D05166800E0236C /* GADUGI.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; name = GADUGI.TTF; path = "Supporting Files/Fonts/GADUGI.TTF"; sourceTree = "<group>"; };
 		15F5FA981D05166800E0236C /* GADUGIB.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; name = GADUGIB.TTF; path = "Supporting Files/Fonts/GADUGIB.TTF"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -170,6 +172,7 @@
 				152DC6031D41EECD00F09BDA /* Globals.swift */,
 				156C0E711D0AB34C002E0DD7 /* SevenSwitch.swift */,
 				157DB6F81CF4073C00FC960E /* TKTCoreLocation.swift */,
+				159B88C51E1DEDD40053AC2C /* Utils.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -404,6 +407,7 @@
 				157DB6E91CF401CC00FC960E /* ListViewController.swift in Sources */,
 				157E847D1D0FE4B100179F23 /* BeaconCoreDataModel.xcdatamodeld in Sources */,
 				1550E9551CF8199E00445008 /* BeaconItem.swift in Sources */,
+				159B88C61E1DEDD40053AC2C /* Utils.swift in Sources */,
 				151D2D5C1CFFE35B002F5B05 /* CustomDetectionView.swift in Sources */,
 				151D2D5E1D000BDA002F5B05 /* CustomButton.swift in Sources */,
 				157DB6E71CF401CC00FC960E /* AppDelegate.swift in Sources */,

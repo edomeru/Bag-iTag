@@ -38,7 +38,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="new" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hqd-dI-xMz">
-                                            <rect key="frame" x="187" y="76" width="39" height="48"/>
+                                            <rect key="frame" x="187" y="76" width="41" height="48"/>
                                             <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="21"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -373,8 +373,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="IDENTIFIER CODE" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XKN-hw-mUC" customClass="CustomTextField" customModule="LuggageFinder" customModuleProvider="target">
-                                <rect key="frame" x="31" y="405" width="313" height="50"/>
+                            <textField opaque="NO" clipsSubviews="YES" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="Activation Code" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XKN-hw-mUC" customClass="CustomTextField" customModule="LuggageFinder" customModuleProvider="target">
+                                <rect key="frame" x="37" y="405" width="300" height="50"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <accessibility key="accessibilityConfiguration" identifier="uuid"/>
                                 <constraints>
@@ -396,7 +396,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Out of Range" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NuV-Hd-KOi">
-                                <rect key="frame" x="236" y="310" width="93" height="21"/>
+                                <rect key="frame" x="237" y="310" width="93" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="C9Z-G9-tYW"/>
                                     <constraint firstAttribute="height" constant="21" id="DjV-Rm-Nua"/>
@@ -417,7 +417,7 @@
                                 <rect key="frame" x="0.0" y="89" width="375" height="200"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QVg-P1-dhs" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
-                                        <rect key="frame" x="97.5" y="10" width="180" height="180"/>
+                                        <rect key="frame" x="98" y="10" width="180" height="180"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="180" id="vLc-c4-qmz"/>
@@ -466,7 +466,7 @@
                                 </variation>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="idS-w2-DuE" customClass="CustomTextField" customModule="LuggageFinder" customModuleProvider="target">
-                                <rect key="frame" x="31" y="339" width="313" height="50"/>
+                                <rect key="frame" x="38" y="339" width="300" height="50"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="OKi-TZ-Z4W"/>
@@ -486,25 +486,53 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eWm-6B-a2H" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
+                                <rect key="frame" x="37" y="597" width="300" height="50"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="9MS-nu-SkQ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="20"/>
+                                <state key="normal" title="ACTIVATE">
+                                    <color key="titleColor" red="0.82745098039215681" green="0.12156862745098039" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="activate:" destination="ZKc-tn-hlY" eventType="touchUpInside" id="t6u-73-iKE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="idS-w2-DuE" firstAttribute="trailing" secondItem="XKN-hw-mUC" secondAttribute="trailing" id="1yc-5G-3Tq"/>
+                            <constraint firstItem="idS-w2-DuE" firstAttribute="trailing" secondItem="XKN-hw-mUC" secondAttribute="trailing" constant="1" id="1yc-5G-3Tq"/>
+                            <constraint firstItem="eWm-6B-a2H" firstAttribute="leading" secondItem="XKN-hw-mUC" secondAttribute="leading" id="577-Qc-Pql"/>
                             <constraint firstItem="evJ-wm-XnQ" firstAttribute="top" secondItem="APj-Nl-Kal" secondAttribute="bottom" constant="25" id="6IY-aw-Wc0"/>
                             <constraint firstItem="NuV-Hd-KOi" firstAttribute="top" secondItem="evJ-wm-XnQ" secondAttribute="bottom" constant="16" id="7Uw-nw-bni"/>
                             <constraint firstAttribute="trailing" secondItem="evJ-wm-XnQ" secondAttribute="trailing" id="CV8-64-UFf"/>
                             <constraint firstItem="NuV-Hd-KOi" firstAttribute="top" secondItem="APj-Nl-Kal" secondAttribute="bottom" constant="246" id="MKZ-Cb-5d9"/>
                             <constraint firstItem="idS-w2-DuE" firstAttribute="top" secondItem="NuV-Hd-KOi" secondAttribute="bottom" constant="8" symbolic="YES" id="NcN-pO-Q98"/>
                             <constraint firstItem="idS-w2-DuE" firstAttribute="top" secondItem="NuV-Hd-KOi" secondAttribute="bottom" constant="8" symbolic="YES" id="OTY-h6-5bS"/>
+                            <constraint firstItem="eWm-6B-a2H" firstAttribute="trailing" secondItem="XKN-hw-mUC" secondAttribute="trailing" id="Pog-wL-bF1"/>
                             <constraint firstItem="evJ-wm-XnQ" firstAttribute="centerX" secondItem="idS-w2-DuE" secondAttribute="centerX" id="Ygo-B1-eEc"/>
-                            <constraint firstItem="idS-w2-DuE" firstAttribute="leading" secondItem="9VQ-Rq-HtX" secondAttribute="leadingMargin" constant="15" id="afL-sW-sLB"/>
+                            <constraint firstItem="idS-w2-DuE" firstAttribute="leading" secondItem="9VQ-Rq-HtX" secondAttribute="leadingMargin" constant="22" id="afL-sW-sLB"/>
                             <constraint firstItem="NuV-Hd-KOi" firstAttribute="top" secondItem="evJ-wm-XnQ" secondAttribute="bottom" constant="16" id="d1w-nS-R08"/>
-                            <constraint firstItem="idS-w2-DuE" firstAttribute="leading" secondItem="XKN-hw-mUC" secondAttribute="leading" id="iKm-D3-MGp"/>
+                            <constraint firstItem="idS-w2-DuE" firstAttribute="leading" secondItem="XKN-hw-mUC" secondAttribute="leading" constant="1" id="iKm-D3-MGp"/>
                             <constraint firstItem="XKN-hw-mUC" firstAttribute="top" secondItem="idS-w2-DuE" secondAttribute="bottom" constant="16" id="jey-gb-KvZ"/>
                             <constraint firstItem="NuV-Hd-KOi" firstAttribute="trailing" secondItem="9VQ-Rq-HtX" secondAttribute="trailingMargin" id="kky-9R-94Q"/>
                             <constraint firstItem="evJ-wm-XnQ" firstAttribute="leading" secondItem="9VQ-Rq-HtX" secondAttribute="leading" id="mwH-uF-eJd"/>
                             <constraint firstItem="NuV-Hd-KOi" firstAttribute="top" secondItem="evJ-wm-XnQ" secondAttribute="bottom" constant="21" id="mz9-Hl-NFW"/>
-                            <constraint firstItem="NuV-Hd-KOi" firstAttribute="trailing" secondItem="idS-w2-DuE" secondAttribute="trailing" constant="-15" id="zCc-71-SYF"/>
+                            <constraint firstItem="NuV-Hd-KOi" firstAttribute="trailing" secondItem="idS-w2-DuE" secondAttribute="trailing" constant="-8" id="zCc-71-SYF"/>
+                            <constraint firstAttribute="bottom" secondItem="eWm-6B-a2H" secondAttribute="bottom" constant="20" symbolic="YES" id="zHl-1a-7C2"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -532,7 +560,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R9k-xl-atm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2513" y="251"/>
+            <point key="canvasLocation" x="2512.8000000000002" y="250.52473763118442"/>
         </scene>
         <!--Modal View Controller-->
         <scene sceneID="ddT-mB-7Sw">
@@ -625,7 +653,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fRw-Vc-P7V" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="hOS-2m-76K">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hOS-2m-76K">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -644,7 +672,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Nup-9k-wAl" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="4R2-W2-LqE"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="aia-Y3-ZyY">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="aia-Y3-ZyY">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

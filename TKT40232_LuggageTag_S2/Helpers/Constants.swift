@@ -39,11 +39,20 @@ struct Constants {
     static let Proximity = "Proximity"
     static let Exited = "exited"
     static let Initialize = "initialize"
+    static let ActivationCode = "activation_code"
+    static let ActivationKey = "activation_key"
+    static let ActivatedUUID = "activated_uuid"
   }
   
   struct Notification {
     static let SetBattery = "SetBatteryID"
     static let SetImageRange = "SetImageRangeID"
+    static let TransmitActivationKey = "TransmitActivationKeyID"
+    static let ActivationSuccessKey = "ActivationSuccessID"
+  }
+  
+  struct Time {
+    static let FifteenSecondsTimeout = 15.0
   }
   
 }
