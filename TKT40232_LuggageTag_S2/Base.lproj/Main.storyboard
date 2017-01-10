@@ -38,7 +38,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="new" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hqd-dI-xMz">
-                                            <rect key="frame" x="187" y="76" width="41" height="48"/>
+                                            <rect key="frame" x="187" y="76" width="39" height="48"/>
                                             <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="21"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -552,6 +552,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activationButton" destination="eWm-6B-a2H" id="fQn-V4-Hvx"/>
                         <outlet property="imgButton" destination="QVg-P1-dhs" id="iAU-zY-STX"/>
                         <outlet property="nameTextField" destination="idS-w2-DuE" id="rxD-4P-S0y"/>
                         <outlet property="rangeLabel" destination="NuV-Hd-KOi" id="kHO-c4-SZD"/>
@@ -653,7 +654,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fRw-Vc-P7V" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hOS-2m-76K">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="hOS-2m-76K">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -672,7 +673,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Nup-9k-wAl" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="4R2-W2-LqE"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="aia-Y3-ZyY">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="aia-Y3-ZyY">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

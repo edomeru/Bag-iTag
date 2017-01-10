@@ -568,6 +568,12 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         isConnected = true
       }
       
+      let x: Int = Int(beacon.activated!)
+      var isActivated = false
+      if (x == 1) {
+        isActivated = true
+      }
+      
       item.id = index
       
       if beacon.photo != nil {
@@ -580,6 +586,9 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       item.minor = beacon.minor!
       item.regionState = Constants.Proximity.Unknown
       item.isConnected = isConnected
+      item.activation_code = beacon.activation_code!
+      item.activation_key = beacon.activation_key!
+      item.activated = isActivated
       
       row.append(item)
     }
@@ -709,6 +718,9 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         beacon.setValue(item.major, forKey: "major")
         beacon.setValue(item.minor, forKey: "minor")
         beacon.setValue(item.isConnected, forKey: "connection")
+        beacon.setValue(item.activation_code, forKey: "activation_code")
+        beacon.setValue(item.activation_key, forKey: "activation_key")
+        beacon.setValue(item.activated, forKey: "activated")
         do {
           try moc.save()
           Globals.log("Successfully Updated Database")

@@ -30,10 +30,11 @@
 "delete_luggage" = "Are you sure want to remove this Luggage \"%@\"";
 "camera_restricted" = "This app does not have access to your Camera. You can enable access in Privacy Settings.";
 "photo_restricted" = "This app does not have access to your Photo Library. You can enable access in Privacy Settings.";
-"exit_confirmation" = "Identifier Code missing or incorrect. Do you really want to exit?";
+"exit_confirmation" = "Activation Code missing or incorrect. Do you really want to exit?";
 "err_luggage_exist" = "Luggage exists. Do you really want to exit and discard changes?";
 "shake_device_message" = "Shake device until detected.";
 "error_activating_message" = "Device activation failed. Please try Again";
+"error_activation_code" = "Activation Code must be 11 letters";
 
 /* Local Notification */
 "has_arrived" = "has arrived!";

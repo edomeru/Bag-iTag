@@ -44,6 +44,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   @IBOutlet weak var uuidTextField: UITextField!
   @IBOutlet weak var imgButton: UIButton!
   @IBOutlet weak var rangeLabel: UILabel!
+  @IBOutlet weak var activationButton: CustomButton!
   
   var centralManager: CBCentralManager!
   
@@ -84,9 +85,12 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
       }
       
       nameTextField.text = item.name
+      uuidTextField.text = beaconToEdit?.activation_code.uppercased()
       
-      let stringIndex = item.uuid.characters.index(item.uuid.endIndex, offsetBy: -12)
-      uuidTextField.text = item.uuid.substring(from: stringIndex)
+      if (beaconToEdit?.activated)! {
+        uuidTextField.isEnabled = false
+        activationButton.isHidden = true
+      }
     } else {
       rangeLabel.isHidden = true
     }
@@ -118,7 +122,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     if (textField.tag == 1000) {
       return newLength <= 20 // Character Limit for Luggage Name
     } else {
-      return newLength <= 11 // Character Limit for Identifier Code
+      return newLength <= 11 // Character Limit for Activation Code
     }
   }
   
@@ -139,10 +143,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     if (isValidLuggage) {
       if let luggageItem = beaconToEdit {
         
-        let originalStringIndex = luggageItem.uuid.characters.index(luggageItem.uuid.endIndex, offsetBy: -12)
-        let originalString = luggageItem.uuid.substring(from: originalStringIndex)
-        
-        if (isPhotoEdited || (trimmedName! != luggageItem.name) || (uuidTextField.text! != originalString)) {
+        if (isPhotoEdited || (trimmedName! != luggageItem.name) || (uuidTextField.text! != luggageItem.activation_code.uppercased())) {
           // Beacon is Edited
           
           if (luggageItem.isConnected) {
@@ -154,10 +155,17 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
             luggageItem.photo = UIImageJPEGRepresentation(self.imgButton.currentImage!, 1.0)
           }
           
+          let aCode = Globals.generateActivationCode(code: uuidTextField.text!.lowercased())
+          let aKey = Globals.generateActivationKey(code: aCode)
+          let uuid = Globals.generateUUID(code: aCode)
+          
           luggageItem.name = trimmedName!
-          luggageItem.uuid = "\(Constants.UUID.Identifier)\(uuidTextField.text!.uppercased())"
-          luggageItem.minor = (uuidTextField.text! != originalString) ? "-1" : luggageItem.minor
+          luggageItem.uuid = uuid
+          luggageItem.minor = (uuidTextField.text! != luggageItem.activation_code.uppercased()) ? "-1" : luggageItem.minor
           luggageItem.regionState = Constants.Proximity.Outside
+          luggageItem.activation_code = uuidTextField.text!.lowercased()
+          luggageItem.activation_key = aKey
+          luggageItem.activated = (beaconToEdit?.activated)!
           
           delegate?.beaconDetailViewController(self, didFinishEditingItem: luggageItem)
         } else {
@@ -291,7 +299,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   }
   
   func deviceIsActivated(_ notification: Notification) {
-    guard let activationCode = notification.userInfo?[Constants.Key.ActivationCode] as? String, let activationKey = notification.userInfo?[Constants.Key.ActivationKey] as? String, let uuid = notification.userInfo?[Constants.Key.ActivatedUUID] as? String else {
+    guard let _ = notification.userInfo?[Constants.Key.ActivationCode] as? String, let activationKey = notification.userInfo?[Constants.Key.ActivationKey] as? String, let uuid = notification.userInfo?[Constants.Key.ActivatedUUID] as? String else {
       Globals.log("Invalid Activated Data")
       
       return
@@ -319,7 +327,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     luggageItem.minor = "-1"
     luggageItem.regionState = Constants.Proximity.Inside
     luggageItem.isConnected = true
-    luggageItem.activation_code = activationCode.lowercased()
+    luggageItem.activation_code = uuidTextField.text!.lowercased()
     luggageItem.activation_key = activationKey.uppercased()
     luggageItem.activated = true
     
@@ -358,14 +366,19 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   }
   
   fileprivate func validateLuggage() -> Bool {
+    if (uuidTextField.text!.characters.count < 11) {
+      showConfirmation(NSLocalizedString("warning", comment: ""), message: NSLocalizedString("error_activation_code", comment: ""))
+      
+      return false
+    }
+    
     if (uuidTextField.text! == "") {
       showConfirmation(NSLocalizedString("warning", comment: ""), message: NSLocalizedString("exit_confirmation", comment: ""))
       
       return false
     }
-     
-    //if (uuidTextField.text!.characters.count < 12 || !(uuidTextField.text!.isValidHexNumber())) {
-    if (uuidTextField.text!.characters.count < 11 || !(uuidTextField.text!.isValidActivationCode())) {
+    
+    if (!(uuidTextField.text!.isValidActivationCode())) {
       showConfirmation(NSLocalizedString("warning", comment: ""), message: NSLocalizedString("exit_confirmation", comment: ""))
       
       return false
@@ -424,15 +437,8 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   }
   
   deinit {
-    Globals.log("Deinit called")
+    //Globals.log("Deinit called")
     // Remove all Observer from this Controller to save memory
     NotificationCenter.default.removeObserver(self)
-    
-    /*NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-    NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-    
-    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Proximity.Inside), object: nil)
-    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Proximity.Outside), object: nil)
-    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.TransmitActivationKey, object: nil))*/
   }
 }
