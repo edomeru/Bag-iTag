@@ -90,6 +90,8 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
       if (beaconToEdit?.activated)! {
         uuidTextField.isEnabled = false
         activationButton.isHidden = true
+      } else {
+        rangeLabel.isHidden = true
       }
     } else {
       rangeLabel.isHidden = true
