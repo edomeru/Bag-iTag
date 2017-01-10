@@ -449,7 +449,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       let indexPath = IndexPath(row: index, section: 0)
       if let cell = tableView.cellForRow(at: indexPath) {
         configureCell(cell, withLuggageTag: item)
-        configureCellRegion(cell, withLuggageTag: item, connected: false)
+        configureCellRegion(cell, withLuggageTag: item, connected: item.isConnected)
       }
       
       if (item.isConnected) {
@@ -546,11 +546,13 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   fileprivate func configureCellRegion(_ cell: UITableViewCell, withLuggageTag item: LuggageTag, connected: Bool) {
     let region = cell.viewWithTag(1002) as! CustomDetectionView
     let battery = cell.viewWithTag(1003) as! UILabel
+    let cellSwitch = cell.viewWithTag(1004) as! SevenSwitch
     battery.text = "\(item.minor)%"
   
     if (connected) {
       region.image = UIImage(named: "range_close")
       battery.isHidden = (battery.text! == "-1%") ? true : false
+      cellSwitch.setOn(connected, animated: false)
     } else {
       region.image = UIImage(named: "range_no_detection")
       battery.isHidden = true

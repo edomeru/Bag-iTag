@@ -312,26 +312,55 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     // Check/Get Luggage's Name
     assignLuggageName()
     
-    //New Luggage
-    let luggageItem = LuggageTag()
-    
-    if (isPhotoEdited) {
-      luggageItem.photo = UIImageJPEGRepresentation(self.imgButton.currentImage!, 1.0)
+    if let luggageItem = beaconToEdit {
+      // Beacon is Edited
+      // Remove ActivationSuccessKey Notification
+      NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.ActivationSuccessKey), object: nil)
+      
+      if (luggageItem.isConnected) {
+        // Stop Monitoring for this Beacon
+        delegate?.stopMonitoring(didStopMonitoring: luggageItem)
+      }
+      
+      if (isPhotoEdited) {
+        luggageItem.photo = UIImageJPEGRepresentation(self.imgButton.currentImage!, 1.0)
+      }
+      
+      luggageItem.name = trimmedName!
+      luggageItem.uuid = uuid
+      luggageItem.minor = (uuidTextField.text! != luggageItem.activation_code.uppercased()) ? "-1" : luggageItem.minor
+      luggageItem.regionState = Constants.Proximity.Inside
+      luggageItem.isConnected = true
+      luggageItem.activation_code = uuidTextField.text!.lowercased()
+      luggageItem.activation_key = activationKey.uppercased()
+      luggageItem.activated = true
+      
+      delegate?.beaconDetailViewController(self, didFinishEditingItem: luggageItem)
     } else {
-      luggageItem.photo = nil
+      //New Luggage
+      // Remove ActivationSuccessKey Notification
+      NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.ActivationSuccessKey), object: nil)
+      
+      let luggageItem = LuggageTag()
+      
+      if (isPhotoEdited) {
+        luggageItem.photo = UIImageJPEGRepresentation(self.imgButton.currentImage!, 1.0)
+      } else {
+        luggageItem.photo = nil
+      }
+      
+      luggageItem.name = trimmedName!
+      luggageItem.uuid = uuid
+      luggageItem.major = "0"
+      luggageItem.minor = "-1"
+      luggageItem.regionState = Constants.Proximity.Inside
+      luggageItem.isConnected = true
+      luggageItem.activation_code = uuidTextField.text!.lowercased()
+      luggageItem.activation_key = activationKey.uppercased()
+      luggageItem.activated = true
+      
+      delegate?.beaconDetailViewController(self, didFinishAddingItem: luggageItem)
     }
-    
-    luggageItem.name = trimmedName!
-    luggageItem.uuid = uuid
-    luggageItem.major = "0"
-    luggageItem.minor = "-1"
-    luggageItem.regionState = Constants.Proximity.Inside
-    luggageItem.isConnected = true
-    luggageItem.activation_code = uuidTextField.text!.lowercased()
-    luggageItem.activation_key = activationKey.uppercased()
-    luggageItem.activated = true
-    
-    delegate?.beaconDetailViewController(self, didFinishAddingItem: luggageItem)
   }
   
   // MARK: Private Methods
@@ -439,6 +468,14 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   deinit {
     //Globals.log("Deinit called")
     // Remove all Observer from this Controller to save memory
-    NotificationCenter.default.removeObserver(self)
+    //NotificationCenter.default.removeObserver(self)
+    
+    NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+    NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    
+    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Proximity.Inside), object: nil)
+    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Proximity.Outside), object: nil)
+    
+    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.ActivationSuccessKey), object: nil)
   }
 }
