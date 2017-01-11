@@ -393,7 +393,8 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
             
             if (!row[(indexPath as NSIndexPath).row].activated) {
               row[(indexPath as NSIndexPath).row].activated = true
-              saveToDatabase(row[(indexPath as NSIndexPath).row])
+              updateToDatabase(row[(indexPath as NSIndexPath).row])
+              //saveToDatabase(row[(indexPath as NSIndexPath).row])
             }
           }
         }
@@ -842,7 +843,14 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
       versionLabel.text = "v\(version)"
     }
-    companyLabel.text = NSLocalizedString("tektos_limited", comment: "")
+    
+    let date = Date()
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy"
+    let company_label = NSLocalizedString("tektos_limited", comment: "")
+    let year = formatter.string(from: date)
+    
+    companyLabel.text = "\(company_label)\(year)"
     rightsLabel.text = NSLocalizedString("alrights_reserved", comment: "")
   }
   
