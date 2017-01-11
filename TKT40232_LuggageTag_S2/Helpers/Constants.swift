@@ -53,6 +53,7 @@ struct Constants {
   
   struct Time {
     static let FifteenSecondsTimeout = 15.0
+    static let OneSecond = 1.0
   }
   
 }

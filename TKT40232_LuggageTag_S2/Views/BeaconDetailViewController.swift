@@ -10,6 +10,7 @@ import UIKit
 import CoreBluetooth
 import CoreLocation
 import Foundation
+import AVFoundation
 
 extension String {
   
@@ -38,13 +39,14 @@ protocol BeaconDetailViewControllerDelegate: NSObjectProtocol {
   func didBluetoothPoweredOff(didPowerOff item: LuggageTag)
 }
 
-class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UITextFieldDelegate, ModalViewControllerDelegate {
+class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UITextFieldDelegate, ModalViewControllerDelegate, AVCaptureMetadataOutputObjectsDelegate {
 
   @IBOutlet weak var nameTextField: UITextField!
   @IBOutlet weak var uuidTextField: UITextField!
   @IBOutlet weak var imgButton: UIButton!
   @IBOutlet weak var rangeLabel: UILabel!
   @IBOutlet weak var activationButton: CustomButton!
+  @IBOutlet weak var qrCodeButton: UIButton!
   
   var centralManager: CBCentralManager!
   
@@ -55,9 +57,16 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   var isPhotoEdited = false
   var trimmedName: String?
   
+  var captureSession:AVCaptureSession?
+  var videoPreviewLayer:AVCaptureVideoPreviewLayer?
+  var qrCodeFrameView:UIView?
+  
+  let supportedCodeTypes = [AVMetadataObjectTypeQRCode]
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     formatNavigationBar()
+    hideNavigationItem(item: self.navigationItem.rightBarButtonItem)
     
     // NSNotification Observer for Keyboard
     NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.keyboardWillShow(_:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
@@ -89,6 +98,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
       
       if (beaconToEdit?.activated)! {
         uuidTextField.isEnabled = false
+        qrCodeButton.isHidden = true
         activationButton.isHidden = true
       } else {
         rangeLabel.isHidden = true
@@ -249,6 +259,58 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     }
   }
   
+  @IBAction func qrButtonClicked(_ sender: Any) {
+    hideNavigationItem(item: self.navigationItem.leftBarButtonItem)
+    showNavigationItem(item: self.navigationItem.rightBarButtonItem)
+    
+    let captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
+    
+    do {
+      let input = try AVCaptureDeviceInput(device: captureDevice)
+      captureSession = AVCaptureSession()
+      captureSession?.addInput(input)
+      
+      let captureMetadataOutput = AVCaptureMetadataOutput()
+      captureSession?.addOutput(captureMetadataOutput)
+      
+      // Set delegate and use the default dispatch queue to execute the call back
+      captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
+      captureMetadataOutput.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
+      
+      // Initialize the video preview layer and add it as a sublayer to the viewPreview view's layer.
+      videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+      videoPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
+      videoPreviewLayer?.frame = view.layer.bounds
+      view.layer.addSublayer(videoPreviewLayer!)
+      
+      // Start video capture.
+      captureSession?.startRunning()
+      
+      // Initialize QR Code Frame to highlight the QR code
+      qrCodeFrameView = UIView()
+      
+      if let qrCodeFrameView = qrCodeFrameView {
+        qrCodeFrameView.layer.borderColor = UIColor.green.cgColor
+        qrCodeFrameView.layer.borderWidth = 2
+        view.addSubview(qrCodeFrameView)
+        view.bringSubview(toFront: qrCodeFrameView)
+      }
+    } catch {
+      Globals.log(error)
+      
+      return
+    }
+  }
+  
+  @IBAction func qrCancelButton(_ sender: Any) {
+    hideNavigationItem(item: self.navigationItem.rightBarButtonItem)
+    showNavigationItem(item: self.navigationItem.leftBarButtonItem)
+    
+    captureSession?.stopRunning()
+    qrCodeFrameView?.removeFromSuperview()
+    videoPreviewLayer?.removeFromSuperlayer()
+  }
+  
   // MARK: ModalViewControllerDelegate
   func didFinishPickingMediaWithInfo(_ image: UIImage) {
     isPhotoEdited = true
@@ -270,6 +332,40 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     default:
       break
     }
+  }
+  
+  // MARK: - AVCaptureMetadataOutputObjectsDelegate Methods
+  func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
+    
+    // Check if the metadataObjects array is not nil and it contains at least one object.
+    if metadataObjects == nil || metadataObjects.count == 0 {
+      qrCodeFrameView?.frame = CGRect.zero
+      Globals.log("No QR/barcode is detected")
+      
+      return
+    }
+    
+    // Get the metadata object.
+    let metadataObj = metadataObjects[0] as! AVMetadataMachineReadableCodeObject
+    if supportedCodeTypes.contains(metadataObj.type) {
+      // If the found metadata is equal to the QR code metadata then update the status label's text and set the bounds
+      let barCodeObject = videoPreviewLayer?.transformedMetadataObject(for: metadataObj)
+      qrCodeFrameView?.frame = barCodeObject!.bounds
+      
+      if let qrCode = metadataObj.stringValue {
+        AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
+          self.uuidTextField.text = qrCode
+          self.hideNavigationItem(item: self.navigationItem.rightBarButtonItem)
+          self.showNavigationItem(item: self.navigationItem.leftBarButtonItem)
+          self.self.captureSession?.stopRunning()
+          self.qrCodeFrameView?.removeFromSuperview()
+          self.videoPreviewLayer?.removeFromSuperlayer()
+        }
+      }
+    }
+    
   }
   
   // MARK: NSNotificationCenter Functions
@@ -372,6 +468,16 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     self.navigationController?.navigationBar.isTranslucent = true
   }
   
+  fileprivate func hideNavigationItem(item: UIBarButtonItem?) {
+    item?.isEnabled = false
+    item?.tintColor = UIColor.clear
+  }
+  
+  fileprivate func showNavigationItem(item: UIBarButtonItem?) {
+    item?.isEnabled = true
+    item?.tintColor = UIColor.white
+  }
+  
   fileprivate func showConfirmation(_ title: String, message: String) {
     let actions = [
       UIAlertAction(title: NSLocalizedString("exit", comment: ""), style: .cancel) { (action) in
@@ -430,6 +536,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     return true
   }
   
+  // TODO: Check Activation Code Uniqueness
   fileprivate func checkIdentifierCodeAvailability() -> Bool {
     for beacon in beaconReference! {
       if (beacon.uuid == ("\(Constants.UUID.Identifier)\(uuidTextField.text!.uppercased())")) {

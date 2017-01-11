@@ -38,7 +38,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="new" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hqd-dI-xMz">
-                                            <rect key="frame" x="187" y="76" width="41" height="48"/>
+                                            <rect key="frame" x="187" y="76" width="39" height="48"/>
                                             <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="21"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -511,14 +511,27 @@
                                     <action selector="activate:" destination="ZKc-tn-hlY" eventType="touchUpInside" id="t6u-73-iKE"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2WV-dR-kYo">
+                                <rect key="frame" x="339" y="415" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="FjX-qJ-Ilk"/>
+                                    <constraint firstAttribute="width" constant="30" id="J2R-wx-3ZP"/>
+                                </constraints>
+                                <state key="normal" image="ic_qrcode_scan"/>
+                                <connections>
+                                    <action selector="qrButtonClicked:" destination="ZKc-tn-hlY" eventType="touchUpInside" id="oGq-vo-OnI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="2WV-dR-kYo" firstAttribute="centerY" secondItem="XKN-hw-mUC" secondAttribute="centerY" id="1Mp-Kd-I7n"/>
                             <constraint firstItem="idS-w2-DuE" firstAttribute="trailing" secondItem="XKN-hw-mUC" secondAttribute="trailing" constant="1" id="1yc-5G-3Tq"/>
                             <constraint firstItem="eWm-6B-a2H" firstAttribute="leading" secondItem="XKN-hw-mUC" secondAttribute="leading" id="577-Qc-Pql"/>
                             <constraint firstItem="evJ-wm-XnQ" firstAttribute="top" secondItem="APj-Nl-Kal" secondAttribute="bottom" constant="25" id="6IY-aw-Wc0"/>
                             <constraint firstItem="NuV-Hd-KOi" firstAttribute="top" secondItem="evJ-wm-XnQ" secondAttribute="bottom" constant="16" id="7Uw-nw-bni"/>
                             <constraint firstAttribute="trailing" secondItem="evJ-wm-XnQ" secondAttribute="trailing" id="CV8-64-UFf"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="2WV-dR-kYo" secondAttribute="trailing" constant="-10" id="GaW-w6-Nau"/>
                             <constraint firstItem="NuV-Hd-KOi" firstAttribute="top" secondItem="APj-Nl-Kal" secondAttribute="bottom" constant="246" id="MKZ-Cb-5d9"/>
                             <constraint firstItem="idS-w2-DuE" firstAttribute="top" secondItem="NuV-Hd-KOi" secondAttribute="bottom" constant="8" symbolic="YES" id="NcN-pO-Q98"/>
                             <constraint firstItem="idS-w2-DuE" firstAttribute="top" secondItem="NuV-Hd-KOi" secondAttribute="bottom" constant="8" symbolic="YES" id="OTY-h6-5bS"/>
@@ -550,11 +563,18 @@
                                 <action selector="saveBeacon" destination="ZKc-tn-hlY" id="Ob4-EP-guv"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="LVA-CP-xJm">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="qrCancelButton:" destination="ZKc-tn-hlY" id="Fgp-WF-h8i"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="activationButton" destination="eWm-6B-a2H" id="fQn-V4-Hvx"/>
                         <outlet property="imgButton" destination="QVg-P1-dhs" id="iAU-zY-STX"/>
                         <outlet property="nameTextField" destination="idS-w2-DuE" id="rxD-4P-S0y"/>
+                        <outlet property="qrCodeButton" destination="2WV-dR-kYo" id="6e2-gi-Y5b"/>
                         <outlet property="rangeLabel" destination="NuV-Hd-KOi" id="kHO-c4-SZD"/>
                         <outlet property="uuidTextField" destination="XKN-hw-mUC" id="gVR-KD-ird"/>
                     </connections>
@@ -696,6 +716,7 @@
         <image name="back_button" width="22" height="22"/>
         <image name="border_line" width="3680" height="26"/>
         <image name="cam_logo" width="100" height="79"/>
+        <image name="ic_qrcode_scan" width="96" height="96"/>
         <image name="luggage_default" width="100" height="100"/>
         <image name="luggage_tag_logo" width="105" height="69"/>
         <image name="range_no_detection" width="100" height="100"/>

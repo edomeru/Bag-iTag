@@ -40,7 +40,7 @@
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Bag iTag would like to use Bluetooth to detect nearby Bag iTag Beacons</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Bag iTag would like to use Camera for taking Bag iTag Photo </string>
+	<string>Bag iTag would like to use Camera for taking Bag iTag Photo and for scanning QR Code</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Detect nearby Bag iTag Beacon?</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
