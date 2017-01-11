@@ -390,6 +390,11 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
             if let cell = tableView.cellForRow(at: indexPath) {
               configureCellRegion(cell, withLuggageTag: beacon, connected: true)
             }
+            
+            if (!row[(indexPath as NSIndexPath).row].activated) {
+              row[(indexPath as NSIndexPath).row].activated = true
+              saveToDatabase(row[(indexPath as NSIndexPath).row])
+            }
           }
         }
       }
