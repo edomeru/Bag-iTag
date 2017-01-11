@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.7.0</string>
+	<string>0.8.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -32,7 +32,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>20</string>
+	<string>21</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
@@ -40,13 +40,13 @@
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Bag iTag would like to use Bluetooth to detect nearby Bag iTag Beacons</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Bag iTag would like to use Camera for taking Bag iTag Photo and for scanning QR Code</string>
+	<string>Bag iTag would like to use Camera for taking Photo and for scanning QR Code</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Detect nearby Bag iTag Beacon?</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Detect nearby Bag iTag Beacons</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Bag iTag would like to use Photo Library for choosing Bag iTag Photo </string>
+	<string>Bag iTag would like to use Photo Library for choosing Photo </string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>GADUGI.TTF</string>
