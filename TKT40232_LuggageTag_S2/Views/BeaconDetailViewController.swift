@@ -521,7 +521,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
       return false
     }
     
-    if (!checkIdentifierCodeAvailability()) {
+    if (!checkActivationCodeAvailability()) {
       showConfirmation(NSLocalizedString("warning", comment: ""), message: NSLocalizedString("err_luggage_exist", comment: ""))
       
       return false
@@ -537,11 +537,11 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   }
   
   // TODO: Check Activation Code Uniqueness
-  fileprivate func checkIdentifierCodeAvailability() -> Bool {
+  fileprivate func checkActivationCodeAvailability() -> Bool {
     for beacon in beaconReference! {
-      if (beacon.uuid == ("\(Constants.UUID.Identifier)\(uuidTextField.text!.uppercased())")) {
+      if (beacon.activation_code == uuidTextField.text!.lowercased()) {
         if let item = beaconToEdit {
-          if (item.uuid == beacon.uuid) {
+          if (item.activation_code == beacon.activation_code) {
             continue
           } else {
             return false
