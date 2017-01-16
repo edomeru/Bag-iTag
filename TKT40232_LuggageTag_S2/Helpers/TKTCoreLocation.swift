@@ -201,6 +201,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
         
         if timer.isValid {
           timer.invalidate()
+          stopAdvertising()
         }
         
         NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.ActivationSuccessKey), object: nil, userInfo: [Constants.Key.ActivationCode: ac, Constants.Key.ActivationKey: ak, Constants.Key.ActivatedUUID: abUUID])

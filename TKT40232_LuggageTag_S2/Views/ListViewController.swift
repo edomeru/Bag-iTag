@@ -444,6 +444,10 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       battery.isHidden = (battery.text! == "-1%") ? true : false
     }
     
+    if (item.isConnected) {
+      startMonitoringforBeacon(item)
+    }
+    
     // Save item in Database
     saveToDatabase(item)
 
