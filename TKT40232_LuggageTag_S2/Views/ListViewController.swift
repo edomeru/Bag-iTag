@@ -388,13 +388,16 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
             createLocalNotification(region.identifier, identifier: beacon.uuid, message: NSLocalizedString("has_arrived", comment: ""))
             
             if let cell = tableView.cellForRow(at: indexPath) {
+              let cellSwitch = cell.viewWithTag(1004) as! SevenSwitch
+              if (!cellSwitch.isOn()) {
+                cellSwitch.setOn(true, animated: false)
+              }
               configureCellRegion(cell, withLuggageTag: beacon, connected: true)
             }
             
             if (!row[(indexPath as NSIndexPath).row].activated) {
               row[(indexPath as NSIndexPath).row].activated = true
               updateToDatabase(row[(indexPath as NSIndexPath).row])
-              //saveToDatabase(row[(indexPath as NSIndexPath).row])
             }
           }
         }
@@ -459,7 +462,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       let indexPath = IndexPath(row: index, section: 0)
       if let cell = tableView.cellForRow(at: indexPath) {
         configureCell(cell, withLuggageTag: item)
-        configureCellRegion(cell, withLuggageTag: item, connected: item.isConnected)
+        configureCellRegion(cell, withLuggageTag: item, connected: false)
       }
       
       if (item.isConnected) {
@@ -556,13 +559,11 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   fileprivate func configureCellRegion(_ cell: UITableViewCell, withLuggageTag item: LuggageTag, connected: Bool) {
     let region = cell.viewWithTag(1002) as! CustomDetectionView
     let battery = cell.viewWithTag(1003) as! UILabel
-    let cellSwitch = cell.viewWithTag(1004) as! SevenSwitch
     battery.text = "\(item.minor)%"
   
     if (connected) {
       region.image = UIImage(named: "range_close")
       battery.isHidden = (battery.text! == "-1%") ? true : false
-      cellSwitch.setOn(connected, animated: false)
     } else {
       region.image = UIImage(named: "range_no_detection")
       battery.isHidden = true

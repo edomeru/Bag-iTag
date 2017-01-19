@@ -427,7 +427,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
       luggageItem.name = trimmedName!
       luggageItem.uuid = uuid
       luggageItem.minor = (uuidTextField.text! != luggageItem.activation_code.uppercased()) ? "-1" : luggageItem.minor
-      luggageItem.regionState = Constants.Proximity.Inside
+      luggageItem.regionState = Constants.Proximity.Outside
       luggageItem.isConnected = true
       luggageItem.activation_code = uuidTextField.text!.lowercased()
       luggageItem.activation_key = activationKey.uppercased()
