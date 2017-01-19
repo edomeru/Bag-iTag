@@ -383,6 +383,13 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
       let connected = luggageTag.isConnected
       if (region.identifier == luggageTag.name && region.proximityUUID.uuidString == luggageTag.uuid && connected) {
         rangeLabel.text = Constants.Range.InRange
+        
+        if (uuidTextField.isEnabled && !qrCodeButton.isHidden && !activationButton.isHidden && rangeLabel.isHidden) {
+          rangeLabel.isHidden = false
+          uuidTextField.isEnabled = false
+          qrCodeButton.isHidden = true
+          activationButton.isHidden = true
+        }
       }
     }
   }
