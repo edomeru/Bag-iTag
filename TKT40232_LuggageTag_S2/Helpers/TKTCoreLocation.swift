@@ -149,26 +149,12 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
     
     NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.AssignNameToActivatingKey), object: nil, userInfo: [Constants.Key.ActivatedUUID: identifier, Constants.Key.ActivationKey: activationKey])
     
-    /*var beaconRegion: CLBeaconRegion?
-    beaconRegion = CLBeaconRegion(proximityUUID: UUID(uuidString: identifier)!, identifier: "")
-    beaconRegion!.notifyEntryStateOnDisplay = true
-    beaconRegion!.notifyOnEntry = true
-    beaconRegion!.notifyOnExit = true
-    
-    startMonitoring(beaconRegion)*/
-    
     timer = Timer.scheduledTimer(timeInterval: Constants.Time.FifteenSecondsTimeout, target: self, selector: #selector(TKTCoreLocation.stopAdvertising), userInfo: nil, repeats: false)
   }
   
   func stopAdvertising() {
     Globals.log("Stop Advertising")
     peripheralManager.stopAdvertising()
-    
-    /*var beaconRegion: CLBeaconRegion?
-    beaconRegion = CLBeaconRegion(proximityUUID: UUID(uuidString: activatedBeaconUUID!)!, identifier: "")
-    locationManager.stopRangingBeacons(in: beaconRegion!)
-    locationManager.stopMonitoring(for: beaconRegion!)
-    locationManager.stopUpdatingLocation()*/
     
     NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.StopActivatingKey), object: nil, userInfo: [Constants.Key.ActivatedUUID: activatedBeaconUUID!])
     

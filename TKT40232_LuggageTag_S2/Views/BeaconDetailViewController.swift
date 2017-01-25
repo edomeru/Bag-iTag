@@ -166,11 +166,6 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
         if (isPhotoEdited || (trimmedName! != luggageItem.name) || (uuidTextField.text! != luggageItem.activation_code.uppercased())) {
           // Beacon is Edited
           
-          /*if (luggageItem.isConnected) {
-            // Stop Monitoring for this Beacon
-            delegate?.stopMonitoring(didStopMonitoring: luggageItem)
-          }*/
-          
           if (isPhotoEdited) {
             luggageItem.photo = UIImageJPEGRepresentation(self.imgButton.currentImage!, 1.0)
           }
@@ -483,7 +478,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   }
   
   func deviceIsActivated(_ notification: Notification) {
-    guard let name = notification.userInfo?[Constants.Key.ActivationIdentifier] as? String, let uuid = notification.userInfo?[Constants.Key.ActivatedUUID] as? String, let activation_key = notification.userInfo?[Constants.Key.ActivationKey] as? String, let _ = notification.userInfo?[Constants.Key.ActivationCode] as? String else {
+    guard let _ = notification.userInfo?[Constants.Key.ActivationIdentifier] as? String, let uuid = notification.userInfo?[Constants.Key.ActivatedUUID] as? String, let activation_key = notification.userInfo?[Constants.Key.ActivationKey] as? String, let _ = notification.userInfo?[Constants.Key.ActivationCode] as? String else {
       Globals.log("Invalid Activated Data")
       
       return
@@ -498,7 +493,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
         luggageItem.photo = UIImageJPEGRepresentation(self.imgButton.currentImage!, 1.0)
       }
       
-      luggageItem.name = name
+      luggageItem.name = nameTextField.text!
       luggageItem.uuid = uuid
       luggageItem.minor = (uuidTextField.text! != luggageItem.activation_code.uppercased()) ? "-1" : luggageItem.minor
       luggageItem.regionState = Constants.Proximity.Inside
@@ -521,7 +516,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
         luggageItem.photo = nil
       }
       
-      luggageItem.name = name
+      luggageItem.name = nameTextField.text!
       luggageItem.uuid = uuid
       luggageItem.major = "0"
       luggageItem.minor = "-1"

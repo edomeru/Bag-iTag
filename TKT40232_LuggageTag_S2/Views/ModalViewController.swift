@@ -32,6 +32,8 @@ class ModalViewController: UIViewController, UIImagePickerControllerDelegate, UI
   
   weak var delegate: ModalViewControllerDelegate?
   
+  var isFromTakingPhoto: Bool = false
+  
   override func viewDidLayoutSubviews() {
     takePhotoButton.roundCorners([.topLeft, .topRight], radius: 15.0)
     choosePhotoButton.roundCorners([.bottomLeft, .bottomRight], radius: 15.0)
@@ -44,6 +46,7 @@ class ModalViewController: UIViewController, UIImagePickerControllerDelegate, UI
   }
   
   func cameraPicker() {
+    isFromTakingPhoto = true
     let cameraPicker = UIImagePickerController()
     cameraPicker.delegate = self
     cameraPicker.sourceType = .camera
@@ -52,6 +55,7 @@ class ModalViewController: UIViewController, UIImagePickerControllerDelegate, UI
   }
   
   func photoPicker() {
+    isFromTakingPhoto = false
     let photoPicker = UIImagePickerController()
     photoPicker.delegate = self
     photoPicker.sourceType = .photoLibrary
@@ -126,6 +130,11 @@ class ModalViewController: UIViewController, UIImagePickerControllerDelegate, UI
   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
     let size = CGSize(width: 500, height: 500)
     let image = resizeImage((info[UIImagePickerControllerOriginalImage] as? UIImage)!, targetSize: size)
+    Globals.log(isFromTakingPhoto)
+    if (isFromTakingPhoto) {
+      //Save to PhotosAlbum
+      UIImageWriteToSavedPhotosAlbum((info[UIImagePickerControllerOriginalImage] as? UIImage)!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+    }
     
     delegate?.didFinishPickingMediaWithInfo(image)
     
@@ -158,6 +167,14 @@ class ModalViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     return newImage!
   }
-
+  
+  func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+    if let _ = error {
+      // we got back an error!
+      Globals.log("Error Saving Photo in Photo Album")
+    } else {
+      Globals.log("Success Saving Photo in Photo Album")
+    }
+  }
 
 }

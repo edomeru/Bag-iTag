@@ -299,12 +299,15 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     let actions = [
       UIAlertAction(title: NSLocalizedString("remove", comment: ""), style: .destructive) { (action) in
         
+        // TODO
         if luggage.isConnected {
-          // Stop Monitoring for this Beacon
-          var beaconRegion: CLBeaconRegion?
-          beaconRegion = CLBeaconRegion(proximityUUID: UUID(uuidString: luggage.uuid)!, identifier: luggage.name)
-          
-          self.tktCoreLocation.stopMonitoringBeacon(beaconRegion, key: luggage.uuid)
+          if let identifier = self.tktCoreLocation.monitoredRegions[luggage.uuid] {
+            // Stop Monitoring for this Beacon
+            var beaconRegion: CLBeaconRegion?
+            beaconRegion = CLBeaconRegion(proximityUUID: UUID(uuidString: luggage.uuid)!, identifier: identifier)
+            
+            self.tktCoreLocation.stopMonitoringBeacon(beaconRegion, key: luggage.uuid)
+          }
         }
         
         // Delete LocalNotification
@@ -488,6 +491,17 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   }
   
   func connectActivatingBeacon(item: LuggageTag) {
+    // If there is a existing connnection in this UUID, disconnect it first
+    if let identifier = tktCoreLocation.monitoredRegions[item.uuid] {
+      //Globals.log("STOP THE FIRST BEACON WHO CONNECTED FIRST THEN MONITORED AGAIN WITH A NEW ONE")
+      // Stop Monitoring for this Beacon
+      var beaconRegion: CLBeaconRegion?
+      beaconRegion = CLBeaconRegion(proximityUUID: UUID(uuidString: item.uuid)!, identifier: identifier)
+      
+      // Stop Monitoring this Specific Beacon.
+      tktCoreLocation.stopMonitoringBeacon(beaconRegion, key: item.uuid)
+    }
+    
     startMonitoringforBeacon(item)
   }
   
