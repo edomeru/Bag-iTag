@@ -27,6 +27,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
   var locationManager: CLLocationManager!
   var peripheralManager: CBPeripheralManager!
   var beaconRegion: CLBeaconRegion?
+  var monitoredRegions: [String: String]
   var beaconRegions: [String: [String: Int]]
   var pendingMonitorRequest: Bool = false
   
@@ -41,6 +42,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
   
   init(delegate: TKTCoreLocationDelegate) {
     self.beaconRegions = [String: [String: Int]]()
+    monitoredRegions = [String: String]()
     super.init()
     self.delegate = delegate
     self.locationManager = CLLocationManager()
@@ -68,6 +70,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
     pendingMonitorRequest = true
     self.beaconRegion = beaconRegion
     //beaconRegions.append(beaconRegion)
+    monitoredRegions[(beaconRegion?.proximityUUID.uuidString)!] = beaconRegion?.identifier
     
     switch CLLocationManager.authorizationStatus() {
     case .notDetermined:
@@ -89,11 +92,17 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
     locationManager.stopMonitoring(for: beaconRegion!)
     locationManager.stopUpdatingLocation()
     
-    if(key != "") {
-      if let removedValue = beaconRegions.removeValue(forKey: key) {
+    if (key != "") {
+      if let removedValue = monitoredRegions.removeValue(forKey: key) {
         Globals.log("Removed Dictionary: \(removedValue)")
       }
     }
+    
+    /*if(key != "") {
+      if let removedValue = beaconRegions.removeValue(forKey: key) {
+        Globals.log("Removed Dictionary: \(removedValue)")
+      }
+    }*/
   }
   
   func broadcastActivationKey(activationCode: String) {

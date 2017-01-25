@@ -563,18 +563,20 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       
       tktCoreLocation.startMonitoring(beaconRegion)
     } else {
-      // Delete LocalNotification
-      deleteLocalNotification(row[((indexPath as NSIndexPath?)?.row)!].name, identifier: row[((indexPath as NSIndexPath?)?.row)!].uuid)
-      
-      row[((indexPath as NSIndexPath?)?.row)!].regionState = Constants.Proximity.Outside
-      configureCellRegion(cell, withLuggageTag: item, connected: false)
-      
-      // Stop Monitoring for this Beacon
-      var beaconRegion: CLBeaconRegion?
-      beaconRegion = CLBeaconRegion(proximityUUID: UUID(uuidString: item.uuid)!, identifier: item.name)
-      
-      // Stop Monitoring this Specific Beacon.
-      tktCoreLocation.stopMonitoringBeacon(beaconRegion, key: item.uuid)
+      if let identifier = tktCoreLocation.monitoredRegions[item.uuid] {
+        // Delete LocalNotification
+        deleteLocalNotification(row[((indexPath as NSIndexPath?)?.row)!].name, identifier: row[((indexPath as NSIndexPath?)?.row)!].uuid)
+        
+        row[((indexPath as NSIndexPath?)?.row)!].regionState = Constants.Proximity.Outside
+        configureCellRegion(cell, withLuggageTag: item, connected: false)
+        
+        // Stop Monitoring for this Beacon
+        var beaconRegion: CLBeaconRegion?
+        beaconRegion = CLBeaconRegion(proximityUUID: UUID(uuidString: item.uuid)!, identifier: identifier)
+        
+        // Stop Monitoring this Specific Beacon.
+        tktCoreLocation.stopMonitoringBeacon(beaconRegion, key: item.uuid)
+      }
     }
     
     updateToDatabase(item)
