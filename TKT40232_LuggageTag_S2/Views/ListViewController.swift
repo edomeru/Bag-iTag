@@ -379,7 +379,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   
   func didEnterRegion(_ region: CLBeaconRegion) {
     for beacon in row {
-      if (beacon.name == region.identifier && beacon.uuid == region.proximityUUID.uuidString) {
+      if (beacon.uuid == region.proximityUUID.uuidString) {
         if (beacon.regionState != Constants.Proximity.Inside) {
           if let index = row.index(of: beacon) {
             let indexPath = IndexPath(row: index, section: 0)
@@ -407,7 +407,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   
   func didExitRegion(_ region: CLBeaconRegion) {
     for beacon in row {
-      if (beacon.name == region.identifier && beacon.uuid == region.proximityUUID.uuidString) {
+      if (beacon.uuid == region.proximityUUID.uuidString) {
         if (beacon.regionState != Constants.Proximity.Outside) {
           if let index = row.index(of: beacon) {
             let indexPath = IndexPath(row: index, section: 0)
@@ -447,10 +447,6 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       battery.isHidden = (battery.text! == "-1%") ? true : false
     }
     
-    if (item.isConnected) {
-      startMonitoringforBeacon(item)
-    }
-    
     // Save item in Database
     saveToDatabase(item)
 
@@ -462,13 +458,14 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       let indexPath = IndexPath(row: index, section: 0)
       if let cell = tableView.cellForRow(at: indexPath) {
         configureCell(cell, withLuggageTag: item)
-        configureCellRegion(cell, withLuggageTag: item, connected: false)
+        
+        if (item.regionState == Constants.Proximity.Inside) {
+          configureCellRegion(cell, withLuggageTag: item, connected: true)
+        } else {
+          configureCellRegion(cell, withLuggageTag: item, connected: false)
+        }
       }
-      
-      if (item.isConnected) {
-        startMonitoringforBeacon(item)
-      }
-      
+
       updateToDatabase(item)
     }
   
@@ -487,6 +484,59 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       if let cell = tableView.cellForRow(at: indexPath) {
         configureCellRegion(cell, withLuggageTag: item, connected: false)
       }
+    }
+  }
+  
+  func connectActivatingBeacon(item: LuggageTag) {
+    startMonitoringforBeacon(item)
+  }
+  
+  func disconnectActivatingBeacon(item: LuggageTag) {
+    stopMonitoring(didStopMonitoring: item)
+  }
+  
+  func didFinishActivatingBeacon(_ controller: BeaconDetailViewController, item: LuggageTag, isFromEdit: Bool) {
+    if (isFromEdit) {
+      // From Edit
+      if let index = row.index(of: item) {
+        let indexPath = IndexPath(row: index, section: 0)
+        if let cell = tableView.cellForRow(at: indexPath) {
+          configureCell(cell, withLuggageTag: item)
+          configureCellRegion(cell, withLuggageTag: item, connected: item.isConnected)
+          
+          let customSwitch = cell.viewWithTag(1004) as! SevenSwitch
+          customSwitch.setOn(item.isConnected, animated: false)
+        }
+        
+        updateToDatabase(item)
+      }
+      
+      dismiss(animated: true, completion: nil)
+    } else {
+      // New Beacon
+      let index = getMaxID() + 1
+      let count = row.count
+      
+      row.append(item)
+      item.id = index
+      
+      let indexPath = IndexPath(row: count, section: 0)
+      let indexPaths = [indexPath]
+      
+      tableView.beginUpdates()
+      tableView.insertRows(at: indexPaths, with: .automatic)
+      tableView.endUpdates()
+      
+      if let cell = tableView.cellForRow(at: indexPath) {
+        let battery = cell.viewWithTag(1003) as! UILabel
+        battery.text = "\(item.minor)%"
+        battery.isHidden = (battery.text! == "-1%") ? true : false
+      }
+      
+      // Save item in Database
+      saveToDatabase(item)
+      
+      dismiss(animated: true, completion: nil)
     }
   }
   

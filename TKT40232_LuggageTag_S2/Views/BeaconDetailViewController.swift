@@ -37,6 +37,9 @@ protocol BeaconDetailViewControllerDelegate: NSObjectProtocol {
   func beaconDetailViewController(_ controller: BeaconDetailViewController, didFinishEditingItem item: LuggageTag)
   func stopMonitoring(didStopMonitoring item: LuggageTag)
   func didBluetoothPoweredOff(didPowerOff item: LuggageTag)
+  func connectActivatingBeacon(item: LuggageTag)
+  func disconnectActivatingBeacon(item: LuggageTag)
+  func didFinishActivatingBeacon(_ controller: BeaconDetailViewController, item: LuggageTag, isFromEdit: Bool)
 }
 
 class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UITextFieldDelegate, ModalViewControllerDelegate, AVCaptureMetadataOutputObjectsDelegate {
@@ -76,9 +79,14 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.setEnterRegion(_:)), name: NSNotification.Name(rawValue: Constants.Proximity.Inside), object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.setExitRegion(_:)), name: NSNotification.Name(rawValue: Constants.Proximity.Outside), object: nil)
     
+    // NSNotification Observer for Generating Name
+    NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.assignNameToActivatingBeacon(_:)), name: NSNotification.Name(rawValue: Constants.Notification.AssignNameToActivatingKey), object: nil)
+    
+    // NSNotification Observer for Stopping Activating Beacon
+    NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.stopActivatingBeacon(_:)), name: NSNotification.Name(rawValue: Constants.Notification.StopActivatingKey), object: nil)
+    
     // NSNotification Observer for TransmitActivation Key
     NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.deviceIsActivated(_:)), name: NSNotification.Name(rawValue: Constants.Notification.ActivationSuccessKey), object: nil)
-    
     centralManager = CBCentralManager(delegate: self, queue: nil)
     
     if let item = beaconToEdit {
@@ -87,7 +95,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
         imgButton.imageView?.contentMode = UIViewContentMode.center
       }
       
-      if (item.regionState == "Inside") {
+      if (item.regionState == Constants.Proximity.Inside) {
         rangeLabel.text = Constants.Range.InRange
       } else {
         rangeLabel.text = Constants.Range.OutOfRange
@@ -95,7 +103,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
       
       nameTextField.text = item.name
       uuidTextField.text = beaconToEdit?.activation_code.uppercased()
-      
+
       if (beaconToEdit?.activated)! {
         uuidTextField.isEnabled = false
         qrCodeButton.isHidden = true
@@ -158,10 +166,10 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
         if (isPhotoEdited || (trimmedName! != luggageItem.name) || (uuidTextField.text! != luggageItem.activation_code.uppercased())) {
           // Beacon is Edited
           
-          if (luggageItem.isConnected) {
+          /*if (luggageItem.isConnected) {
             // Stop Monitoring for this Beacon
             delegate?.stopMonitoring(didStopMonitoring: luggageItem)
-          }
+          }*/
           
           if (isPhotoEdited) {
             luggageItem.photo = UIImageJPEGRepresentation(self.imgButton.currentImage!, 1.0)
@@ -174,10 +182,8 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
           luggageItem.name = trimmedName!
           luggageItem.uuid = uuid
           luggageItem.minor = (uuidTextField.text! != luggageItem.activation_code.uppercased()) ? "-1" : luggageItem.minor
-          luggageItem.regionState = Constants.Proximity.Outside
           luggageItem.activation_code = uuidTextField.text!.lowercased()
           luggageItem.activation_key = aKey
-          luggageItem.activated = (beaconToEdit?.activated)!
           
           delegate?.beaconDetailViewController(self, didFinishEditingItem: luggageItem)
         } else {
@@ -403,9 +409,10 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     }
   }
   
-  func deviceIsActivated(_ notification: Notification) {
-    guard let _ = notification.userInfo?[Constants.Key.ActivationCode] as? String, let activationKey = notification.userInfo?[Constants.Key.ActivationKey] as? String, let uuid = notification.userInfo?[Constants.Key.ActivatedUUID] as? String else {
-      Globals.log("Invalid Activated Data")
+  func assignNameToActivatingBeacon(_ notification: Notification) {
+    Globals.log("assignNameToActivatingBeacon Called")
+    guard let uuid = notification.userInfo?[Constants.Key.ActivatedUUID] as? String, let activationKey = notification.userInfo?[Constants.Key.ActivationKey] as? String else {
+      Globals.log("Invalid UUID/Activation Key from TKTCoreLocation")
       
       return
     }
@@ -418,14 +425,9 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     assignLuggageName()
     
     if let luggageItem = beaconToEdit {
-      // Beacon is Edited
-      // Remove ActivationSuccessKey Notification
-      NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.ActivationSuccessKey), object: nil)
-      
-      if (luggageItem.isConnected) {
-        // Stop Monitoring for this Beacon
-        delegate?.stopMonitoring(didStopMonitoring: luggageItem)
-      }
+      // Beacon is edited
+      NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.AssignNameToActivatingKey), object: nil)
+      NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.StopActivatingKey), object: nil)
       
       if (isPhotoEdited) {
         luggageItem.photo = UIImageJPEGRepresentation(self.imgButton.currentImage!, 1.0)
@@ -434,17 +436,16 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
       luggageItem.name = trimmedName!
       luggageItem.uuid = uuid
       luggageItem.minor = (uuidTextField.text! != luggageItem.activation_code.uppercased()) ? "-1" : luggageItem.minor
-      luggageItem.regionState = Constants.Proximity.Outside
+      luggageItem.regionState = Constants.Proximity.Inside
       luggageItem.isConnected = true
       luggageItem.activation_code = uuidTextField.text!.lowercased()
       luggageItem.activation_key = activationKey.uppercased()
-      luggageItem.activated = true
       
-      delegate?.beaconDetailViewController(self, didFinishEditingItem: luggageItem)
+      delegate?.connectActivatingBeacon(item: luggageItem)
     } else {
-      //New Luggage
-      // Remove ActivationSuccessKey Notification
-      NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.ActivationSuccessKey), object: nil)
+      // New Luggage
+      NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.AssignNameToActivatingKey), object: nil)
+      NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.StopActivatingKey), object: nil)
       
       let luggageItem = LuggageTag()
       
@@ -462,9 +463,75 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
       luggageItem.isConnected = true
       luggageItem.activation_code = uuidTextField.text!.lowercased()
       luggageItem.activation_key = activationKey.uppercased()
+
+      delegate?.connectActivatingBeacon(item: luggageItem)
+    }
+  }
+  
+  func stopActivatingBeacon(_ notification: Notification) {
+    guard let uuid = notification.userInfo?[Constants.Key.ActivatedUUID] as? String else {
+      Globals.log("Invalid UUID Key from TKTCoreLocation")
+      
+      return
+    }
+    
+    let luggageItem = LuggageTag()
+    luggageItem.name = trimmedName!
+    luggageItem.uuid = uuid
+  
+    delegate?.disconnectActivatingBeacon(item: luggageItem)
+  }
+  
+  func deviceIsActivated(_ notification: Notification) {
+    guard let name = notification.userInfo?[Constants.Key.ActivationIdentifier] as? String, let uuid = notification.userInfo?[Constants.Key.ActivatedUUID] as? String, let activation_key = notification.userInfo?[Constants.Key.ActivationKey] as? String, let _ = notification.userInfo?[Constants.Key.ActivationCode] as? String else {
+      Globals.log("Invalid Activated Data")
+      
+      return
+    }
+    
+    if let luggageItem = beaconToEdit {
+      // Beacon is Edited
+      // Remove ActivationSuccessKey Notification
+      NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.ActivationSuccessKey), object: nil)
+      
+      if (isPhotoEdited) {
+        luggageItem.photo = UIImageJPEGRepresentation(self.imgButton.currentImage!, 1.0)
+      }
+      
+      luggageItem.name = name
+      luggageItem.uuid = uuid
+      luggageItem.minor = (uuidTextField.text! != luggageItem.activation_code.uppercased()) ? "-1" : luggageItem.minor
+      luggageItem.regionState = Constants.Proximity.Inside
+      luggageItem.isConnected = true
+      luggageItem.activation_code = uuidTextField.text!.lowercased()
+      luggageItem.activation_key = activation_key.uppercased()
       luggageItem.activated = true
       
-      delegate?.beaconDetailViewController(self, didFinishAddingItem: luggageItem)
+      delegate?.didFinishActivatingBeacon(self, item: luggageItem, isFromEdit: true)
+    } else {
+      //New Luggage
+      // Remove ActivationSuccessKey Notification
+      NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.ActivationSuccessKey), object: nil)
+      
+      let luggageItem = LuggageTag()
+      
+      if (isPhotoEdited) {
+        luggageItem.photo = UIImageJPEGRepresentation(self.imgButton.currentImage!, 1.0)
+      } else {
+        luggageItem.photo = nil
+      }
+      
+      luggageItem.name = name
+      luggageItem.uuid = uuid
+      luggageItem.major = "0"
+      luggageItem.minor = "-1"
+      luggageItem.regionState = Constants.Proximity.Inside
+      luggageItem.isConnected = true
+      luggageItem.activation_code = uuidTextField.text!.lowercased()
+      luggageItem.activation_key = activation_key.uppercased()
+      luggageItem.activated = true
+      
+      delegate?.didFinishActivatingBeacon(self, item: luggageItem, isFromEdit: false)
     }
   }
   
@@ -593,5 +660,9 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Proximity.Outside), object: nil)
     
     NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.ActivationSuccessKey), object: nil)
+    
+    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.AssignNameToActivatingKey), object: nil)
+    
+    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.StopActivatingKey), object: nil)
   }
 }
