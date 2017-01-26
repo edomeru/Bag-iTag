@@ -130,7 +130,7 @@ class ModalViewController: UIViewController, UIImagePickerControllerDelegate, UI
   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
     let size = CGSize(width: 500, height: 500)
     let image = resizeImage((info[UIImagePickerControllerOriginalImage] as? UIImage)!, targetSize: size)
-    Globals.log(isFromTakingPhoto)
+
     if (isFromTakingPhoto) {
       //Save to PhotosAlbum
       UIImageWriteToSavedPhotosAlbum((info[UIImagePickerControllerOriginalImage] as? UIImage)!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)

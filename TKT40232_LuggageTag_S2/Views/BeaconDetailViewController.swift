@@ -484,6 +484,13 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
       return
     }
     
+    trimmedName = nameTextField.text!.trimmingCharacters(
+      in: CharacterSet.whitespacesAndNewlines
+    )
+    
+    // Check/Get Luggage's Name
+    assignLuggageName()
+    
     if let luggageItem = beaconToEdit {
       // Beacon is Edited
       // Remove ActivationSuccessKey Notification
@@ -493,7 +500,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
         luggageItem.photo = UIImageJPEGRepresentation(self.imgButton.currentImage!, 1.0)
       }
       
-      luggageItem.name = nameTextField.text!
+      luggageItem.name = trimmedName!
       luggageItem.uuid = uuid
       luggageItem.minor = (uuidTextField.text! != luggageItem.activation_code.uppercased()) ? "-1" : luggageItem.minor
       luggageItem.regionState = Constants.Proximity.Inside
@@ -516,7 +523,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
         luggageItem.photo = nil
       }
       
-      luggageItem.name = nameTextField.text!
+      luggageItem.name = trimmedName!
       luggageItem.uuid = uuid
       luggageItem.major = "0"
       luggageItem.minor = "-1"
