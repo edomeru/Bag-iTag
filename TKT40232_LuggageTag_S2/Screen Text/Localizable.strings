@@ -26,7 +26,7 @@
 
 /* Alert Box Messages */
 "turn_on_bluetooth" = "Turn On Bluetooth to detect nearby Bag iTag Beacon";
-"location_access_disabled_settings" = "Please change the location access to \"Always\" in app settings.";
+"location_access_disabled_settings" = "Bag iTag would like to use your Location to alert you when there are nearby Bag iTag Beacons";
 "delete_luggage" = "Are you sure want to remove this Luggage \"%@\"";
 "camera_restricted" = "This app does not have access to your Camera. You can enable access in Privacy Settings.";
 "photo_restricted" = "This app does not have access to your Photo Library. You can enable access in Privacy Settings.";

@@ -42,9 +42,9 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Bag iTag would like to use Camera for taking Photo and for scanning QR Code</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Detect nearby Bag iTag Beacon?</string>
+	<string>Bag iTag would like to use your Location to alert you when there are nearby Bag iTag Beacons</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Detect nearby Bag iTag Beacons</string>
+	<string>Bag iTag would like to use your Location to alert you when there are nearby Bag iTag Beacons</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Bag iTag would like to use Photo Library for choosing Photo </string>
 	<key>UIAppFonts</key>

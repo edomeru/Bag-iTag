@@ -52,6 +52,8 @@ struct Constants {
     static let ActivationSuccessKey = "ActivationSuccessID"
     static let AssignNameToActivatingKey = "AssignNameToActivatingKeyID"
     static let StopActivatingKey = "StopActivatingKeyID"
+    static let OnBackgroundAccessEnabled = "OnBackgroundAccessEnabledID"
+    static let OnBackgroundAccessDisabled = "OnBackgroundAccessDisabledID"
   }
   
   struct Time {

@@ -78,6 +78,8 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     // NSNotification Observer for TKTCoreLocation in ListView
     NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.setEnterRegion(_:)), name: NSNotification.Name(rawValue: Constants.Proximity.Inside), object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.setExitRegion(_:)), name: NSNotification.Name(rawValue: Constants.Proximity.Outside), object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.onBackgroundLocationAccessEnabled(_:)), name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessEnabled), object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.onBackgroundLocationAccessDisabled(_:)), name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessDisabled), object: nil)
     
     // NSNotification Observer for Generating Name
     NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.assignNameToActivatingBeacon(_:)), name: NSNotification.Name(rawValue: Constants.Notification.AssignNameToActivatingKey), object: nil)
@@ -227,20 +229,6 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     let isValidLuggage = validateLuggage()
     
     if (isValidLuggage) {
-      let alertShake = UIAlertController(title: NSLocalizedString("shake_device", comment: ""), message: NSLocalizedString("shake_device_message", comment: ""), preferredStyle: UIAlertControllerStyle.alert)
-      self.present(alertShake, animated: true, completion: nil)
-      
-      DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Constants.Time.FifteenSecondsTimeout) {
-        alertShake.dismiss(animated: true, completion: nil)
-        self.trimmedName = ""
-        
-        let errorMessage = UIAlertController(title: NSLocalizedString("error", comment: ""), message: NSLocalizedString("error_activating_message", comment: ""), preferredStyle: UIAlertControllerStyle.alert)
-        let okActionMotor = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: UIAlertActionStyle.default)
-        errorMessage.addAction(okActionMotor)
-        
-        self.present(errorMessage, animated: true, completion: nil)
-      }
-      
       let aCode: String = uuidTextField.text!.lowercased()
       
       var BTAddress:Int64 = 0
@@ -402,6 +390,37 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
         rangeLabel.text = Constants.Range.OutOfRange
       }
     }
+  }
+  
+  func onBackgroundLocationAccessEnabled(_ notification: Notification) {
+    if self.presentedViewController == nil {
+      let alertShake = UIAlertController(title: NSLocalizedString("shake_device", comment: ""), message: NSLocalizedString("shake_device_message", comment: ""), preferredStyle: UIAlertControllerStyle.alert)
+      self.present(alertShake, animated: true, completion: nil)
+      
+      DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Constants.Time.FifteenSecondsTimeout) {
+        alertShake.dismiss(animated: true, completion: nil)
+        self.trimmedName = ""
+        
+        let errorMessage = UIAlertController(title: NSLocalizedString("error", comment: ""), message: NSLocalizedString("error_activating_message", comment: ""), preferredStyle: UIAlertControllerStyle.alert)
+        let okActionMotor = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: UIAlertActionStyle.default)
+        errorMessage.addAction(okActionMotor)
+        
+        self.present(errorMessage, animated: true, completion: nil)
+      }
+    }
+  }
+  
+  func onBackgroundLocationAccessDisabled(_ notification: Notification) {
+    let actions = [
+      UIAlertAction(title: NSLocalizedString("settings", comment: ""), style: .default) { (action) in
+        if let url = URL(string:UIApplicationOpenSettingsURLString) {
+          UIApplication.shared.openURL(url)
+        }
+      },
+      UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil)
+    ]
+    
+    Globals.showAlert(self, title: NSLocalizedString("location_access_disabled", comment: ""), message: NSLocalizedString("location_access_disabled_settings", comment: ""), animated: true, completion: nil, actions: actions)
   }
   
   func assignNameToActivatingBeacon(_ notification: Notification) {
@@ -660,6 +679,8 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     
     NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Proximity.Inside), object: nil)
     NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Proximity.Outside), object: nil)
+    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessEnabled), object: nil)
+    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessDisabled), object: nil)
     
     NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.ActivationSuccessKey), object: nil)
     

@@ -356,17 +356,23 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   }
   
   // MARK: TKTCoreLocationDelegate Methods
-  func onBackgroundLocationAccessDisabled() {
-    let actions = [
-      UIAlertAction(title: NSLocalizedString("settings", comment: ""), style: .default) { (action) in
-        if let url = URL(string:UIApplicationOpenSettingsURLString) {
-          UIApplication.shared.openURL(url)
-        }
-      },
-      UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil)
-    ]
-    
-    Globals.showAlert(self, title: NSLocalizedString("location_access_disabled", comment: ""), message: NSLocalizedString("location_access_disabled_settings", comment: ""), animated: true, completion: nil, actions: actions)
+  func onBackgroundLocationAccessDisabled(_ accessCode: Int32) {
+    if (accessCode == 0) {
+      tktCoreLocation.locationManager.requestAlwaysAuthorization()
+    } else {
+      let actions = [
+        UIAlertAction(title: NSLocalizedString("settings", comment: ""), style: .default) { (action) in
+          if let url = URL(string:UIApplicationOpenSettingsURLString) {
+            UIApplication.shared.openURL(url)
+          }
+        },
+        UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .cancel, handler: nil)
+      ]
+      
+      Globals.showAlert(self, title: NSLocalizedString("location_access_disabled", comment: ""), message: NSLocalizedString("location_access_disabled_settings", comment: ""), animated: true, completion: nil, actions: actions)
+      
+      NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.OnBackgroundAccessDisabled), object: nil, userInfo: nil)
+    }
   }
   
   func didStartMonitoring() {
@@ -501,7 +507,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       // Stop Monitoring this Specific Beacon.
       tktCoreLocation.stopMonitoringBeacon(beaconRegion, key: item.uuid)
     }
-    
+
     startMonitoringforBeacon(item)
   }
   

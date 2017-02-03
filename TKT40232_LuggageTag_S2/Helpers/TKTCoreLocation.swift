@@ -11,7 +11,7 @@ import CoreBluetooth
 import Foundation
 
 protocol TKTCoreLocationDelegate: NSObjectProtocol {
-  func onBackgroundLocationAccessDisabled()
+  func onBackgroundLocationAccessDisabled(_ accessCode: Int32)
   func didStartMonitoring()
   func didStopMonitoring()
   func monitoringDidFail()
@@ -75,10 +75,10 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
     switch CLLocationManager.authorizationStatus() {
     case .notDetermined:
       Globals.log("authorizationStatus: .NotDetermined")
-      locationManager.requestAlwaysAuthorization()
+      delegate?.onBackgroundLocationAccessDisabled(CLLocationManager.authorizationStatus().rawValue)
     case .restricted, .denied, .authorizedWhenInUse:
       Globals.log("authorizationStatus: .Restricted, .Denied, .AuthorizedWhenInUse")
-      delegate?.onBackgroundLocationAccessDisabled()
+      delegate?.onBackgroundLocationAccessDisabled(CLLocationManager.authorizationStatus().rawValue)
     case .authorizedAlways:
       Globals.log("authorizationStatus: .AuthorizedAlways")
       locationManager!.startMonitoring(for: beaconRegion!)
@@ -123,8 +123,6 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
     let service = [cbuuid]
     let advertisingDic = Dictionary(dictionaryLiteral: (CBAdvertisementDataServiceUUIDsKey, service))
     
-    peripheralManager.startAdvertising(advertisingDic)
-    
     let activationKey = data.hexEncodedString().uppercased().substring(from: 18)
     
     self.activationCode = activationCode
@@ -147,9 +145,16 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
     let identifier = "\(Constants.UUID.Identifier)\(uuidString)"
     self.activatedBeaconUUID = identifier
     
-    NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.AssignNameToActivatingKey), object: nil, userInfo: [Constants.Key.ActivatedUUID: identifier, Constants.Key.ActivationKey: activationKey])
-    
-    timer = Timer.scheduledTimer(timeInterval: Constants.Time.FifteenSecondsTimeout, target: self, selector: #selector(TKTCoreLocation.stopAdvertising), userInfo: nil, repeats: false)
+    // Note: .authorizedAlways == 3
+    if (CLLocationManager.authorizationStatus().rawValue == 3) {
+      NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.OnBackgroundAccessEnabled), object: nil, userInfo: nil)
+      peripheralManager.startAdvertising(advertisingDic)
+      NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.AssignNameToActivatingKey), object: nil, userInfo: [Constants.Key.ActivatedUUID: identifier, Constants.Key.ActivationKey: activationKey])
+      
+      timer = Timer.scheduledTimer(timeInterval: Constants.Time.FifteenSecondsTimeout, target: self, selector: #selector(TKTCoreLocation.stopAdvertising), userInfo: nil, repeats: false)
+    } else {
+      delegate?.onBackgroundLocationAccessDisabled(CLLocationManager.authorizationStatus().rawValue)
+    }
   }
   
   func stopAdvertising() {
@@ -166,7 +171,8 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
   // MARK: CLLocationManagerDelegate Method
   func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
     Globals.log("didChangeAuthorizationStatus: \(status)")
-    if (status == .authorizedWhenInUse || status == .authorizedAlways) && beaconRegion != nil {
+    //if (status == .authorizedWhenInUse || status == .authorizedAlways) && beaconRegion != nil {
+    if (status == .authorizedAlways && beaconRegion != nil) {
       if pendingMonitorRequest {
         locationManager!.startMonitoring(for: beaconRegion!)
         pendingMonitorRequest = false
@@ -174,8 +180,18 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
       locationManager!.startUpdatingLocation()
     }
     
-    // Make it Nil to save memory
-    beaconRegion = nil
+    if let _ = activatedBeaconUUID, let _ = activationKey, let ac = activationCode {
+      if (status == .authorizedAlways) {
+        // We are Activing a Beacon so Display the Shake Alert Dialog
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.OnBackgroundAccessEnabled), object: nil, userInfo: nil)
+        self.broadcastActivationKey(activationCode: ac)
+      } else {
+      
+      }
+    } else {
+      // Make it Nil to save memory
+      beaconRegion = nil
+    }
   }
   
   func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
