@@ -118,7 +118,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
     let acDecimal5 = byteArray[1] ^ byteArray[5]
     let acDecimal6 = byteArray[0] ^ byteArray[4]
     
-    let data: Data = Data(bytes: [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, acDecimal6, acDecimal5, acDecimal4, acDecimal3, acDecimal2, acDecimal1, 0x00])
+    let data: Data = Data(bytes: [0x00, 0x00, 0x00, 0x00, 0x00, 0xEC, 0x40, 0x00, 0x00, acDecimal6, acDecimal5, acDecimal4, acDecimal3, acDecimal2, acDecimal1, 0x00])
     let cbuuid = CBUUID(data: data)
     let service = [cbuuid]
     let advertisingDic = Dictionary(dictionaryLiteral: (CBAdvertisementDataServiceUUIDsKey, service))
