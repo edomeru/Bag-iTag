@@ -15,6 +15,8 @@ struct Constants {
   struct Segue {
     static let AddBeacon = "AddBeacon"
     static let EditBeacon = "EditBeacon"
+    static let ActivationOptions = "ActivationOptions"
+    static let AddPhoto = "AddPhoto"
   }
   
   struct Proximity {

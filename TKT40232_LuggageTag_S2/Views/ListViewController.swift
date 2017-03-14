@@ -17,7 +17,7 @@ struct Drag {
 }
 
 class ListViewController: UIViewController, CBCentralManagerDelegate, TKTCoreLocationDelegate, UITableViewDataSource,
-UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControllerDelegate, CustomTableCellDelegate  {
+UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControllerDelegate, CustomTableCellDelegate, ActivationOptionsControllerDelegate  {
   
   var row: [LuggageTag]
   
@@ -268,6 +268,11 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         
         controller.beaconReference = row
       }
+    }else if segue.identifier == Constants.Segue.ActivationOptions {
+        let navigationController = segue.destination as! UINavigationController
+        let controller = navigationController.topViewController as! ActivationOptionsController
+        controller.delegate = self
+        
     }
   }
 
@@ -944,6 +949,12 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   deinit {
     NotificationCenter.default.removeObserver(self)
   }
+    
+    func activationOptionsControllerDidCancel(_ controller: ActivationOptionsController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
 }
 
 
