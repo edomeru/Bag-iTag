@@ -110,7 +110,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
     let byteArray: [UInt8] = stride(from: 0, to: chars.count, by: 2).map() {
       UInt8(strtoul(String(chars[$0 ..< min($0 + 2, chars.count)]), nil, 16))
     }
-    
+
     let acDecimal1 = byteArray[5] ^ byteArray[4]
     let acDecimal2 = byteArray[4] ^ byteArray[3]
     let acDecimal3 = byteArray[3] ^ byteArray[5]
@@ -118,7 +118,32 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
     let acDecimal5 = byteArray[1] ^ byteArray[5]
     let acDecimal6 = byteArray[0] ^ byteArray[4]
     
-    let data: Data = Data(bytes: [0x00, 0x00, 0x00, 0x00, 0x00, 0xEC, 0x40, 0x00, 0x00, acDecimal6, acDecimal5, acDecimal4, acDecimal3, acDecimal2, acDecimal1, 0x00])
+    
+    //////EDMER
+   
+    let tensOfSeconds: Int? = numberOfDays(days: 7)
+    let hexValue:String? = convertToHex(hexValue: tensOfSeconds!)
+    var uIntHex1: UInt8 = 0
+    var uIntHex2: UInt8 = 0
+    
+    
+    if hexValue != nil {
+        let endIndex = hexValue?.index((hexValue?.endIndex)!, offsetBy: -2)
+        let acDecima20 = hexValue?.substring(to: endIndex!)
+        
+        
+        uIntHex1 = UInt8(strtoul(acDecima20, nil, 16))
+        
+    }
+   
+    let last_two = hexValue?.substring(from:(hexValue?.index((hexValue?.endIndex)!, offsetBy: -2))!)
+
+    uIntHex2 = UInt8(strtoul(last_two, nil, 16))
+
+    let data: Data = Data(bytes: [0x00, 0x00, 0x00, 0x00, 0x00, uIntHex1, uIntHex2, 0x00, 0x00, acDecimal6, acDecimal5, acDecimal4, acDecimal3, acDecimal2, acDecimal1, 0x00])
+   
+    
+    
     let cbuuid = CBUUID(data: data)
     let service = [cbuuid]
     let advertisingDic = Dictionary(dictionaryLiteral: (CBAdvertisementDataServiceUUIDsKey, service))
@@ -156,7 +181,27 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
       delegate?.onBackgroundLocationAccessDisabled(CLLocationManager.authorizationStatus().rawValue)
     }
   }
-  
+    
+    
+    ////EDMER
+    
+    
+    func numberOfDays(days:Int)-> Int{
+        
+        return days*24*60*60/10
+    }
+    
+    
+    func convertToHex(hexValue:Int)->String{
+        //let n = 123
+        let st = String(format:"%2X", hexValue)
+     
+        // "7B is the hexadecimal representation of 123"
+        return st
+    }
+    
+    
+    
   func stopAdvertising() {
     Globals.log("Stop Advertising")
     peripheralManager.stopAdvertising()
