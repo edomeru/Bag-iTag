@@ -18,7 +18,7 @@ protocol TKTCoreLocationDelegate: NSObjectProtocol {
   func didEnterRegion(_ region: CLBeaconRegion)
   func didExitRegion(_ region: CLBeaconRegion)
   func didRangeBeacon(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion)
-  //func onError(error: NSError)
+  
 }
 
 
@@ -182,10 +182,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
     }
   }
     
-    
-    ////EDMER
-    
-    
+
     func numberOfDays(days:Int)-> Int{
         
         return days*24*60*60/10

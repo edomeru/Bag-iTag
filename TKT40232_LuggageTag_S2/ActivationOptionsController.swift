@@ -14,9 +14,10 @@ protocol ActivationOptionsControllerDelegate: class {
    
 }
 
-class ActivationOptionsController: UIViewController {
+class ActivationOptionsController: UIViewController, EnterActivationCodeControllerDelegate {
 
- weak var delegate: ActivationOptionsControllerDelegate?
+    weak var delegate: ActivationOptionsControllerDelegate?
+    var beaconReference: [LuggageTag]?
     
     @IBAction func cancel(_ sender: Any) {
         delegate?.activationOptionsControllerDidCancel(self)
@@ -27,6 +28,7 @@ class ActivationOptionsController: UIViewController {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
         // Do any additional setup after loading the view.
+         Globals.log("ActivationOptionsController \(beaconReference!)")
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,14 +37,18 @@ class ActivationOptionsController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == Constants.Segue.EnterActivationCode {
+            let navigationController = segue.destination as! UINavigationController
+            let controller = navigationController.topViewController as! EnterActivationCodeController
+            controller.delegate = self
+            Globals.log("ActivationOptionsController ONPREPARE \(beaconReference!)")
+            controller.beaconRef = beaconReference
+        }
     }
-    */
+    
+    func enterActivationCodeControllerDidCancel(_ controller: EnterActivationCodeController) {
+        dismiss(animated: true, completion: nil)
+    }
 
 }

@@ -218,6 +218,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     }
   }
   
+    //TODO
   @IBAction func activate(_ sender: Any) {
     trimmedName = nameTextField.text!.trimmingCharacters(
       in: CharacterSet.whitespacesAndNewlines

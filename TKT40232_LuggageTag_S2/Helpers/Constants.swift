@@ -17,6 +17,7 @@ struct Constants {
     static let EditBeacon = "EditBeacon"
     static let ActivationOptions = "ActivationOptions"
     static let AddPhoto = "AddPhoto"
+    static let EnterActivationCode = "EnterActivationCode"
   }
   
   struct Proximity {

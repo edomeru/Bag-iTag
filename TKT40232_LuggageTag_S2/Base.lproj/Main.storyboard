@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -65,7 +66,7 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                             <connections>
-                                                <segue destination="Nup-9k-wAl" kind="presentation" identifier="AddBeacon" id="sqa-1U-dik"/>
+                                                <segue destination="Xbb-Ms-IND" kind="presentation" identifier="ActivationOptions" id="Lx0-Im-IeG"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -722,15 +723,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleAspectFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jCp-u0-ePe" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
-                                <rect key="frame" x="29" y="194" width="300" height="50"/>
+                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jCp-u0-ePe" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
+                                <rect key="frame" x="31" y="209" width="312" height="45"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="US3-Ag-Ysk"/>
-                                    <constraint firstAttribute="width" constant="300" id="UWe-rT-fZT"/>
+                                    <constraint firstAttribute="height" constant="45" id="aU2-w8-pzm"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Scan QR Code to Activate">
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                <state key="normal" title="SCAN QR CODE TO ACTIVATE">
                                     <color key="titleColor" red="0.93333333333333335" green="0.67450980392156867" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -739,18 +739,20 @@
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                         <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LIY-73-S9E" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
-                                <rect key="frame" x="29" y="531" width="301" height="50"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LIY-73-S9E" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
+                                <rect key="frame" x="31" y="553" width="312" height="45"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="301" id="1eP-ae-cYT"/>
-                                    <constraint firstAttribute="height" constant="50" id="F8q-4n-CQS"/>
+                                    <constraint firstAttribute="height" constant="45" id="uuq-vX-vc3"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Input Activation Code">
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                <state key="normal" title="INPUT ACTIVATION CODE">
                                     <color key="titleColor" red="0.93333333333333335" green="0.67450980392156867" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -759,19 +761,22 @@
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                         <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="zcP-Zk-wO3" kind="presentation" id="PGV-1v-34I"/>
+                                    <segue destination="zcP-Zk-wO3" kind="presentation" identifier="EnterActivationCode" id="PGV-1v-34I"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lqt-I5-COC" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
-                                <rect key="frame" x="112" y="597" width="150" height="50"/>
+                                <rect key="frame" x="112" y="614" width="150" height="45"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="vDN-xo-w3k"/>
+                                    <constraint firstAttribute="height" constant="45" id="LXj-h0-FXe"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                 <state key="normal" title="CANCEL">
                                     <color key="titleColor" red="0.93333333333333335" green="0.67450980392156867" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -782,52 +787,73 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                         <real key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="cancel:" destination="zLE-cq-UzJ" eventType="touchUpInside" id="5Xh-8v-Wc4"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scanqr" translatesAutoresizingMaskIntoConstraints="NO" id="XKW-R5-Xyf">
-                                <rect key="frame" x="69" y="40" width="237" height="146"/>
+                                <rect key="frame" x="4" y="72" width="366" height="126"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="146" id="Mxj-fC-5UN"/>
+                                    <constraint firstAttribute="height" constant="126" id="4SK-bi-VQZ"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TypeCode" translatesAutoresizingMaskIntoConstraints="NO" id="HKQ-JR-0cH">
-                                <rect key="frame" x="-1" y="364" width="376" height="159"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OR  " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GmK-t5-Xbf">
+                                <rect key="frame" x="159" y="276" width="56" height="51"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="376" id="5VO-9a-Qzi"/>
-                                    <constraint firstAttribute="height" constant="159" id="Kmy-Nh-5er"/>
+                                    <constraint firstAttribute="width" constant="56" id="C99-gS-jHQ"/>
                                 </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="_______________  OR  _______________" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GmK-t5-Xbf">
-                                <rect key="frame" x="0.0" y="274" width="375" height="51"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="51" id="IXi-go-Yav"/>
-                                    <constraint firstAttribute="width" constant="375" id="QFs-hZ-MeG"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-----------" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ile-gL-nxp">
+                                <rect key="frame" x="232" y="291" width="143" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="------------" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W8j-sb-htk">
+                                <rect key="frame" x="0.0" y="291" width="151" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TypeCode" translatesAutoresizingMaskIntoConstraints="NO" id="HKQ-JR-0cH">
+                                <rect key="frame" x="-1" y="363" width="376" height="182"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.93333333333333335" green="0.67450980392156867" blue="0.12156862745098039" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Lqt-I5-COC" firstAttribute="top" secondItem="LIY-73-S9E" secondAttribute="bottom" constant="16" id="6sY-ti-ARF"/>
-                            <constraint firstItem="XKW-R5-Xyf" firstAttribute="top" secondItem="17E-xN-pYA" secondAttribute="topMargin" constant="40" id="CJN-CP-aU8"/>
-                            <constraint firstItem="LIY-73-S9E" firstAttribute="centerX" secondItem="17E-xN-pYA" secondAttribute="centerX" id="Hi9-Wn-qpd"/>
-                            <constraint firstItem="XKW-R5-Xyf" firstAttribute="leading" secondItem="17E-xN-pYA" secondAttribute="leadingMargin" constant="53" id="K6d-mv-XpA"/>
-                            <constraint firstItem="GmK-t5-Xbf" firstAttribute="centerX" secondItem="17E-xN-pYA" secondAttribute="centerX" id="NvK-rS-VT0"/>
-                            <constraint firstItem="jCp-u0-ePe" firstAttribute="top" secondItem="XKW-R5-Xyf" secondAttribute="bottom" constant="8" id="T2t-5S-YRm"/>
-                            <constraint firstItem="GmK-t5-Xbf" firstAttribute="centerY" secondItem="17E-xN-pYA" secondAttribute="centerY" constant="-34" id="WGF-sS-sIh"/>
-                            <constraint firstItem="LIY-73-S9E" firstAttribute="top" secondItem="HKQ-JR-0cH" secondAttribute="bottom" constant="8" id="aMu-Qk-9C5"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="XKW-R5-Xyf" secondAttribute="trailing" constant="53" id="dDI-pM-R8l"/>
-                            <constraint firstAttribute="trailing" secondItem="HKQ-JR-0cH" secondAttribute="trailing" id="dEz-BX-Jv3"/>
-                            <constraint firstItem="Lqt-I5-COC" firstAttribute="centerX" secondItem="XKW-R5-Xyf" secondAttribute="centerX" id="gFo-W3-VE2"/>
-                            <constraint firstItem="HKQ-JR-0cH" firstAttribute="leading" secondItem="17E-xN-pYA" secondAttribute="leading" constant="-1" id="mWs-4C-QCs"/>
-                            <constraint firstAttribute="bottom" secondItem="Lqt-I5-COC" secondAttribute="bottom" constant="20" symbolic="YES" id="r9O-VQ-4Om"/>
-                            <constraint firstItem="Lqt-I5-COC" firstAttribute="leading" secondItem="17E-xN-pYA" secondAttribute="leadingMargin" constant="96" id="sTq-xc-xUS"/>
-                            <constraint firstItem="jCp-u0-ePe" firstAttribute="centerX" secondItem="XKW-R5-Xyf" secondAttribute="centerX" id="tHw-ZD-9xo"/>
+                            <constraint firstItem="XKW-R5-Xyf" firstAttribute="top" secondItem="DnD-Y6-gbS" secondAttribute="bottom" constant="8" symbolic="YES" id="0LP-Ne-YmD"/>
+                            <constraint firstItem="W8j-sb-htk" firstAttribute="leading" secondItem="17E-xN-pYA" secondAttribute="leading" id="0eI-Ry-uvq"/>
+                            <constraint firstItem="XKW-R5-Xyf" firstAttribute="leading" secondItem="17E-xN-pYA" secondAttribute="leadingMargin" constant="-12" id="4j4-wc-cvh"/>
+                            <constraint firstItem="LIY-73-S9E" firstAttribute="top" secondItem="HKQ-JR-0cH" secondAttribute="bottom" constant="8" symbolic="YES" id="8EH-mu-pUo"/>
+                            <constraint firstItem="ile-gL-nxp" firstAttribute="leading" secondItem="GmK-t5-Xbf" secondAttribute="trailing" constant="17" id="9Xq-JU-hhi"/>
+                            <constraint firstItem="XKW-R5-Xyf" firstAttribute="centerX" secondItem="17E-xN-pYA" secondAttribute="centerX" id="AFN-uC-uNz"/>
+                            <constraint firstItem="ile-gL-nxp" firstAttribute="trailing" secondItem="HKQ-JR-0cH" secondAttribute="trailing" id="CCH-0i-v0Y"/>
+                            <constraint firstItem="W8j-sb-htk" firstAttribute="centerY" secondItem="GmK-t5-Xbf" secondAttribute="centerY" id="Fjm-3D-rhr"/>
+                            <constraint firstItem="Lqt-I5-COC" firstAttribute="top" secondItem="LIY-73-S9E" secondAttribute="bottom" constant="16" id="NCi-8u-Yc9"/>
+                            <constraint firstItem="LIY-73-S9E" firstAttribute="centerX" secondItem="Lqt-I5-COC" secondAttribute="centerX" id="Nna-kA-MPl"/>
+                            <constraint firstItem="W8j-sb-htk" firstAttribute="top" secondItem="jCp-u0-ePe" secondAttribute="bottom" constant="37" id="PrQ-Os-7Hy"/>
+                            <constraint firstItem="jCp-u0-ePe" firstAttribute="trailing" secondItem="LIY-73-S9E" secondAttribute="trailing" id="TbJ-rL-cJl"/>
+                            <constraint firstItem="GmK-t5-Xbf" firstAttribute="centerX" secondItem="jCp-u0-ePe" secondAttribute="centerX" id="Unm-gE-R8X"/>
+                            <constraint firstItem="W8j-sb-htk" firstAttribute="firstBaseline" secondItem="ile-gL-nxp" secondAttribute="firstBaseline" id="WAU-vo-WPL"/>
+                            <constraint firstItem="GmK-t5-Xbf" firstAttribute="top" secondItem="jCp-u0-ePe" secondAttribute="bottom" constant="22" id="Wx1-0i-tfb"/>
+                            <constraint firstAttribute="trailing" secondItem="ile-gL-nxp" secondAttribute="trailing" id="eqC-Cd-Npq"/>
+                            <constraint firstItem="HKQ-JR-0cH" firstAttribute="centerX" secondItem="LIY-73-S9E" secondAttribute="centerX" id="gUX-fh-2gd"/>
+                            <constraint firstItem="jCp-u0-ePe" firstAttribute="leading" secondItem="LIY-73-S9E" secondAttribute="leading" id="itX-LM-YXR"/>
+                            <constraint firstItem="YnM-6f-Gvd" firstAttribute="top" secondItem="Lqt-I5-COC" secondAttribute="bottom" constant="8" symbolic="YES" id="jbv-OF-3MP"/>
+                            <constraint firstItem="jCp-u0-ePe" firstAttribute="top" secondItem="XKW-R5-Xyf" secondAttribute="bottom" constant="11" id="kxL-CR-smd"/>
+                            <constraint firstItem="W8j-sb-htk" firstAttribute="baseline" secondItem="ile-gL-nxp" secondAttribute="baseline" id="lel-0I-O26"/>
+                            <constraint firstItem="HKQ-JR-0cH" firstAttribute="top" secondItem="GmK-t5-Xbf" secondAttribute="bottom" constant="36" id="m8j-wu-XTH"/>
+                            <constraint firstItem="GmK-t5-Xbf" firstAttribute="leading" secondItem="W8j-sb-htk" secondAttribute="trailing" constant="8" symbolic="YES" id="qVr-iu-hNn"/>
+                            <constraint firstItem="XKW-R5-Xyf" firstAttribute="centerX" secondItem="jCp-u0-ePe" secondAttribute="centerX" id="qj0-av-Nbo"/>
+                            <constraint firstItem="Lqt-I5-COC" firstAttribute="leading" secondItem="17E-xN-pYA" secondAttribute="leadingMargin" constant="96" id="rBv-ca-wM1"/>
+                            <constraint firstItem="jCp-u0-ePe" firstAttribute="leading" secondItem="17E-xN-pYA" secondAttribute="leadingMargin" constant="15" id="xjy-pA-9E6"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="GiF-b2-Ahe"/>
@@ -855,9 +881,9 @@
                                     <constraint firstAttribute="height" constant="50" id="910-za-obq"/>
                                     <constraint firstAttribute="width" constant="300" id="se5-Ob-ChV"/>
                                 </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <color key="textColor" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="25"/>
@@ -865,7 +891,13 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                         <real key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="delegate" destination="LMD-Lf-jwz" id="XxB-Cc-1Bw"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Activation Code:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V7H-JL-hhr">
                                 <rect key="frame" x="43" y="229" width="300" height="21"/>
@@ -873,7 +905,7 @@
                                     <constraint firstAttribute="height" constant="21" id="KMs-wf-LFr"/>
                                     <constraint firstAttribute="width" constant="300" id="ant-0f-e7h"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="21"/>
+                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -883,7 +915,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="isb-bf-ce2"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="21"/>
+                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="17"/>
                                 <state key="normal" title="NEXT">
                                     <color key="titleColor" red="0.93333333333333335" green="0.67450980392156867" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -894,8 +926,12 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                         <real key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
+                                    <action selector="activate:" destination="LMD-Lf-jwz" eventType="touchUpInside" id="esa-2b-OfB"/>
                                     <segue destination="oti-WR-bLR" kind="presentation" id="uMr-UF-dXy"/>
                                 </connections>
                             </button>
@@ -905,7 +941,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="ufK-26-xMh"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="21"/>
+                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="17"/>
                                 <state key="normal" title="CANCEL">
                                     <color key="titleColor" red="0.93333333333333335" green="0.67450980392156867" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -915,6 +951,9 @@
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                         <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -939,6 +978,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="h6O-jW-ZbQ"/>
+                    <connections>
+                        <outlet property="uuidTextField" destination="Z8K-C3-Tta" id="aWp-bn-Qek"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ra0-HP-8SL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -968,7 +1010,7 @@
                                     <constraint firstAttribute="width" constant="234" id="eHk-Pj-qep"/>
                                     <constraint firstAttribute="height" constant="31" id="xQu-x3-OZ8"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="21"/>
+                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1018,12 +1060,15 @@
                                     <constraint firstAttribute="height" constant="50" id="7ag-Gw-FpO"/>
                                     <constraint firstAttribute="width" constant="300" id="Hqp-AO-g3C"/>
                                 </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </textField>
@@ -1044,7 +1089,7 @@
                                     <constraint firstAttribute="height" constant="50" id="83a-hS-1bN"/>
                                     <constraint firstAttribute="width" constant="150" id="eOE-Pe-h47"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="21"/>
+                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="17"/>
                                 <state key="normal" title="NEXT">
                                     <color key="titleColor" red="0.93333333333333335" green="0.67450980392156867" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -1054,6 +1099,9 @@
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                         <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -1129,7 +1177,7 @@
                                     <constraint firstAttribute="height" constant="50" id="4hN-tj-Fyx"/>
                                     <constraint firstAttribute="width" constant="273" id="Pbg-Kc-15T"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="21"/>
+                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1139,7 +1187,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="JtS-Oj-M1Z"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="21"/>
+                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="17"/>
                                 <state key="normal" title="PREVIOUS">
                                     <color key="titleColor" red="0.93333333333333335" green="0.67450980392156867" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -1149,6 +1197,9 @@
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                         <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -1161,7 +1212,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="4u9-CK-hHy"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="21"/>
+                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="17"/>
                                 <state key="normal" title="SKIP">
                                     <color key="titleColor" red="0.93333333333333335" green="0.67450980392156867" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -1171,6 +1222,9 @@
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                         <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
@@ -1266,6 +1320,5 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="xR0-Dd-QJP"/>
-        <segue reference="sqa-1U-dik"/>
     </inferredMetricsTieBreakers>
 </document>

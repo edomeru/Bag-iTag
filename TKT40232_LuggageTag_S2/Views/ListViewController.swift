@@ -273,6 +273,8 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         let controller = navigationController.topViewController as! ActivationOptionsController
         controller.delegate = self
         
+        controller.beaconReference = row
+        
     }
   }
 
