@@ -32,7 +32,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="200" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eSL-Xi-SOn">
-                                <rect key="frame" x="-8" y="-24" width="387" height="691"/>
+                                <rect key="frame" x="-8" y="20" width="387" height="647"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="lEp-If-2EI" userLabel="footer">
                                     <rect key="frame" x="0.0" y="228" width="387" height="199"/>
@@ -287,7 +287,7 @@
                                 </constraints>
                             </view>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8PL-lm-TF2">
-                                <rect key="frame" x="0.0" y="-24" width="375" height="150"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="150"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="luggage_tag_logo" translatesAutoresizingMaskIntoConstraints="NO" id="BH0-BR-8W6">
                                         <rect key="frame" x="247" y="10" width="120" height="70"/>
@@ -729,7 +729,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="aU2-w8-pzm"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="12"/>
                                 <state key="normal" title="SCAN QR CODE TO ACTIVATE">
                                     <color key="titleColor" red="0.93333333333333335" green="0.67450980392156867" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -751,7 +751,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="uuq-vX-vc3"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="12"/>
                                 <state key="normal" title="INPUT ACTIVATION CODE">
                                     <color key="titleColor" red="0.93333333333333335" green="0.67450980392156867" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -875,10 +875,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z8K-C3-Tta" customClass="CustomTextField" customModule="LuggageFinder" customModuleProvider="target">
-                                <rect key="frame" x="43" y="258" width="300" height="50"/>
+                                <rect key="frame" x="43" y="258" width="300" height="45"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="910-za-obq"/>
+                                    <constraint firstAttribute="height" constant="45" id="910-za-obq"/>
                                     <constraint firstAttribute="width" constant="300" id="se5-Ob-ChV"/>
                                 </constraints>
                                 <color key="textColor" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
@@ -910,12 +910,12 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7G3-hD-30x" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
-                                <rect key="frame" x="193" y="581" width="150" height="50"/>
+                                <rect key="frame" x="193" y="581" width="150" height="45"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="isb-bf-ce2"/>
+                                    <constraint firstAttribute="height" constant="45" id="isb-bf-ce2"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="12"/>
                                 <state key="normal" title="NEXT">
                                     <color key="titleColor" red="0.93333333333333335" green="0.67450980392156867" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -936,12 +936,12 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jbn-W6-hKD" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
-                                <rect key="frame" x="35" y="581" width="150" height="50"/>
+                                <rect key="frame" x="35" y="581" width="150" height="45"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="ufK-26-xMh"/>
+                                    <constraint firstAttribute="height" constant="45" id="ufK-26-xMh"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="12"/>
                                 <state key="normal" title="CANCEL">
                                     <color key="titleColor" red="0.93333333333333335" green="0.67450980392156867" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -957,7 +957,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="showDetail" id="xR0-Dd-QJP"/>
+                                    <action selector="cancel:" destination="LMD-Lf-jwz" eventType="touchUpInside" id="3Ya-Zc-aOu"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -966,7 +966,7 @@
                             <constraint firstItem="Z8K-C3-Tta" firstAttribute="leading" secondItem="8Hl-8w-yvl" secondAttribute="leadingMargin" constant="27" id="2My-VG-AIX"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Z8K-C3-Tta" secondAttribute="trailing" constant="16" id="4Sb-bZ-uW9"/>
                             <constraint firstItem="7G3-hD-30x" firstAttribute="width" secondItem="Jbn-W6-hKD" secondAttribute="width" id="6r6-w3-wIS"/>
-                            <constraint firstItem="ulb-27-UcC" firstAttribute="top" secondItem="7G3-hD-30x" secondAttribute="bottom" constant="36" id="Cxb-Z2-KhA"/>
+                            <constraint firstItem="ulb-27-UcC" firstAttribute="top" secondItem="7G3-hD-30x" secondAttribute="bottom" constant="41" id="Cxb-Z2-KhA"/>
                             <constraint firstItem="Jbn-W6-hKD" firstAttribute="leading" secondItem="8Hl-8w-yvl" secondAttribute="leadingMargin" constant="19" id="KuX-Sv-4vG"/>
                             <constraint firstAttribute="trailingMargin" secondItem="7G3-hD-30x" secondAttribute="trailing" constant="16" id="Lze-1X-vD8"/>
                             <constraint firstItem="Z8K-C3-Tta" firstAttribute="top" secondItem="Zzt-HH-9r1" secondAttribute="bottom" constant="194" id="RwB-CB-TVy"/>
@@ -974,7 +974,7 @@
                             <constraint firstItem="Z8K-C3-Tta" firstAttribute="top" secondItem="V7H-JL-hhr" secondAttribute="bottom" constant="8" id="TsY-28-9kc"/>
                             <constraint firstItem="7G3-hD-30x" firstAttribute="leading" secondItem="Jbn-W6-hKD" secondAttribute="trailing" constant="8" id="V2c-Oe-ACz"/>
                             <constraint firstItem="V7H-JL-hhr" firstAttribute="leading" secondItem="8Hl-8w-yvl" secondAttribute="leadingMargin" constant="27" id="gP4-p9-TRU"/>
-                            <constraint firstItem="ulb-27-UcC" firstAttribute="top" secondItem="Jbn-W6-hKD" secondAttribute="bottom" constant="36" id="uDf-3u-NKp"/>
+                            <constraint firstItem="ulb-27-UcC" firstAttribute="top" secondItem="Jbn-W6-hKD" secondAttribute="bottom" constant="41" id="uDf-3u-NKp"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="h6O-jW-ZbQ"/>
@@ -998,28 +998,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="hand" translatesAutoresizingMaskIntoConstraints="NO" id="XcN-bw-b1S">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hand" translatesAutoresizingMaskIntoConstraints="NO" id="XcN-bw-b1S">
                                 <rect key="frame" x="55" y="120" width="272" height="329"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="329" id="0Gw-F5-12f"/>
-                                </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Shake tag to activate" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ohh-Ol-oee">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shake tag to activate" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ohh-Ol-oee">
                                 <rect key="frame" x="70" y="468" width="234" height="31"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="234" id="eHk-Pj-qep"/>
-                                    <constraint firstAttribute="height" constant="31" id="xQu-x3-OZ8"/>
+                                    <constraint firstAttribute="height" constant="31" id="Mci-AA-vGs"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="18"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="reR-Pt-zis">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="reR-Pt-zis">
                                 <rect key="frame" x="0.0" y="175" width="375" height="218"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="375" id="0EU-hw-ynx"/>
-                                    <constraint firstAttribute="height" constant="447" id="1Pc-8T-qaH"/>
-                                </constraints>
                                 <connections>
                                     <segue destination="wBB-b3-v6o" kind="presentation" id="NcX-Lj-bvt"/>
                                 </connections>
@@ -1027,12 +1019,17 @@
                         </subviews>
                         <color key="backgroundColor" red="0.93333333333333335" green="0.67450980392156867" blue="0.12156862745098039" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="XcN-bw-b1S" firstAttribute="centerX" secondItem="oKS-Wd-8GI" secondAttribute="centerX" id="1Gp-fa-naS"/>
-                            <constraint firstItem="reR-Pt-zis" firstAttribute="centerX" secondItem="oKS-Wd-8GI" secondAttribute="centerX" id="EUA-Re-ijK"/>
-                            <constraint firstItem="ohh-Ol-oee" firstAttribute="centerX" secondItem="oKS-Wd-8GI" secondAttribute="centerX" id="FEX-Z1-Jf5"/>
-                            <constraint firstItem="ohh-Ol-oee" firstAttribute="top" secondItem="XcN-bw-b1S" secondAttribute="bottom" constant="19" id="RG6-FN-jib"/>
-                            <constraint firstItem="XcN-bw-b1S" firstAttribute="centerY" secondItem="oKS-Wd-8GI" secondAttribute="centerY" id="WoD-o3-7RR"/>
-                            <constraint firstItem="reR-Pt-zis" firstAttribute="centerX" secondItem="oKS-Wd-8GI" secondAttribute="centerX" id="n0M-ni-BgF"/>
+                            <constraint firstItem="XcN-bw-b1S" firstAttribute="leading" secondItem="oKS-Wd-8GI" secondAttribute="leadingMargin" constant="39" id="1F7-Ns-gjE"/>
+                            <constraint firstItem="reR-Pt-zis" firstAttribute="centerY" secondItem="XcN-bw-b1S" secondAttribute="centerY" id="4Ts-XT-HDh"/>
+                            <constraint firstItem="reR-Pt-zis" firstAttribute="centerX" secondItem="ohh-Ol-oee" secondAttribute="centerX" id="98Z-PO-dbs"/>
+                            <constraint firstItem="reR-Pt-zis" firstAttribute="leading" secondItem="oKS-Wd-8GI" secondAttribute="leading" id="AZm-Fz-SF8"/>
+                            <constraint firstItem="XcN-bw-b1S" firstAttribute="top" secondItem="1JK-Ji-ZpR" secondAttribute="bottom" constant="100" id="Eyc-g0-pbA"/>
+                            <constraint firstItem="ohh-Ol-oee" firstAttribute="top" secondItem="reR-Pt-zis" secondAttribute="bottom" constant="75" id="Vs7-5S-CN7"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="XcN-bw-b1S" secondAttribute="trailing" constant="32" id="fLu-wg-SUL"/>
+                            <constraint firstAttribute="trailing" secondItem="reR-Pt-zis" secondAttribute="trailing" id="jFa-ct-czG"/>
+                            <constraint firstItem="ohh-Ol-oee" firstAttribute="leading" secondItem="oKS-Wd-8GI" secondAttribute="leadingMargin" constant="54" id="lOp-IB-F9a"/>
+                            <constraint firstItem="ohh-Ol-oee" firstAttribute="top" secondItem="XcN-bw-b1S" secondAttribute="bottom" constant="19" id="pzK-kp-aDg"/>
+                            <constraint firstItem="25U-0E-00n" firstAttribute="top" secondItem="ohh-Ol-oee" secondAttribute="bottom" constant="168" id="qa5-yc-U1h"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="rYd-Sf-PJ9"/>
@@ -1054,14 +1051,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="     Luggage 1" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lxu-bU-p7z" customClass="CustomTextField" customModule="LuggageFinder" customModuleProvider="target">
-                                <rect key="frame" x="37" y="111" width="300" height="50"/>
+                                <rect key="frame" x="37" y="111" width="300" height="45"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="7ag-Gw-FpO"/>
+                                    <constraint firstAttribute="height" constant="45" id="7ag-Gw-FpO"/>
                                     <constraint firstAttribute="width" constant="300" id="Hqp-AO-g3C"/>
                                 </constraints>
                                 <color key="textColor" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="12"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -1083,13 +1080,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W1h-8c-A1D" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
-                                <rect key="frame" x="112" y="190" width="150" height="50"/>
+                                <rect key="frame" x="112" y="190" width="150" height="45"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="83a-hS-1bN"/>
+                                    <constraint firstAttribute="height" constant="45" id="83a-hS-1bN"/>
                                     <constraint firstAttribute="width" constant="150" id="eOE-Pe-h47"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="12"/>
                                 <state key="normal" title="NEXT">
                                     <color key="titleColor" red="0.93333333333333335" green="0.67450980392156867" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -1117,7 +1114,7 @@
                             <constraint firstItem="PoG-UP-Ztt" firstAttribute="centerX" secondItem="fAv-VP-fv1" secondAttribute="centerX" id="IYx-sA-tdp"/>
                             <constraint firstItem="PoG-UP-Ztt" firstAttribute="top" secondItem="2PZ-6O-ghr" secondAttribute="bottom" constant="33" id="RG7-V7-ao6"/>
                             <constraint firstItem="lxu-bU-p7z" firstAttribute="centerX" secondItem="fAv-VP-fv1" secondAttribute="centerX" id="Yjx-Ye-g7a"/>
-                            <constraint firstItem="W1h-8c-A1D" firstAttribute="top" secondItem="lxu-bU-p7z" secondAttribute="bottom" constant="29" id="jBM-ae-TGT"/>
+                            <constraint firstItem="W1h-8c-A1D" firstAttribute="top" secondItem="lxu-bU-p7z" secondAttribute="bottom" constant="34" id="jBM-ae-TGT"/>
                             <constraint firstItem="lxu-bU-p7z" firstAttribute="top" secondItem="PoG-UP-Ztt" secondAttribute="bottom" constant="8" id="xte-ay-dJd"/>
                         </constraints>
                     </view>
@@ -1138,22 +1135,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RBp-1x-4FU">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RBp-1x-4FU">
                                 <rect key="frame" x="0.0" y="213" width="375" height="185"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cam_logo" translatesAutoresizingMaskIntoConstraints="NO" id="Fed-pN-Xpt">
                                         <rect key="frame" x="124" y="0.0" width="119" height="143"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="119" id="IYG-s7-IAT"/>
-                                            <constraint firstAttribute="height" constant="143" id="PRL-Bz-Cof"/>
+                                            <constraint firstAttribute="width" constant="119" id="mJn-5I-Y76"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Click here to take a photo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mSG-Qd-fqJ">
                                         <rect key="frame" x="80" y="136" width="207" height="21"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="207" id="25b-hG-REu"/>
-                                            <constraint firstAttribute="height" constant="21" id="wim-HJ-WHl"/>
+                                            <constraint firstAttribute="width" constant="207" id="LOQ-XS-jPI"/>
+                                            <constraint firstAttribute="height" constant="21" id="oDY-2t-qjO"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Gadugi" family="Gadugi" pointSize="13"/>
                                         <color key="textColor" red="0.93333333333333335" green="0.67450980392156867" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
@@ -1162,32 +1158,32 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="mSG-Qd-fqJ" firstAttribute="top" secondItem="Fed-pN-Xpt" secondAttribute="bottom" constant="-7" id="Axf-eP-dKM"/>
-                                    <constraint firstItem="Fed-pN-Xpt" firstAttribute="centerX" secondItem="mSG-Qd-fqJ" secondAttribute="centerX" id="BZ4-R6-dnv"/>
-                                    <constraint firstAttribute="width" constant="375" id="To5-58-YCJ"/>
-                                    <constraint firstItem="Fed-pN-Xpt" firstAttribute="top" secondItem="RBp-1x-4FU" secondAttribute="top" id="V2D-yG-XrF"/>
-                                    <constraint firstItem="mSG-Qd-fqJ" firstAttribute="centerX" secondItem="RBp-1x-4FU" secondAttribute="centerX" id="VPk-IO-dOw"/>
-                                    <constraint firstAttribute="height" constant="185" id="j3J-tq-UbL"/>
-                                    <constraint firstItem="Fed-pN-Xpt" firstAttribute="centerX" secondItem="RBp-1x-4FU" secondAttribute="centerX" constant="-4" id="sEg-qs-R6o"/>
+                                    <constraint firstItem="Fed-pN-Xpt" firstAttribute="leading" secondItem="RBp-1x-4FU" secondAttribute="leading" constant="124" id="3ST-3h-pYq"/>
+                                    <constraint firstAttribute="width" constant="375" id="9TQ-lu-NkW"/>
+                                    <constraint firstItem="Fed-pN-Xpt" firstAttribute="top" secondItem="RBp-1x-4FU" secondAttribute="top" id="Ct5-Ll-J65"/>
+                                    <constraint firstItem="mSG-Qd-fqJ" firstAttribute="top" secondItem="Fed-pN-Xpt" secondAttribute="bottom" constant="-7" id="G4e-BT-wa8"/>
+                                    <constraint firstAttribute="height" constant="185" id="OvP-CC-0Ss"/>
+                                    <constraint firstAttribute="bottom" secondItem="Fed-pN-Xpt" secondAttribute="bottom" constant="42" id="w0R-i7-Ypv"/>
+                                    <constraint firstItem="mSG-Qd-fqJ" firstAttribute="centerX" secondItem="RBp-1x-4FU" secondAttribute="centerX" constant="-4" id="zu8-wN-3yv"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Add your photo:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yHz-kg-zc2">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add your photo:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yHz-kg-zc2">
                                 <rect key="frame" x="16" y="155" width="273" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="4hN-tj-Fyx"/>
-                                    <constraint firstAttribute="width" constant="273" id="Pbg-Kc-15T"/>
+                                    <constraint firstAttribute="width" constant="273" id="NCn-2V-3Qt"/>
+                                    <constraint firstAttribute="height" constant="50" id="ogN-rw-pIC"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GXe-fd-fw8" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
-                                <rect key="frame" x="24" y="580" width="150" height="50"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GXe-fd-fw8" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
+                                <rect key="frame" x="24" y="580" width="150" height="45"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="JtS-Oj-M1Z"/>
+                                    <constraint firstAttribute="height" constant="45" id="NTQ-pQ-4yn"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="12"/>
                                 <state key="normal" title="PREVIOUS">
                                     <color key="titleColor" red="0.93333333333333335" green="0.67450980392156867" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -1207,12 +1203,12 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LP6-lD-uAT" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
-                                <rect key="frame" x="197" y="580" width="150" height="50"/>
+                                <rect key="frame" x="197" y="580" width="150" height="45"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="4u9-CK-hHy"/>
+                                    <constraint firstAttribute="height" constant="45" id="Tti-sJ-Di7"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="12"/>
                                 <state key="normal" title="SKIP">
                                     <color key="titleColor" red="0.93333333333333335" green="0.67450980392156867" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -1231,17 +1227,16 @@
                         </subviews>
                         <color key="backgroundColor" red="0.93333333333333335" green="0.67450980392156867" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="yHz-kg-zc2" firstAttribute="centerX" secondItem="DsB-Ih-ZUm" secondAttribute="centerX" id="F8S-09-aZ5"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="LP6-lD-uAT" secondAttribute="trailing" constant="12" id="Hjd-ZR-EQX"/>
-                            <constraint firstItem="RBp-1x-4FU" firstAttribute="centerX" secondItem="DsB-Ih-ZUm" secondAttribute="centerX" id="Jz7-tb-BTu"/>
-                            <constraint firstItem="KS2-jC-d6m" firstAttribute="top" secondItem="GXe-fd-fw8" secondAttribute="bottom" constant="36" id="Ocb-Qx-4kR"/>
-                            <constraint firstItem="RBp-1x-4FU" firstAttribute="top" secondItem="yHz-kg-zc2" secondAttribute="bottom" constant="8" id="PJI-ux-4F4"/>
-                            <constraint firstItem="LP6-lD-uAT" firstAttribute="leading" secondItem="GXe-fd-fw8" secondAttribute="trailing" constant="23" id="a1R-CA-DcD"/>
-                            <constraint firstItem="Fed-pN-Xpt" firstAttribute="top" secondItem="yHz-kg-zc2" secondAttribute="bottom" constant="8" id="dEl-Le-2Xt"/>
-                            <constraint firstItem="RBp-1x-4FU" firstAttribute="centerY" secondItem="DsB-Ih-ZUm" secondAttribute="centerY" id="hAZ-wi-Tjc"/>
-                            <constraint firstItem="KS2-jC-d6m" firstAttribute="top" secondItem="LP6-lD-uAT" secondAttribute="bottom" constant="37" id="jeG-Oa-o7F"/>
-                            <constraint firstItem="GXe-fd-fw8" firstAttribute="leading" secondItem="DsB-Ih-ZUm" secondAttribute="leadingMargin" constant="8" id="lxU-SR-ESZ"/>
-                            <constraint firstItem="LP6-lD-uAT" firstAttribute="width" secondItem="GXe-fd-fw8" secondAttribute="width" id="xGa-kW-qq7"/>
+                            <constraint firstItem="LP6-lD-uAT" firstAttribute="width" secondItem="GXe-fd-fw8" secondAttribute="width" id="3Ke-az-a3G"/>
+                            <constraint firstItem="LP6-lD-uAT" firstAttribute="leading" secondItem="GXe-fd-fw8" secondAttribute="trailing" constant="23" id="7jN-4h-3Yy"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="yHz-kg-zc2" secondAttribute="leading" id="85y-gY-Vj4"/>
+                            <constraint firstItem="KS2-jC-d6m" firstAttribute="top" secondItem="LP6-lD-uAT" secondAttribute="bottom" constant="42" id="Rfc-qX-eqB"/>
+                            <constraint firstItem="RBp-1x-4FU" firstAttribute="centerX" secondItem="DsB-Ih-ZUm" secondAttribute="centerX" id="VHE-dg-biB"/>
+                            <constraint firstItem="GXe-fd-fw8" firstAttribute="leading" secondItem="DsB-Ih-ZUm" secondAttribute="leadingMargin" constant="8" id="XvK-hg-7yN"/>
+                            <constraint firstItem="KS2-jC-d6m" firstAttribute="top" secondItem="GXe-fd-fw8" secondAttribute="bottom" constant="42" id="aCa-P4-03q"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="LP6-lD-uAT" secondAttribute="trailing" constant="12" id="fUw-nc-spF"/>
+                            <constraint firstItem="RBp-1x-4FU" firstAttribute="top" secondItem="yHz-kg-zc2" secondAttribute="bottom" constant="8" id="h49-cY-3uP"/>
+                            <constraint firstItem="RBp-1x-4FU" firstAttribute="centerY" secondItem="DsB-Ih-ZUm" secondAttribute="centerY" constant="-28" id="y3K-Zd-MVa"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="2XK-Nd-UnQ"/>
@@ -1318,7 +1313,4 @@
         <image name="range_no_detection" width="100" height="100"/>
         <image name="scanqr" width="296" height="507"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="xR0-Dd-QJP"/>
-    </inferredMetricsTieBreakers>
 </document>
