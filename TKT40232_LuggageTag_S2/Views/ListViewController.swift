@@ -138,7 +138,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       
       return
     }
-    
+    Globals.log("transmitActivationKey______\(key)")
     tktCoreLocation.broadcastActivationKey(activationCode: key)
   }
   

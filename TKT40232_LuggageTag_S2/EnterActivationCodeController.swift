@@ -25,14 +25,19 @@ class EnterActivationCodeController: UIViewController, UITextFieldDelegate {
     var trimmedName: String?
     var beaconRef: [LuggageTag]?
     
+    func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        uuidTextField.becomeFirstResponder()
+        
+    }
+    
     @IBOutlet weak var uuidTextField: CustomTextField!
+    
+    
+    ///  NEXT BUTTON
     @IBAction func activate(_ sender: Any) {
     
-        func viewWillAppear(animated: Bool) {
-            super.viewWillAppear(animated)
-           uuidTextField.becomeFirstResponder()
-           
-        }
+       
       
         
         let isValidLuggage = validateLuggage()
@@ -172,15 +177,13 @@ class EnterActivationCodeController: UIViewController, UITextFieldDelegate {
         // NSNotification Observer for Keyboard
         NotificationCenter.default.addObserver(self, selector: #selector(EnterActivationCodeController.keyboardWillShow(_:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
         NotificationCenter.default.addObserver(self, selector: #selector(EnterActivationCodeController.keyboardWillHide(_:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(EnterActivationCodeController.onBackgroundLocationAccessEnabled(_:)), name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessEnabled), object: nil)
+
     
         
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
 
     func keyboardWillShow(_ sender: Notification) {
         self.view.frame.origin.y = -150
@@ -188,6 +191,32 @@ class EnterActivationCodeController: UIViewController, UITextFieldDelegate {
     
     func keyboardWillHide(_ sender: Notification) {
         self.view.frame.origin.y = 0
+    }
+
+    
+    func onBackgroundLocationAccessEnabled(_ notification: Notification) {
+        
+        Globals.log("onBackgroundLocationAccessEnabled_____")
+        
+        if self.presentedViewController == nil {
+            let alertShake = UIAlertController(title: NSLocalizedString("shake_device", comment: ""), message: NSLocalizedString("shake_device_message", comment: ""), preferredStyle: UIAlertControllerStyle.alert)
+            self.present(alertShake, animated: true, completion: nil)
+            
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Constants.Time.FifteenSecondsTimeout) {
+                alertShake.dismiss(animated: true, completion: nil)
+                self.trimmedName = ""
+                
+                let errorMessage = UIAlertController(title: NSLocalizedString("error", comment: ""), message: NSLocalizedString("error_activating_message", comment: ""), preferredStyle: UIAlertControllerStyle.alert)
+                let okActionMotor = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: UIAlertActionStyle.default)
+                errorMessage.addAction(okActionMotor)
+                
+                self.present(errorMessage, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        <#code#>
     }
 
 }

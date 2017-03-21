@@ -251,22 +251,22 @@
                                 </connections>
                             </tableView>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Llx-x9-ZSM">
-                                <rect key="frame" x="285.5" y="634" width="87.5" height="33"/>
+                                <rect key="frame" x="284" y="638.5" width="89" height="28.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tektos Limited © 2016" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xTY-X6-0Vu">
-                                        <rect key="frame" x="7" y="11" width="79.5" height="11"/>
+                                        <rect key="frame" x="7" y="9.5" width="81" height="9.5"/>
                                         <fontDescription key="fontDescription" name="Gadugi" family="Gadugi" pointSize="8"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All rights reserved" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oSB-ET-I7s">
-                                        <rect key="frame" x="7" y="20" width="79.5" height="11"/>
+                                        <rect key="frame" x="7" y="17" width="81" height="9.5"/>
                                         <fontDescription key="fontDescription" name="Gadugi" family="Gadugi" pointSize="8"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="v0.0.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pKa-8v-tbf">
-                                        <rect key="frame" x="7" y="2" width="79.5" height="11"/>
+                                        <rect key="frame" x="7" y="2" width="81" height="9.5"/>
                                         <fontDescription key="fontDescription" name="Gadugi" family="Gadugi" pointSize="8"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1250,7 +1250,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Xbb-Ms-IND" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="FYi-jY-KaZ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FYi-jY-KaZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

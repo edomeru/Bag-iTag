@@ -106,6 +106,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
   }
   
   func broadcastActivationKey(activationCode: String) {
+    Globals.log("broadcastActivationKey______\(activationCode)")
     let chars = Array(activationCode.characters)
     let byteArray: [UInt8] = stride(from: 0, to: chars.count, by: 2).map() {
       UInt8(strtoul(String(chars[$0 ..< min($0 + 2, chars.count)]), nil, 16))
@@ -143,7 +144,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
     let data: Data = Data(bytes: [0x00, 0x00, 0x00, 0x00, 0x00, uIntHex1, uIntHex2, 0x00, 0x00, acDecimal6, acDecimal5, acDecimal4, acDecimal3, acDecimal2, acDecimal1, 0x00])
    
     
-    
+    Globals.log("HELLO_SCAN______\(data)")
     let cbuuid = CBUUID(data: data)
     let service = [cbuuid]
     let advertisingDic = Dictionary(dictionaryLiteral: (CBAdvertisementDataServiceUUIDsKey, service))
@@ -172,15 +173,17 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
     
     // Note: .authorizedAlways == 3
     if (CLLocationManager.authorizationStatus().rawValue == 3) {
-      NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.OnBackgroundAccessEnabled), object: nil, userInfo: nil)
-      peripheralManager.startAdvertising(advertisingDic)
+         Globals.log("authorizedAlways____")
+      NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.OnBackgroundAccessEnabled), object: nil, userInfo: nil) //KUNG pinayagan ni app na magscan ng mga beacon or permission
+      peripheralManager.startAdvertising(advertisingDic)// start ng advertising
       NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.AssignNameToActivatingKey), object: nil, userInfo: [Constants.Key.ActivatedUUID: identifier, Constants.Key.ActivationKey: activationKey])
+        //
       
       timer = Timer.scheduledTimer(timeInterval: Constants.Time.FifteenSecondsTimeout, target: self, selector: #selector(TKTCoreLocation.stopAdvertising), userInfo: nil, repeats: false)
     } else {
       delegate?.onBackgroundLocationAccessDisabled(CLLocationManager.authorizationStatus().rawValue)
     }
-  }
+  }///  END OF broadcastActivationKey
     
 
     func numberOfDays(days:Int)-> Int{
@@ -190,10 +193,9 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
     
     
     func convertToHex(hexValue:Int)->String{
-        //let n = 123
+    
         let st = String(format:"%2X", hexValue)
      
-        // "7B is the hexadecimal representation of 123"
         return st
     }
     

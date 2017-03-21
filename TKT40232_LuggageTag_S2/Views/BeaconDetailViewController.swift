@@ -78,7 +78,8 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     // NSNotification Observer for TKTCoreLocation in ListView
     NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.setEnterRegion(_:)), name: NSNotification.Name(rawValue: Constants.Proximity.Inside), object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.setExitRegion(_:)), name: NSNotification.Name(rawValue: Constants.Proximity.Outside), object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.onBackgroundLocationAccessEnabled(_:)), name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessEnabled), object: nil)
+//    NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.onBackgroundLocationAccessEnabled(_:)), name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessEnabled), object: nil)
+    
     NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.onBackgroundLocationAccessDisabled(_:)), name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessDisabled), object: nil)
     
     // NSNotification Observer for Generating Name
@@ -394,6 +395,9 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   }
   
   func onBackgroundLocationAccessEnabled(_ notification: Notification) {
+
+    Globals.log("onBackgroundLocationAccessEnabled_____")
+    
     if self.presentedViewController == nil {
       let alertShake = UIAlertController(title: NSLocalizedString("shake_device", comment: ""), message: NSLocalizedString("shake_device_message", comment: ""), preferredStyle: UIAlertControllerStyle.alert)
       self.present(alertShake, animated: true, completion: nil)
