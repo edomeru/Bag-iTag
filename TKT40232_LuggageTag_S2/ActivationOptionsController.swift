@@ -26,9 +26,9 @@ class ActivationOptionsController: UIViewController, EnterActivationCodeControll
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = true
+        //self.navigationController?.isNavigationBarHidden = true
         // Do any additional setup after loading the view.
-         Globals.log("ActivationOptionsController \(beaconReference!)")
+//         Globals.log("ActivationOptionsController \(beaconReference!)")
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,8 +42,8 @@ class ActivationOptionsController: UIViewController, EnterActivationCodeControll
             let navigationController = segue.destination as! UINavigationController
             let controller = navigationController.topViewController as! EnterActivationCodeController
             controller.delegate = self
-            Globals.log("ActivationOptionsController ONPREPARE \(beaconReference!)")
-            controller.beaconRef = beaconReference
+           // Globals.log("ActivationOptionsController ONPREPARE \(beaconReference!)")
+           
         }
     }
     

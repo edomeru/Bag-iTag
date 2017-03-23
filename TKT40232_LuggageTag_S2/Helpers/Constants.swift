@@ -18,6 +18,8 @@ struct Constants {
     static let ActivationOptions = "ActivationOptions"
     static let AddPhoto = "AddPhoto"
     static let EnterActivationCode = "EnterActivationCode"
+    static let ShakeMe = "ShakeMe"
+    static let  PagerView = "PagerView"
   }
   
   struct Proximity {
@@ -57,6 +59,11 @@ struct Constants {
     static let StopActivatingKey = "StopActivatingKeyID"
     static let OnBackgroundAccessEnabled = "OnBackgroundAccessEnabledID"
     static let OnBackgroundAccessDisabled = "OnBackgroundAccessDisabledID"
+    static let CallDismissShakeDeviceAlert = "CallDismissShakeDeviceAlert"
+    static let CencelActivationScreen = "CencelActivationScreen"
+    static let INPUT_ACTIVATION_CODE = "INPUT_ACTIVATION_CODE"
+    static let NEXT_BUTTON = "NEXT_BUTTON"
+    static let connectActivatingBeacon = "connectActivatingBeacon"
   }
   
   struct Time {

@@ -18,9 +18,10 @@ protocol EnterActivationCodeControllerDelegate: class {
 
 
 
-class EnterActivationCodeController: UIViewController, UITextFieldDelegate {
-    
+class EnterActivationCodeController: UIViewController, UITextFieldDelegate, ShakeBeaconControllerDelegate {
+    var hexString: String?
     weak var delegate: EnterActivationCodeControllerDelegate?
+   
     var beaconToEdit: LuggageTag?
     var trimmedName: String?
     var beaconRef: [LuggageTag]?
@@ -57,7 +58,7 @@ class EnterActivationCodeController: UIViewController, UITextFieldDelegate {
                 }
             }
             
-            let hexString = String(BTAddress, radix: 16, uppercase: true)
+             hexString = String(BTAddress, radix: 16, uppercase: true)
             NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.TransmitActivationKey), object: hexString, userInfo: nil)
         }
     }
@@ -121,7 +122,8 @@ class EnterActivationCodeController: UIViewController, UITextFieldDelegate {
     
     // TODO: Check Activation Code Uniqueness
     fileprivate func checkActivationCodeAvailability() -> Bool {
-        for beacon in beaconRef! {
+        if let beaconn = beaconRef {
+            for beacon in beaconn {
             if (beacon.activation_code == uuidTextField.text!.lowercased()) {
                 if let item = beaconToEdit {
                     if (item.activation_code == beacon.activation_code) {
@@ -133,14 +135,19 @@ class EnterActivationCodeController: UIViewController, UITextFieldDelegate {
                 
                 return false
             }
+            }
         }
+      
         
         return true
     }
     
     fileprivate func checkTagAvailability() -> Bool {
         
-        for beacon in beaconRef! {
+        
+        if let beac = beaconRef {
+            
+            for beacon in beac {
             if (beacon.name == trimmedName!) {
                 if let item = beaconToEdit {
                     if(item.name == beacon.name) {
@@ -152,6 +159,8 @@ class EnterActivationCodeController: UIViewController, UITextFieldDelegate {
                 
                 return true
             }
+            }
+       
         }
         
         return false
@@ -171,16 +180,11 @@ class EnterActivationCodeController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
-         Globals.log("ENTERACTIVATIONCODE \(beaconRef)")
-        // Do any additional setup after loading the view.
-        
+  
         // NSNotification Observer for Keyboard
         NotificationCenter.default.addObserver(self, selector: #selector(EnterActivationCodeController.keyboardWillShow(_:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
         NotificationCenter.default.addObserver(self, selector: #selector(EnterActivationCodeController.keyboardWillHide(_:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
         
-        NotificationCenter.default.addObserver(self, selector: #selector(EnterActivationCodeController.onBackgroundLocationAccessEnabled(_:)), name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessEnabled), object: nil)
-
-    
         
     }
 
@@ -194,29 +198,28 @@ class EnterActivationCodeController: UIViewController, UITextFieldDelegate {
     }
 
     
-    func onBackgroundLocationAccessEnabled(_ notification: Notification) {
-        
-        Globals.log("onBackgroundLocationAccessEnabled_____")
-        
-        if self.presentedViewController == nil {
-            let alertShake = UIAlertController(title: NSLocalizedString("shake_device", comment: ""), message: NSLocalizedString("shake_device_message", comment: ""), preferredStyle: UIAlertControllerStyle.alert)
-            self.present(alertShake, animated: true, completion: nil)
-            
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Constants.Time.FifteenSecondsTimeout) {
-                alertShake.dismiss(animated: true, completion: nil)
-                self.trimmedName = ""
-                
-                let errorMessage = UIAlertController(title: NSLocalizedString("error", comment: ""), message: NSLocalizedString("error_activating_message", comment: ""), preferredStyle: UIAlertControllerStyle.alert)
-                let okActionMotor = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: UIAlertActionStyle.default)
-                errorMessage.addAction(okActionMotor)
-                
-                self.present(errorMessage, animated: true, completion: nil)
-            }
-        }
-    }
+       
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == Constants.Segue.ShakeMe {
+//            let navigationController = segue.destination as! UINavigationController
+//            let controller = navigationController.topViewController as! ShakeBeaconController
+//            controller.delegate = self
+//            
+//            
+//            if let hex = hexString {
+//            //controller.hex = hex
+//                  NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.TransmitActivationKey), object: hex, userInfo: nil)
+//            }
+//           
+//            
+//        }
+//    }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        <#code#>
+    
+    func shakeBeaconDidCancel(_ controller: ShakeBeaconController){
+            dismiss(animated: true, completion: nil)
+        
     }
 
+   
 }

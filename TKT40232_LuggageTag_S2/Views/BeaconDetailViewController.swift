@@ -83,7 +83,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.onBackgroundLocationAccessDisabled(_:)), name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessDisabled), object: nil)
     
     // NSNotification Observer for Generating Name
-    NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.assignNameToActivatingBeacon(_:)), name: NSNotification.Name(rawValue: Constants.Notification.AssignNameToActivatingKey), object: nil)
+//    NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.assignNameToActivatingBeacon(_:)), name: NSNotification.Name(rawValue: Constants.Notification.AssignNameToActivatingKey), object: nil)
     
     // NSNotification Observer for Stopping Activating Beacon
     NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.stopActivatingBeacon(_:)), name: NSNotification.Name(rawValue: Constants.Notification.StopActivatingKey), object: nil)
@@ -678,13 +678,13 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     //Globals.log("Deinit called")
     // Remove all Observer from this Controller to save memory
     //NotificationCenter.default.removeObserver(self)
-    
+     Globals.log("DE INIT BEACON")
     NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
     NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     
     NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Proximity.Inside), object: nil)
     NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Proximity.Outside), object: nil)
-    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessEnabled), object: nil)
+//    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessEnabled), object: nil)
     NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessDisabled), object: nil)
     
     NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.ActivationSuccessKey), object: nil)

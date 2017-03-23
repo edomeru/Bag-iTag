@@ -119,7 +119,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
     let acDecimal5 = byteArray[1] ^ byteArray[5]
     let acDecimal6 = byteArray[0] ^ byteArray[4]
     
-    
+     Globals.log("acDecimal1\(acDecimal1)")
     //////EDMER
    
     let tensOfSeconds: Int? = numberOfDays(days: 7)
@@ -146,6 +146,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
     
     Globals.log("HELLO_SCAN______\(data)")
     let cbuuid = CBUUID(data: data)
+    Globals.log("Hcbuuid_____\(cbuuid)")
     let service = [cbuuid]
     let advertisingDic = Dictionary(dictionaryLiteral: (CBAdvertisementDataServiceUUIDsKey, service))
     
@@ -153,7 +154,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
     
     self.activationCode = activationCode
     self.activationKey = activationKey
-    
+    Globals.log("activationKey\(activationKey)")
     var uuidString = ""
     uuidString.append(chars[10])
     uuidString.append(chars[11])
@@ -175,7 +176,10 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
     if (CLLocationManager.authorizationStatus().rawValue == 3) {
          Globals.log("authorizedAlways____")
       NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.OnBackgroundAccessEnabled), object: nil, userInfo: nil) //KUNG pinayagan ni app na magscan ng mga beacon or permission
-      peripheralManager.startAdvertising(advertisingDic)// start ng advertising
+        Globals.log("PERIPHERAL START  \(advertisingDic)")
+        
+      peripheralManager.startAdvertising(advertisingDic)// start ng Broadcasting
+        Globals.log("PERIPHERAL STARTfsfafdabklfi99   \(advertisingDic)")
       NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.AssignNameToActivatingKey), object: nil, userInfo: [Constants.Key.ActivatedUUID: identifier, Constants.Key.ActivationKey: activationKey])
         //
       
@@ -202,10 +206,12 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
     
     
   func stopAdvertising() {
-    Globals.log("Stop Advertising")
+    Globals.log("Stop Advertising STOP")
     peripheralManager.stopAdvertising()
     
-    NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.StopActivatingKey), object: nil, userInfo: [Constants.Key.ActivatedUUID: activatedBeaconUUID!])
+    if let activatdBeaconUuiD = activatedBeaconUUID {
+    NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.StopActivatingKey), object: nil, userInfo: [Constants.Key.ActivatedUUID: activatdBeaconUuiD])
+    }
     
     activationCode = nil
     activationKey = nil

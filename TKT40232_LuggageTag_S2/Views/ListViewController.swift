@@ -17,7 +17,7 @@ struct Drag {
 }
 
 class ListViewController: UIViewController, CBCentralManagerDelegate, TKTCoreLocationDelegate, UITableViewDataSource,
-UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControllerDelegate, CustomTableCellDelegate, ActivationOptionsControllerDelegate  {
+UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControllerDelegate, CustomTableCellDelegate, ActivationOptionsControllerDelegate, UIPageViewControllerDelegate {
   
   var row: [LuggageTag]
   
@@ -90,6 +90,11 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     NotificationCenter.default.addObserver(self, selector: #selector(ListViewController.setLuggageImageRange(_:)), name: NSNotification.Name(rawValue: Constants.Notification.SetImageRange), object: nil)
     
     NotificationCenter.default.addObserver(self, selector: #selector(ListViewController.transmitActivationKey(_:)), name: NSNotification.Name(rawValue: Constants.Notification.TransmitActivationKey), object: nil)
+    
+  NotificationCenter.default.addObserver(self, selector: #selector(ListViewController.transmitActivationKey(_:)), name: NSNotification.Name(rawValue: Constants.Notification.TransmitActivationKey), object: nil)
+    
+ 
+    
   }
   
   // MARK: NSNotificationCenter Functions
@@ -276,6 +281,17 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         controller.beaconReference = row
         
     }
+    
+    else if segue.identifier == Constants.Segue.PagerView {
+        let navigationController = segue.destination as! UINavigationController
+        let controller = navigationController.topViewController as! PagerViewController
+        controller.delegate = self
+        
+        
+        
+    }
+    
+    
   }
 
   override func didReceiveMemoryWarning() {
@@ -502,21 +518,28 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       }
     }
   }
-  
-  func connectActivatingBeacon(item: LuggageTag) {
-    // If there is a existing connnection in this UUID, disconnect it first
-    if let identifier = tktCoreLocation.monitoredRegions[item.uuid] {
-      //Globals.log("STOP THE FIRST BEACON WHO CONNECTED FIRST THEN MONITORED AGAIN WITH A NEW ONE")
-      // Stop Monitoring for this Beacon
-      var beaconRegion: CLBeaconRegion?
-      beaconRegion = CLBeaconRegion(proximityUUID: UUID(uuidString: item.uuid)!, identifier: identifier)
-      
-      // Stop Monitoring this Specific Beacon.
-      tktCoreLocation.stopMonitoringBeacon(beaconRegion, key: item.uuid)
+    
+    func connectActivatingBeacon(item: LuggageTag) {
+        // If there is a existing connnection in this UUID, disconnect it first
+        if let identifier = tktCoreLocation.monitoredRegions[item.uuid] {
+            //Globals.log("STOP THE FIRST BEACON WHO CONNECTED FIRST THEN MONITORED AGAIN WITH A NEW ONE")
+            // Stop Monitoring for this Beacon
+            var beaconRegion: CLBeaconRegion?
+            beaconRegion = CLBeaconRegion(proximityUUID: UUID(uuidString: item.uuid)!, identifier: identifier)
+            Globals.log("BEACON REGION Called")
+            // Stop Monitoring this Specific Beacon.
+            tktCoreLocation.stopMonitoringBeacon(beaconRegion, key: item.uuid)
+        }
+        
+        startMonitoringforBeacon(item)
+        
+     
     }
+    
+    
+   
+    
 
-    startMonitoringforBeacon(item)
-  }
   
   func disconnectActivatingBeacon(item: LuggageTag) {
     stopMonitoring(didStopMonitoring: item)
@@ -950,6 +973,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   
   deinit {
     NotificationCenter.default.removeObserver(self)
+   NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.connectActivatingBeacon), object: nil)
   }
     
     func activationOptionsControllerDidCancel(_ controller: ActivationOptionsController) {
