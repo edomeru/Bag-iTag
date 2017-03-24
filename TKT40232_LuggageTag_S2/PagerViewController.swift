@@ -33,18 +33,22 @@ class PagerViewController: UIViewController {
         pageControl.addTarget(self, action: #selector(PagerViewController.didChangePageControlValue), for: .valueChanged)
         
      
-        
         NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.TapNextButton(_:)), name:NSNotification.Name(rawValue: Constants.Notification.INPUT_ACTIVATION_CODE), object: nil);
         
         NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.enter_code(_:)), name:NSNotification.Name(rawValue: Constants.Notification.NEXT_BUTTON), object: nil);
         
-        NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.callDismissShakeDeviceAlert(_:)), name: NSNotification.Name(rawValue: Constants.Notification.CallDismissShakeDeviceAlert), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.callDismissShakeDeviceAlert(_:)), name: NSNotification.Name(rawValue: Constants.Notification.CallDismissShakeDeviceAlert), object: nil)
         
           NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.goBack(_:)), name: NSNotification.Name(rawValue: Constants.Notification.CencelActivationScreen), object: nil)
         
          NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.onBackgroundLocationAccessEnabled(_:)), name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessEnabled), object: nil)
         
          NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.assignNameToActivatingBeacon(_:)), name: NSNotification.Name(rawValue: Constants.Notification.AssignNameToActivatingKey), object: nil)
+        
+           NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.stopActivatingBeacon(_:)), name: NSNotification.Name(rawValue: Constants.Notification.StopActivatingKey), object: nil)
+        
+         NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.TapToNextButton(_:)), name:NSNotification.Name(rawValue: Constants.Notification.ENTER_REGION), object: nil);
+        
         
     }
     
@@ -58,6 +62,15 @@ class PagerViewController: UIViewController {
     func TapNextButton(_ sender: Notification){
         
         tutorialPageViewController?.scrollToNextViewController()
+        
+         //NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue:Constants.Notification.INPUT_ACTIVATION_CODE), object: nil)
+    }
+    
+    func TapToNextButton(_ sender: Notification){
+        
+        tutorialPageViewController?.scrollToNextViewController()
+        
+        //NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue:Constants.Notification.INPUT_ACTIVATION_CODE), object: nil)
     }
     
     func enter_code(_ sender: Notification){
@@ -65,13 +78,17 @@ class PagerViewController: UIViewController {
             print("HEXVALUE\(hex)")
             
             if let activationCode = sender.userInfo?["aCode"] as? String {
-                
+            
                 self.activation_Code = activationCode
+                 Globals.log("Activation_CODE\(activation_Code!)")
+                    
+                
             }
             
             NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.TransmitActivationKey), object: hex, userInfo: nil)
             
             tutorialPageViewController?.scrollToNextViewController()  //go to SHAKE PAGE
+            
         }
     }
     
@@ -94,15 +111,19 @@ class PagerViewController: UIViewController {
     
 
     
-    func callDismissShakeDeviceAlert(_ sender: Notification){
+    func callDismissShakeDeviceAlert(){
         print("callDismissShakeDeviceAlert")
 //        let errorMessage = UIAlertController(title: NSLocalizedString("error", comment: ""), message: NSLocalizedString("error_activating_message", comment: ""), preferredStyle: UIAlertControllerStyle.alert)
 //        let okActionMotor = UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: UIAlertActionStyle.default)
 //        errorMessage.addAction(okActionMotor)
 //        
 //        self.present(errorMessage, animated: true, completion: nil)
-        
+       
+          if timer.isValid {
          showConfirmation(NSLocalizedString("Device activation failed", comment: ""), message: NSLocalizedString("", comment: ""))
+            }
+        
+        
     }
     
     
@@ -115,6 +136,8 @@ class PagerViewController: UIViewController {
             UIAlertAction(title: NSLocalizedString("RETRY", comment: ""), style: .default){ (action) in
                 
                 self.tutorialPageViewController?.scrollToViewController(index: self.pageControl.currentPage)
+                
+//                NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.NEXT_BUTTON), object: hex, userInfo: nil)
             }
         ]
         
@@ -131,15 +154,27 @@ class PagerViewController: UIViewController {
             //            self.present(alertShake, animated: true, completion: nil)
             
             
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Constants.Time.FifteenSecondsTimeout) {
+//            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Constants.Time.FifteenSecondsTimeout) {
+          
+          timer = Timer.scheduledTimer(timeInterval: Constants.Time.FifteenSecondsTimeout, target: self, selector: #selector(PagerViewController.callDismissShakeDeviceAlert), userInfo: nil, repeats: false)
+            
+            
                 // alertShake.dismiss(animated: true, completion: nil)
                 
                 
-                NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.CallDismissShakeDeviceAlert), object: nil, userInfo: nil)
-
-                NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessEnabled), object: nil)
+//                NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.CallDismissShakeDeviceAlert), object: nil, userInfo: nil)
+          
                 
-            }
+                  //self.callDismissShakeDeviceAlert()
+              
+                
+          
+                //self.callDismissShakeDeviceAlert()
+
+               //NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessEnabled), object: nil)
+                
+                
+            //}
         }
     }
 
@@ -191,7 +226,7 @@ class PagerViewController: UIViewController {
 //                luggageItem.photo = nil
 //            }
         
-            luggageItem.name = ""
+            luggageItem.name = uuid
             luggageItem.uuid = uuid
             luggageItem.major = "0"
             luggageItem.minor = "-1"
@@ -200,20 +235,49 @@ class PagerViewController: UIViewController {
         
         if let Acode = activation_Code {
             luggageItem.activation_code = Acode.lowercased()
+             Globals.log("A_CODE \(Acode)")
         }
             luggageItem.activation_key = activationKey.uppercased()
-             Globals.log("connectActivatingBeacon Called")
+             Globals.log("connectActivatingBeacon Called ACT KEY  \(activationKey.uppercased())")
         
-        
-        delegate?.connectActivatingBeacon(item: luggageItem)
+         Globals.log("connectActivatingBeacon Called ACT KEY  \(luggageItem.uuid)")
+        delegate?.connectActivatingBeacon(item: luggageItem)   ////TIGIL DITO
        
             //delegate?.connectActivatingBeaconItem(item: luggageItem)
         //}
         
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.AssignNameToActivatingKey), object: nil)
+       // NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.AssignNameToActivatingKey), object: nil)
         
     }
+    
 
+//    override func viewWillDisappear(_ animated: Bool) {
+//         super.viewWillDisappear(animated)
+//        Globals.log("DE INIT viewWillDisappear")
+//        
+//        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue:Constants.Notification.INPUT_ACTIVATION_CODE), object: nil)
+//        
+//        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue:Constants.Notification.NEXT_BUTTON), object: nil)
+//        
+//        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue:Constants.Notification.CallDismissShakeDeviceAlert), object: nil)
+//        
+//        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessEnabled), object: nil)
+//    }
+    
+    func stopActivatingBeacon(_ notification: Notification) {
+        guard let uuid = notification.userInfo?[Constants.Key.ActivatedUUID] as? String else {
+            Globals.log("Invalid UUID Key from TKTCoreLocation")
+            
+            return
+        }
+        
+        let luggageItem = LuggageTag()
+        luggageItem.name = uuid
+        luggageItem.uuid = uuid
+         Globals.log("stopActivatingBeacon")
+        delegate?.disconnectActivatingBeacon(item: luggageItem)
+    }
+    
     
     deinit {
         Globals.log("DE INIT PagerViewController")
@@ -224,6 +288,7 @@ class PagerViewController: UIViewController {
          NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue:Constants.Notification.CallDismissShakeDeviceAlert), object: nil)
 
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessEnabled), object: nil)
+         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.StopActivatingKey), object: nil)
     }
     
     

@@ -507,7 +507,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
       
       return
     }
-    
+    Globals.log("deviceIsActivated")
     trimmedName = nameTextField.text!.trimmingCharacters(
       in: CharacterSet.whitespacesAndNewlines
     )
@@ -523,7 +523,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
       if (isPhotoEdited) {
         luggageItem.photo = UIImageJPEGRepresentation(self.imgButton.currentImage!, 1.0)
       }
-      
+      Globals.log("deviceIsActivated")
       luggageItem.name = trimmedName!
       luggageItem.uuid = uuid
       luggageItem.minor = (uuidTextField.text! != luggageItem.activation_code.uppercased()) ? "-1" : luggageItem.minor

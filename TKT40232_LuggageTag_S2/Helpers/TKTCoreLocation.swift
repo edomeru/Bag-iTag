@@ -21,6 +21,7 @@ protocol TKTCoreLocationDelegate: NSObjectProtocol {
   
 }
 
+var timer = Timer()
 
 class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerDelegate {
   
@@ -33,7 +34,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
   
   weak var delegate: TKTCoreLocationDelegate?
   
-  var timer = Timer()
+  
   
   var activationName: String?
   var activationCode: String?
@@ -87,7 +88,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
   }
   
   func stopMonitoringBeacon(_ beaconRegion: CLBeaconRegion?, key: String) {
-    Globals.log("Stop Monitoring: \((beaconRegion?.proximityUUID.uuidString)!)")
+    Globals.log("Stop Monitoring stopMonitoringBeacon: \((beaconRegion?.proximityUUID.uuidString)!)")
     locationManager.stopRangingBeacons(in: beaconRegion!)
     locationManager.stopMonitoring(for: beaconRegion!)
     locationManager.stopUpdatingLocation()
@@ -182,7 +183,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
         Globals.log("PERIPHERAL STARTfsfafdabklfi99   \(advertisingDic)")
       NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.AssignNameToActivatingKey), object: nil, userInfo: [Constants.Key.ActivatedUUID: identifier, Constants.Key.ActivationKey: activationKey])
         //
-      
+        Globals.log("TIMER")
       timer = Timer.scheduledTimer(timeInterval: Constants.Time.FifteenSecondsTimeout, target: self, selector: #selector(TKTCoreLocation.stopAdvertising), userInfo: nil, repeats: false)
     } else {
       delegate?.onBackgroundLocationAccessDisabled(CLLocationManager.authorizationStatus().rawValue)
@@ -208,7 +209,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
   func stopAdvertising() {
     Globals.log("Stop Advertising STOP")
     peripheralManager.stopAdvertising()
-    
+    Globals.log("activatedBeaconUUID  \(activatedBeaconUUID)")
     if let activatdBeaconUuiD = activatedBeaconUUID {
     NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.StopActivatingKey), object: nil, userInfo: [Constants.Key.ActivatedUUID: activatdBeaconUuiD])
     }
@@ -269,11 +270,13 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
         if timer.isValid {
           timer.invalidate()
           
-          Globals.log("Stop Advertising")
+          Globals.log("Stop Advertising...")
           peripheralManager.stopAdvertising()
+            
         }
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.ENTER_REGION), object: nil, userInfo: nil)
         
-        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.ActivationSuccessKey), object: nil, userInfo: [Constants.Key.ActivationIdentifier: beaconRegion.identifier, Constants.Key.ActivatedUUID: abUUID, Constants.Key.ActivationKey: ak, Constants.Key.ActivationCode: ac])
+//        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.ActivationSuccessKey), object: nil, userInfo: [Constants.Key.ActivationIdentifier: beaconRegion.identifier, Constants.Key.ActivatedUUID: abUUID, Constants.Key.ActivationKey: ak, Constants.Key.ActivationCode: ac])    // SAVING TO DATABASE
         
         activationCode = nil
         activationKey = nil

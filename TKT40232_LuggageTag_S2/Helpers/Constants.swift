@@ -64,6 +64,7 @@ struct Constants {
     static let INPUT_ACTIVATION_CODE = "INPUT_ACTIVATION_CODE"
     static let NEXT_BUTTON = "NEXT_BUTTON"
     static let connectActivatingBeacon = "connectActivatingBeacon"
+    static let ENTER_REGION = "ENTER_REGION"
   }
   
   struct Time {
