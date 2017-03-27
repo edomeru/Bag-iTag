@@ -266,7 +266,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
       
       if let abUUID = activatedBeaconUUID, let ak = activationKey, let ac = activationCode {
         // Success Activating the Beacon from Deep Sleep
-        
+         Globals.log("Stop UUID \(abUUID)  activationKey  \(ak)  activationCode  \(ac) ")
         if timer.isValid {
           timer.invalidate()
           
@@ -274,7 +274,11 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
           peripheralManager.stopAdvertising()
             
         }
-        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.ENTER_REGION), object: nil, userInfo: nil)
+        
+
+        let myDict: [String: Any] = [ Constants.Key.ActivatedUUID: abUUID, Constants.Key.ActivationKey: ak,Constants.Key.ActivationCode: ac]
+        
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.ENTER_REGION), object: nil, userInfo: myDict)
         
 //        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.ActivationSuccessKey), object: nil, userInfo: [Constants.Key.ActivationIdentifier: beaconRegion.identifier, Constants.Key.ActivatedUUID: abUUID, Constants.Key.ActivationKey: ak, Constants.Key.ActivationCode: ac])    // SAVING TO DATABASE
         

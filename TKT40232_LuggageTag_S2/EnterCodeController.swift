@@ -32,25 +32,25 @@ var hexString: String?
       
         
         if (isValidLuggage) {
-            let aCode: String = codeTextField.text!.lowercased()
+           let aCode: String = codeTextField.text!.lowercased()
+//            
+//            var BTAddress:Int64 = 0
+//            var powIndex = 0
+//            
+//            for char in aCode.characters.reversed() {
+//                let characterString = "\(char)"
+//                
+//                if let asciiValue = Character(characterString).asciiValue {
+//                    BTAddress += Int64(asciiValue - 96) * Int64("\(pow(26, powIndex))")!
+//                    powIndex += 1
+//                }
+//            }
             
-            var BTAddress:Int64 = 0
-            var powIndex = 0
-            
-            for char in aCode.characters.reversed() {
-                let characterString = "\(char)"
-                
-                if let asciiValue = Character(characterString).asciiValue {
-                    BTAddress += Int64(asciiValue - 96) * Int64("\(pow(26, powIndex))")!
-                    powIndex += 1
-                }
-            }
-            
-            hexString = String(BTAddress, radix: 16, uppercase: true)
-            let actCode:[String: String] = ["aCode": aCode]
-            if let hex = hexString {
-            NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.NEXT_BUTTON), object: hex, userInfo: actCode)
-            }
+//            hexString = String(BTAddress, radix: 16, uppercase: true)
+//            let actCode:[String: String] = ["aCode": aCode]
+           // if let hex = hexString {
+            NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.NEXT_BUTTON), object: aCode, userInfo: nil)
+            //}
         }
         
     }

@@ -18,7 +18,8 @@ class WizardPagerViewController: UIPageViewController {
                 self.newColoredViewController("Red"),
                 self.newColoredViewController("Blue"),
                self.newColoredViewController("NameYourTag"),
-                self.newColoredViewController("AddPhoto")
+                self.newColoredViewController("AddPhoto"),
+           
         ]
     }()
     override func viewDidLoad() {

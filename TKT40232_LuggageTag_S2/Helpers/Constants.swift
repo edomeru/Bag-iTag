@@ -65,6 +65,11 @@ struct Constants {
     static let NEXT_BUTTON = "NEXT_BUTTON"
     static let connectActivatingBeacon = "connectActivatingBeacon"
     static let ENTER_REGION = "ENTER_REGION"
+    static let SEND_TAG_NAME  = "SEND_TAG_NAME"
+    static let CancelPhotoView = "CancelPhotoView"
+    static let TAKE_PHOTO = "TAKE_PHOTO"
+    static let  SEND_PHOTO = "SEND_PHOTO"
+    static let SavingNewLugguageItem = "SavingNewLugguageItem"
   }
   
   struct Time {

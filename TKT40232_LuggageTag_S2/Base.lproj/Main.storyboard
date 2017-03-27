@@ -2134,6 +2134,9 @@
                                         <color key="value" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="nextButton:" destination="mrS-8K-LmV" eventType="touchUpInside" id="uiE-Dx-mu0"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
@@ -2146,6 +2149,9 @@
                             <constraint firstItem="dqo-yC-Pqi" firstAttribute="centerX" secondItem="Ldk-mq-ksH" secondAttribute="centerX" id="vxD-jq-rps"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="nameTextField" destination="UC3-ss-nxL" id="1T1-JB-mis"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gTG-Pe-D2r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2166,14 +2172,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rml-C9-RQL">
                                 <rect key="frame" x="0.0" y="213" width="375" height="185"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cam_logo" translatesAutoresizingMaskIntoConstraints="NO" id="id1-5L-hal">
-                                        <rect key="frame" x="124" y="0.0" width="119" height="143"/>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="119" id="xw1-db-Xqs"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Click here to take a photo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y4e-Sl-DhC">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Click here to take a photo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y4e-Sl-DhC">
                                         <rect key="frame" x="80" y="136" width="207" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="207" id="eQI-B8-abL"/>
@@ -2187,11 +2186,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="185" id="2w4-Aa-2rO"/>
-                                    <constraint firstItem="y4e-Sl-DhC" firstAttribute="top" secondItem="id1-5L-hal" secondAttribute="bottom" constant="-7" id="HOX-wc-lya"/>
                                     <constraint firstAttribute="width" constant="375" id="MBy-l7-4Ji"/>
-                                    <constraint firstItem="id1-5L-hal" firstAttribute="top" secondItem="Rml-C9-RQL" secondAttribute="top" id="QSW-RO-tBn"/>
-                                    <constraint firstAttribute="bottom" secondItem="id1-5L-hal" secondAttribute="bottom" constant="42" id="QiP-HT-fix"/>
-                                    <constraint firstItem="id1-5L-hal" firstAttribute="leading" secondItem="Rml-C9-RQL" secondAttribute="leading" constant="124" id="VGQ-1i-8x2"/>
                                     <constraint firstItem="y4e-Sl-DhC" firstAttribute="centerX" secondItem="Rml-C9-RQL" secondAttribute="centerX" constant="-4" id="nA0-do-Vgt"/>
                                 </constraints>
                             </view>
@@ -2228,6 +2223,7 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="previous:" destination="VRR-5r-x8I" eventType="touchUpInside" id="owH-VF-u3D"/>
+                                    <action selector="previousButton:" destination="VRR-5r-x8I" eventType="touchUpInside" id="6hc-cD-ci8"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e7V-Zk-Ipd" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
@@ -2251,16 +2247,46 @@
                                         <color key="value" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="nextSkip:" destination="VRR-5r-x8I" eventType="touchUpInside" id="iaq-tR-aCC"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SkO-E6-iAV" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
+                                <rect key="frame" x="84" y="213" width="180" height="180"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="180" id="itj-A2-P4C"/>
+                                </constraints>
+                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <size key="titleShadowOffset" width="0.0" height="2.2250738585072014e-308"/>
+                                <state key="normal" image="cam_logo"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="90"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="Z9n-Kq-Blf" kind="presentation" animates="NO" modalPresentationStyle="overCurrentContext" id="QEg-7A-8mf"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Rml-C9-RQL" firstAttribute="centerY" secondItem="NHE-Ai-un8" secondAttribute="centerY" constant="-28" id="0oZ-Gd-Xiq"/>
+                            <constraint firstItem="SkO-E6-iAV" firstAttribute="leading" secondItem="NHE-Ai-un8" secondAttribute="leadingMargin" constant="68" id="BpJ-Vw-Yv3"/>
                             <constraint firstAttribute="trailingMargin" secondItem="e7V-Zk-Ipd" secondAttribute="trailing" constant="12" id="Ehr-3Q-cfl"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="SkO-E6-iAV" secondAttribute="trailing" constant="95" id="FrA-XD-wD6"/>
                             <constraint firstItem="Rml-C9-RQL" firstAttribute="centerX" secondItem="NHE-Ai-un8" secondAttribute="centerX" id="GYD-fz-y2u"/>
                             <constraint firstItem="e7V-Zk-Ipd" firstAttribute="width" secondItem="Jbc-6l-AC9" secondAttribute="width" id="HPH-A5-iDD"/>
                             <constraint firstItem="Jbc-6l-AC9" firstAttribute="leading" secondItem="NHE-Ai-un8" secondAttribute="leadingMargin" constant="8" id="Nz6-gn-AtU"/>
                             <constraint firstItem="Rml-C9-RQL" firstAttribute="top" secondItem="nbK-6v-eeh" secondAttribute="bottom" constant="8" id="SOM-Qc-DFH"/>
+                            <constraint firstItem="SkO-E6-iAV" firstAttribute="top" secondItem="Rml-C9-RQL" secondAttribute="top" id="iXl-AV-ePn"/>
                             <constraint firstItem="OxZ-po-LJj" firstAttribute="top" secondItem="Jbc-6l-AC9" secondAttribute="bottom" constant="42" id="qFP-zM-hVF"/>
                             <constraint firstAttribute="leadingMargin" secondItem="nbK-6v-eeh" secondAttribute="leading" id="qa0-z0-lBq"/>
                             <constraint firstItem="OxZ-po-LJj" firstAttribute="top" secondItem="e7V-Zk-Ipd" secondAttribute="bottom" constant="42" id="vLJ-cz-tcE"/>
@@ -2268,10 +2294,99 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="lWg-Jz-gcU"/>
+                    <connections>
+                        <outlet property="imgButton" destination="SkO-E6-iAV" id="RZn-Yk-1b7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vZs-g4-L92" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4465" y="-573"/>
+        </scene>
+        <!--Modal View Controller-->
+        <scene sceneID="Bfh-rv-DLf">
+            <objects>
+                <viewController id="Z9n-Kq-Blf" customClass="ModalViewController" customModule="LuggageFinder" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="EY9-7m-IjP"/>
+                        <viewControllerLayoutGuide type="bottom" id="mpM-Ti-u20"/>
+                    </layoutGuides>
+                    <view key="view" opaque="NO" contentMode="scaleToFill" id="JH7-2x-G4a">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view opaque="NO" alpha="0.40000000596046448" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5UN-dZ-UCU" userLabel="dim_background">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Am-U9-1JW">
+                                <rect key="frame" x="16" y="436" width="343" height="60"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="Gadugi" family="Gadugi" pointSize="18"/>
+                                <state key="normal" title="Take Photo"/>
+                                <connections>
+                                    <action selector="takePhoto:" destination="Z9n-Kq-Blf" eventType="touchUpInside" id="ZMy-Ow-yT7"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oih-Qv-TZb">
+                                <rect key="frame" x="16" y="497" width="343" height="60"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="Gadugi" family="Gadugi" pointSize="18"/>
+                                <state key="normal" title="Choose Photo"/>
+                                <connections>
+                                    <action selector="choosePhoto:" destination="Z9n-Kq-Blf" eventType="touchUpInside" id="T9u-ps-NrO"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T4a-0F-9Jl" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
+                                <rect key="frame" x="16" y="567" width="343" height="60"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="Gadugi" family="Gadugi" pointSize="18"/>
+                                <state key="normal" title="Cancel"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="cancelClicked:" destination="Z9n-Kq-Blf" eventType="touchUpInside" id="zdr-U2-O4u"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="5UN-dZ-UCU" firstAttribute="bottom" secondItem="mpM-Ti-u20" secondAttribute="top" id="3dm-OV-s3w"/>
+                            <constraint firstItem="T4a-0F-9Jl" firstAttribute="top" secondItem="oih-Qv-TZb" secondAttribute="bottom" constant="10" id="8We-hU-QK4"/>
+                            <constraint firstItem="T4a-0F-9Jl" firstAttribute="top" secondItem="5UN-dZ-UCU" secondAttribute="bottom" constant="-100" id="8b1-Qc-ZTz"/>
+                            <constraint firstItem="5UN-dZ-UCU" firstAttribute="height" secondItem="JH7-2x-G4a" secondAttribute="height" id="AlF-3c-grV"/>
+                            <constraint firstItem="0Am-U9-1JW" firstAttribute="trailing" secondItem="oih-Qv-TZb" secondAttribute="trailing" id="I1D-eM-ld1"/>
+                            <constraint firstItem="0Am-U9-1JW" firstAttribute="leading" secondItem="oih-Qv-TZb" secondAttribute="leading" id="MrV-Fr-wuz"/>
+                            <constraint firstItem="5UN-dZ-UCU" firstAttribute="leading" secondItem="JH7-2x-G4a" secondAttribute="leading" id="W62-sT-zW0"/>
+                            <constraint firstItem="0Am-U9-1JW" firstAttribute="top" secondItem="5UN-dZ-UCU" secondAttribute="bottom" constant="-231" id="Wqx-Bb-oNP"/>
+                            <constraint firstItem="mpM-Ti-u20" firstAttribute="top" secondItem="T4a-0F-9Jl" secondAttribute="bottom" constant="40" id="dPZ-Ef-kXM"/>
+                            <constraint firstItem="T4a-0F-9Jl" firstAttribute="leading" secondItem="JH7-2x-G4a" secondAttribute="leadingMargin" id="eY3-ed-EGQ"/>
+                            <constraint firstItem="oih-Qv-TZb" firstAttribute="top" secondItem="0Am-U9-1JW" secondAttribute="bottom" constant="1" id="ec2-i3-Lwe"/>
+                            <constraint firstItem="oih-Qv-TZb" firstAttribute="leading" secondItem="T4a-0F-9Jl" secondAttribute="leading" id="iIx-WP-ZwH"/>
+                            <constraint firstItem="oih-Qv-TZb" firstAttribute="width" secondItem="T4a-0F-9Jl" secondAttribute="width" id="qMS-Ai-ni9"/>
+                            <constraint firstItem="oih-Qv-TZb" firstAttribute="height" secondItem="T4a-0F-9Jl" secondAttribute="height" id="v1V-Ik-MJf"/>
+                            <constraint firstItem="5UN-dZ-UCU" firstAttribute="width" secondItem="JH7-2x-G4a" secondAttribute="width" id="wKu-1x-Yv5"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="T4a-0F-9Jl" secondAttribute="trailing" id="xlT-Ux-gII"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="T4a-0F-9Jl" id="mef-fs-QGq"/>
+                        <outlet property="choosePhotoButton" destination="oih-Qv-TZb" id="jbf-iK-5NG"/>
+                        <outlet property="dimBackground" destination="5UN-dZ-UCU" id="3Er-ar-oxo"/>
+                        <outlet property="takePhotoButton" destination="0Am-U9-1JW" id="Fyb-5w-Pcn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kFn-2V-ZsL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5191" y="-573"/>
         </scene>
     </scenes>
     <resources>

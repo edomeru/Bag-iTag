@@ -16,6 +16,8 @@ struct Drag {
   static var sourceIndexPath: IndexPath!
 }
 
+var beaconLuggageReference: [LuggageTag]?
+
 class ListViewController: UIViewController, CBCentralManagerDelegate, TKTCoreLocationDelegate, UITableViewDataSource,
 UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControllerDelegate, CustomTableCellDelegate, UIPageViewControllerDelegate {
   
@@ -64,6 +66,13 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   override func viewDidLoad() {
     super.viewDidLoad()
     
+//    if let roww = row{
+//        beaconLuggageReference = row
+//        Globals.log("LIST   \(beaconLuggageReference)")
+//    }
+//    
+
+    
     formatNavigationBar()
     applicationInfo()
     
@@ -91,7 +100,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     
     NotificationCenter.default.addObserver(self, selector: #selector(ListViewController.transmitActivationKey(_:)), name: NSNotification.Name(rawValue: Constants.Notification.TransmitActivationKey), object: nil)
 
-    
+     NotificationCenter.default.addObserver(self, selector: #selector(ListViewController.SavingNewLugguageItem(_:)), name: NSNotification.Name(rawValue: Constants.Notification.SavingNewLugguageItem), object: nil)
  
     
   }
@@ -269,8 +278,12 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       
       if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
         controller.beaconToEdit = row[(indexPath as NSIndexPath).row]
-        
+       
         controller.beaconReference = row
+       
+        
+     
+        
       }
     }
     
@@ -288,7 +301,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         let controller = navigationController.topViewController as! PagerViewController
         controller.delegate = self
         
-        
+        controller.beaconReference = row
         
     }
     
@@ -489,6 +502,39 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     dismiss(animated: true, completion: nil)
   }
   
+    
+  func SavingNewLugguageItem(_ sender: Notification){
+        
+//        let index = getMaxID() + 1
+//        let count = row.count
+//        
+//        row.append(item)
+//        item.id = index
+//        
+//        let indexPath = IndexPath(row: count, section: 0)
+//        let indexPaths = [indexPath]
+//        
+//        tableView.beginUpdates()
+//        tableView.insertRows(at: indexPaths, with: .automatic)
+//        tableView.endUpdates()
+//        
+//        if let cell = tableView.cellForRow(at: indexPath) {
+//            let battery = cell.viewWithTag(1003) as! UILabel
+//            battery.text = "\(item.minor)%"
+//            battery.isHidden = (battery.text! == "-1%") ? true : false
+//        }
+//        
+//        // Save item in Database
+//        saveToDatabase(item)
+//        
+//        dismiss(animated: true, completion: nil)
+        
+    }
+   
+    
+    
+    
+    
   func beaconDetailViewController(_ controller: BeaconDetailViewController, didFinishEditingItem item: LuggageTag) {
     if let index = row.index(of: item) {
       let indexPath = IndexPath(row: index, section: 0)
