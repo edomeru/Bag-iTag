@@ -105,6 +105,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
       }
       
       nameTextField.text = item.name
+        Globals.log("UPDATE ACT CODE \(beaconToEdit?.activation_code.uppercased())")
       uuidTextField.text = beaconToEdit?.activation_code.uppercased()
 
       if (beaconToEdit?.activated)! {

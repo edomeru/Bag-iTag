@@ -48,6 +48,7 @@ struct Constants {
     static let ActivationCode = "activation_code"
     static let ActivationKey = "activation_key"
     static let ActivatedUUID = "activated_uuid"
+    static let ActivationOption = "ActivationOption"
   }
   
   struct Notification {
@@ -70,6 +71,9 @@ struct Constants {
     static let TAKE_PHOTO = "TAKE_PHOTO"
     static let  SEND_PHOTO = "SEND_PHOTO"
     static let SavingNewLugguageItem = "SavingNewLugguageItem"
+    static let CancelQrScreen = "CancelQrScreen"
+    static let ShowCancel = "ShowCancel"
+    
   }
   
   struct Time {

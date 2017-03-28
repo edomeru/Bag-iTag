@@ -40,7 +40,7 @@ var hexString: String?
 //            for char in aCode.characters.reversed() {
 //                let characterString = "\(char)"
 //                
-//                if let asciiValue = Character(characterString).asciiValue {
+//                if let asciiValue = Character(characterString).asciiValue {R
 //                    BTAddress += Int64(asciiValue - 96) * Int64("\(pow(26, powIndex))")!
 //                    powIndex += 1
 //                }
@@ -49,7 +49,8 @@ var hexString: String?
 //            hexString = String(BTAddress, radix: 16, uppercase: true)
 //            let actCode:[String: String] = ["aCode": aCode]
            // if let hex = hexString {
-            NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.NEXT_BUTTON), object: aCode, userInfo: nil)
+             let myDict: [String: Any] = [ Constants.Key.ActivationOption: "ac"]
+            NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.NEXT_BUTTON), object: aCode, userInfo: myDict)
             //}
         }
         

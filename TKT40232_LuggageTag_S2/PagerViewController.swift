@@ -11,7 +11,7 @@ import CoreLocation
 import CoreBluetooth
 import Foundation
 
-
+var beaconss: [LuggageTag]?
 
 class PagerViewController: UIViewController , CLLocationManagerDelegate{
   
@@ -20,7 +20,7 @@ class PagerViewController: UIViewController , CLLocationManagerDelegate{
     var ActivationKey:String = ""
     var UUID:String = ""
     
-    var beaconReference: [LuggageTag]?
+      var beaconReference: [LuggageTag]?
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var containerView: UIView!
     
@@ -36,8 +36,15 @@ class PagerViewController: UIViewController , CLLocationManagerDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-           self.navigationController?.isNavigationBarHidden = true
+        formatNavigationBar()
+        if let beacons = beaconReference{
+            beaconss = beacons
+        }
+        
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
+        hideNavigationItem(item: self.navigationItem.rightBarButtonItem)
         pageControl.addTarget(self, action: #selector(PagerViewController.didChangePageControlValue), for: .valueChanged)
         
      
@@ -63,6 +70,8 @@ class PagerViewController: UIViewController , CLLocationManagerDelegate{
         NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.TapNextButton(_:)), name: NSNotification.Name(rawValue: Constants.Notification.TAKE_PHOTO), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.activateLuggageItem(_:)), name: NSNotification.Name(rawValue: Constants.Notification.SEND_PHOTO), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.showNavigationItem(_:)), name:NSNotification.Name(rawValue: Constants.Notification.ShowCancel), object: nil);
         
         
     }
@@ -102,12 +111,12 @@ class PagerViewController: UIViewController , CLLocationManagerDelegate{
         
         Globals.log("UUID \(uuid)")
          Globals.log("ActivationKey \(aK)")
-         Globals.log("ActivationCode \(aC)")
+         Globals.log("ActivationCode test \(aC)")
         
         
         UUID =  uuid
         ActivationKey = aK
-        activatioNCode = aC
+      //  activatioNCode = aC
         
         tutorialPageViewController?.scrollToNextViewController()
         
@@ -149,7 +158,7 @@ class PagerViewController: UIViewController , CLLocationManagerDelegate{
 
 //        delegate?.beaconDetailViewController(self, didFinishAddingItem: luggageItem)
 //        
-         NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.SavingNewLugguageItem), object: nil, userInfo: nil)
+         NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.SavingNewLugguageItem), object: luggageItem, userInfo: nil)
     }
     
     
@@ -160,12 +169,19 @@ class PagerViewController: UIViewController , CLLocationManagerDelegate{
         let aCode: String = sender.object as! String
         self.activatioNCode = aCode
        Globals.log("GLOBAL  \(self.activatioNCode)")
-        self.createHex(aCode: aCode)
+        
+        guard let ActivationOption = sender.userInfo?[Constants.Key.ActivationOption] as? String else {
+            Globals.log("Invalid ActivationOption Key from PageViewController")
+            
+            return
+        }
+
+        self.createHex(aCode: aCode, ActivationOption:ActivationOption)
         
     }
     
     
-    func createHex(aCode:String){
+    func createHex(aCode:String, ActivationOption:String){
     
     var BTAddress:Int64 = 0
     var powIndex = 0
@@ -174,6 +190,7 @@ class PagerViewController: UIViewController , CLLocationManagerDelegate{
         let characterString = "\(char)"
         
         if let asciiValue = Character(characterString).asciiValue {
+            Globals.log("BTAddress  \(BTAddress) asciiValue \(asciiValue)   powIndex \(powIndex) ")
             BTAddress += Int64(asciiValue - 96) * Int64("\(pow(26, powIndex))")!
             powIndex += 1
         }
@@ -188,7 +205,12 @@ class PagerViewController: UIViewController , CLLocationManagerDelegate{
     
     NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.TransmitActivationKey), object: hexString, userInfo: nil)
     
-    tutorialPageViewController?.scrollToNextViewController()  //go to SHAKE PAGE
+        if ActivationOption == "ac" {
+        tutorialPageViewController?.scrollToNextViewController()  //go to NEXT PAGE
+        }else{
+         tutorialPageViewController?.scrollToViewController(index: 2)// go to SHAKE PAGE
+        }
+    
     
     }
     
@@ -382,7 +404,12 @@ class PagerViewController: UIViewController , CLLocationManagerDelegate{
         delegate?.disconnectActivatingBeacon(item: luggageItem)
     }
     
-    
+    func showNavigationItem(_ notification: Notification) {
+        
+       let shw = self.navigationItem.rightBarButtonItem
+        shw?.isEnabled = true
+        shw?.tintColor = UIColor.white
+    }
     
     deinit {
         Globals.log("DE INIT PagerViewController")
@@ -396,6 +423,27 @@ class PagerViewController: UIViewController , CLLocationManagerDelegate{
          NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.StopActivatingKey), object: nil)
     }
     
+ 
+
+    
+    @IBAction func qrCancel(_ sender: Any) {
+         hideNavigationItem(item: self.navigationItem.rightBarButtonItem)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.CancelQrScreen), object: nil, userInfo: nil)
+    }
+    fileprivate func formatNavigationBar() {
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.backgroundColor = .clear
+        navigationController!.navigationBar.isTranslucent = true
+        self.navigationController?.navigationBar.alpha = 0.0
+    }
+    
+    fileprivate func hideNavigationItem(item: UIBarButtonItem?) {
+        item?.isEnabled = false
+        item?.tintColor = UIColor.clear
+    }
+    
+
     
     }
 

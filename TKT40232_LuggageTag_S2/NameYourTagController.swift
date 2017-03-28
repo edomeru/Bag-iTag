@@ -24,7 +24,7 @@ class NameYourTagController: UIViewController, AddPhotoControllerDelegate, UITex
          nameTextField.delegate = self
         nameTextField.resignFirstResponder()
      
-        Globals.log("Name Your Tag \(beaconLuggageReference)")
+        Globals.log("Name Your Tag \(beaconss!)")
        
         
     }
@@ -78,7 +78,7 @@ class NameYourTagController: UIViewController, AddPhotoControllerDelegate, UITex
 //        }
         
         if (nameTextField.text! == "") {
-            showConfirmation(NSLocalizedString("warning", comment: ""), message: NSLocalizedString("exit_confirmation", comment: ""))
+            showConfirmation(NSLocalizedString("warning", comment: ""), message: NSLocalizedString("error_empty_name", comment: ""))
             
             return false
         }
@@ -90,20 +90,20 @@ class NameYourTagController: UIViewController, AddPhotoControllerDelegate, UITex
 //        }
         
    
-//        if (checkTagAvailability()) {
-//            showConfirmation(NSLocalizedString("warning", comment: ""), message: NSLocalizedString("err_luggage_exist", comment: ""))
-//            
-//            return false
-//        }
+        if (checkTagAvailability()) {
+            showConfirmation(NSLocalizedString("warning", comment: ""), message: NSLocalizedString("err_luggage_exist", comment: ""))
+            
+            return false
+        }
         
         return true
     }
     
     fileprivate func checkTagAvailability() -> Bool {
         
-        for beacon in beaconLuggageReference! {
+        for beacon in beaconss! {
             if (beacon.name == trimmedName!) {
-                
+                Globals.log("Name of Tag \(beacon.name)")
                 return true
             }
         }
@@ -121,6 +121,12 @@ class NameYourTagController: UIViewController, AddPhotoControllerDelegate, UITex
         ]
         
         Globals.showAlert(self, title: title, message: message, animated: true, completion: nil, actions: actions)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        
+        return true
     }
     
 }

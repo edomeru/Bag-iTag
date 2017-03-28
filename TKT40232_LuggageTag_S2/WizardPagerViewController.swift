@@ -25,7 +25,7 @@ class WizardPagerViewController: UIPageViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        dataSource = self
+       // dataSource = self
         delegate = self
         
         if let initialViewController = orderedViewControllers.first {

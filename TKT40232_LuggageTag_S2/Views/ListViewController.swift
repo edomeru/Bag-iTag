@@ -503,32 +503,32 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   }
   
     
-  func SavingNewLugguageItem(_ sender: Notification){
+  func SavingNewLugguageItem(_ itemm: Notification){
         
-//        let index = getMaxID() + 1
-//        let count = row.count
-//        
-//        row.append(item)
-//        item.id = index
-//        
-//        let indexPath = IndexPath(row: count, section: 0)
-//        let indexPaths = [indexPath]
-//        
-//        tableView.beginUpdates()
-//        tableView.insertRows(at: indexPaths, with: .automatic)
-//        tableView.endUpdates()
-//        
-//        if let cell = tableView.cellForRow(at: indexPath) {
-//            let battery = cell.viewWithTag(1003) as! UILabel
-//            battery.text = "\(item.minor)%"
-//            battery.isHidden = (battery.text! == "-1%") ? true : false
-//        }
-//        
-//        // Save item in Database
-//        saveToDatabase(item)
-//        
-//        dismiss(animated: true, completion: nil)
+        let index = getMaxID() + 1
+        let count = row.count
+       let item = itemm.object as! LuggageTag
+        row.append(item)
+        item.id = index
         
+        let indexPath = IndexPath(row: count, section: 0)
+        let indexPaths = [indexPath]
+        
+        tableView.beginUpdates()
+        tableView.insertRows(at: indexPaths, with: .automatic)
+        tableView.endUpdates()
+        
+        if let cell = tableView.cellForRow(at: indexPath) {
+            let battery = cell.viewWithTag(1003) as! UILabel
+            battery.text = "\(item.minor)%"
+            battery.isHidden = (battery.text! == "-1%") ? true : false
+        }
+        
+        // Save item in Database
+        saveToDatabase(item)
+        
+        dismiss(animated: true, completion: nil)
+    
     }
    
     

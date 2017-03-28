@@ -1002,7 +1002,7 @@
                                 <rect key="frame" x="55" y="164" width="272" height="285"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shake tag to activate" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ohh-Ol-oee">
-                                <rect key="frame" x="99.5" y="472" width="177.5" height="31"/>
+                                <rect key="frame" x="99" y="472" width="178" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="uJR-SS-NoI"/>
                                 </constraints>
@@ -1681,36 +1681,30 @@
                                     <segue destination="KtZ-xJ-2Ts" kind="embed" id="8f6-xu-wWH"/>
                                 </connections>
                             </containerView>
-                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="YT9-RL-ryh">
+                            <pageControl hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="YT9-RL-ryh">
                                 <rect key="frame" x="20" y="84" width="39" height="37"/>
                                 <color key="pageIndicatorTintColor" red="1" green="0.086735173969999996" blue="0.92219595379999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="currentPageIndicatorTintColor" red="0.32389615770000002" green="0.8787983425" blue="0.86665754679999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </pageControl>
-                            <button opaque="NO" alpha="0.40000000596046448" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OFX-q5-0j8">
-                                <rect key="frame" x="303" y="609" width="52" height="38"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
-                                <state key="normal" title="Next">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="didTapNextButton:" destination="kZk-ZP-a2f" eventType="touchUpInside" id="kBo-Vy-BJa"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="YT9-RL-ryh" firstAttribute="top" secondItem="8bc-gd-fZA" secondAttribute="bottom" constant="20" id="0dk-xs-CMH"/>
-                            <constraint firstAttribute="trailing" secondItem="OFX-q5-0j8" secondAttribute="trailing" constant="20" id="RwY-NK-Hhr"/>
                             <constraint firstItem="i0V-qD-eSV" firstAttribute="top" secondItem="8bc-gd-fZA" secondAttribute="bottom" id="UIN-wb-xAx"/>
                             <constraint firstAttribute="trailing" secondItem="i0V-qD-eSV" secondAttribute="trailing" id="UrI-YP-oOs"/>
                             <constraint firstItem="YT9-RL-ryh" firstAttribute="leading" secondItem="98j-ip-8fC" secondAttribute="leading" constant="20" id="ZNY-A7-8JC"/>
                             <constraint firstItem="A0S-cp-nqi" firstAttribute="top" secondItem="i0V-qD-eSV" secondAttribute="bottom" id="cAE-LB-VVg"/>
-                            <constraint firstItem="A0S-cp-nqi" firstAttribute="top" secondItem="OFX-q5-0j8" secondAttribute="bottom" constant="20" id="d58-Ym-fvO"/>
                             <constraint firstItem="i0V-qD-eSV" firstAttribute="leading" secondItem="98j-ip-8fC" secondAttribute="leading" id="hl6-hd-HGk"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="dVa-WU-UDc"/>
+                    <navigationItem key="navigationItem" id="dVa-WU-UDc">
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="4Hg-6t-SoD">
+                            <color key="tintColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="qrCancel:" destination="kZk-ZP-a2f" id="0gQ-1l-G9A"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="containerView" destination="i0V-qD-eSV" id="7er-Cb-mWl"/>
                         <outlet property="pageControl" destination="YT9-RL-ryh" id="dha-4v-jOA"/>
@@ -1718,7 +1712,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BUr-eB-TUa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3278" y="-1943"/>
+            <point key="canvasLocation" x="3277.5999999999999" y="-1943.4782608695655"/>
         </scene>
         <!--Wizard Pager View Controller-->
         <scene sceneID="6GX-zf-qVU">
@@ -1736,6 +1730,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="fve-cw-Kdo">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -1780,6 +1775,9 @@
                                         <color key="value" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="qrButtonClicked:" destination="Lmi-tA-xiB" eventType="touchUpInside" id="DKa-dF-LqY"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scanqr" translatesAutoresizingMaskIntoConstraints="NO" id="B3h-0a-OgC">
                                 <rect key="frame" x="4" y="20" width="366" height="126"/>
@@ -1902,10 +1900,18 @@
                             <constraint firstItem="YHT-UF-ZWl" firstAttribute="width" secondItem="1JO-ta-mgf" secondAttribute="width" constant="-104" id="tXx-Fp-KzC"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="Bdd-Wi-CF3">
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="HNA-6t-d2S">
+                            <color key="tintColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="qrCancelButton:" destination="Lmi-tA-xiB" id="NFQ-Nt-DjL"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bRn-CH-Len" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1882" y="-572"/>
+            <point key="canvasLocation" x="2820" y="-572.56371814092961"/>
         </scene>
         <!--Enter Code Controller-->
         <scene sceneID="3Xx-St-mVD">
@@ -2026,7 +2032,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vua-N9-oTX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2513" y="-573"/>
+            <point key="canvasLocation" x="3452" y="-573.46326836581716"/>
         </scene>
         <!--Shake Beacon Controller-->
         <scene sceneID="K9t-zt-us4">
@@ -2069,7 +2075,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="loi-CO-7GW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3158" y="-573"/>
+            <point key="canvasLocation" x="4096.8000000000002" y="-573.46326836581716"/>
         </scene>
         <!--Name Your Tag Controller-->
         <scene sceneID="9Kl-UC-37e">
@@ -2155,7 +2161,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gTG-Pe-D2r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3785" y="-573"/>
+            <point key="canvasLocation" x="4724" y="-573.46326836581716"/>
         </scene>
         <!--Add Photo Controller-->
         <scene sceneID="dNH-jB-DOf">
@@ -2300,7 +2306,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vZs-g4-L92" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4465" y="-573"/>
+            <point key="canvasLocation" x="5404" y="-573.46326836581716"/>
         </scene>
         <!--Modal View Controller-->
         <scene sceneID="Bfh-rv-DLf">
@@ -2386,7 +2392,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kFn-2V-ZsL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5191" y="-573"/>
+            <point key="canvasLocation" x="6128.8000000000002" y="-573.46326836581716"/>
         </scene>
     </scenes>
     <resources>
