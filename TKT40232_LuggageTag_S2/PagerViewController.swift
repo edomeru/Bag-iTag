@@ -207,8 +207,10 @@ class PagerViewController: UIViewController , CLLocationManagerDelegate{
     
         if ActivationOption == "ac" {
         tutorialPageViewController?.scrollToNextViewController()  //go to NEXT PAGE
-        }else{
+        }else if ActivationOption == "qr" {
          tutorialPageViewController?.scrollToViewController(index: 2)// go to SHAKE PAGE
+        }else if ActivationOption == "retry" {
+            self.tutorialPageViewController?.scrollToViewController(index: self.pageControl.currentPage) // stay on CURENT PAGE
         }
     
     
@@ -257,12 +259,14 @@ class PagerViewController: UIViewController , CLLocationManagerDelegate{
             },
             UIAlertAction(title: NSLocalizedString("RETRY", comment: ""), style: .default){ (action) in
                 
-                    self.tutorialPageViewController?.scrollToViewController(index: self.pageControl.currentPage)
-//                if let acnde = self.activatioNCode{
-//                     Globals.log("RETRY\(acnde)")
-//                self.createHex(aCode: acnde)
-//                   
-//                }
+                   // self.tutorialPageViewController?.scrollToViewController(index: self.pageControl.currentPage)
+                
+                
+               
+                     Globals.log("RETRY\(self.activatioNCode)")
+                    self.createHex(aCode: self.activatioNCode,ActivationOption:"retry")
+                   
+              
 //                NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.NEXT_BUTTON), object: hex, userInfo: nil)
             }
         ]
