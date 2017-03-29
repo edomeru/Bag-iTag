@@ -117,7 +117,7 @@ class PagerViewController: UIViewController , CLLocationManagerDelegate{
         UUID =  uuid
         ActivationKey = aK
       //  activatioNCode = aC
-        
+         Globals.log("CHECK THIS")
         tutorialPageViewController?.scrollToNextViewController()
         
         //NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue:Constants.Notification.INPUT_ACTIVATION_CODE), object: nil)
@@ -150,11 +150,11 @@ class PagerViewController: UIViewController , CLLocationManagerDelegate{
         luggageItem.uuid = UUID
         luggageItem.major = "0"
         luggageItem.minor = "-1"
-        luggageItem.regionState = Constants.Proximity.Outside
-        luggageItem.isConnected = false
+        luggageItem.regionState = Constants.Proximity.Inside
+        luggageItem.isConnected = true
         luggageItem.activation_code = activatioNCode.lowercased()
         luggageItem.activation_key = ActivationKey
-        luggageItem.activated = false
+        luggageItem.activated = true
 
 //        delegate?.beaconDetailViewController(self, didFinishAddingItem: luggageItem)
 //        
@@ -443,7 +443,13 @@ class PagerViewController: UIViewController , CLLocationManagerDelegate{
         item?.tintColor = UIColor.clear
     }
     
-
+   
+    
+    
+    
+    
+    
+    
     
     }
 

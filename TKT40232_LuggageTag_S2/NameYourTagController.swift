@@ -12,6 +12,8 @@ class NameYourTagController: UIViewController, AddPhotoControllerDelegate, UITex
     
   
     var trimmedName:String?
+    var placeholderName:String = ""
+    var myMutableStringTitle = NSMutableAttributedString()
    
     
     @IBOutlet weak var nameTextField: CustomTextField!
@@ -20,12 +22,13 @@ class NameYourTagController: UIViewController, AddPhotoControllerDelegate, UITex
     override func viewDidLoad() {
         super.viewDidLoad()
 
+     assignPlaceHolderName()
         
          nameTextField.delegate = self
         nameTextField.resignFirstResponder()
      
         Globals.log("Name Your Tag \(beaconss!)")
-       
+      
         
     }
 
@@ -49,6 +52,7 @@ class NameYourTagController: UIViewController, AddPhotoControllerDelegate, UITex
     
     @IBAction func nextButton(_ sender: Any) {
         
+      
         
         trimmedName = nameTextField.text!
         trimmedName = nameTextField.text!.trimmingCharacters(
@@ -56,13 +60,14 @@ class NameYourTagController: UIViewController, AddPhotoControllerDelegate, UITex
         )
         
         
-       
+       assignLuggageName()
         
         let isValidLuggage = validateLuggage()
         
         if (isValidLuggage) {
         
             if let Tag_name = trimmedName {
+                 Globals.log("LUGGAGE NAME ? \(Tag_name)")
             NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.SEND_TAG_NAME), object: Tag_name, userInfo: nil)
             }
             
@@ -77,11 +82,11 @@ class NameYourTagController: UIViewController, AddPhotoControllerDelegate, UITex
 //            return false
 //        }
         
-        if (nameTextField.text! == "") {
-            showConfirmation(NSLocalizedString("warning", comment: ""), message: NSLocalizedString("error_empty_name", comment: ""))
-            
-            return false
-        }
+//        if (nameTextField.text! == "") {
+//            showConfirmation(NSLocalizedString("warning", comment: ""), message: NSLocalizedString("error_empty_name", comment: ""))
+//            
+//            return false
+//        }
         
 //        if (!(nameTextField.text!.isValidActivationCode())) {
 //            showConfirmation(NSLocalizedString("warning", comment: ""), message: NSLocalizedString("exit_confirmation", comment: ""))
@@ -102,14 +107,72 @@ class NameYourTagController: UIViewController, AddPhotoControllerDelegate, UITex
     fileprivate func checkTagAvailability() -> Bool {
         
         for beacon in beaconss! {
-            if (beacon.name == trimmedName!) {
+            
+            if let trmName =  trimmedName{
+            if (beacon.name == trmName) {
                 Globals.log("Name of Tag \(beacon.name)")
+              
                 return true
+                }
             }
         }
-        
         return false
     }
+    
+    
+    fileprivate func assignLuggageName() {
+        if (trimmedName! == "") {
+            var num = 0
+            
+            repeat {
+                num = num + 1
+                trimmedName! = "\(Constants.Default.LuggageName) \(num)"
+                Globals.log("Name of Tag \(trimmedName!)")
+            } while checkTagAvailability()
+        }
+        
+    }
+    
+    
+    fileprivate func assignPlaceHolderName() {
+        
+        var num = 0
+        
+        repeat {
+            num = num + 1
+           placeholderName = "\(Constants.Default.LuggageName) \(num)"
+            Globals.log("PlaceholderName of Tag \(placeholderName)")
+            
+            var myMutableStringTitle = NSMutableAttributedString()
+            
+            
+            myMutableStringTitle = NSMutableAttributedString(string:placeholderName) // Font
+            myMutableStringTitle.addAttribute(NSForegroundColorAttributeName, value: UIColor.gray, range:NSRange(location:0,length:placeholderName.characters.count))    // Color
+            nameTextField.attributedPlaceholder = myMutableStringTitle
+            
+        } while checkTagAvailabilityForPlaceholder()
+        
+        
+    }
+    
+    fileprivate func checkTagAvailabilityForPlaceholder() -> Bool {
+        
+
+        for beacon in beaconss! {
+            
+           
+                if (beacon.name == placeholderName) {
+                    Globals.log("Luggage HERE \(beacon.name)")
+                    
+                    return true
+                }
+         
+        }
+        return false
+    }
+
+    
+    
     
     fileprivate func showConfirmation(_ title: String, message: String) {
         let actions = [

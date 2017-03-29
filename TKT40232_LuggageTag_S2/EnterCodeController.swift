@@ -104,11 +104,16 @@ var hexString: String?
         
         if (!(codeTextField.text!.isValidActivationCode())) {
             showConfirmation(NSLocalizedString("warning", comment: ""), message: NSLocalizedString("exit_confirmation", comment: ""))
-            Globals.log("exit_confirmation")
+            Globals.log("error_activation_code")
             return false
         }
         
-        
+        if (!checkActivationCodeAvailability()) {
+            showConfirmation(NSLocalizedString("warning", comment: ""), message: NSLocalizedString("err_luggage_exist", comment: ""))
+            
+            return false
+        }
+
         return true
     }
     
@@ -125,6 +130,19 @@ var hexString: String?
         Globals.showAlert(self, title: title, message: message, animated: true, completion: nil, actions: actions)
     }
     
+    // TODO: Check Activation Code Uniqueness
+    fileprivate func checkActivationCodeAvailability() -> Bool {
+        for beacon in beaconss! {
+            if (beacon.activation_code == codeTextField.text!.lowercased()) {
+             Globals.log("Existing Activation code \(beacon.activation_code)")
+                
+                return false
+            }
+        }
+        
+        return true
+    }
+
 
     
     deinit {
