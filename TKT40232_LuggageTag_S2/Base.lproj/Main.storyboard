@@ -1002,7 +1002,7 @@
                                 <rect key="frame" x="55" y="164" width="272" height="285"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shake tag to activate" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ohh-Ol-oee">
-                                <rect key="frame" x="99" y="472" width="178" height="31"/>
+                                <rect key="frame" x="99.5" y="472" width="177.5" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="uJR-SS-NoI"/>
                                 </constraints>
