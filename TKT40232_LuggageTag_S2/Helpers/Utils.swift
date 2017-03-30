@@ -6,6 +6,7 @@
 //  Copyright © 2017 Tektos Limited. All rights reserved.
 //
 
+import UIKit
 import Foundation
 
 extension String {
@@ -43,4 +44,31 @@ extension Data {
   func hexEncodedString() -> String {
     return map { String(format: "%02hhx", $0) }.joined()
   }
+}
+
+extension UIColor {
+    convenience init(red: Int, green: Int, blue: Int) {
+        let newRed = CGFloat(red)/255
+        let newGreen = CGFloat(green)/255
+        let newBlue = CGFloat(blue)/255
+        
+        self.init(red: newRed, green: newGreen, blue: newBlue, alpha: 1.0)
+    }
+}
+
+extension UINavigationController {
+    
+    public func transparentNavigationBar() {
+        navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationBar.shadowImage = UIImage()
+        navigationBar.backgroundColor = .clear
+        navigationBar.isTranslucent = true
+    }
+    
+    public func defaultColorNavigationBar() {
+        navigationBar.setBackgroundImage(nil, for: .default)
+        navigationBar.shadowImage = nil
+        navigationBar.isTranslucent = true
+        navigationBar.barTintColor = UIColor(red: 238, green: 172, blue: 31 )
+    }
 }

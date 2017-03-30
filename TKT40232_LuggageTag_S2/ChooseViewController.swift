@@ -24,8 +24,6 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         super.viewDidLoad()
        
         NotificationCenter.default.addObserver(self, selector: #selector(ChooseViewController.qrCancelButton(_:)), name: NSNotification.Name(rawValue: Constants.Notification.CancelQrScreen), object: nil)
-
-       
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,12 +43,9 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     @IBAction func cancel(_ sender: Any) {
         
         dismiss(animated: true, completion: nil)
-        
     }
     
     @IBAction func qrButtonClicked(_ sender: Any) {
-       
-        
         let captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
         
         do {
@@ -83,7 +78,7 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
                 view.addSubview(qrCodeFrameView)
                 view.bringSubview(toFront: qrCodeFrameView)
                 
-                  NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.ShowCancel), object: nil, userInfo: nil)
+                NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.ShowCancel), object: nil, userInfo: nil)
             }
         } catch {
             Globals.log(error)

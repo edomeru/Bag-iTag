@@ -143,6 +143,12 @@ var hexString: String?
         return true
     }
 
+    @IBAction func floatingTextField(_ sender: Any) {
+        
+       NotificationCenter.default.addObserver(self, selector: #selector(EnterCodeController.keyboardWillShow(_:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
+         NotificationCenter.default.addObserver(self, selector: #selector(EnterCodeController.keyboardWillHide(_:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
+        
+    }
 
     
     deinit {
