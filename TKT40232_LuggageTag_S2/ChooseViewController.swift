@@ -13,12 +13,13 @@ import Foundation
 import AVFoundation
 
 
+
 class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     var captureSession:AVCaptureSession?
     var videoPreviewLayer:AVCaptureVideoPreviewLayer?
     var qrCodeFrameView:UIView?
-    
     let supportedCodeTypes = [AVMetadataObjectTypeQRCode]
+    var QRCODE: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,6 +109,7 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     // MARK: - AVCaptureMetadataOutputObjectsDelegate Methods
     func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
         
+        
         // Check if the metadataObjects array is not nil and it contains at least one object.
         if metadataObjects == nil || metadataObjects.count == 0 {
             qrCodeFrameView?.frame = CGRect.zero
@@ -131,12 +133,73 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
                     self.self.captureSession?.stopRunning()
                     self.qrCodeFrameView?.removeFromSuperview()
                     self.videoPreviewLayer?.removeFromSuperlayer()
-                    let myDict: [String: Any] = [ Constants.Key.ActivationOption: "qr"]
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.NEXT_BUTTON), object: qrCode.lowercased(), userInfo: myDict)
+                    
+                    
+                    
+                    self.QRCODE = qrCode.lowercased()
+                    Globals.log("JUNJUN   \(self.QRCODE!)")
+                    
+                    let isValidLuggage = self.validateLuggage()
+                    
+                    if (isValidLuggage) {
+                        
+                        Globals.log("INSIDE isValidLuggage \(isValidLuggage)")
+                        let myDict: [String: Any] = [ Constants.Key.ActivationOption: "qr"]
+                        Globals.log("QR CODE LOWERCASE \(qrCode.lowercased())")
+                        Globals.log("QR BLACK \(self.QRCODE!)")
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.NEXT_BUTTON), object: qrCode.lowercased(), userInfo: myDict)
+                    }
                 }
             }
         }
         
+    }
+
+    fileprivate func validateLuggage() -> Bool {
+
+        
+        if (!checkActivationCodeAvailability()) {
+            showConfirmation(NSLocalizedString("warning", comment: ""), message: NSLocalizedString("err_luggage_exist", comment: ""))
+            
+            return false
+        }
+        
+        return true
+    }
+    
+    fileprivate func showConfirmation(_ title: String, message: String) {
+        let actions = [
+            UIAlertAction(title: NSLocalizedString("exit", comment: ""), style: .cancel) { (action) in
+                Globals.log("Exit Adding/Editing Luggage")
+                self.dismiss(animated: true, completion: nil)
+            },
+            UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .default, handler: nil)
+        ]
+        
+        Globals.showAlert(self, title: title, message: message, animated: true, completion: nil, actions: actions)
+    }
+    
+    // TODO: Check Activation Code Uniqueness
+    fileprivate func checkActivationCodeAvailability() -> Bool {
+         Globals.log("checkActivationCodeAvailability")
+        for beacon in beaconss! {
+           Globals.log("QR CODE GLOBAL VAR2   \(QRCODE)")
+            if let qr =  QRCODE{
+                 Globals.log("Existing Activation FORLOOP QRCODE\(self.QRCODE)")
+                Globals.log("Existing qr \(qr)")
+                if (beacon.activation_code == qr ) {
+                    
+                    Globals.log("Existing Activation code \(beacon.activation_code)")
+                    
+                    return false
+                }
+            }
+       
+            Globals.log("Existing Activation FORLOOP \(beacon.activation_code)")
+           
+        }
+        
+        return true
     }
 
     

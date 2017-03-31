@@ -69,7 +69,7 @@ struct Constants {
     static let SEND_TAG_NAME  = "SEND_TAG_NAME"
     static let CancelPhotoView = "CancelPhotoView"
     static let TAKE_PHOTO = "TAKE_PHOTO"
-    static let  SEND_PHOTO = "SEND_PHOTO"
+    static let SEND_PHOTO = "SEND_PHOTO"
     static let SavingNewLugguageItem = "SavingNewLugguageItem"
     static let CancelQrScreen = "CancelQrScreen"
     static let ShowCancel = "ShowCancel"

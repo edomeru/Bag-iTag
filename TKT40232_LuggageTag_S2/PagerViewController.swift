@@ -183,6 +183,7 @@ class PagerViewController: UIViewController , CLLocationManagerDelegate{
         if ActivationOption == "ac" {
             tutorialPageViewController?.scrollToNextViewController()  //go to NEXT PAGE
         }else if ActivationOption == "qr" {
+            Globals.log("INSIDE QR")
             tutorialPageViewController?.scrollToViewController(index: 2)// go to SHAKE PAGE
         }else if ActivationOption == "retry" {
             self.tutorialPageViewController?.scrollToViewController(index: self.pageControl.currentPage) // stay on CURENT PAGE

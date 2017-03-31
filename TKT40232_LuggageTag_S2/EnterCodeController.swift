@@ -27,17 +27,24 @@ class EnterCodeController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func nextButton(_ sender: Any) {
+        
+         checkActivationCode()
+        
+    }
+    
+    func checkActivationCode(){
+        
+        
         let isValidLuggage = validateLuggage()
-        
-        
         
         if (isValidLuggage) {
             let aCode: String = codeTextField.text!.lowercased()
             let myDict: [String: Any] = [ Constants.Key.ActivationOption: "ac"]
             NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.NEXT_BUTTON), object: aCode, userInfo: myDict)
         }
-        
+
     }
+    
     
     func keyboardWillShow(_ sender: Notification) {
         self.view.frame.origin.y = -150
