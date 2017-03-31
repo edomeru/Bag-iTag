@@ -17,15 +17,15 @@ class WizardPagerViewController: UIPageViewController {
         return [self.newColoredViewController("Green"),
                 self.newColoredViewController("Red"),
                 self.newColoredViewController("Blue"),
-               self.newColoredViewController("NameYourTag"),
+                self.newColoredViewController("NameYourTag"),
                 self.newColoredViewController("AddPhoto"),
-           
-        ]
+                
+                ]
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
-
-       // dataSource = self
+        
+        // dataSource = self
         delegate = self
         
         if let initialViewController = orderedViewControllers.first {
@@ -33,7 +33,7 @@ class WizardPagerViewController: UIPageViewController {
         }
         
         pageViewdelegate?.tutorialPageViewController(self, didUpdatePageCount: orderedViewControllers.count)
-
+        
     }
     
     
@@ -101,7 +101,7 @@ class WizardPagerViewController: UIPageViewController {
     }
     
     fileprivate func scrollBackToViewController(_ viewController: UIViewController,
-                                            direction: UIPageViewControllerNavigationDirection = .reverse) {
+                                                direction: UIPageViewControllerNavigationDirection = .reverse) {
         setViewControllers([viewController],
                            direction: direction,
                            animated: true,
@@ -123,9 +123,9 @@ class WizardPagerViewController: UIPageViewController {
                                                          didUpdatePageIndex: index)
         }
     }
-
-   
-
+    
+    
+    
 }
 
 // MARK: UIPageViewControllerDataSource

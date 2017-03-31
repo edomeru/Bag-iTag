@@ -78,13 +78,10 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     // NSNotification Observer for TKTCoreLocation in ListView
     NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.setEnterRegion(_:)), name: NSNotification.Name(rawValue: Constants.Proximity.Inside), object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.setExitRegion(_:)), name: NSNotification.Name(rawValue: Constants.Proximity.Outside), object: nil)
-//    NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.onBackgroundLocationAccessEnabled(_:)), name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessEnabled), object: nil)
+
     
     NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.onBackgroundLocationAccessDisabled(_:)), name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessDisabled), object: nil)
-    
-    // NSNotification Observer for Generating Name
-//    NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.assignNameToActivatingBeacon(_:)), name: NSNotification.Name(rawValue: Constants.Notification.AssignNameToActivatingKey), object: nil)
-    
+
     // NSNotification Observer for Stopping Activating Beacon
     NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.stopActivatingBeacon(_:)), name: NSNotification.Name(rawValue: Constants.Notification.StopActivatingKey), object: nil)
     
@@ -397,8 +394,6 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   
   func onBackgroundLocationAccessEnabled(_ notification: Notification) {
 
-    Globals.log("onBackgroundLocationAccessEnabled_____")
-    
     if self.presentedViewController == nil {
       let alertShake = UIAlertController(title: NSLocalizedString("shake_device", comment: ""), message: NSLocalizedString("shake_device_message", comment: ""), preferredStyle: UIAlertControllerStyle.alert)
       self.present(alertShake, animated: true, completion: nil)
@@ -430,7 +425,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   }
   
   func assignNameToActivatingBeacon(_ notification: Notification) {
-    Globals.log("assignNameToActivatingBeacon Called")
+
     guard let uuid = notification.userInfo?[Constants.Key.ActivatedUUID] as? String, let activationKey = notification.userInfo?[Constants.Key.ActivationKey] as? String else {
       Globals.log("Invalid UUID/Activation Key from TKTCoreLocation")
       
@@ -508,7 +503,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
       
       return
     }
-    Globals.log("deviceIsActivated")
+   
     trimmedName = nameTextField.text!.trimmingCharacters(
       in: CharacterSet.whitespacesAndNewlines
     )
@@ -676,16 +671,13 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   }
   
   deinit {
-    //Globals.log("Deinit called")
-    // Remove all Observer from this Controller to save memory
-    //NotificationCenter.default.removeObserver(self)
-     Globals.log("DE INIT BEACON")
+
     NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
     NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     
     NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Proximity.Inside), object: nil)
     NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Proximity.Outside), object: nil)
-//    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessEnabled), object: nil)
+
     NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessDisabled), object: nil)
     
     NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.ActivationSuccessKey), object: nil)

@@ -9,12 +9,12 @@
 import UIKit
 
 class EnterCodeController: UIViewController, UITextFieldDelegate {
-var hexString: String?
+    var hexString: String?
     @IBOutlet weak var codeTextField: CustomTextField!
     
     @IBAction func cancel(_ sender: Any) {
         
-         NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.CencelActivationScreen), object: nil, userInfo: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.CencelActivationScreen), object: nil, userInfo: nil)
         
     }
     override func viewDidLoad() {
@@ -22,36 +22,19 @@ var hexString: String?
         NotificationCenter.default.addObserver(self, selector: #selector(EnterCodeController.keyboardWillShow(_:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
         NotificationCenter.default.addObserver(self, selector: #selector(EnterCodeController.keyboardWillHide(_:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
         
-      
+        
         
     }
-
+    
     @IBAction func nextButton(_ sender: Any) {
         let isValidLuggage = validateLuggage()
         
-      
+        
         
         if (isValidLuggage) {
-           let aCode: String = codeTextField.text!.lowercased()
-//            
-//            var BTAddress:Int64 = 0
-//            var powIndex = 0
-//            
-//            for char in aCode.characters.reversed() {
-//                let characterString = "\(char)"
-//                
-//                if let asciiValue = Character(characterString).asciiValue {R
-//                    BTAddress += Int64(asciiValue - 96) * Int64("\(pow(26, powIndex))")!
-//                    powIndex += 1
-//                }
-//            }
-            
-//            hexString = String(BTAddress, radix: 16, uppercase: true)
-//            let actCode:[String: String] = ["aCode": aCode]
-           // if let hex = hexString {
-             let myDict: [String: Any] = [ Constants.Key.ActivationOption: "ac"]
+            let aCode: String = codeTextField.text!.lowercased()
+            let myDict: [String: Any] = [ Constants.Key.ActivationOption: "ac"]
             NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.NEXT_BUTTON), object: aCode, userInfo: myDict)
-            //}
         }
         
     }
@@ -59,12 +42,12 @@ var hexString: String?
     func keyboardWillShow(_ sender: Notification) {
         self.view.frame.origin.y = -150
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-       
+        
     }
     
     func keyboardWillHide(_ sender: Notification) {
         self.view.frame.origin.y = 0
-         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -113,7 +96,7 @@ var hexString: String?
             
             return false
         }
-
+        
         return true
     }
     
@@ -134,7 +117,7 @@ var hexString: String?
     fileprivate func checkActivationCodeAvailability() -> Bool {
         for beacon in beaconss! {
             if (beacon.activation_code == codeTextField.text!.lowercased()) {
-             Globals.log("Existing Activation code \(beacon.activation_code)")
+                Globals.log("Existing Activation code \(beacon.activation_code)")
                 
                 return false
             }
@@ -142,21 +125,21 @@ var hexString: String?
         
         return true
     }
-
+    
     @IBAction func floatingTextField(_ sender: Any) {
         
-       NotificationCenter.default.addObserver(self, selector: #selector(EnterCodeController.keyboardWillShow(_:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
-         NotificationCenter.default.addObserver(self, selector: #selector(EnterCodeController.keyboardWillHide(_:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(EnterCodeController.keyboardWillShow(_:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(EnterCodeController.keyboardWillHide(_:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
         
     }
-
+    
     
     deinit {
         
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-      
+        
     }
-
-
+    
+    
 }

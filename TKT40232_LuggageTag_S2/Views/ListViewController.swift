@@ -584,7 +584,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
 //            // Stop Monitoring this Specific Beacon.
 //            tktCoreLocation.stopMonitoringBeacon(beaconRegion, key: item.uuid)
 //        }
-        Globals.log("connectActivatingBeacon Called ListView")
+       
         startMonitoringforBeacon(item)
         
      

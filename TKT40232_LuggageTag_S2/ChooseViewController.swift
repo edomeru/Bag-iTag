@@ -22,23 +22,23 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         NotificationCenter.default.addObserver(self, selector: #selector(ChooseViewController.qrCancelButton(_:)), name: NSNotification.Name(rawValue: Constants.Notification.CancelQrScreen), object: nil)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-       
+        
     }
     
-
+    
     @IBAction func inputActivationCode(_ sender: Any) {
         
         NotificationCenter.default.post(name: Notification.Name(rawValue: "INPUT_ACTIVATION_CODE"), object: nil, userInfo: nil)
         
     }
-
-   
+    
+    
     
     @IBAction func cancel(_ sender: Any) {
         
@@ -85,7 +85,7 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
             
             return
         }
-
+        
     }
     
     // MARK: Private Methods
@@ -116,53 +116,37 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
             return
         }
         
+        
         // Get the metadata object.
         let metadataObj = metadataObjects[0] as! AVMetadataMachineReadableCodeObject
         if supportedCodeTypes.contains(metadataObj.type) {
             // If the found metadata is equal to the QR code metadata then update the status label's text and set the bounds
             let barCodeObject = videoPreviewLayer?.transformedMetadataObject(for: metadataObj)
             qrCodeFrameView?.frame = barCodeObject!.bounds
-            
             if let qrCode = metadataObj.stringValue {
                 AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-                
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
                     
-                    Globals.log("QRCODE  \(qrCode.lowercased())")
-                    //self.uuidTextField.text = qrCode
                     self.hideNavigationItem(item: self.navigationItem.rightBarButtonItem)
-                    //self.showNavigationItem(item: self.navigationItem.leftBarButtonItem)
                     self.self.captureSession?.stopRunning()
                     self.qrCodeFrameView?.removeFromSuperview()
                     self.videoPreviewLayer?.removeFromSuperlayer()
                     let myDict: [String: Any] = [ Constants.Key.ActivationOption: "qr"]
-                     NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.NEXT_BUTTON), object: qrCode.lowercased(), userInfo: myDict)
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.NEXT_BUTTON), object: qrCode.lowercased(), userInfo: myDict)
                 }
             }
         }
         
     }
-    
-    
-//    func qrCancelButton(_ sender: Notification){
-//        Globals.log("CancelQrScreen  ")
-//        hideNavigationItem(item: self.navigationItem.rightBarButtonItem)
-//        showNavigationItem(item: self.navigationItem.leftBarButtonItem)
-//        
-//        captureSession?.stopRunning()
-//        qrCodeFrameView?.removeFromSuperview()
-//        videoPreviewLayer?.removeFromSuperlayer()
-//
-//    }
+
     
     @IBAction func qrCancelButton(_ sender: Any) {
-                Globals.log("qrCancelButton  ")
-                hideNavigationItem(item: self.navigationItem.rightBarButtonItem)
-                showNavigationItem(item: self.navigationItem.leftBarButtonItem)
         
-                captureSession?.stopRunning()
-                qrCodeFrameView?.removeFromSuperview()
-                videoPreviewLayer?.removeFromSuperlayer()
+        hideNavigationItem(item: self.navigationItem.rightBarButtonItem)
+        showNavigationItem(item: self.navigationItem.leftBarButtonItem)
+        captureSession?.stopRunning()
+        qrCodeFrameView?.removeFromSuperview()
+        videoPreviewLayer?.removeFromSuperlayer()
     }
     
     deinit {

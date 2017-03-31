@@ -25,14 +25,10 @@ class ShakeBeaconController: UIViewController {
         
     }
     @IBOutlet weak var Back: UIBarButtonItem!
-   
 
     override func viewDidLoad() {
         super.viewDidLoad()
- 
-       
+
     }
-
-
 
 }

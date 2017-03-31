@@ -17,37 +17,27 @@ protocol AddPhotoControllerDelegate: class {
 class AddPhotoController: UIViewController, ModalViewControllerDelegate {
     
     @IBOutlet weak var nextSkipButton: CustomButton!
-
-weak var delegate: AddPhotoControllerDelegate?
-  var photo:Data?
+    weak var delegate: AddPhotoControllerDelegate?
+    var photo:Data?
     var qrCodeFrameView:UIView?
     
-
+    
     @IBOutlet weak var imgButton: CustomButton!
-    @IBAction func previousButton(_ sender: Any) {
-    }
-
-    
- 
-        
-
-        
-        
- 
-    
     var isPhotoEdited = false
+    
+    
     @IBAction func previous(_ sender: Any) {
         
-         NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.CancelPhotoView), object: nil, userInfo: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.CancelPhotoView), object: nil, userInfo: nil)
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
- self.navigationController?.isNavigationBarHidden = true
-    
+        self.navigationController?.isNavigationBarHidden = true
+        
     }
-
+    
    
     
     @IBAction func nextSkip(_ sender: Any) {
@@ -66,15 +56,16 @@ weak var delegate: AddPhotoControllerDelegate?
         isPhotoEdited = true
         imgButton.setImage(image, for: UIControlState())
         imgButton.imageView?.contentMode = UIViewContentMode.center
-        nextSkipButton.setTitle("NEXT",for: .normal)     }
+        nextSkipButton.setTitle("NEXT",for: .normal)
+    }
     
-
- 
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let controller = segue.destination as! ModalViewController
         controller.delegate = self
     }
-        
+    
     
 }
 
