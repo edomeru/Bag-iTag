@@ -134,7 +134,7 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
                     self.qrCodeFrameView?.removeFromSuperview()
                     self.videoPreviewLayer?.removeFromSuperlayer()
                     
-                    
+                     NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.cancelDisappear), object: nil, userInfo: nil)
                     
                     self.QRCODE = qrCode.lowercased()
                     Globals.log("JUNJUN   \(self.QRCODE!)")
@@ -142,7 +142,7 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
                     let isValidLuggage = self.validateLuggage()
                     
                     if (isValidLuggage) {
-                        
+                         self.hideNavigationItem(item: self.navigationItem.rightBarButtonItem)
                         Globals.log("INSIDE isValidLuggage \(isValidLuggage)")
                         let myDict: [String: Any] = [ Constants.Key.ActivationOption: "qr"]
                         Globals.log("QR CODE LOWERCASE \(qrCode.lowercased())")
@@ -206,7 +206,7 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     @IBAction func qrCancelButton(_ sender: Any) {
         
         hideNavigationItem(item: self.navigationItem.rightBarButtonItem)
-        showNavigationItem(item: self.navigationItem.leftBarButtonItem)
+        //showNavigationItem(item: self.navigationItem.leftBarButtonItem)
         captureSession?.stopRunning()
         qrCodeFrameView?.removeFromSuperview()
         videoPreviewLayer?.removeFromSuperlayer()

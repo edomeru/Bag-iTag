@@ -73,6 +73,7 @@ struct Constants {
     static let SavingNewLugguageItem = "SavingNewLugguageItem"
     static let CancelQrScreen = "CancelQrScreen"
     static let ShowCancel = "ShowCancel"
+    static let cancelDisappear  = "cancelDisappear"
     
   }
   
