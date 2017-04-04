@@ -1,5 +1,5 @@
 //
-//  ShakeBeaconController.swift
+//  ShakeBeaconViewController.swift
 //  TKT40232_LuggageTag_S2
 //
 //  Created by Edmer Alarte on 21/3/2017.
@@ -8,17 +8,17 @@
 
 import UIKit
 
-protocol ShakeBeaconControllerDelegate: class {
+protocol ShakeBeaconViewControllerDelegate: class {
     
-    func shakeBeaconDidCancel(_ controller: ShakeBeaconController)
+    func shakeBeaconDidCancel(_ controller: ShakeBeaconViewController)
     
 }
 
 
 
-class ShakeBeaconController: UIViewController {
+class ShakeBeaconViewController: UIViewController {
 
-     weak var delegate: ShakeBeaconControllerDelegate?
+     weak var delegate: ShakeBeaconViewControllerDelegate?
     
     @IBAction func back(_ sender: Any) {
         delegate?.shakeBeaconDidCancel(self)

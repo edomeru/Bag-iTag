@@ -11,21 +11,21 @@ import CoreLocation
 import CoreBluetooth
 import Foundation
 
-var beaconss: [LuggageTag]?
+var beacons: [LuggageTag]?
 
-class PagerViewController: UIViewController , CLLocationManagerDelegate{
+class PagerViewController: UIViewController {
     
-    var activatioNCode:String = ""
-    var TAG_NAME:String = ""
-    var ActivationKey:String = ""
-    var UUID:String = ""
+    var activatioNCode: String = ""
+    var TAG_NAME: String = ""
+    var ActivationKey: String = ""
+    var UUID: String = ""
     
     var beaconReference: [LuggageTag]?
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var containerView: UIView!
     
     weak var delegate: BeaconDetailViewControllerDelegate?
-    var activation_Code:String?
+    var activation_Code: String?
     
     var tutorialPageViewController: WizardPagerViewController? {
         didSet {
@@ -33,13 +33,11 @@ class PagerViewController: UIViewController , CLLocationManagerDelegate{
         }
     }
     
-   
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let beacons = beaconReference{
-            beaconss = beacons
+        if let beaconss = beaconReference{
+            beacons = beaconss
         }
         
         self.navigationController?.transparentNavigationBar()
@@ -48,7 +46,7 @@ class PagerViewController: UIViewController , CLLocationManagerDelegate{
         pageControl.addTarget(self, action: #selector(PagerViewController.didChangePageControlValue), for: .valueChanged)
         
         
-        NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.TapNextButton(_:)), name:NSNotification.Name(rawValue: Constants.Notification.INPUT_ACTIVATION_CODE), object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.TapToNextButton(_:)), name:NSNotification.Name(rawValue: Constants.Notification.Go_To_Next_Page), object: nil);
         
         NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.enter_code(_:)), name:NSNotification.Name(rawValue: Constants.Notification.NEXT_BUTTON), object: nil);
         
@@ -60,24 +58,21 @@ class PagerViewController: UIViewController , CLLocationManagerDelegate{
         
         NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.stopActivatingBeacon(_:)), name: NSNotification.Name(rawValue: Constants.Notification.StopActivatingKey), object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.TapToNextButton(_:)), name:NSNotification.Name(rawValue: Constants.Notification.ENTER_REGION), object: nil);
         NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.Send_Tag_Name(_:)), name:NSNotification.Name(rawValue: Constants.Notification.SEND_TAG_NAME), object: nil);
         
         NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.goBack(_:)), name: NSNotification.Name(rawValue: Constants.Notification.CancelPhotoView), object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.TapNextButton(_:)), name: NSNotification.Name(rawValue: Constants.Notification.TAKE_PHOTO), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.activateLuggageItem(_:)), name: NSNotification.Name(rawValue: Constants.Notification.SEND_PHOTO), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.showNavigationItem(_:)), name:NSNotification.Name(rawValue: Constants.Notification.ShowCancel), object: nil);
         NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.qrCancel(_:)), name:NSNotification.Name(rawValue: Constants.Notification.cancelDisappear), object: nil);
-         NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.enter_code_qr(_:)), name:NSNotification.Name(rawValue: Constants.Notification.NEXT_BUTTON_QR), object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.enter_code_qr(_:)), name:NSNotification.Name(rawValue: Constants.Notification.NEXT_BUTTON_QR), object: nil);
         
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         Globals.log("viewWillDisappear in  PagerViewController")
-         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue:Constants.Notification.ShowCancel), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue:Constants.Notification.ShowCancel), object: nil)
         NotificationCenter.default.removeObserver(self)
         
     }
@@ -88,37 +83,19 @@ class PagerViewController: UIViewController , CLLocationManagerDelegate{
     }
     
     
-    func TapNextButton(_ sender: Notification){
-        
-        tutorialPageViewController?.scrollToNextViewController()
-        
-        //NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue:Constants.Notification.INPUT_ACTIVATION_CODE), object: nil)
-    }
+
     
     func TapToNextButton(_ sender: Notification){
-        guard let uuid = sender.userInfo?[Constants.Key.ActivatedUUID] as? String else {
-            Globals.log("Invalid UUID Key from PageViewController")
-            
-            return
+        
+        
+        if let uuid =  sender.userInfo?[Constants.Key.ActivatedUUID] as? String {
+            UUID =  uuid
         }
         
-        guard let aK = sender.userInfo?[Constants.Key.ActivationKey] as? String else {
-            Globals.log("Invalid ActivationKey Key from PageViewController")
-            
-            return
+        if let activationKey =  sender.userInfo?[Constants.Key.ActivationKey] as? String {
+            ActivationKey = activationKey
         }
-        
-        guard let aC = sender.userInfo?[Constants.Key.ActivationCode] as? String else {
-            Globals.log("Invalid ActivationCode Key from PageViewController")
-            
-            return
-        }
-        
-        UUID =  uuid
-        ActivationKey = aK
-        
         tutorialPageViewController?.scrollToNextViewController()
-        
     }
     
     func Send_Tag_Name(_ sender: Notification){
@@ -132,12 +109,10 @@ class PagerViewController: UIViewController , CLLocationManagerDelegate{
     
     func activateLuggageItem(_ sender: Notification){
         let luggageItem = LuggageTag()
-        let PHOTO = sender.object
-        if let pic = PHOTO {
-            
-            luggageItem.photo = PHOTO as! Data?
+        let photo = sender.object
+        if let pic = photo {
+            luggageItem.photo = pic as? Data
         }
-        
         
         luggageItem.name = TAG_NAME
         luggageItem.uuid = UUID
@@ -176,7 +151,8 @@ class PagerViewController: UIViewController , CLLocationManagerDelegate{
             
             return
         }
-         Globals.log("Abouve createHex  \(aCode) \(ActivationOption)")
+        
+        Globals.log("Abouve createHex  \(aCode) \(ActivationOption)")
         self.createHex(aCode: aCode, ActivationOption:ActivationOption)
         
     }
@@ -235,8 +211,7 @@ class PagerViewController: UIViewController , CLLocationManagerDelegate{
     
     
     func callDismissShakeDeviceAlert(){
-        
-        
+
         if timer.isValid {
             //timer.invalidate()
             showConfirmation(NSLocalizedString("Device activation failed", comment: ""), message: NSLocalizedString("", comment: ""))
@@ -361,14 +336,6 @@ class PagerViewController: UIViewController , CLLocationManagerDelegate{
         item?.isEnabled = false
         item?.tintColor = UIColor.clear
     }
-    
-    
-    
-    
-    
-    
-    
-    
     
 }
 

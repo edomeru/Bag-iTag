@@ -1,5 +1,5 @@
 //
-//  NameYourTagController.swift
+//  NameYourTagViewController.swift
 //  TKT40232_LuggageTag_S2
 //
 //  Created by Edmer Alarte on 13/3/2017.
@@ -8,11 +8,10 @@
 
 import UIKit
 
-class NameYourTagController: UIViewController, AddPhotoControllerDelegate, UITextFieldDelegate{
+class NameYourTagViewController: UIViewController, AddPhotoViewControllerDelegate, UITextFieldDelegate{
     
-    
-    var trimmedName:String?
-    var placeholderName:String = ""
+    var trimmedName: String?
+    var placeholderName: String = ""
     var myMutableStringTitle = NSMutableAttributedString()
     @IBOutlet weak var nameTextField: CustomTextField!
  
@@ -20,30 +19,32 @@ class NameYourTagController: UIViewController, AddPhotoControllerDelegate, UITex
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        assignPlaceHolderName()
+        //assignPlaceHolderName()
+        
+        // Uncomment this
+        assignLuggageName()
+        nameTextField.attributedPlaceholder = NSAttributedString(string: trimmedName!, attributes: nil)
+        
         nameTextField.delegate = self
         nameTextField.resignFirstResponder()
-        
     }
 
  
     override func viewWillDisappear(_ animated: Bool) {
-        Globals.log("DEINIT viewWillDisappear  in  NameYourTagController")
+        Globals.log("DEINIT viewWillDisappear  in  NameYourTagViewController")
         NotificationCenter.default.removeObserver(self)
     }
  
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.Segue.AddPhoto {
             let navigationController = segue.destination as! UINavigationController
-            let controller = navigationController.topViewController as! AddPhotoController
+            let controller = navigationController.topViewController as! AddPhotoViewController
             controller.delegate = self
-            
-            
         }
     }
 
     
-    func addPhotoControllerDidCancel(_ controller: AddPhotoController) {
+    func addPhotoControllerDidCancel(_ controller: AddPhotoViewController) {
         dismiss(animated: true, completion: nil)
     }
     
@@ -61,7 +62,6 @@ class NameYourTagController: UIViewController, AddPhotoControllerDelegate, UITex
         if (isValidLuggage) {
             
             if let Tag_name = trimmedName {
-                
                 NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.SEND_TAG_NAME), object: Tag_name, userInfo: nil)
             }
             
@@ -82,7 +82,7 @@ class NameYourTagController: UIViewController, AddPhotoControllerDelegate, UITex
     
     fileprivate func checkTagAvailability() -> Bool {
         
-        for beacon in beaconss! {
+        for beacon in beacons! {
             
             if let trmName =  trimmedName{
                 if (beacon.name == trmName) {
@@ -93,7 +93,7 @@ class NameYourTagController: UIViewController, AddPhotoControllerDelegate, UITex
         }
         return false
     }
-    
+         
     
     fileprivate func assignLuggageName() {
         if (trimmedName! == "") {
@@ -132,7 +132,7 @@ class NameYourTagController: UIViewController, AddPhotoControllerDelegate, UITex
     fileprivate func checkTagAvailabilityForPlaceholder() -> Bool {
         
         
-        for beacon in beaconss! {
+        for beacon in beacons! {
 
             if (beacon.name == placeholderName) {
                 
@@ -165,7 +165,7 @@ class NameYourTagController: UIViewController, AddPhotoControllerDelegate, UITex
     }
     
     deinit {
-        Globals.log("DEINIT  in  NameYourTagController")
+        Globals.log("DEINIT  in  NameYourTagViewController")
         NotificationCenter.default.removeObserver(self)
    
         

@@ -282,7 +282,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
 
         let myDict: [String: Any] = [ Constants.Key.ActivatedUUID: abUUID, Constants.Key.ActivationKey: ak,Constants.Key.ActivationCode: ac]
         
-        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.ENTER_REGION), object: nil, userInfo: myDict)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.Go_To_Next_Page), object: nil, userInfo: myDict)
         
 //        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.ActivationSuccessKey), object: nil, userInfo: [Constants.Key.ActivationIdentifier: beaconRegion.identifier, Constants.Key.ActivatedUUID: abUUID, Constants.Key.ActivationKey: ak, Constants.Key.ActivationCode: ac])    // SAVING TO DATABASE
         

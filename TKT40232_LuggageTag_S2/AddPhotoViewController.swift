@@ -1,5 +1,5 @@
 //
-//  AddPhotoController.swift
+//  AddPhotoViewController.swift
 //  TKT40232_LuggageTag_S2
 //
 //  Created by Edmer Alarte on 13/3/2017.
@@ -8,17 +8,17 @@
 
 import UIKit
 
-protocol AddPhotoControllerDelegate: class {
+protocol AddPhotoViewControllerDelegate: class {
     
-    func addPhotoControllerDidCancel(_ controller: AddPhotoController)
+    func addPhotoControllerDidCancel(_ controller: AddPhotoViewController)
     
 }
 
-class AddPhotoController: UIViewController, ModalViewControllerDelegate {
+class AddPhotoViewController: UIViewController, ModalViewControllerDelegate {
     
     @IBOutlet weak var nextSkipButton: CustomButton!
-    weak var delegate: AddPhotoControllerDelegate?
-    var photo:Data?
+    weak var delegate: AddPhotoViewControllerDelegate?
+    var photo: Data?
     var qrCodeFrameView:UIView?
     
     
@@ -39,7 +39,7 @@ class AddPhotoController: UIViewController, ModalViewControllerDelegate {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        Globals.log("DEINIT viewWillDisappear  in  AddPhotoController")
+        Globals.log("DEINIT viewWillDisappear  in  AddPhotoViewController")
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -62,15 +62,13 @@ class AddPhotoController: UIViewController, ModalViewControllerDelegate {
         nextSkipButton.setTitle("NEXT",for: .normal)
     }
     
-    
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let controller = segue.destination as! ModalViewController
         controller.delegate = self
     }
     
     deinit {
-        Globals.log("DEINIT  in  AddPhotoController")
+        Globals.log("DEINIT  in  AddPhotoViewController")
         NotificationCenter.default.removeObserver(self)
         
         

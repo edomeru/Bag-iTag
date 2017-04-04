@@ -1,5 +1,5 @@
 //
-//  EnterCodeController.swift
+//  EnterCodeViewController.swift
 //  TKT40232_LuggageTag_S2
 //
 //  Created by Edmer Alarte on 22/3/2017.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EnterCodeController: UIViewController, UITextFieldDelegate {
+class EnterCodeViewController: UIViewController, UITextFieldDelegate {
     var hexString: String?
     @IBOutlet weak var codeTextField: CustomTextField!
     
@@ -19,14 +19,14 @@ class EnterCodeController: UIViewController, UITextFieldDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(EnterCodeController.keyboardWillShow(_:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
-        NotificationCenter.default.addObserver(self, selector: #selector(EnterCodeController.keyboardWillHide(_:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(EnterCodeViewController.keyboardWillShow(_:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(EnterCodeViewController.keyboardWillHide(_:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
         
         
         
     }
     override func viewWillDisappear(_ animated: Bool) {
-        Globals.log("DEINIT viewDidDisappear  in  EnterCodeController")
+        Globals.log("DEINIT viewDidDisappear  in  EnterCodeViewController")
         NotificationCenter.default.removeObserver(self)
     }
     @IBAction func nextButton(_ sender: Any) {
@@ -110,6 +110,9 @@ class EnterCodeController: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
     
     fileprivate func showConfirmation(_ title: String, message: String) {
         let actions = [
@@ -125,7 +128,7 @@ class EnterCodeController: UIViewController, UITextFieldDelegate {
     
     // TODO: Check Activation Code Uniqueness
     fileprivate func checkActivationCodeAvailability() -> Bool {
-        for beacon in beaconss! {
+        for beacon in beacons! {
             if (beacon.activation_code == codeTextField.text!.lowercased()) {
                 Globals.log("Existing Activation code \(beacon.activation_code)")
                 
@@ -138,14 +141,14 @@ class EnterCodeController: UIViewController, UITextFieldDelegate {
     
     @IBAction func floatingTextField(_ sender: Any) {
         
-        NotificationCenter.default.addObserver(self, selector: #selector(EnterCodeController.keyboardWillShow(_:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
-        NotificationCenter.default.addObserver(self, selector: #selector(EnterCodeController.keyboardWillHide(_:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(EnterCodeViewController.keyboardWillShow(_:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(EnterCodeViewController.keyboardWillHide(_:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
         
     }
     
     
     deinit {
-        Globals.log("DEINIT  in  EnterCodeController")
+        Globals.log("DEINIT  in  EnterCodeViewController")
          NotificationCenter.default.removeObserver(self)
 //        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
 //        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)

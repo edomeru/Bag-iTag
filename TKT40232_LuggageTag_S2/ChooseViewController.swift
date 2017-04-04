@@ -15,9 +15,9 @@ import AVFoundation
 
 
 class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
-    var captureSession:AVCaptureSession?
-    var videoPreviewLayer:AVCaptureVideoPreviewLayer?
-    var qrCodeFrameView:UIView?
+    var captureSession: AVCaptureSession?
+    var videoPreviewLayer: AVCaptureVideoPreviewLayer?
+    var qrCodeFrameView: UIView?
     let supportedCodeTypes = [AVMetadataObjectTypeQRCode]
     var QRCODE: String?
     
@@ -30,26 +30,18 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     override func viewWillDisappear(_ animated: Bool) {
         Globals.log("viewWillDisappear in  ChooseViewController")
         NotificationCenter.default.removeObserver(self)
-    
     }
     
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
     }
-    
     
     @IBAction func inputActivationCode(_ sender: Any) {
-        
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "INPUT_ACTIVATION_CODE"), object: nil, userInfo: nil)
-        
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.Go_To_Next_Page), object: nil, userInfo: nil)
     }
     
-    
-    
     @IBAction func cancel(_ sender: Any) {
-        
         dismiss(animated: true, completion: nil)
     }
     
@@ -125,7 +117,6 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
             return
         }
         
-        
         // Get the metadata object.
         let metadataObj = metadataObjects[0] as! AVMetadataMachineReadableCodeObject
         if supportedCodeTypes.contains(metadataObj.type) {
@@ -189,7 +180,7 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     // TODO: Check Activation Code Uniqueness
     fileprivate func checkActivationCodeAvailability() -> Bool {
          Globals.log("checkActivationCodeAvailability")
-        for beacon in beaconss! {
+        for beacon in beacons! {
            Globals.log("QR CODE GLOBAL VAR2   \(QRCODE)")
             if let qr =  QRCODE{
                  Globals.log("Existing Activation FORLOOP QRCODE\(self.QRCODE)")
