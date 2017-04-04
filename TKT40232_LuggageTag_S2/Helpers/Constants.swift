@@ -74,6 +74,7 @@ struct Constants {
     static let CancelQrScreen = "CancelQrScreen"
     static let ShowCancel = "ShowCancel"
     static let cancelDisappear  = "cancelDisappear"
+    static let NEXT_BUTTON_QR = "NEXT_BUTTON_QR"
     
   }
   

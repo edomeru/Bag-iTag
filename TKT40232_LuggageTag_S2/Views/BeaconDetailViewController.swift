@@ -65,7 +65,9 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   var qrCodeFrameView:UIView?
   
   let supportedCodeTypes = [AVMetadataObjectTypeQRCode]
-  
+    override func viewDidDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
+    }
   override func viewDidLoad() {
     super.viewDidLoad()
     formatNavigationBar()
@@ -83,7 +85,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.onBackgroundLocationAccessDisabled(_:)), name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessDisabled), object: nil)
 
     // NSNotification Observer for Stopping Activating Beacon
-    NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.stopActivatingBeacon(_:)), name: NSNotification.Name(rawValue: Constants.Notification.StopActivatingKey), object: nil)
+//    NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.stopActivatingBeacon(_:)), name: NSNotification.Name(rawValue: Constants.Notification.StopActivatingKey), object: nil)
     
     // NSNotification Observer for TransmitActivation Key
     NotificationCenter.default.addObserver(self, selector: #selector(BeaconDetailViewController.deviceIsActivated(_:)), name: NSNotification.Name(rawValue: Constants.Notification.ActivationSuccessKey), object: nil)
@@ -119,6 +121,10 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     nameTextField.delegate = self
     uuidTextField.delegate = self
   }
+    override func viewWillDisappear(_ animated: Bool) {
+        Globals.log("DEINIT viewDidDisappear  in  BeaconDetailViewController")
+        NotificationCenter.default.removeObserver(self)
+    }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     let controller = segue.destination as! ModalViewController
@@ -442,7 +448,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     if let luggageItem = beaconToEdit {
       // Beacon is edited
       NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.AssignNameToActivatingKey), object: nil)
-      NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.StopActivatingKey), object: nil)
+      //NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.StopActivatingKey), object: nil)
       
       if (isPhotoEdited) {
         luggageItem.photo = UIImageJPEGRepresentation(self.imgButton.currentImage!, 1.0)
@@ -460,7 +466,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     } else {
       // New Luggage
       NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.AssignNameToActivatingKey), object: nil)
-      NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.StopActivatingKey), object: nil)
+      //NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.StopActivatingKey), object: nil)
       
       let luggageItem = LuggageTag()
       
@@ -671,19 +677,21 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
   }
   
   deinit {
-
-    NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-    NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     
-    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Proximity.Inside), object: nil)
-    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Proximity.Outside), object: nil)
-
-    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessDisabled), object: nil)
-    
-    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.ActivationSuccessKey), object: nil)
-    
-    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.AssignNameToActivatingKey), object: nil)
-    
-    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.StopActivatingKey), object: nil)
+     NotificationCenter.default.removeObserver(self)
+//
+//    NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+//    NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+//    
+//    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Proximity.Inside), object: nil)
+//    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Proximity.Outside), object: nil)
+//
+//    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessDisabled), object: nil)
+//    
+//    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.ActivationSuccessKey), object: nil)
+//    
+//    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.AssignNameToActivatingKey), object: nil)
+//    
+//    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.StopActivatingKey), object: nil)
   }
 }

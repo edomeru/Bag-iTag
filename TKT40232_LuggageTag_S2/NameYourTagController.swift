@@ -27,7 +27,10 @@ class NameYourTagController: UIViewController, AddPhotoControllerDelegate, UITex
     }
 
  
-
+    override func viewWillDisappear(_ animated: Bool) {
+        Globals.log("DEINIT viewWillDisappear  in  NameYourTagController")
+        NotificationCenter.default.removeObserver(self)
+    }
  
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.Segue.AddPhoto {
@@ -159,6 +162,13 @@ class NameYourTagController: UIViewController, AddPhotoControllerDelegate, UITex
         textField.resignFirstResponder()
         
         return true
+    }
+    
+    deinit {
+        Globals.log("DEINIT  in  NameYourTagController")
+        NotificationCenter.default.removeObserver(self)
+   
+        
     }
     
 }

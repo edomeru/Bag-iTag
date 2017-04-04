@@ -105,7 +105,18 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     
   }
   
-  // MARK: NSNotificationCenter Functions
+
+//    override func viewDidDisappear(_ animated: Bool) {
+//        Globals.log("DENIT LISTVIEW viewWillDisappear")
+//        NotificationCenter.default.removeObserver(self)
+//     //     NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.SetBattery), object: nil)
+////        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.SetImageRange), object: nil)
+////        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.TransmitActivationKey), object: nil)
+////        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.SavingNewLugguageItem), object: nil)
+//
+//    }
+    
+    
   func setBattery(_ notification: Notification) {
     let key = (notification as NSNotification).userInfo!["key"] as! String
     let percentage = "\((notification as NSNotification).userInfo!["minor"] as! Int)"
@@ -160,7 +171,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     let state = longPress.state
     let locationInView = longPress.location(in: tableView)
     let indexPath = tableView.indexPathForRow(at: locationInView)
-    
+   
     struct My {
       static var cellSnapshot : UIView? = nil
       static var cellIsAnimating : Bool = false
@@ -592,7 +603,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
 
   func disconnectActivatingBeacon(item: LuggageTag) {
     stopMonitoring(didStopMonitoring: item)
-    Globals.log("disconnectActivatingBeacon Called")
+    Globals.log("disconnectActivatingBeacon Called LISTVIEW")
   }
   
   func didFinishActivatingBeacon(_ controller: BeaconDetailViewController, item: LuggageTag, isFromEdit: Bool) {
@@ -1022,14 +1033,12 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
   }
   
   deinit {
+    
+    Globals.log("DENIT LISTVIEW CONTROLLER")
     NotificationCenter.default.removeObserver(self)
   }
     
-//    func activationOptionsControllerDidCancel(_ controller: ActivationOptionsController) {
-//        dismiss(animated: true, completion: nil)
-//    }
-    
-    
+  
 }
 
 

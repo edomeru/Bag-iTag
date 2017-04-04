@@ -64,6 +64,8 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
       break
     }
   }
+    
+  
   
   // MARK: Action Method
   func startMonitoring(_ beaconRegion: CLBeaconRegion?) {
@@ -105,6 +107,8 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
       }
     }*/
   }
+    
+    
   
   func broadcastActivationKey(activationCode: String) {
     Globals.log("broadcastActivationKey______\(activationCode)")
@@ -207,13 +211,14 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
     
     
   func stopAdvertising() {
-    Globals.log("Stop Advertising STOP")
+    Globals.log("Stop Advertising STOP HERE")
     peripheralManager.stopAdvertising()
     Globals.log("activatedBeaconUUID  \(activatedBeaconUUID)")
     if let activatdBeaconUuiD = activatedBeaconUUID {
+        Globals.log("INSIDE stopAdvertising \(activatdBeaconUuiD)")
     NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.StopActivatingKey), object: nil, userInfo: [Constants.Key.ActivatedUUID: activatdBeaconUuiD])
     }
-    
+     Globals.log("OUTSIDE IF stopAdvertising ")
     activationCode = nil
     activationKey = nil
     activatedBeaconUUID = nil
@@ -240,13 +245,12 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
       
       }
     } else {
-      // Make it Nil to save memory
       beaconRegion = nil
     }
   }
   
   func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
-    Globals.log("didStartMonitoringForRegion: \(region.identifier)")
+    Globals.log("didStartMonitoringForRegion BWAHAH: \(region.identifier)")
     delegate?.didStartMonitoring()
     locationManager.requestState(for: region)
   }
@@ -370,4 +374,11 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
   func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
     Globals.log("didFailWithError: \(error)")
   }
+    
+    deinit {
+        Globals.log("DE INIT TKTCoreLocation")
+        
+        NotificationCenter.default.removeObserver(self)
+        
+    }
 }

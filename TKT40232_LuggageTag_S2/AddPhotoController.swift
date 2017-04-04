@@ -38,7 +38,10 @@ class AddPhotoController: UIViewController, ModalViewControllerDelegate {
         
     }
     
-   
+    override func viewWillDisappear(_ animated: Bool) {
+        Globals.log("DEINIT viewWillDisappear  in  AddPhotoController")
+        NotificationCenter.default.removeObserver(self)
+    }
     
     @IBAction func nextSkip(_ sender: Any) {
         if (isPhotoEdited) {
@@ -66,7 +69,12 @@ class AddPhotoController: UIViewController, ModalViewControllerDelegate {
         controller.delegate = self
     }
     
-    
+    deinit {
+        Globals.log("DEINIT  in  AddPhotoController")
+        NotificationCenter.default.removeObserver(self)
+        
+        
+    }
 }
 
 

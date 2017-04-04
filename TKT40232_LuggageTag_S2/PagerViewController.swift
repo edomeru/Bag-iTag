@@ -33,6 +33,7 @@ class PagerViewController: UIViewController , CLLocationManagerDelegate{
         }
     }
     
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,9 +71,16 @@ class PagerViewController: UIViewController , CLLocationManagerDelegate{
         
         NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.showNavigationItem(_:)), name:NSNotification.Name(rawValue: Constants.Notification.ShowCancel), object: nil);
         NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.qrCancel(_:)), name:NSNotification.Name(rawValue: Constants.Notification.cancelDisappear), object: nil);
+         NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.enter_code_qr(_:)), name:NSNotification.Name(rawValue: Constants.Notification.NEXT_BUTTON_QR), object: nil);
         
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        Globals.log("viewWillDisappear in  PagerViewController")
+         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue:Constants.Notification.ShowCancel), object: nil)
+        NotificationCenter.default.removeObserver(self)
+        
+    }
     
     func goBack(_ sender: Notification){
         print("back")
@@ -159,6 +167,19 @@ class PagerViewController: UIViewController , CLLocationManagerDelegate{
         
     }
     
+    func enter_code_qr(_ sender: Notification){
+        Globals.log("Inside enter_code_qr")
+        let aCode: String = sender.object as! String
+        self.activatioNCode = aCode
+        
+        guard let ActivationOption = sender.userInfo?[Constants.Key.ActivationOption] as? String else {
+            
+            return
+        }
+         Globals.log("Abouve createHex  \(aCode) \(ActivationOption)")
+        self.createHex(aCode: aCode, ActivationOption:ActivationOption)
+        
+    }
     
     func createHex(aCode:String, ActivationOption:String){
         
@@ -177,15 +198,17 @@ class PagerViewController: UIViewController , CLLocationManagerDelegate{
         let hexString = String(BTAddress, radix: 16, uppercase: true)
         self.activation_Code = aCode
         
-        
+        Globals.log("createHex")
         NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.TransmitActivationKey), object: hexString, userInfo: nil)
         
         if ActivationOption == "ac" {
+            Globals.log("INSIDE AC")
             tutorialPageViewController?.scrollToNextViewController()  //go to NEXT PAGE
         }else if ActivationOption == "qr" {
             Globals.log("INSIDE QR")
             tutorialPageViewController?.scrollToViewController(index: 2)// go to SHAKE PAGE
         }else if ActivationOption == "retry" {
+            Globals.log("INSIDE RETRY")
             self.tutorialPageViewController?.scrollToViewController(index: self.pageControl.currentPage) // stay on CURENT PAGE
         }
         
@@ -215,6 +238,7 @@ class PagerViewController: UIViewController , CLLocationManagerDelegate{
         
         
         if timer.isValid {
+            //timer.invalidate()
             showConfirmation(NSLocalizedString("Device activation failed", comment: ""), message: NSLocalizedString("", comment: ""))
         }
         
@@ -299,18 +323,23 @@ class PagerViewController: UIViewController , CLLocationManagerDelegate{
         let shw = self.navigationItem.rightBarButtonItem
         shw?.isEnabled = true
         shw?.tintColor = UIColor.white
+       // view.backgroundColor = UIColor.clear
     }
     
     deinit {
         Globals.log("DE INIT PagerViewController")
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue:Constants.Notification.INPUT_ACTIVATION_CODE), object: nil)
         
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue:Constants.Notification.NEXT_BUTTON), object: nil)
+         NotificationCenter.default.removeObserver(self)
         
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue:Constants.Notification.CallDismissShakeDeviceAlert), object: nil)
         
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessEnabled), object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.StopActivatingKey), object: nil)
+//        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue:Constants.Notification.INPUT_ACTIVATION_CODE), object: nil)
+//        
+//        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue:Constants.Notification.NEXT_BUTTON), object: nil)
+//        
+//        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue:Constants.Notification.CallDismissShakeDeviceAlert), object: nil)
+//        
+//        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessEnabled), object: nil)
+//        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.StopActivatingKey), object: nil)
     }
     
     

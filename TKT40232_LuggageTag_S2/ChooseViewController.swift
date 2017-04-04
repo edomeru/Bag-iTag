@@ -27,6 +27,13 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         NotificationCenter.default.addObserver(self, selector: #selector(ChooseViewController.qrCancelButton(_:)), name: NSNotification.Name(rawValue: Constants.Notification.CancelQrScreen), object: nil)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        Globals.log("viewWillDisappear in  ChooseViewController")
+        NotificationCenter.default.removeObserver(self)
+    
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
@@ -147,7 +154,7 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
                         let myDict: [String: Any] = [ Constants.Key.ActivationOption: "qr"]
                         Globals.log("QR CODE LOWERCASE \(qrCode.lowercased())")
                         Globals.log("QR BLACK \(self.QRCODE!)")
-                        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.NEXT_BUTTON), object: qrCode.lowercased(), userInfo: myDict)
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.NEXT_BUTTON_QR), object: qrCode.lowercased(), userInfo: myDict)
                     }
                 }
             }
@@ -213,6 +220,7 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     }
     
     deinit {
+         Globals.log("DEINIT in  ChooseViewController")
         NotificationCenter.default.removeObserver(self)
     }
     
