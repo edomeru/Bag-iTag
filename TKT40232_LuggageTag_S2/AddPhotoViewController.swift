@@ -39,7 +39,6 @@ class AddPhotoViewController: UIViewController, ModalViewControllerDelegate {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        Globals.log("DEINIT viewWillDisappear  in  AddPhotoViewController")
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -68,7 +67,7 @@ class AddPhotoViewController: UIViewController, ModalViewControllerDelegate {
     }
     
     deinit {
-        Globals.log("DEINIT  in  AddPhotoViewController")
+      
         NotificationCenter.default.removeObserver(self)
         
         

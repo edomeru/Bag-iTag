@@ -27,9 +27,9 @@ class PagerViewController: UIViewController {
     weak var delegate: BeaconDetailViewControllerDelegate?
     var activation_Code: String?
     
-    var tutorialPageViewController: WizardPagerViewController? {
+    var pageViewControllerObject: WizardPagerViewController? {
         didSet {
-            tutorialPageViewController?.pageViewdelegate = self
+            pageViewControllerObject?.pageViewdelegate = self
         }
     }
     
@@ -71,19 +71,17 @@ class PagerViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        Globals.log("viewWillDisappear in  PagerViewController")
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue:Constants.Notification.ShowCancel), object: nil)
         NotificationCenter.default.removeObserver(self)
         
     }
     
     func goBack(_ sender: Notification){
-        print("back")
-        tutorialPageViewController?.scrollToLastViewController()
+        pageViewControllerObject?.scrollToLastViewController()
     }
     
     
-
+    
     
     func TapToNextButton(_ sender: Notification){
         
@@ -95,14 +93,14 @@ class PagerViewController: UIViewController {
         if let activationKey =  sender.userInfo?[Constants.Key.ActivationKey] as? String {
             ActivationKey = activationKey
         }
-        tutorialPageViewController?.scrollToNextViewController()
+        pageViewControllerObject?.scrollToNextViewController()
     }
     
     func Send_Tag_Name(_ sender: Notification){
         
         let sendr: String  = sender.object as! String
         TAG_NAME = sendr
-        tutorialPageViewController?.scrollToNextViewController()
+        pageViewControllerObject?.scrollToNextViewController()
         
     }
     
@@ -143,7 +141,6 @@ class PagerViewController: UIViewController {
     }
     
     func enter_code_qr(_ sender: Notification){
-        Globals.log("Inside enter_code_qr")
         let aCode: String = sender.object as! String
         self.activatioNCode = aCode
         
@@ -152,7 +149,6 @@ class PagerViewController: UIViewController {
             return
         }
         
-        Globals.log("Abouve createHex  \(aCode) \(ActivationOption)")
         self.createHex(aCode: aCode, ActivationOption:ActivationOption)
         
     }
@@ -174,44 +170,40 @@ class PagerViewController: UIViewController {
         let hexString = String(BTAddress, radix: 16, uppercase: true)
         self.activation_Code = aCode
         
-        Globals.log("createHex")
         NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.TransmitActivationKey), object: hexString, userInfo: nil)
         
         if ActivationOption == "ac" {
-            Globals.log("INSIDE AC")
-            tutorialPageViewController?.scrollToNextViewController()  //go to NEXT PAGE
+            pageViewControllerObject?.scrollToNextViewController()  //go to NEXT PAGE
         }else if ActivationOption == "qr" {
-            Globals.log("INSIDE QR")
-            tutorialPageViewController?.scrollToViewController(index: 2)// go to SHAKE PAGE
+            pageViewControllerObject?.scrollToViewController(index: 2)// go to SHAKE PAGE
         }else if ActivationOption == "retry" {
-            Globals.log("INSIDE RETRY")
-            self.tutorialPageViewController?.scrollToViewController(index: self.pageControl.currentPage) // stay on CURENT PAGE
+            self.pageViewControllerObject?.scrollToViewController(index: self.pageControl.currentPage) // stay on CURENT PAGE
         }
         
         
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let tutorialPageViewController = segue.destination as? WizardPagerViewController {
-            self.tutorialPageViewController = tutorialPageViewController
+        if let pageViewControllerObject = segue.destination as? WizardPagerViewController {
+            self.pageViewControllerObject = pageViewControllerObject
         }
     }
     
     func didTapNextButton(_ sender: UIButton) {
-        tutorialPageViewController?.scrollToNextViewController()
+        pageViewControllerObject?.scrollToNextViewController()
     }
     
     /**
      Fired when the user taps on the pageControl to change its current page.
      */
     func didChangePageControlValue() {
-        tutorialPageViewController?.scrollToViewController(index: pageControl.currentPage)
+        pageViewControllerObject?.scrollToViewController(index: pageControl.currentPage)
     }
     
     
     
     func callDismissShakeDeviceAlert(){
-
+        
         if timer.isValid {
             //timer.invalidate()
             showConfirmation(NSLocalizedString("Device activation failed", comment: ""), message: NSLocalizedString("", comment: ""))
@@ -224,7 +216,7 @@ class PagerViewController: UIViewController {
         let actions = [
             UIAlertAction(title: NSLocalizedString("PREVIOUS", comment: ""), style: .cancel) { (action) in
                 
-                self.tutorialPageViewController?.scrollToViewController(index: 0)
+                self.pageViewControllerObject?.scrollToViewController(index: 0)
             },
             UIAlertAction(title: NSLocalizedString("RETRY", comment: ""), style: .default){ (action) in
                 
@@ -247,7 +239,7 @@ class PagerViewController: UIViewController {
     }
     
     func assignNameToActivatingBeacon(_ notification: Notification) {
-        Globals.log("assignNameToActivatingBeacon Called")
+        
         guard let uuid = notification.userInfo?[Constants.Key.ActivatedUUID] as? String, let activationKey = notification.userInfo?[Constants.Key.ActivationKey] as? String else {
             Globals.log("Invalid UUID/Activation Key from TKTCoreLocation")
             
@@ -271,9 +263,7 @@ class PagerViewController: UIViewController {
             Globals.log("A_CODE \(Acode)")
         }
         luggageItem.activation_key = activationKey.uppercased()
-        Globals.log("connectActivatingBeacon Called ACT KEY  \(activationKey.uppercased())")
         
-        Globals.log("connectActivatingBeacon Called ACT KEY  \(luggageItem.uuid)")
         delegate?.connectActivatingBeacon(item: luggageItem)
         
     }
@@ -298,23 +288,21 @@ class PagerViewController: UIViewController {
         let shw = self.navigationItem.rightBarButtonItem
         shw?.isEnabled = true
         shw?.tintColor = UIColor.white
-       // view.backgroundColor = UIColor.clear
+        // view.backgroundColor = UIColor.clear
     }
     
     deinit {
-        Globals.log("DE INIT PagerViewController")
         
-         NotificationCenter.default.removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
         
-        
-//        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue:Constants.Notification.INPUT_ACTIVATION_CODE), object: nil)
-//        
-//        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue:Constants.Notification.NEXT_BUTTON), object: nil)
-//        
-//        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue:Constants.Notification.CallDismissShakeDeviceAlert), object: nil)
-//        
-//        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessEnabled), object: nil)
-//        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.StopActivatingKey), object: nil)
+        //        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue:Constants.Notification.INPUT_ACTIVATION_CODE), object: nil)
+        //
+        //        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue:Constants.Notification.NEXT_BUTTON), object: nil)
+        //
+        //        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue:Constants.Notification.CallDismissShakeDeviceAlert), object: nil)
+        //
+        //        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessEnabled), object: nil)
+        //        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.StopActivatingKey), object: nil)
     }
     
     
@@ -342,13 +330,13 @@ class PagerViewController: UIViewController {
 
 extension PagerViewController: PageViewControllerDelegate {
     
-    func tutorialPageViewController(_ tutorialPageViewController: WizardPagerViewController,
-                                    didUpdatePageCount count: Int) {
+    func pageViewControllerObject(_ pageViewControllerObject: WizardPagerViewController,
+                                  didUpdatePageCount count: Int) {
         pageControl.numberOfPages = count
     }
     
-    func tutorialPageViewController(_ tutorialPageViewController: WizardPagerViewController,
-                                    didUpdatePageIndex index: Int) {
+    func pageViewControllerObject(_ pageViewControllerObject: WizardPagerViewController,
+                                  didUpdatePageIndex index: Int) {
         pageControl.currentPage = index
     }
 }

@@ -14,7 +14,7 @@ class NameYourTagViewController: UIViewController, AddPhotoViewControllerDelegat
     var placeholderName: String = ""
     var myMutableStringTitle = NSMutableAttributedString()
     @IBOutlet weak var nameTextField: CustomTextField!
- 
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,19 +22,20 @@ class NameYourTagViewController: UIViewController, AddPhotoViewControllerDelegat
         //assignPlaceHolderName()
         
         // Uncomment this
-        assignLuggageName()
-        nameTextField.attributedPlaceholder = NSAttributedString(string: trimmedName!, attributes: nil)
         
         nameTextField.delegate = self
         nameTextField.resignFirstResponder()
+        
+        assignLuggageName()
+        nameTextField.attributedPlaceholder = NSAttributedString(string: trimmedName!, attributes: nil)
+        
     }
-
- 
+    
+    
     override func viewWillDisappear(_ animated: Bool) {
-        Globals.log("DEINIT viewWillDisappear  in  NameYourTagViewController")
         NotificationCenter.default.removeObserver(self)
     }
- 
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.Segue.AddPhoto {
             let navigationController = segue.destination as! UINavigationController
@@ -42,7 +43,7 @@ class NameYourTagViewController: UIViewController, AddPhotoViewControllerDelegat
             controller.delegate = self
         }
     }
-
+    
     
     func addPhotoControllerDidCancel(_ controller: AddPhotoViewController) {
         dismiss(animated: true, completion: nil)
@@ -67,7 +68,7 @@ class NameYourTagViewController: UIViewController, AddPhotoViewControllerDelegat
             
         }
     }
-
+    
     fileprivate func validateLuggage() -> Bool {
         
         
@@ -86,22 +87,25 @@ class NameYourTagViewController: UIViewController, AddPhotoViewControllerDelegat
             
             if let trmName =  trimmedName{
                 if (beacon.name == trmName) {
-
+                    
                     return true
                 }
             }
         }
         return false
     }
-         
+    
     
     fileprivate func assignLuggageName() {
-        if (trimmedName! == "") {
+        
+        if (nameTextField.text! == "") {
             var num = 0
             
             repeat {
                 num = num + 1
-                trimmedName! = "\(Constants.Default.LuggageName) \(num)"
+                trimmedName = "\(Constants.Default.LuggageName) \(num)"
+                
+                
             } while checkTagAvailability()
         }
         
@@ -133,7 +137,7 @@ class NameYourTagViewController: UIViewController, AddPhotoViewControllerDelegat
         
         
         for beacon in beacons! {
-
+            
             if (beacon.name == placeholderName) {
                 
                 return true
@@ -142,7 +146,7 @@ class NameYourTagViewController: UIViewController, AddPhotoViewControllerDelegat
         }
         return false
     }
-
+    
     
     
     
@@ -165,9 +169,9 @@ class NameYourTagViewController: UIViewController, AddPhotoViewControllerDelegat
     }
     
     deinit {
-        Globals.log("DEINIT  in  NameYourTagViewController")
+        
         NotificationCenter.default.removeObserver(self)
-   
+        
         
     }
     

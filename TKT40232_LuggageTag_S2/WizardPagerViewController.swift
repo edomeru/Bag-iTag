@@ -32,7 +32,7 @@ class WizardPagerViewController: UIPageViewController {
             scrollToViewController(initialViewController)
         }
         
-        pageViewdelegate?.tutorialPageViewController(self, didUpdatePageCount: orderedViewControllers.count)
+        pageViewdelegate?.pageViewControllerObject(self, didUpdatePageCount: orderedViewControllers.count)
         
     }
     
@@ -119,7 +119,7 @@ class WizardPagerViewController: UIPageViewController {
     fileprivate func notifyTutorialDelegateOfNewIndex() {
         if let firstViewController = viewControllers?.first,
             let index = orderedViewControllers.index(of: firstViewController) {
-            pageViewdelegate?.tutorialPageViewController(self,
+            pageViewdelegate?.pageViewControllerObject(self,
                                                          didUpdatePageIndex: index)
         }
     }
@@ -193,19 +193,19 @@ protocol PageViewControllerDelegate: class {
     /**
      Called when the number of pages is updated.
      
-     - parameter tutorialPageViewController: the TutorialPageViewController instance
+     - parameter pageViewControllerObject: the TutorialPageViewController instance
      - parameter count: the total number of pages.
      */
-    func tutorialPageViewController(_ tutorialPageViewController: WizardPagerViewController,
+    func pageViewControllerObject(_ pageViewControllerObject: WizardPagerViewController,
                                     didUpdatePageCount count: Int)
     
     /**
      Called when the current index is updated.
      
-     - parameter tutorialPageViewController: the TutorialPageViewController instance
+     - parameter pageViewControllerObject: the TutorialPageViewController instance
      - parameter index: the index of the currently visible page.
      */
-    func tutorialPageViewController(_ tutorialPageViewController: WizardPagerViewController,
+    func pageViewControllerObject(_ pageViewControllerObject: WizardPagerViewController,
                                     didUpdatePageIndex index: Int)
     
 }

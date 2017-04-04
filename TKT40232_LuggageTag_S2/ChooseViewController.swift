@@ -28,7 +28,7 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        Globals.log("viewWillDisappear in  ChooseViewController")
+        
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -132,19 +132,18 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
                     self.qrCodeFrameView?.removeFromSuperview()
                     self.videoPreviewLayer?.removeFromSuperlayer()
                     
-                     NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.cancelDisappear), object: nil, userInfo: nil)
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.cancelDisappear), object: nil, userInfo: nil)
                     
                     self.QRCODE = qrCode.lowercased()
-                    Globals.log("JUNJUN   \(self.QRCODE!)")
                     
                     let isValidLuggage = self.validateLuggage()
                     
                     if (isValidLuggage) {
-                         self.hideNavigationItem(item: self.navigationItem.rightBarButtonItem)
-                        Globals.log("INSIDE isValidLuggage \(isValidLuggage)")
+                        self.hideNavigationItem(item: self.navigationItem.rightBarButtonItem)
+                        
                         let myDict: [String: Any] = [ Constants.Key.ActivationOption: "qr"]
                         Globals.log("QR CODE LOWERCASE \(qrCode.lowercased())")
-                        Globals.log("QR BLACK \(self.QRCODE!)")
+                        
                         NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.NEXT_BUTTON_QR), object: qrCode.lowercased(), userInfo: myDict)
                     }
                 }
@@ -152,9 +151,9 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         }
         
     }
-
+    
     fileprivate func validateLuggage() -> Bool {
-
+        
         
         if (!checkActivationCodeAvailability()) {
             showConfirmation(NSLocalizedString("warning", comment: ""), message: NSLocalizedString("err_luggage_exist", comment: ""))
@@ -179,27 +178,22 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     
     // TODO: Check Activation Code Uniqueness
     fileprivate func checkActivationCodeAvailability() -> Bool {
-         Globals.log("checkActivationCodeAvailability")
+        Globals.log("checkActivationCodeAvailability")
         for beacon in beacons! {
-           Globals.log("QR CODE GLOBAL VAR2   \(QRCODE)")
+            
             if let qr =  QRCODE{
-                 Globals.log("Existing Activation FORLOOP QRCODE\(self.QRCODE)")
-                Globals.log("Existing qr \(qr)")
+                
                 if (beacon.activation_code == qr ) {
-                    
-                    Globals.log("Existing Activation code \(beacon.activation_code)")
                     
                     return false
                 }
             }
-       
-            Globals.log("Existing Activation FORLOOP \(beacon.activation_code)")
-           
+            
         }
         
         return true
     }
-
+    
     
     @IBAction func qrCancelButton(_ sender: Any) {
         
@@ -211,7 +205,7 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     }
     
     deinit {
-         Globals.log("DEINIT in  ChooseViewController")
+        
         NotificationCenter.default.removeObserver(self)
     }
     

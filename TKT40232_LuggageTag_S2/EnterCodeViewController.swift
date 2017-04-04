@@ -26,12 +26,12 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
         
     }
     override func viewWillDisappear(_ animated: Bool) {
-        Globals.log("DEINIT viewDidDisappear  in  EnterCodeViewController")
+        
         NotificationCenter.default.removeObserver(self)
     }
     @IBAction func nextButton(_ sender: Any) {
         
-         checkActivationCode()
+        checkActivationCode()
         
     }
     
@@ -45,7 +45,7 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
             let myDict: [String: Any] = [ Constants.Key.ActivationOption: "ac"]
             NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.NEXT_BUTTON), object: aCode, userInfo: myDict)
         }
-
+        
     }
     
     
@@ -148,10 +148,8 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
     
     
     deinit {
-        Globals.log("DEINIT  in  EnterCodeViewController")
-         NotificationCenter.default.removeObserver(self)
-//        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-//        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        NotificationCenter.default.removeObserver(self)
         
     }
     
