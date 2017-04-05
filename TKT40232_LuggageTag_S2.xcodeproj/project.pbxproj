@@ -15,6 +15,7 @@
 		151D2D5C1CFFE35B002F5B05 /* CustomDetectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151D2D5B1CFFE35B002F5B05 /* CustomDetectionView.swift */; };
 		151D2D5E1D000BDA002F5B05 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151D2D5D1D000BDA002F5B05 /* CustomButton.swift */; };
 		151D2D601D002122002F5B05 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151D2D5F1D002122002F5B05 /* CustomTextField.swift */; };
+		151EF8221E948B12002BB0DC /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151EF8211E948B12002BB0DC /* PageViewController.swift */; };
 		152DC6041D41EECD00F09BDA /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152DC6031D41EECD00F09BDA /* Globals.swift */; };
 		155FE8BF1D043CF800488F2D /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155FE8BE1D043CF800488F2D /* ModalViewController.swift */; };
 		156C0E721D0AB34C002E0DD7 /* SevenSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156C0E711D0AB34C002E0DD7 /* SevenSwitch.swift */; };
@@ -36,7 +37,6 @@
 		E65FAE121E80FA2100BC5BBA /* ShakeBeaconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65FAE111E80FA2100BC5BBA /* ShakeBeaconViewController.swift */; };
 		E66CDB4D1E76A5C300427733 /* AddPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66CDB4C1E76A5C300427733 /* AddPhotoViewController.swift */; };
 		E66CDB4F1E76A73C00427733 /* NameYourTagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66CDB4E1E76A73C00427733 /* NameYourTagViewController.swift */; };
-		E67F589C1E82224200A36255 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67F589B1E82224200A36255 /* PageViewController.swift */; };
 		E67F58A61E82728C00A36255 /* ChooseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67F58A51E82728C00A36255 /* ChooseViewController.swift */; };
 		E67F58A81E82757600A36255 /* EnterCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67F58A71E82757600A36255 /* EnterCodeViewController.swift */; };
 		E67F58B01E828A0700A36255 /* PagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67F58AF1E828A0700A36255 /* PagerViewController.swift */; };
@@ -69,6 +69,7 @@
 		151D2D5B1CFFE35B002F5B05 /* CustomDetectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomDetectionView.swift; path = Views/Custom/CustomDetectionView.swift; sourceTree = "<group>"; };
 		151D2D5D1D000BDA002F5B05 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomButton.swift; path = Views/Custom/CustomButton.swift; sourceTree = "<group>"; };
 		151D2D5F1D002122002F5B05 /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomTextField.swift; path = Views/Custom/CustomTextField.swift; sourceTree = "<group>"; };
+		151EF8211E948B12002BB0DC /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewController.swift; path = Views/PageViewController.swift; sourceTree = "<group>"; };
 		152DC6031D41EECD00F09BDA /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Globals.swift; path = Helpers/Globals.swift; sourceTree = "<group>"; };
 		155FE8BE1D043CF800488F2D /* ModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModalViewController.swift; path = Views/ModalViewController.swift; sourceTree = "<group>"; };
 		156C0E711D0AB34C002E0DD7 /* SevenSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SevenSwitch.swift; path = Helpers/SevenSwitch.swift; sourceTree = "<group>"; };
@@ -97,7 +98,6 @@
 		E65FAE111E80FA2100BC5BBA /* ShakeBeaconViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ShakeBeaconViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E66CDB4C1E76A5C300427733 /* AddPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AddPhotoViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E66CDB4E1E76A73C00427733 /* NameYourTagViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NameYourTagViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		E67F589B1E82224200A36255 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = PageViewController.swift; path = "../../../../Desktop/EEEnthusiast---iOS-Dev/PageViewControllerTutorial/PageViewControllerTutorial/PageViewController.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E67F58A51E82728C00A36255 /* ChooseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseViewController.swift; sourceTree = "<group>"; };
 		E67F58A71E82757600A36255 /* EnterCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = EnterCodeViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E67F58AF1E828A0700A36255 /* PagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PagerViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -171,7 +171,7 @@
 				157DB6E81CF401CC00FC960E /* ListViewController.swift */,
 				155FE8BE1D043CF800488F2D /* ModalViewController.swift */,
 				E66CDB4E1E76A73C00427733 /* NameYourTagViewController.swift */,
-				E67F589B1E82224200A36255 /* PageViewController.swift */,
+				151EF8211E948B12002BB0DC /* PageViewController.swift */,
 				E67F58AF1E828A0700A36255 /* PagerViewController.swift */,
 				E65FAE111E80FA2100BC5BBA /* ShakeBeaconViewController.swift */,
 				E67F58B51E82938E00A36255 /* WizardPagerViewController.swift */,
@@ -435,8 +435,8 @@
 				157DB6E91CF401CC00FC960E /* ListViewController.swift in Sources */,
 				157E847D1D0FE4B100179F23 /* BeaconCoreDataModel.xcdatamodeld in Sources */,
 				E67F58B61E82938E00A36255 /* WizardPagerViewController.swift in Sources */,
+				151EF8221E948B12002BB0DC /* PageViewController.swift in Sources */,
 				E66CDB4D1E76A5C300427733 /* AddPhotoViewController.swift in Sources */,
-				E67F589C1E82224200A36255 /* PageViewController.swift in Sources */,
 				159B88C61E1DEDD40053AC2C /* Utils.swift in Sources */,
 				151D2D5C1CFFE35B002F5B05 /* CustomDetectionView.swift in Sources */,
 				151D2D5E1D000BDA002F5B05 /* CustomButton.swift in Sources */,
