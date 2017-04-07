@@ -29,7 +29,7 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     
     override func viewWillDisappear(_ animated: Bool) {
         
-        NotificationCenter.default.removeObserver(self)
+       // NotificationCenter.default.removeObserver(self)
     }
     
     
@@ -206,7 +206,7 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     
     deinit {
         
-        NotificationCenter.default.removeObserver(self)
+       // NotificationCenter.default.removeObserver(self)
     }
     
 }

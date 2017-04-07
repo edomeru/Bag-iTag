@@ -430,11 +430,13 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         for beacon in row {
             if (beacon.uuid == region.proximityUUID.uuidString) {
                 if (beacon.regionState != Constants.Proximity.Inside) {
+                     Globals.log("REGION DIDENTER PROXIMITY")
+                    
                     if let index = row.index(of: beacon) {
                         let indexPath = IndexPath(row: index, section: 0)
                         row[(indexPath as NSIndexPath).row].regionState = Constants.Proximity.Inside
                         NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Proximity.Inside), object: nil, userInfo: ["region": region])
-                        createLocalNotification(region.identifier, identifier: beacon.uuid, message: NSLocalizedString("has_arrived", comment: ""))
+                        createLocalNotification(region.identifier, identifier: beacon.name, message: NSLocalizedString("has_arrived", comment: ""))
                         
                         if let cell = tableView.cellForRow(at: indexPath) {
                             let cellSwitch = cell.viewWithTag(1004) as! SevenSwitch
@@ -968,7 +970,9 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         
         localNotification.userInfo = ["name" : name, "identifier": identifier]
         localNotification.alertBody = "Your Bag \(name) \(message)"
-        
+        Globals.log("name \(name)")
+        Globals.log("identifier \(identifier)")
+        Globals.log("identifier \(message)")
         UIApplication.shared.scheduleLocalNotification(localNotification)
     }
     

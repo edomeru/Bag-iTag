@@ -522,6 +522,13 @@
                                     <action selector="qrButtonClicked:" destination="ZKc-tn-hlY" eventType="touchUpInside" id="oGq-vo-OnI"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KZn-gj-Wuw">
+                                <rect key="frame" x="147" y="567" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="2Zu-Qo-eub"/>
+                                    <constraint firstAttribute="height" constant="80" id="hVZ-P1-0t6"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -532,6 +539,8 @@
                             <constraint firstItem="NuV-Hd-KOi" firstAttribute="top" secondItem="evJ-wm-XnQ" secondAttribute="bottom" constant="16" id="7Uw-nw-bni"/>
                             <constraint firstAttribute="trailing" secondItem="evJ-wm-XnQ" secondAttribute="trailing" id="CV8-64-UFf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="2WV-dR-kYo" secondAttribute="trailing" constant="-10" id="GaW-w6-Nau"/>
+                            <constraint firstItem="KIX-hw-2fl" firstAttribute="top" secondItem="KZn-gj-Wuw" secondAttribute="bottom" constant="20" id="HWj-i4-FC6"/>
+                            <constraint firstItem="KZn-gj-Wuw" firstAttribute="centerX" secondItem="9VQ-Rq-HtX" secondAttribute="centerX" id="J8w-jT-cPm"/>
                             <constraint firstItem="NuV-Hd-KOi" firstAttribute="top" secondItem="APj-Nl-Kal" secondAttribute="bottom" constant="246" id="MKZ-Cb-5d9"/>
                             <constraint firstItem="idS-w2-DuE" firstAttribute="top" secondItem="NuV-Hd-KOi" secondAttribute="bottom" constant="8" symbolic="YES" id="NcN-pO-Q98"/>
                             <constraint firstItem="idS-w2-DuE" firstAttribute="top" secondItem="NuV-Hd-KOi" secondAttribute="bottom" constant="8" symbolic="YES" id="OTY-h6-5bS"/>
@@ -575,6 +584,7 @@
                         <outlet property="imgButton" destination="QVg-P1-dhs" id="iAU-zY-STX"/>
                         <outlet property="nameTextField" destination="idS-w2-DuE" id="rxD-4P-S0y"/>
                         <outlet property="qrCodeButton" destination="2WV-dR-kYo" id="6e2-gi-Y5b"/>
+                        <outlet property="qrPic" destination="KZn-gj-Wuw" id="pzc-W0-kDa"/>
                         <outlet property="rangeLabel" destination="NuV-Hd-KOi" id="kHO-c4-SZD"/>
                         <outlet property="uuidTextField" destination="XKN-hw-mUC" id="gVR-KD-ird"/>
                     </connections>

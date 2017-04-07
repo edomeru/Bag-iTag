@@ -135,10 +135,9 @@ class PagerViewController: UIViewController {
             
             return
         }
-        
         self.createHex(aCode: aCode, ActivationOption:ActivationOption)
-        
     }
+    
     
     func enter_code_qr(_ sender: Notification){
         let aCode: String = sender.object as! String
@@ -148,13 +147,12 @@ class PagerViewController: UIViewController {
             
             return
         }
-        
         self.createHex(aCode: aCode, ActivationOption:ActivationOption)
-        
     }
     
+    
     func createHex(aCode:String, ActivationOption:String){
-        
+        Globals.log("This is ACODE \(aCode)")
         var BTAddress:Int64 = 0
         var powIndex = 0
         
@@ -284,11 +282,11 @@ class PagerViewController: UIViewController {
     }
     
     func showNavigationItem(_ notification: Notification) {
-        
+        self.navigationController?.navigationBar.isTranslucent = true
         let shw = self.navigationItem.rightBarButtonItem
         shw?.isEnabled = true
         shw?.tintColor = UIColor.white
-        // view.backgroundColor = UIColor.clear
+        //view.backgroundColor = UIColor.black.withAlphaComponent(0)
     }
     
     deinit {
@@ -312,6 +310,7 @@ class PagerViewController: UIViewController {
         hideNavigationItem(item: self.navigationItem.rightBarButtonItem)
         NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.CancelQrScreen), object: nil, userInfo: nil)
     }
+    
     fileprivate func formatNavigationBar() {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()

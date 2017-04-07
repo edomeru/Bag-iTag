@@ -262,7 +262,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
   func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
     switch state {
     case CLRegionState.inside:
-      Globals.log(" - entered region \(region.identifier)")
+      Globals.log(" - entered region spot \(region.identifier)")
       
       let beaconRegion = region as! CLBeaconRegion
       //locationManager.startRangingBeacons(in: beaconRegion)

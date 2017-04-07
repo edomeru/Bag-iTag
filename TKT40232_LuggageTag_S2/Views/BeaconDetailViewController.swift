@@ -44,6 +44,7 @@ protocol BeaconDetailViewControllerDelegate: NSObjectProtocol {
 
 class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UITextFieldDelegate, ModalViewControllerDelegate, AVCaptureMetadataOutputObjectsDelegate {
     
+    @IBOutlet weak var qrPic: UIImageView!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var uuidTextField: UITextField!
     @IBOutlet weak var imgButton: UIButton!
@@ -65,9 +66,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     var qrCodeFrameView:UIView?
     
     let supportedCodeTypes = [AVMetadataObjectTypeQRCode]
-    override func viewDidDisappear(_ animated: Bool) {
-        NotificationCenter.default.removeObserver(self)
-    }
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         formatNavigationBar()
@@ -105,7 +104,13 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
             
             nameTextField.text = item.name
             Globals.log("UPDATE ACT CODE \(beaconToEdit?.activation_code.uppercased())")
+            
             uuidTextField.text = beaconToEdit?.activation_code.uppercased()
+            
+            let image_qr = generateQRCode(from: "\(beaconToEdit?.activation_code.uppercased())")
+            
+            qrPic.image = image_qr
+            Globals.log("QR HERE \(image_qr)")
             
             if (beaconToEdit?.activated)! {
                 uuidTextField.isEnabled = false
@@ -675,6 +680,24 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
         
         return false
     }
+    
+    func generateQRCode(from string: String) -> UIImage? {
+        let data = string.data(using: String.Encoding.ascii)
+        
+        if let filter = CIFilter(name: "CIQRCodeGenerator") {
+            filter.setValue(data, forKey: "inputMessage")
+            let transform = CGAffineTransform(scaleX: 3, y: 3)
+            
+            if let output = filter.outputImage?.applying(transform) {
+                return UIImage(ciImage: output)
+            }
+        }
+        
+        return nil
+    }
+    
+    
+    
     
     deinit {
         
