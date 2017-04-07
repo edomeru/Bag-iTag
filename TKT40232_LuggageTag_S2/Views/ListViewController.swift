@@ -436,7 +436,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
                         let indexPath = IndexPath(row: index, section: 0)
                         row[(indexPath as NSIndexPath).row].regionState = Constants.Proximity.Inside
                         NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Proximity.Inside), object: nil, userInfo: ["region": region])
-                        createLocalNotification(region.identifier, identifier: beacon.name, message: NSLocalizedString("has_arrived", comment: ""))
+                        createLocalNotification(beacon.name, identifier: beacon.uuid, message: NSLocalizedString("has_arrived", comment: ""))
                         
                         if let cell = tableView.cellForRow(at: indexPath) {
                             let cellSwitch = cell.viewWithTag(1004) as! SevenSwitch
@@ -464,7 +464,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
                         let indexPath = IndexPath(row: index, section: 0)
                         row[(indexPath as NSIndexPath).row].regionState = Constants.Proximity.Outside
                         NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Proximity.Outside), object: nil, userInfo: ["region": region])
-                        createLocalNotification(region.identifier, identifier: beacon.uuid, message: NSLocalizedString("is_gone", comment: ""))
+                        createLocalNotification(beacon.name, identifier: beacon.uuid, message: NSLocalizedString("is_gone", comment: ""))
                         
                         if let cell = tableView.cellForRow(at: indexPath) {
                             configureCellRegion(cell, withLuggageTag: beacon, connected: false)
