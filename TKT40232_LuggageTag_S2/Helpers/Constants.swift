@@ -15,6 +15,11 @@ struct Constants {
   struct Segue {
     static let AddBeacon = "AddBeacon"
     static let EditBeacon = "EditBeacon"
+    static let ActivationOptions = "ActivationOptions"
+    static let AddPhoto = "AddPhoto"
+    static let EnterActivationCode = "EnterActivationCode"
+    static let ShakeMe = "ShakeMe"
+    static let  PagerView = "PagerView"
   }
   
   struct Proximity {
@@ -43,6 +48,7 @@ struct Constants {
     static let ActivationCode = "activation_code"
     static let ActivationKey = "activation_key"
     static let ActivatedUUID = "activated_uuid"
+    static let ActivationOption = "ActivationOption"
   }
   
   struct Notification {
@@ -54,6 +60,23 @@ struct Constants {
     static let StopActivatingKey = "StopActivatingKeyID"
     static let OnBackgroundAccessEnabled = "OnBackgroundAccessEnabledID"
     static let OnBackgroundAccessDisabled = "OnBackgroundAccessDisabledID"
+    static let CallDismissShakeDeviceAlert = "CallDismissShakeDeviceAlert"
+    static let CencelActivationScreen = "CencelActivationScreen"
+    static let INPUT_ACTIVATION_CODE = "INPUT_ACTIVATION_CODE"
+    static let NEXT_BUTTON = "NEXT_BUTTON"
+    static let connectActivatingBeacon = "connectActivatingBeacon"
+    static let ENTER_REGION = "ENTER_REGION"
+    static let SEND_TAG_NAME  = "SEND_TAG_NAME"
+    static let CancelPhotoView = "CancelPhotoView"
+    static let TAKE_PHOTO = "TAKE_PHOTO"
+    static let SEND_PHOTO = "SEND_PHOTO"
+    static let SavingNewLugguageItem = "SavingNewLugguageItem"
+    static let CancelQrScreen = "CancelQrScreen"
+    static let ShowCancel = "ShowCancel"
+    static let cancelDisappear  = "cancelDisappear"
+    static let NEXT_BUTTON_QR = "NEXT_BUTTON_QR"
+    static let Go_To_Next_Page = "Go_To_Next_Page"
+    
   }
   
   struct Time {

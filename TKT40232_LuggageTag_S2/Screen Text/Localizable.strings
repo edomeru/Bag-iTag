@@ -35,6 +35,7 @@
 "shake_device_message" = "Shake device until detected.";
 "error_activating_message" = "Device activation failed. Please try Again";
 "error_activation_code" = "Activation Code must be 11 letters";
+"error_empty_name" = "Name field is empty";
 
 /* Local Notification */
 "has_arrived" = "has arrived!";
