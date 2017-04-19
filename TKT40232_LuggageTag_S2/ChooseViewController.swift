@@ -135,14 +135,14 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
                     NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.cancelDisappear), object: nil, userInfo: nil)
                     
                     self.QRCODE = qrCode.lowercased()
-                    
+                    Globals.log("QR CODE LOWERCASE \(qrCode.lowercased())")
                     let isValidLuggage = self.validateLuggage()
                     
                     if (isValidLuggage) {
                         self.hideNavigationItem(item: self.navigationItem.rightBarButtonItem)
                         
                         let myDict: [String: Any] = [ Constants.Key.ActivationOption: "qr"]
-                        Globals.log("QR CODE LOWERCASE \(qrCode.lowercased())")
+                        Globals.log("self.QRCODE \(self.QRCODE)")
                         
                         NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.NEXT_BUTTON_QR), object: qrCode.lowercased(), userInfo: myDict)
                     }
@@ -178,11 +178,12 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     
     // TODO: Check Activation Code Uniqueness
     fileprivate func checkActivationCodeAvailability() -> Bool {
-        Globals.log("checkActivationCodeAvailability")
+        Globals.log("checkActivationCodeAvailability \(beacons?.count)")
+        
         for beacon in beacons! {
-            
+            Globals.log("CHECK QR VALIDATION  1 \(self.QRCODE)")
             if let qr =  QRCODE{
-                
+                Globals.log("CHECK QR VALIDATION 2  \(qr)")
                 if (beacon.activation_code == qr ) {
                     
                     return false

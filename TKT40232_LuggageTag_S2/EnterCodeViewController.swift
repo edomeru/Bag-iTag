@@ -128,7 +128,9 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
     
     // TODO: Check Activation Code Uniqueness
     fileprivate func checkActivationCodeAvailability() -> Bool {
+        Globals.log("checkActivationCodeAvailability ENTER \(beacons?.count)")
         for beacon in beacons! {
+             Globals.log("Exit Adding/Editing Luggage")
             if (beacon.activation_code == codeTextField.text!.lowercased()) {
                 Globals.log("Existing Activation code \(beacon.activation_code)")
                 

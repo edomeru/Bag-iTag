@@ -103,14 +103,19 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
             }
             
             nameTextField.text = item.name
-            Globals.log("UPDATE ACT CODE \(beaconToEdit?.activation_code.uppercased())")
+           
             
-            uuidTextField.text = beaconToEdit?.activation_code.uppercased()
             
-            let image_qr = generateQRCode(from: "\(beaconToEdit?.activation_code.uppercased())")
+            if let beaconEditActivationCode = beaconToEdit?.activation_code.uppercased(){
+            uuidTextField.text = beaconEditActivationCode
+            let image_qr = generateQRCode(from: "\(beaconEditActivationCode)")
+                 Globals.log("UPDATE ACT CODE \(beaconEditActivationCode)")
+                qrPic.image = image_qr
+                Globals.log("QR HERE \(image_qr)")
+            }
+           
             
-            qrPic.image = image_qr
-            Globals.log("QR HERE \(image_qr)")
+           
             
             if (beaconToEdit?.activated)! {
                 uuidTextField.isEnabled = false
