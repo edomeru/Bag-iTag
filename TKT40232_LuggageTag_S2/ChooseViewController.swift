@@ -107,7 +107,7 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     
     // MARK: - AVCaptureMetadataOutputObjectsDelegate Methods
     func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
-        
+        Globals.log("captureOutput")
         
         // Check if the metadataObjects array is not nil and it contains at least one object.
         if metadataObjects == nil || metadataObjects.count == 0 {
@@ -124,15 +124,16 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
             let barCodeObject = videoPreviewLayer?.transformedMetadataObject(for: metadataObj)
             qrCodeFrameView?.frame = barCodeObject!.bounds
             if let qrCode = metadataObj.stringValue {
+                Globals.log("qrCodemetadataObj")
                 AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
-                    
+//                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
+                
                     self.hideNavigationItem(item: self.navigationItem.rightBarButtonItem)
                     self.self.captureSession?.stopRunning()
                     self.qrCodeFrameView?.removeFromSuperview()
                     self.videoPreviewLayer?.removeFromSuperlayer()
-                    
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.cancelDisappear), object: nil, userInfo: nil)
+                     Globals.log("videoPreviewLayer")
+                  NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.cancelDisappear), object: nil, userInfo: nil)
                     
                     self.QRCODE = qrCode.lowercased()
                     Globals.log("QR CODE LOWERCASE \(qrCode.lowercased())")
@@ -142,11 +143,11 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
                         self.hideNavigationItem(item: self.navigationItem.rightBarButtonItem)
                         
                         let myDict: [String: Any] = [ Constants.Key.ActivationOption: "qr"]
-                        Globals.log("self.QRCODE \(self.QRCODE)")
+                        Globals.log("qrCode.lowercased() \(qrCode.lowercased())")
                         
                         NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.NEXT_BUTTON_QR), object: qrCode.lowercased(), userInfo: myDict)
                     }
-                }
+                //}
             }
         }
         
@@ -207,7 +208,7 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     
     deinit {
         
-       // NotificationCenter.default.removeObserver(self)
+        //NotificationCenter.default.removeObserver(self)
     }
     
 }

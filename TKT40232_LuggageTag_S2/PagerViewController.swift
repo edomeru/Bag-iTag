@@ -164,8 +164,13 @@ class PagerViewController: UIViewController {
                 powIndex += 1
             }
         }
+    
+        
         
         let hexString = String(BTAddress, radix: 16, uppercase: true)
+        
+        Globals.log("HEXSTRING  \(hexString)")
+        
         self.activation_Code = aCode
         
         NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.TransmitActivationKey), object: hexString, userInfo: nil)
@@ -237,7 +242,7 @@ class PagerViewController: UIViewController {
     }
     
     func assignNameToActivatingBeacon(_ notification: Notification) {
-        
+        Globals.log("assignNameToActivatingBeacon")
         guard let uuid = notification.userInfo?[Constants.Key.ActivatedUUID] as? String, let activationKey = notification.userInfo?[Constants.Key.ActivationKey] as? String else {
             Globals.log("Invalid UUID/Activation Key from TKTCoreLocation")
             

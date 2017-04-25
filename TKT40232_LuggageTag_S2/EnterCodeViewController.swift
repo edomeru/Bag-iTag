@@ -11,6 +11,7 @@ import UIKit
 class EnterCodeViewController: UIViewController, UITextFieldDelegate {
     var hexString: String?
     @IBOutlet weak var codeTextField: CustomTextField!
+    @IBOutlet weak var cancelOutlet: CustomButton!
     
     @IBAction func cancel(_ sender: Any) {
         
@@ -19,6 +20,7 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        codeTextField.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(EnterCodeViewController.keyboardWillShow(_:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
         NotificationCenter.default.addObserver(self, selector: #selector(EnterCodeViewController.keyboardWillHide(_:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
         
@@ -27,7 +29,7 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
     }
     override func viewWillDisappear(_ animated: Bool) {
         
-        NotificationCenter.default.removeObserver(self)
+        //NotificationCenter.default.removeObserver(self)
     }
     @IBAction func nextButton(_ sender: Any) {
         
@@ -43,6 +45,7 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
         if (isValidLuggage) {
             let aCode: String = codeTextField.text!.lowercased()
             let myDict: [String: Any] = [ Constants.Key.ActivationOption: "ac"]
+            
             NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.NEXT_BUTTON), object: aCode, userInfo: myDict)
         }
         
@@ -50,14 +53,16 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
     
     
     func keyboardWillShow(_ sender: Notification) {
-        self.view.frame.origin.y = -150
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+//        self.view.frame.origin.y = -230
+        codeTextField.frame.origin.y = 0
+        self.cancelOutlet.frame.origin.y = -230
+//        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
     }
     
     func keyboardWillHide(_ sender: Notification) {
         self.view.frame.origin.y = 0
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+//        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -151,7 +156,7 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
     
     deinit {
         
-        NotificationCenter.default.removeObserver(self)
+        //NotificationCenter.default.removeObserver(self)
         
     }
     

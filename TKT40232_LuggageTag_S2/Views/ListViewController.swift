@@ -137,7 +137,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         let indexPath = IndexPath(row: rowIndex, section: 0)
         if let cell = tableView.cellForRow(at: indexPath) {
             let customCell = cell as! CustomTableCell
-            
+      
             if customCell.customSwitch.on {
                 let region = cell.viewWithTag(1002) as! CustomDetectionView
                 region.image = UIImage(named: rangeImage)
@@ -414,6 +414,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     
     func didStartMonitoring() {
         isMonitoring = true
+        Globals.log("didStartMonitoring LISTVIEW")
     }
     
     
@@ -456,7 +457,10 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         }
     }
     
-    func didExitRegion(_ region: CLBeaconRegion) {
+    func didExitRegion(_ region: CLBeaconRegion) {  ///not updating ui od switch here
+        
+        Globals.log("didExitRegion")
+        
         for beacon in row {
             if (beacon.uuid == region.proximityUUID.uuidString) {
                 if (beacon.regionState != Constants.Proximity.Outside) {
@@ -563,7 +567,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         tktCoreLocation.stopMonitoringBeacon(beaconRegion, key: item.uuid)
     }
     
-    func didBluetoothPoweredOff(didPowerOff item: LuggageTag) {
+    func didBluetoothPoweredOff(didPowerOff item: LuggageTag) {  //// NOT USED
         if let index = row.index(of: item) {
             let indexPath = IndexPath(row: index, section: 0)
             if let cell = tableView.cellForRow(at: indexPath) {
@@ -586,18 +590,18 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         //            // Stop Monitoring this Specific Beacon.
         //            tktCoreLocation.stopMonitoringBeacon(beaconRegion, key: item.uuid)
         //        }
-        
+        Globals.log("connectActivatingBeacon HERE")
         startMonitoringforBeacon(item)
         
         
     }
     
-    func disconnectActivatingBeacon(item: LuggageTag) {
+    func disconnectActivatingBeacon(item: LuggageTag) {  ///DISCONNECT IF ACTIVATION IS NOT SUCCESSFULL, DELEGATE OF BEACONVIEWCONTROLLER
         stopMonitoring(didStopMonitoring: item)
         
     }
     
-    func didFinishActivatingBeacon(_ controller: BeaconDetailViewController, item: LuggageTag, isFromEdit: Bool) {
+    func didFinishActivatingBeacon(_ controller: BeaconDetailViewController, item: LuggageTag, isFromEdit: Bool) {///CHECK THIS FUNC, CREATE NEW BEACON, INSERT TO TABLE
         if (isFromEdit) {
             // From Edit
             if let index = row.index(of: item) {
@@ -698,7 +702,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         Globals.showAlert(self, title: NSLocalizedString("app_name", comment: ""), message: NSLocalizedString("turn_on_bluetooth", comment: ""), animated: true, completion: nil, actions: actions)
     }
     
-    fileprivate func configureCell(_ cell: UITableViewCell, withLuggageTag item: LuggageTag) {
+    fileprivate func configureCell(_ cell: UITableViewCell, withLuggageTag item: LuggageTag) {///UPDSTE LABEL AND CUSTOM BUTTON
         let label = cell.viewWithTag(1000) as! UILabel
         let photo = cell.viewWithTag(1001) as! CustomButton
         
@@ -764,7 +768,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         self.tableView.reloadData()
     }
     
-    fileprivate func startMonitoring() {
+    fileprivate func startMonitoring() {//called WHEN BLUETOTH ON/OF
         if row.count > 0 {
             for beacon in row {
                 if beacon.isConnected {
@@ -788,18 +792,18 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         }
     }
     
-    fileprivate func startMonitoringforBeacon(_ beaconItem: LuggageTag) {
+    fileprivate func startMonitoringforBeacon(_ beaconItem: LuggageTag) {/////   CALLED SWITCH ON/OFF
         var beaconRegion: CLBeaconRegion?
         beaconRegion = CLBeaconRegion(proximityUUID: UUID(uuidString: beaconItem.uuid)!, identifier: beaconItem.name)
         // later, these values can be set from the UI
         beaconRegion!.notifyEntryStateOnDisplay = true
         beaconRegion!.notifyOnEntry = true
         beaconRegion!.notifyOnExit = true
-        
+        Globals.log("LISTVIEW startMonitoringforBeacon")
         tktCoreLocation.startMonitoring(beaconRegion)
     }
     
-    fileprivate func checkLuggageTagRegion() {
+    fileprivate func checkLuggageTagRegion() {  /// FOR BLUTOOTH, THIS FUNCTION TURNS OFF SCANNING OR MAKE GREEN RSSI TO GRAY
         if row.count > 0 {
             for beacon in row {
                 if (beacon.regionState == Constants.Proximity.Inside) {
@@ -933,7 +937,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         }
     }
     
-    fileprivate func updateCoreDataModel() {
+    fileprivate func updateCoreDataModel() {  ///UPDATE WHEN DOING GESTURE,MOVE ROW FROM TABLEVIEW
         do {
             // Refetch FRC to make sure it is the new CoreData
             try frc.performFetch()
@@ -999,7 +1003,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         
     }
     
-    fileprivate func applicationInfo() {
+    fileprivate func applicationInfo() {/// SET VERSION NUMBER AT THE BOTTOM
         appInfoView.alpha = 0.6
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
             versionLabel.text = "v\(version)"
@@ -1027,7 +1031,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     
     deinit {
         
-        NotificationCenter.default.removeObserver(self)
+//        NotificationCenter.default.removeObserver(self)
     }
     
     
