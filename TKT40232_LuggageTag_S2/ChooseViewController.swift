@@ -21,8 +21,13 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     let supportedCodeTypes = [AVMetadataObjectTypeQRCode]
     var QRCODE: String?
     
+    @IBOutlet weak var activationCodeOutlet: CustomButton!
+    @IBOutlet weak var qrCodeOutlet: CustomButton!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.activationCodeOutlet.setTitle(NSLocalizedString("input_activation_code",comment: ""), for: .normal)
+   self.qrCodeOutlet.setTitle(NSLocalizedString("scan_qr_code_to_activate",comment: ""), for: .normal)
         
         NotificationCenter.default.addObserver(self, selector: #selector(ChooseViewController.qrCancelButton(_:)), name: NSNotification.Name(rawValue: Constants.Notification.CancelQrScreen), object: nil)
     }

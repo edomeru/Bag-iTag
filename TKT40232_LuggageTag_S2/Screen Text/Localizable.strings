@@ -9,7 +9,8 @@
 "app_name" = "Bag iTag";
 "tektos_limited" = "Tektos Limited © ";
 "alrights_reserved" = "All rights reserved";
-
+"input_activation_code" = "INPUT ACTIVATION CODE";
+"scan_qr_code_to_activate" = "SCAN QR CODE TO ACTIVATE";
 /* Alert Box Actions */
 "ok" = "OK";
 "exit" = "Exit";

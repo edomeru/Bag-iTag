@@ -12,7 +12,9 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
     var hexString: String?
     @IBOutlet weak var codeTextField: CustomTextField!
     @IBOutlet weak var cancelOutlet: CustomButton!
+    @IBOutlet weak var textLabel: UILabel!
     
+    @IBOutlet weak var nextOutlet: CustomButton!
     @IBAction func cancel(_ sender: Any) {
         
         NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.CencelActivationScreen), object: nil, userInfo: nil)
@@ -23,6 +25,8 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
         codeTextField.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(EnterCodeViewController.keyboardWillShow(_:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
         NotificationCenter.default.addObserver(self, selector: #selector(EnterCodeViewController.keyboardWillHide(_:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
+        
+   
         
         
         
@@ -53,11 +57,18 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
     
     
     func keyboardWillShow(_ sender: Notification) {
-//        self.view.frame.origin.y = -230
-        codeTextField.frame.origin.y = 0
-        self.cancelOutlet.frame.origin.y = -230
-//        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        self.textLabel.frame.origin.y = 7
+        self.codeTextField.frame.origin.y = 50
         
+        
+        
+        let userInfo:NSDictionary = sender.userInfo! as NSDictionary
+        let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+        let keyboardRectangle = keyboardFrame.cgRectValue
+        let keyboardHeight = keyboardRectangle.height
+
+        self.cancelOutlet.frame.origin.y =  self.view.frame.height - keyboardHeight - 100
+        self.nextOutlet.frame.origin.y =  self.view.frame.height - keyboardHeight - 100
     }
     
     func keyboardWillHide(_ sender: Notification) {

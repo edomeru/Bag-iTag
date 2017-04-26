@@ -52,6 +52,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     @IBOutlet weak var activationButton: CustomButton!
     @IBOutlet weak var qrCodeButton: UIButton!
     
+    @IBOutlet weak var cameraBackground: UIView!
     var centralManager: CBCentralManager!
     
     weak var delegate: BeaconDetailViewControllerDelegate?
@@ -373,13 +374,47 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
         
     }
     
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    
     // MARK: NSNotificationCenter Functions
     func keyboardWillShow(_ sender: Notification) {
-        self.view.frame.origin.y = -150
+       
+        //self.imgButton.frame.size = CGSize(width:20, height: 20)
+       // self.cameraBackground.frame.origin.y = 10
+        
+        
+        let navigationBarHeight: CGFloat = self.navigationController!.navigationBar.frame.height
+        
+        
+        self.rangeLabel.frame.origin.y = navigationBarHeight
+        self.nameTextField.frame.origin.y = navigationBarHeight + self.rangeLabel.frame.size.height+7
+        self.uuidTextField.frame.origin.y = self.nameTextField.frame.size.height + navigationBarHeight + self.rangeLabel.frame.size.height + 14
+        self.cameraBackground.isHidden = true
+        //self.imgButton.frame.size.height = 10
+    
+       // self.cameraBackground.frame.size.height = 60
+        
+       
+       
+        
+        let userInfo:NSDictionary = sender.userInfo! as NSDictionary
+        let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+        let keyboardRectangle = keyboardFrame.cgRectValue
+        let keyboardHeight = keyboardRectangle.height
+        
+        self.qrPic.frame.origin.y =  self.view.frame.height - keyboardHeight - 80
+        self.activationButton.frame.origin.y =  self.view.frame.height - keyboardHeight - 50
+        
     }
     
     func keyboardWillHide(_ sender: Notification) {
         self.view.frame.origin.y = 0
+        self.cameraBackground.isHidden = false
+        self.imgButton.isHidden = false
     }
     
     func setEnterRegion(_ notification: Notification) {

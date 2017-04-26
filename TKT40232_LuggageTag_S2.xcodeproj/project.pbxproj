@@ -107,6 +107,8 @@
 		543881495BA414ADEF54DAEE /* Pods_LuggageFinderUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LuggageFinderUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B26E0C0DCE46E8C9D4501C3B /* Pods-LuggageFinderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LuggageFinderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LuggageFinderTests/Pods-LuggageFinderTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B9CBB650100FAA175754B1AD /* Pods_LuggageFinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LuggageFinder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E624EE9D1EB0A40E002D443F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
+		E624EE9E1EB0A40F002D443F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		E65FAE111E80FA2100BC5BBA /* ShakeBeaconViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ShakeBeaconViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E66745A31EADBD6A00D93E08 /* KeyboardLayoutConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardLayoutConstraint.swift; sourceTree = "<group>"; };
 		E66CDB4C1E76A5C300427733 /* AddPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AddPhotoViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -671,6 +673,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				1515472F1D093B0D0045390E /* Base */,
+				E624EE9D1EB0A40E002D443F /* es */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -679,6 +682,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				157DB6F01CF401CC00FC960E /* Base */,
+				E624EE9E1EB0A40F002D443F /* es */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -690,6 +694,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -738,6 +743,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";

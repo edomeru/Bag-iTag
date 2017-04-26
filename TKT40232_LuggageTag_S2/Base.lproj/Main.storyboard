@@ -416,7 +416,7 @@
                             <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="evJ-wm-XnQ">
                                 <rect key="frame" x="0.0" y="89" width="375" height="200"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QVg-P1-dhs" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QVg-P1-dhs" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
                                         <rect key="frame" x="98" y="10" width="180" height="180"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -442,7 +442,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="QVg-P1-dhs" secondAttribute="bottom" id="0u9-ei-VIi"/>
                                     <constraint firstAttribute="bottom" secondItem="QVg-P1-dhs" secondAttribute="bottom" constant="10" id="LZ2-ZN-YdU"/>
@@ -581,6 +581,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="activationButton" destination="eWm-6B-a2H" id="fQn-V4-Hvx"/>
+                        <outlet property="cameraBackground" destination="evJ-wm-XnQ" id="jSu-cJ-d9w"/>
                         <outlet property="imgButton" destination="QVg-P1-dhs" id="iAU-zY-STX"/>
                         <outlet property="nameTextField" destination="idS-w2-DuE" id="rxD-4P-S0y"/>
                         <outlet property="qrCodeButton" destination="2WV-dR-kYo" id="6e2-gi-Y5b"/>
@@ -684,7 +685,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fRw-Vc-P7V" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="hOS-2m-76K">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hOS-2m-76K">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -703,7 +704,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Nup-9k-wAl" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="4R2-W2-LqE"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="aia-Y3-ZyY">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="aia-Y3-ZyY">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -784,7 +785,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="sHA-vp-055" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" alpha="0.0" contentMode="scaleToFill" misplaced="YES" id="fve-cw-Kdo">
+                    <navigationBar key="navigationBar" alpha="0.0" contentMode="scaleToFill" id="fve-cw-Kdo">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -965,6 +966,10 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="activationCodeOutlet" destination="4GZ-x5-Yqs" id="yum-d0-BLP"/>
+                        <outlet property="qrCodeOutlet" destination="KRg-yR-gez" id="TFF-Qf-Y4V"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bRn-CH-Len" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1085,6 +1090,8 @@
                     <connections>
                         <outlet property="cancelOutlet" destination="huW-ib-BZd" id="Tdi-BS-hyv"/>
                         <outlet property="codeTextField" destination="Vhq-G6-SNe" id="0UZ-Qm-VhK"/>
+                        <outlet property="nextOutlet" destination="SzH-j0-WkK" id="XDf-ET-EFz"/>
+                        <outlet property="textLabel" destination="kEc-Bz-6ea" id="nTc-Ja-AJI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vua-N9-oTX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1313,7 +1320,7 @@
                                     <action selector="nextSkip:" destination="VRR-5r-x8I" eventType="touchUpInside" id="iaq-tR-aCC"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SkO-E6-iAV" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SkO-E6-iAV" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
                                 <rect key="frame" x="98" y="216" width="180" height="180"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
