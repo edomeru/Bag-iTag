@@ -14,6 +14,9 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var cancelOutlet: CustomButton!
     @IBOutlet weak var textLabel: UILabel!
     
+    @IBOutlet weak var enterLabelTopSpaceConstraint: NSLayoutConstraint!
+    @IBOutlet weak var nextBottomSpaceConstraints: NSLayoutConstraint!
+    @IBOutlet weak var CancelBottomSpace: KeyboardLayoutConstraint!
     @IBOutlet weak var nextOutlet: CustomButton!
     @IBAction func cancel(_ sender: Any) {
         
@@ -22,6 +25,12 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+         Globals.log(" SCREEN HEIGHT 2   \(screenHeight())")
+        
+        
+      
+        
         codeTextField.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(EnterCodeViewController.keyboardWillShow(_:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
         NotificationCenter.default.addObserver(self, selector: #selector(EnterCodeViewController.keyboardWillHide(_:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
@@ -31,6 +40,11 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
         
         
     }
+    
+    func screenHeight() -> CGFloat {
+        return UIScreen.main.bounds.height;
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         
         //NotificationCenter.default.removeObserver(self)
@@ -57,22 +71,139 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
     
     
     func keyboardWillShow(_ sender: Notification) {
-        self.textLabel.frame.origin.y = 7
-        self.codeTextField.frame.origin.y = 50
         
         
+        let systemVersion = UIDevice.current.systemVersion
         
-        let userInfo:NSDictionary = sender.userInfo! as NSDictionary
-        let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
-        let keyboardRectangle = keyboardFrame.cgRectValue
-        let keyboardHeight = keyboardRectangle.height
-
-        self.cancelOutlet.frame.origin.y =  self.view.frame.height - keyboardHeight - 100
-        self.nextOutlet.frame.origin.y =  self.view.frame.height - keyboardHeight - 100
+        Globals.log("SYSTEM VERSION   \(systemVersion)")
+    
+        
+        if Double(systemVersion)!  <= 8.9 {
+            
+            /// iOS 8
+            
+            self.textLabel.frame.origin.y = -80
+           
+            Globals.log("textLabel.frame.origin.y  \(textLabel.frame.size.height)")
+            if screenHeight() <= 490.0 {
+                
+                Globals.log("keyboardWillShow IF")
+              
+                //self.imageInputActivation.constant = 90
+                let userInfo:NSDictionary = sender.userInfo! as NSDictionary
+                let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+                let keyboardRectangle = keyboardFrame.cgRectValue
+                let keyboardHeight = keyboardRectangle.height
+                Globals.log("keyboardFrame \(keyboardHeight)")
+                  self.CancelBottomSpace.constant = keyboardHeight
+                self.nextBottomSpaceConstraints.constant = keyboardHeight
+                self.enterLabelTopSpaceConstraint.constant = screenHeight() - 450
+//                 self.codeTextField.frame.origin.y = screenHeight() - keyboardHeight
+//                self.cancelOutlet.frame.origin.y =  screenHeight() - keyboardHeight - 10
+//                self.nextOutlet.frame.origin.y =  self.view.frame.height - keyboardHeight  - 10
+                
+            }else{
+                Globals.log("keyboardWillShow   ELSE")
+                let userInfo:NSDictionary = sender.userInfo! as NSDictionary
+                let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+                let keyboardRectangle = keyboardFrame.cgRectValue
+                let keyboardHeight = keyboardRectangle.height
+                
+                self.CancelBottomSpace.constant = keyboardHeight
+                self.nextBottomSpaceConstraints.constant = keyboardHeight
+                self.enterLabelTopSpaceConstraint.constant = self.view.frame.height - 400
+            }
+            
+            
+            
+            
+            
+            
+            
+        }else{
+            
+            self.textLabel.frame.origin.y = 7
+            self.codeTextField.frame.origin.y = 50
+            Globals.log("keyboardWillShow")
+            if screenHeight() <= 490.0 {
+                
+                Globals.log("keyboardWillShow IF")
+                
+                //self.imageInputActivation.constant = 90
+                let userInfo:NSDictionary = sender.userInfo! as NSDictionary
+                let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+                let keyboardRectangle = keyboardFrame.cgRectValue
+                let keyboardHeight = keyboardRectangle.height
+                Globals.log("keyboardFrame \(keyboardHeight)")
+                self.cancelOutlet.frame.origin.y =  self.view.frame.height - keyboardHeight - 45
+                self.nextOutlet.frame.origin.y =  self.view.frame.height - keyboardHeight  - 45
+                
+            }else{
+                Globals.log("keyboardWillShow   ELSE")
+                let userInfo:NSDictionary = sender.userInfo! as NSDictionary
+                let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+                let keyboardRectangle = keyboardFrame.cgRectValue
+                let keyboardHeight = keyboardRectangle.height
+                
+                self.cancelOutlet.frame.origin.y =  self.view.frame.height - keyboardHeight - 100
+                self.nextOutlet.frame.origin.y =  self.view.frame.height - keyboardHeight - 100
+            }
+        }
     }
     
     func keyboardWillHide(_ sender: Notification) {
-        self.view.frame.origin.y = 0
+        
+        
+        
+        let systemVersion = UIDevice.current.systemVersion
+        
+        Globals.log("SYSTEM VERSION   \(systemVersion)")
+        
+        
+        if Double(systemVersion)!  <= 8.9 {
+            
+            /// iOS 8
+            
+            self.textLabel.frame.origin.y = -80
+            
+            Globals.log("textLabel.frame.origin.y  \(textLabel.frame.size.height)")
+            if screenHeight() <= 490.0 {
+                
+                Globals.log("keyboardWillShow IF")
+                
+                //self.imageInputActivation.constant = 90
+                let userInfo:NSDictionary = sender.userInfo! as NSDictionary
+                let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+                let keyboardRectangle = keyboardFrame.cgRectValue
+                let keyboardHeight = keyboardRectangle.height
+                Globals.log("keyboardFrame \(keyboardHeight)")
+                self.CancelBottomSpace.constant = 27
+                self.nextBottomSpaceConstraints.constant = 27
+                self.enterLabelTopSpaceConstraint.constant = 126
+          
+                
+            }else{
+                Globals.log("keyboardWillShow   ELSE")
+                let userInfo:NSDictionary = sender.userInfo! as NSDictionary
+                let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+                let keyboardRectangle = keyboardFrame.cgRectValue
+                let keyboardHeight = keyboardRectangle.height
+                
+                self.cancelOutlet.frame.origin.y =  self.view.frame.height - keyboardHeight - 100
+                self.nextOutlet.frame.origin.y =  self.view.frame.height - keyboardHeight - 100
+            }
+            
+            
+            
+            
+            
+            
+            
+        }else{
+            //  > iOS 8
+            self.view.frame.origin.y = 0
+        }
+
 //        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     

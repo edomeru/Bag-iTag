@@ -21,12 +21,28 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     let supportedCodeTypes = [AVMetadataObjectTypeQRCode]
     var QRCODE: String?
     
+    @IBOutlet weak var cancelConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageInputActivation: NSLayoutConstraint!
+    
+    @IBOutlet weak var inputActivationButtonConstraint: NSLayoutConstraint!
+    @IBOutlet weak var qrButtonConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageQrConstraint: NSLayoutConstraint!
     @IBOutlet weak var activationCodeOutlet: CustomButton!
     @IBOutlet weak var qrCodeOutlet: CustomButton!
     override func viewDidLoad() {
         super.viewDidLoad()
+        Globals.log(" SCREEN HEIGHT \(screenHeight())")
         
+        if screenHeight() <= 490.0 {
+        self.imageInputActivation.constant = 90
+            self.imageQrConstraint.constant = 80
+            self.qrButtonConstraint.constant = 42
+            self.inputActivationButtonConstraint.constant  = 42
+            self.cancelConstraint.constant  = 42
+            
+        }
         self.activationCodeOutlet.setTitle(NSLocalizedString("input_activation_code",comment: ""), for: .normal)
+        
    self.qrCodeOutlet.setTitle(NSLocalizedString("scan_qr_code_to_activate",comment: ""), for: .normal)
         
         NotificationCenter.default.addObserver(self, selector: #selector(ChooseViewController.qrCancelButton(_:)), name: NSNotification.Name(rawValue: Constants.Notification.CancelQrScreen), object: nil)
@@ -37,6 +53,9 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
        // NotificationCenter.default.removeObserver(self)
     }
     
+    func screenHeight() -> CGFloat {
+        return UIScreen.main.bounds.height;
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

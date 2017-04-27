@@ -23,7 +23,6 @@
 		157DB6E91CF401CC00FC960E /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157DB6E81CF401CC00FC960E /* ListViewController.swift */; };
 		157DB6F11CF401CC00FC960E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 157DB6EF1CF401CC00FC960E /* LaunchScreen.storyboard */; };
 		157DB6F91CF4073C00FC960E /* TKTCoreLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157DB6F81CF4073C00FC960E /* TKTCoreLocation.swift */; };
-		157DB6FE1CF439D100FC960E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 157DB6FD1CF439D100FC960E /* Localizable.strings */; };
 		157DB7001CF43B6400FC960E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157DB6FF1CF43B6400FC960E /* Constants.swift */; };
 		157DB7021CF45B6800FC960E /* CustomTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157DB7011CF45B6800FC960E /* CustomTableCell.swift */; };
 		157E847D1D0FE4B100179F23 /* BeaconCoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 157E847B1D0FE4B100179F23 /* BeaconCoreDataModel.xcdatamodeld */; };
@@ -45,6 +44,7 @@
 		E67F58A81E82757600A36255 /* EnterCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67F58A71E82757600A36255 /* EnterCodeViewController.swift */; };
 		E67F58B01E828A0700A36255 /* PagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67F58AF1E828A0700A36255 /* PagerViewController.swift */; };
 		E67F58B61E82938E00A36255 /* WizardPagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67F58B51E82938E00A36255 /* WizardPagerViewController.swift */; };
+		E680EFF61EB185A3009F1A38 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E680EFF81EB185A3009F1A38 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,7 +84,6 @@
 		157DB6F01CF401CC00FC960E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		157DB6F21CF401CC00FC960E /* LuggageFinder.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = LuggageFinder.plist; path = "Supporting Files/LuggageFinder.plist"; sourceTree = "<group>"; };
 		157DB6F81CF4073C00FC960E /* TKTCoreLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TKTCoreLocation.swift; path = Helpers/TKTCoreLocation.swift; sourceTree = "<group>"; };
-		157DB6FD1CF439D100FC960E /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = "Screen Text/Localizable.strings"; sourceTree = "<group>"; };
 		157DB6FF1CF43B6400FC960E /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = Helpers/Constants.swift; sourceTree = "<group>"; };
 		157DB7011CF45B6800FC960E /* CustomTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomTableCell.swift; path = Views/Custom/CustomTableCell.swift; sourceTree = "<group>"; };
 		157E847C1D0FE4B100179F23 /* BeaconCoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BeaconCoreDataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -117,6 +116,7 @@
 		E67F58A71E82757600A36255 /* EnterCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = EnterCodeViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E67F58AF1E828A0700A36255 /* PagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PagerViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E67F58B51E82938E00A36255 /* WizardPagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = WizardPagerViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		E680EFF71EB185A3009F1A38 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F9001788F124C316F6AE0872 /* Pods-LuggageFinderUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LuggageFinderUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LuggageFinderUITests/Pods-LuggageFinderUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -225,7 +225,7 @@
 		151B2E5A1CFE8245007BCF27 /* Screen Text */ = {
 			isa = PBXGroup;
 			children = (
-				157DB6FD1CF439D100FC960E /* Localizable.strings */,
+				E680EFF81EB185A3009F1A38 /* Localizable.strings */,
 			);
 			name = "Screen Text";
 			sourceTree = "<group>";
@@ -440,7 +440,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				157DB6FE1CF439D100FC960E /* Localizable.strings in Resources */,
+				E680EFF61EB185A3009F1A38 /* Localizable.strings in Resources */,
 				15F5FA9A1D05166800E0236C /* GADUGIB.TTF in Resources */,
 				15F5FA991D05166800E0236C /* GADUGI.TTF in Resources */,
 				151547301D093B0D0045390E /* Main.storyboard in Resources */,
@@ -685,6 +685,15 @@
 				E624EE9E1EB0A40F002D443F /* es */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		E680EFF81EB185A3009F1A38 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E680EFF71EB185A3009F1A38 /* en */,
+			);
+			name = Localizable.strings;
+			path = "Screen Text";
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

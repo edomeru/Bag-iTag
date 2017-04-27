@@ -685,7 +685,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fRw-Vc-P7V" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hOS-2m-76K">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="hOS-2m-76K">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -704,7 +704,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Nup-9k-wAl" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="4R2-W2-LqE"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="aia-Y3-ZyY">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="aia-Y3-ZyY">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -785,7 +785,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="sHA-vp-055" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" alpha="0.0" contentMode="scaleToFill" id="fve-cw-Kdo">
+                    <navigationBar key="navigationBar" alpha="0.0" contentMode="scaleToFill" misplaced="YES" id="fve-cw-Kdo">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -968,6 +968,11 @@
                     </navigationItem>
                     <connections>
                         <outlet property="activationCodeOutlet" destination="4GZ-x5-Yqs" id="yum-d0-BLP"/>
+                        <outlet property="cancelConstraint" destination="7SY-Oe-4Wd" id="SOe-Xw-hgR"/>
+                        <outlet property="imageInputActivation" destination="gJr-9d-N3O" id="z6s-Pl-PT0"/>
+                        <outlet property="imageQrConstraint" destination="gWR-zp-VIv" id="Ey1-u2-GRc"/>
+                        <outlet property="inputActivationButtonConstraint" destination="Jh0-UT-RzI" id="NIo-bO-ko8"/>
+                        <outlet property="qrButtonConstraint" destination="WMZ-cy-o1j" id="eYc-mw-Fjz"/>
                         <outlet property="qrCodeOutlet" destination="KRg-yR-gez" id="TFF-Qf-Y4V"/>
                     </connections>
                 </viewController>
@@ -1088,8 +1093,11 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="CancelBottomSpace" destination="8Z0-az-MrA" id="Uhk-k0-MJR"/>
                         <outlet property="cancelOutlet" destination="huW-ib-BZd" id="Tdi-BS-hyv"/>
                         <outlet property="codeTextField" destination="Vhq-G6-SNe" id="0UZ-Qm-VhK"/>
+                        <outlet property="enterLabelTopSpaceConstraint" destination="OD9-of-hWo" id="CGl-zi-Vc2"/>
+                        <outlet property="nextBottomSpaceConstraints" destination="EVQ-HV-rue" id="qsB-kz-jdI"/>
                         <outlet property="nextOutlet" destination="SzH-j0-WkK" id="XDf-ET-EFz"/>
                         <outlet property="textLabel" destination="kEc-Bz-6ea" id="nTc-Ja-AJI"/>
                     </connections>
