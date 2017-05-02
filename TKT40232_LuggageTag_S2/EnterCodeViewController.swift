@@ -26,16 +26,16 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-         Globals.log(" SCREEN HEIGHT 2   \(screenHeight())")
+        Globals.log(" SCREEN HEIGHT 2   \(screenHeight())")
         
-        
-      
+        codeTextField.autocapitalizationType = .allCharacters
+       
         
         codeTextField.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(EnterCodeViewController.keyboardWillShow(_:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
         NotificationCenter.default.addObserver(self, selector: #selector(EnterCodeViewController.keyboardWillHide(_:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
-        
    
+       //codeTextField.addTarget(self, action: #selector(EnterCodeViewController.textFieldDidChange(_:)), for: UIControlEvents.editingChanged)
         
         
         
@@ -69,32 +69,40 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    func textFieldDidChange(_ textField: UITextField) {
+        NotificationCenter.default.addObserver(self, selector: #selector(EnterCodeViewController.keyboardWillShow(_:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(EnterCodeViewController.keyboardWillHide(_:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
+        codeTextField.text = textField.text?.uppercased()
+    }
     
     func keyboardWillShow(_ sender: Notification) {
         
+        let floatVersion = (UIDevice.current.systemVersion as NSString).floatValue
         
         let systemVersion = UIDevice.current.systemVersion
-        
+        Globals.log("SYSTEM VERSION FLOAT  \(floatVersion)")
         Globals.log("SYSTEM VERSION   \(systemVersion)")
     
-        
-        if Double(systemVersion)!  <= 8.9 {
+        //iOS version < 8.9
+        if Double(floatVersion)  <= 8.9 {
             
-            /// iOS 8
+          
             
             self.textLabel.frame.origin.y = -80
            
-            Globals.log("textLabel.frame.origin.y  \(textLabel.frame.size.height)")
+            Globals.log("textLabel.frame.origin.y  1 \(textLabel.frame.size.height)")
+            
+              /// iphone 4S screen
             if screenHeight() <= 490.0 {
                 
-                Globals.log("keyboardWillShow IF")
+                Globals.log("keyboardWillShow IF 1")
               
                 //self.imageInputActivation.constant = 90
                 let userInfo:NSDictionary = sender.userInfo! as NSDictionary
                 let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
                 let keyboardRectangle = keyboardFrame.cgRectValue
                 let keyboardHeight = keyboardRectangle.height
-                Globals.log("keyboardFrame \(keyboardHeight)")
+                Globals.log("keyboardFrame 1\(keyboardHeight)")
                   self.CancelBottomSpace.constant = keyboardHeight
                 self.nextBottomSpaceConstraints.constant = keyboardHeight
                 self.enterLabelTopSpaceConstraint.constant = screenHeight() - 450
@@ -102,8 +110,11 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
 //                self.cancelOutlet.frame.origin.y =  screenHeight() - keyboardHeight - 10
 //                self.nextOutlet.frame.origin.y =  self.view.frame.height - keyboardHeight  - 10
                 
-            }else{
-                Globals.log("keyboardWillShow   ELSE")
+            }
+            else{
+                
+                  /// ! iphone 4S screen  && iOS version < 8.9
+                Globals.log("keyboardWillShow   ELSE  1")
                 let userInfo:NSDictionary = sender.userInfo! as NSDictionary
                 let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
                 let keyboardRectangle = keyboardFrame.cgRectValue
@@ -111,7 +122,15 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
                 
                 self.CancelBottomSpace.constant = keyboardHeight
                 self.nextBottomSpaceConstraints.constant = keyboardHeight
-                self.enterLabelTopSpaceConstraint.constant = self.view.frame.height - 400
+                self.enterLabelTopSpaceConstraint.constant = self.view.frame.height - 500
+                
+//                let userInfo:NSDictionary = sender.userInfo! as NSDictionary
+//                let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+//                let keyboardRectangle = keyboardFrame.cgRectValue
+//                let keyboardHeight = keyboardRectangle.height
+//                
+//                self.cancelOutlet.frame.origin.y =  self.view.frame.height - keyboardHeight - 100
+//                self.nextOutlet.frame.origin.y =  self.view.frame.height - keyboardHeight - 100
             }
             
             
@@ -119,15 +138,17 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
             
             
             
-            
+             //iOS version > 8.9
         }else{
             
             self.textLabel.frame.origin.y = 7
             self.codeTextField.frame.origin.y = 50
             Globals.log("keyboardWillShow")
+            
+            //iOS version > 8.9 && iPhone 4S
             if screenHeight() <= 490.0 {
                 
-                Globals.log("keyboardWillShow IF")
+                Globals.log("keyboardWillShow IF 2")
                 
                 //self.imageInputActivation.constant = 90
                 let userInfo:NSDictionary = sender.userInfo! as NSDictionary
@@ -139,7 +160,8 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
                 self.nextOutlet.frame.origin.y =  self.view.frame.height - keyboardHeight  - 45
                 
             }else{
-                Globals.log("keyboardWillShow   ELSE")
+                //iOS version > 8.9 && ! iPhone 4S
+                Globals.log("keyboardWillShow   ELSE 2")
                 let userInfo:NSDictionary = sender.userInfo! as NSDictionary
                 let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
                 let keyboardRectangle = keyboardFrame.cgRectValue
@@ -153,14 +175,14 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
     
     func keyboardWillHide(_ sender: Notification) {
         
-        
+         let floatVersion = (UIDevice.current.systemVersion as NSString).floatValue
         
         let systemVersion = UIDevice.current.systemVersion
         
         Globals.log("SYSTEM VERSION   \(systemVersion)")
         
         
-        if Double(systemVersion)!  <= 8.9 {
+        if Double(floatVersion)  <= 8.9 {
             
             /// iOS 8
             
@@ -188,9 +210,10 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
                 let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
                 let keyboardRectangle = keyboardFrame.cgRectValue
                 let keyboardHeight = keyboardRectangle.height
-                
-                self.cancelOutlet.frame.origin.y =  self.view.frame.height - keyboardHeight - 100
-                self.nextOutlet.frame.origin.y =  self.view.frame.height - keyboardHeight - 100
+                Globals.log("keyboardFrame \(keyboardHeight)")
+                self.CancelBottomSpace.constant = 27
+                self.nextBottomSpaceConstraints.constant = 27
+                self.enterLabelTopSpaceConstraint.constant = 126
             }
             
             
@@ -214,19 +237,57 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+       
         
-        let currentCharacterCount = textField.text?.characters.count ?? 0
         
-        if (range.length + range.location > currentCharacterCount){
-            return false
-        }
-        let newLength = currentCharacterCount + string.characters.count - range.length
+       
         
-        if (textField.tag == 1000) {
-            return newLength <= 20 // Character Limit for Luggage Name
+            // Do not let specified text range to be changed
+       
+       
+        if string == "" {
+            // User presses backspace
+            textField.deleteBackward()
         } else {
-            return newLength <= 11 // Character Limit for Activation Code
+            // User presses a key or pastes
+            textField.insertText(string.uppercased())
+             return false
+            
+            let currentCharacterCount = textField.text?.characters.count ?? 0
+            
+            if (range.length + range.location > currentCharacterCount){
+                
+                
+                return false
+            }
+            let newLength = currentCharacterCount + string.characters.count - range.length
+            
+            if (textField.tag == 1000) {
+                return newLength <= 20 // Character Limit for Luggage Name
+            } else {
+                return newLength <= 11 // Character Limit for Activation Code
+            }
+
+            
+            
+            
+            
+            
+            
+            
+            
+           
         }
+        
+        
+        
+        
+        
+        
+        
+        return true
+        
+        
     }
     
     fileprivate func validateLuggage() -> Bool {
@@ -256,6 +317,7 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
         
         return true
     }
+  
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -294,8 +356,7 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(EnterCodeViewController.keyboardWillHide(_:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
         
     }
-    
-    
+   
     deinit {
         
         //NotificationCenter.default.removeObserver(self)

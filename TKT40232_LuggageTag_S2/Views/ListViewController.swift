@@ -72,6 +72,8 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         //    }
         //
         
+        //loadSampleItem()
+        
         
         formatNavigationBar()
         applicationInfo()
@@ -82,7 +84,13 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         frc = getFRC()
         frc.delegate = self
         
+        
+        
         do {
+            
+          
+            
+            
             try frc.performFetch()
             loadBeaconItems()
         } catch {
@@ -105,6 +113,10 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         
     }
     
+    func loadSampleItem() {
+        Globals.log("loadSampleItem")
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.Create_Sample_Item), object: nil, userInfo: nil)
+    }
     
     func setBattery(_ notification: Notification) {
         let key = (notification as NSNotification).userInfo!["key"] as! String

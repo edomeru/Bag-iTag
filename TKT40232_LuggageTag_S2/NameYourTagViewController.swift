@@ -168,6 +168,13 @@ class NameYourTagViewController: UIViewController, AddPhotoViewControllerDelegat
         return true
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text else { return true }
+        let newLength = text.characters.count + string.characters.count - range.length
+        return newLength <= 40 // Bool
+    }
+    
+    
     deinit {
         
         NotificationCenter.default.removeObserver(self)

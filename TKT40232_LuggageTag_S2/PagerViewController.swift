@@ -67,6 +67,7 @@ class PagerViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.showNavigationItem(_:)), name:NSNotification.Name(rawValue: Constants.Notification.ShowCancel), object: nil);
         NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.qrCancel(_:)), name:NSNotification.Name(rawValue: Constants.Notification.cancelDisappear), object: nil);
         NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.enter_code_qr(_:)), name:NSNotification.Name(rawValue: Constants.Notification.NEXT_BUTTON_QR), object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.sampleLuggageItem(_:)), name:NSNotification.Name(rawValue: Constants.Notification.Create_Sample_Item), object: nil);
         
     }
     
@@ -125,6 +126,27 @@ class PagerViewController: UIViewController {
         NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.SavingNewLugguageItem), object: luggageItem, userInfo: nil)
     }
     
+    func sampleLuggageItem(_ sender: Notification){
+         Globals.log("sampleLuggageItem")
+        let luggageItem = LuggageTag()
+        let photo = sender.object
+        if let pic = photo {
+            luggageItem.photo = pic as? Data
+        }
+        
+        luggageItem.name = "Sample Bag Item"
+        luggageItem.uuid = "C2265660-5EC1-4935-9BB3-A1CBD9143388"
+        luggageItem.major = "0"
+        luggageItem.minor = "-1"
+        luggageItem.regionState = Constants.Proximity.Inside
+        luggageItem.isConnected = true
+        luggageItem.activation_code = "aaobyoiummc"
+        luggageItem.activation_key = "92DF78126A00"
+        luggageItem.activated = true
+        
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.SavingNewLugguageItem), object: luggageItem, userInfo: nil)
+    }
+
     
     func enter_code(_ sender: Notification){
         

@@ -76,6 +76,7 @@ struct Constants {
     static let cancelDisappear  = "cancelDisappear"
     static let NEXT_BUTTON_QR = "NEXT_BUTTON_QR"
     static let Go_To_Next_Page = "Go_To_Next_Page"
+    static let Create_Sample_Item = "Create_Sample_Item"
     
   }
   
