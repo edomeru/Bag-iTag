@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="fRw-Vc-P7V">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="fRw-Vc-P7V">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -34,7 +34,7 @@
                                 <rect key="frame" x="-8" y="20" width="332" height="548"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="lEp-If-2EI" userLabel="footer">
-                                    <rect key="frame" x="0.0" y="292" width="332" height="199"/>
+                                    <rect key="frame" x="0.0" y="228" width="332" height="199"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="new" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hqd-dI-xMz">
@@ -425,7 +425,9 @@
                                         </constraints>
                                         <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <size key="titleShadowOffset" width="0.0" height="2.2250738585072014e-308"/>
-                                        <state key="normal" image="cam_logo"/>
+                                        <state key="normal" image="cam_logo">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                 <real key="value" value="90"/>
@@ -434,7 +436,7 @@
                                                 <real key="value" value="0.0"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="value" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -581,15 +583,25 @@
                     </navigationItem>
                     <connections>
                         <outlet property="activationButton" destination="eWm-6B-a2H" id="fQn-V4-Hvx"/>
+                        <outlet property="activationHeightCOnstraint" destination="F4K-hW-RIC" id="Mf0-DS-nqi"/>
+                        <outlet property="camBAckgroundHeightConstraint" destination="cbo-2h-E3z" id="PaR-hB-zNr"/>
+                        <outlet property="cameraAlignXConstraint" destination="qh5-Bh-uaC" id="agm-cg-YLG"/>
                         <outlet property="cameraBackground" destination="evJ-wm-XnQ" id="jSu-cJ-d9w"/>
+                        <outlet property="cameraHeightConstraint" destination="zuZ-er-1d3" id="IBz-Lu-6wE"/>
                         <outlet property="cameraSize" destination="QVg-P1-dhs" id="cLu-xm-ZRE"/>
+                        <outlet property="cameraSizeCenterContraint" destination="Lka-2h-sTN" id="afS-pm-7SB"/>
+                        <outlet property="cameraTop" destination="6IY-aw-Wc0" id="P4K-hQ-guP"/>
+                        <outlet property="cameraViewCenter" destination="Ygo-B1-eEc" id="Ksf-cC-110"/>
+                        <outlet property="cameraWidthConstraint" destination="vLc-c4-qmz" id="zB0-Lk-wCH"/>
                         <outlet property="imgButton" destination="QVg-P1-dhs" id="iAU-zY-STX"/>
+                        <outlet property="nameHeightConstraint" destination="OKi-TZ-Z4W" id="RxF-n2-HJE"/>
                         <outlet property="nameTextField" destination="idS-w2-DuE" id="rxD-4P-S0y"/>
                         <outlet property="qrCodeButton" destination="2WV-dR-kYo" id="6e2-gi-Y5b"/>
                         <outlet property="qrCodeHeightConstraint" destination="hVZ-P1-0t6" id="2dA-qC-aLl"/>
                         <outlet property="qrCodeWidthConstraint" destination="2Zu-Qo-eub" id="phz-ki-dAa"/>
                         <outlet property="qrPic" destination="KZn-gj-Wuw" id="pzc-W0-kDa"/>
                         <outlet property="rangeLabel" destination="NuV-Hd-KOi" id="kHO-c4-SZD"/>
+                        <outlet property="rangeLabelTop" destination="mz9-Hl-NFW" id="kSz-JI-BQ8"/>
                         <outlet property="uuidTextField" destination="XKN-hw-mUC" id="gVR-KD-ird"/>
                     </connections>
                 </viewController>
@@ -688,7 +700,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fRw-Vc-P7V" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="hOS-2m-76K">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hOS-2m-76K">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -707,7 +719,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Nup-9k-wAl" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="4R2-W2-LqE"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="aia-Y3-ZyY">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="aia-Y3-ZyY">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -788,7 +800,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="sHA-vp-055" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" alpha="0.0" contentMode="scaleToFill" misplaced="YES" id="fve-cw-Kdo">
+                    <navigationBar key="navigationBar" alpha="0.0" contentMode="scaleToFill" id="fve-cw-Kdo">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

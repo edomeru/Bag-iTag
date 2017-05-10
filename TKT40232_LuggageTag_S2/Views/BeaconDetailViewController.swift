@@ -43,35 +43,45 @@ protocol BeaconDetailViewControllerDelegate: NSObjectProtocol {
 }
 
 class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UITextFieldDelegate, ModalViewControllerDelegate, AVCaptureMetadataOutputObjectsDelegate {
+    @IBOutlet weak var cameraTop: NSLayoutConstraint!
+    @IBOutlet weak var activationHeightCOnstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var cameraSizeCenterContraint: NSLayoutConstraint!
+    @IBOutlet weak var camBAckgroundHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var qrPic: UIImageView!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var uuidTextField: UITextField!
     @IBOutlet weak var imgButton: UIButton!
+    @IBOutlet weak var cameraAlignXConstraint: NSLayoutConstraint!
     @IBOutlet weak var rangeLabel: UILabel!
     @IBOutlet weak var activationButton: CustomButton!
     @IBOutlet weak var qrCodeButton: UIButton!
+    @IBOutlet weak var cameraViewCenter: NSLayoutConstraint!
     
-  @IBOutlet weak var qrCodeWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var rangeLabelTop: NSLayoutConstraint!
+    @IBOutlet weak var cameraHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var qrCodeWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var cameraBackground: UIView!
     var centralManager: CBCentralManager!
     
     weak var delegate: BeaconDetailViewControllerDelegate?
     
-
+    
     var beaconReference: [LuggageTag]?
     var beaconToEdit: LuggageTag?
     var isPhotoEdited = false
     var trimmedName: String?
-  @IBOutlet weak var cameraSize: CustomButton!
-  @IBOutlet weak var qrCodeHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var cameraSize: CustomButton!
+    @IBOutlet weak var qrCodeHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var cameraWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var nameHeightConstraint: NSLayoutConstraint!
     var captureSession:AVCaptureSession?
     var videoPreviewLayer:AVCaptureVideoPreviewLayer?
     var qrCodeFrameView:UIView?
     
     let supportedCodeTypes = [AVMetadataObjectTypeQRCode]
-  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         formatNavigationBar()
@@ -109,19 +119,19 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
             }
             
             nameTextField.text = item.name
-           
+            
             
             
             if let beaconEditActivationCode = beaconToEdit?.activation_code.uppercased(){
-            uuidTextField.text = beaconEditActivationCode
-            let image_qr = generateQRCode(from: "\(beaconEditActivationCode)")
-                 Globals.log("UPDATE ACT CODE \(beaconEditActivationCode)")
+                uuidTextField.text = beaconEditActivationCode
+                let image_qr = generateQRCode(from: "\(beaconEditActivationCode)")
+                Globals.log("UPDATE ACT CODE \(beaconEditActivationCode)")
                 qrPic.image = image_qr
                 Globals.log("QR HERE \(image_qr)")
             }
-           
             
-           
+            
+            
             
             if (beaconToEdit?.activated)! {
                 uuidTextField.isEnabled = false
@@ -387,9 +397,9 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     
     // MARK: NSNotificationCenter Functions
     func keyboardWillShow(_ sender: Notification) {
-       
+        
         //self.imgButton.frame.size = CGSize(width:20, height: 20)
-       // self.cameraBackground.frame.origin.y = 10
+        // self.cameraBackground.frame.origin.y = 10
         
         
         let navigationBarHeight: CGFloat = self.navigationController!.navigationBar.frame.height
@@ -400,11 +410,11 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
         self.uuidTextField.frame.origin.y = self.nameTextField.frame.size.height + navigationBarHeight + self.rangeLabel.frame.size.height + 14
         self.cameraBackground.isHidden = true
         //self.imgButton.frame.size.height = 10
-    
-       // self.cameraBackground.frame.size.height = 60
         
-       
-       
+        // self.cameraBackground.frame.size.height = 60
+        
+        
+        
         
         let userInfo:NSDictionary = sender.userInfo! as NSDictionary
         let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
@@ -741,35 +751,44 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
         return nil
     }
     
-
-  
+    
+    
     deinit {
-      
+        
         NotificationCenter.default.removeObserver(self)
-
+        
     }
-  func  FourSGui () {
-    if screenHeight() <= 490.0 {
-      
-      Globals.log("FOUR S")
-      
-     
-      self.qrCodeWidthConstraint.constant = 40
-    self.qrCodeHeightConstraint.constant = 40
-     self.cameraBackground.frame.origin.y = 10
-     self.cameraSize.frame.origin.y = 10
-      self.qrCodeButton.frame.origin.y  = 5
-     // self.enterLabelTopSpaceConstraint.constant = 250
-      //                 self.codeTextField.frame.origin.y = screenHeight() - keyboardHeight
-      //                self.cancelOutlet.frame.origin.y =  screenHeight() - keyboardHeight - 10
-      //                self.nextOutlet.frame.origin.y =  self.view.frame.height - keyboardHeight  - 10
-      
+    func  FourSGui () {
+        if screenHeight() <= 490.0 {
+            
+            Globals.log("FOUR S")
+            
+            //self.cameraViewCenter.constant = 20
+            //self.cameraSizeCenterContraint.constant = 10
+            self.cameraWidthConstraint.constant = 120
+            self.cameraHeightConstraint.constant = 120
+            self.rangeLabelTop.constant = 5
+            self.nameHeightConstraint.constant = 45
+            self.activationHeightCOnstraint.constant = 45
+            self.qrCodeWidthConstraint.constant = 40
+            self.qrCodeHeightConstraint.constant = 40
+            self.cameraBackground.frame.origin.y = 10
+            self.cameraSize.cornerRadius = 60
+            self.qrCodeButton.frame.origin.y  = 5
+            self.camBAckgroundHeightConstraint.constant = 20
+            self.cameraTop.constant = 0
+            //self.cameraAlignXConstraint.constant = 5
+            // self.enterLabelTopSpaceConstraint.constant = 250
+            //                 self.codeTextField.frame.origin.y = screenHeight() - keyboardHeight
+            //                self.cancelOutlet.frame.origin.y =  screenHeight() - keyboardHeight - 10
+            //                self.nextOutlet.frame.origin.y =  self.view.frame.height - keyboardHeight  - 10
+            
+        }
     }
-  }
-  
-  func screenHeight() -> CGFloat {
-    return UIScreen.main.bounds.height;
-  }
-  
-  
+    
+    func screenHeight() -> CGFloat {
+        return UIScreen.main.bounds.height;
+    }
+    
+    
 }
