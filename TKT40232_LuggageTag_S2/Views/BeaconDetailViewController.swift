@@ -52,15 +52,19 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     @IBOutlet weak var activationButton: CustomButton!
     @IBOutlet weak var qrCodeButton: UIButton!
     
+  @IBOutlet weak var qrCodeWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var cameraBackground: UIView!
     var centralManager: CBCentralManager!
     
     weak var delegate: BeaconDetailViewControllerDelegate?
     
+
     var beaconReference: [LuggageTag]?
     var beaconToEdit: LuggageTag?
     var isPhotoEdited = false
     var trimmedName: String?
+  @IBOutlet weak var cameraSize: CustomButton!
+  @IBOutlet weak var qrCodeHeightConstraint: NSLayoutConstraint!
     
     var captureSession:AVCaptureSession?
     var videoPreviewLayer:AVCaptureVideoPreviewLayer?
@@ -71,6 +75,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         formatNavigationBar()
+        FourSGui ()
         hideNavigationItem(item: self.navigationItem.rightBarButtonItem)
         
         // NSNotification Observer for Keyboard
@@ -736,25 +741,35 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
         return nil
     }
     
-    
-    
-    
+
+  
     deinit {
-        
+      
         NotificationCenter.default.removeObserver(self)
-        //
-        //    NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        //    NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        //    
-        //    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Proximity.Inside), object: nil)
-        //    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Proximity.Outside), object: nil)
-        //
-        //    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessDisabled), object: nil)
-        //    
-        //    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.ActivationSuccessKey), object: nil)
-        //    
-        //    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.AssignNameToActivatingKey), object: nil)
-        //    
-        //    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.StopActivatingKey), object: nil)
+
     }
+  func  FourSGui () {
+    if screenHeight() <= 490.0 {
+      
+      Globals.log("FOUR S")
+      
+     
+      self.qrCodeWidthConstraint.constant = 40
+    self.qrCodeHeightConstraint.constant = 40
+     self.cameraBackground.frame.origin.y = 10
+     self.cameraSize.frame.origin.y = 10
+      self.qrCodeButton.frame.origin.y  = 5
+     // self.enterLabelTopSpaceConstraint.constant = 250
+      //                 self.codeTextField.frame.origin.y = screenHeight() - keyboardHeight
+      //                self.cancelOutlet.frame.origin.y =  screenHeight() - keyboardHeight - 10
+      //                self.nextOutlet.frame.origin.y =  self.view.frame.height - keyboardHeight  - 10
+      
+    }
+  }
+  
+  func screenHeight() -> CGFloat {
+    return UIScreen.main.bounds.height;
+  }
+  
+  
 }

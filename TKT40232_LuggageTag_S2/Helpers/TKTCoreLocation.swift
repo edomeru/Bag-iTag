@@ -308,7 +308,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
   }
   
   func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-    Globals.log("didEnterRegion")
+    Globals.log("didEnterRegion locationManager")
     // TODO: I don't know if I will be needing this in the Future for now I'll just comment it - Francis 08/02/2016
     // didDetermineState's Callback is asynchronous call, and it seems to be doing a good job tracking the RegionState
     /*let beaconRegion = region as! CLBeaconRegion
@@ -316,7 +316,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
   }
   
   func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-    Globals.log("didExitRegion")
+    Globals.log("didExitRegion locationManager")
     // TODO: I don't know if I will be needing this in the Future for now I'll just comment it - Francis 08/02/2016
     // didDetermineState's Callback is asynchronous call, and it seems to be doing a good job tracking the RegionState
     /*let beaconRegion = region as! CLBeaconRegion
