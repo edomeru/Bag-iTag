@@ -66,11 +66,15 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     
     weak var delegate: BeaconDetailViewControllerDelegate?
     
-    
+    @IBOutlet weak var activationCodeConstraints: NSLayoutConstraint!
+    @IBOutlet weak var activationButtonY: NSLayoutConstraint!
+    let floatVersion = (UIDevice.current.systemVersion as NSString).floatValue
     var beaconReference: [LuggageTag]?
     var beaconToEdit: LuggageTag?
     var isPhotoEdited = false
     var trimmedName: String?
+    
+    @IBOutlet weak var qrBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var cameraSize: CustomButton!
     @IBOutlet weak var qrCodeHeightConstraint: NSLayoutConstraint!
     
@@ -80,6 +84,9 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     var videoPreviewLayer:AVCaptureVideoPreviewLayer?
     var qrCodeFrameView:UIView?
     
+    @IBOutlet weak var rangeLabelTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var nameTextFieldTop: NSLayoutConstraint!
+    @IBOutlet weak var alignUUIDY: NSLayoutConstraint!
     let supportedCodeTypes = [AVMetadataObjectTypeQRCode]
     
     override func viewDidLoad() {
@@ -401,28 +408,12 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
         //self.imgButton.frame.size = CGSize(width:20, height: 20)
         // self.cameraBackground.frame.origin.y = 10
         
+        if Double(floatVersion)  <= 8.9 {
+            iOS8Gui(sender)
+        }else{
+            iOS10Gui(sender)
+        }
         
-        let navigationBarHeight: CGFloat = self.navigationController!.navigationBar.frame.height
-        
-        
-        self.rangeLabel.frame.origin.y = navigationBarHeight
-        self.nameTextField.frame.origin.y = navigationBarHeight + self.rangeLabel.frame.size.height+7
-        self.uuidTextField.frame.origin.y = self.nameTextField.frame.size.height + navigationBarHeight + self.rangeLabel.frame.size.height + 14
-        self.cameraBackground.isHidden = true
-        //self.imgButton.frame.size.height = 10
-        
-        // self.cameraBackground.frame.size.height = 60
-        
-        
-        
-        
-        let userInfo:NSDictionary = sender.userInfo! as NSDictionary
-        let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
-        let keyboardRectangle = keyboardFrame.cgRectValue
-        let keyboardHeight = keyboardRectangle.height
-        
-        self.qrPic.frame.origin.y =  self.view.frame.height - keyboardHeight - 80
-        self.activationButton.frame.origin.y =  self.view.frame.height - keyboardHeight - 50
         
     }
     
@@ -430,6 +421,15 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
         self.view.frame.origin.y = 0
         self.cameraBackground.isHidden = false
         self.imgButton.isHidden = false
+        
+        if Double(floatVersion)  <= 8.9 {
+            if screenHeight() <= 490.0 {
+            FourSGui ()
+            }else{
+            iOS8Hide()
+            }
+        }
+        
     }
     
     func setEnterRegion(_ notification: Notification) {
@@ -759,36 +759,108 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
         
     }
     func  FourSGui () {
+        
         if screenHeight() <= 490.0 {
             
-            Globals.log("FOUR S")
-            
-            //self.cameraViewCenter.constant = 20
-            //self.cameraSizeCenterContraint.constant = 10
+            Globals.log("FOUR S iOS 10")
+            self.cameraSizeCenterContraint.constant = 0
             self.cameraWidthConstraint.constant = 120
             self.cameraHeightConstraint.constant = 120
-            self.rangeLabelTop.constant = 5
+            self.rangeLabelTop.constant = 10
             self.nameHeightConstraint.constant = 45
             self.activationHeightCOnstraint.constant = 45
-            self.qrCodeWidthConstraint.constant = 40
-            self.qrCodeHeightConstraint.constant = 40
+            self.qrCodeWidthConstraint.constant = 80
+            self.qrCodeHeightConstraint.constant = 80
             self.cameraBackground.frame.origin.y = 10
             self.cameraSize.cornerRadius = 60
             self.qrCodeButton.frame.origin.y  = 5
             self.camBAckgroundHeightConstraint.constant = 20
             self.cameraTop.constant = 0
-            //self.cameraAlignXConstraint.constant = 5
-            // self.enterLabelTopSpaceConstraint.constant = 250
-            //                 self.codeTextField.frame.origin.y = screenHeight() - keyboardHeight
-            //                self.cancelOutlet.frame.origin.y =  screenHeight() - keyboardHeight - 10
-            //                self.nextOutlet.frame.origin.y =  self.view.frame.height - keyboardHeight  - 10
-            
+            self.activationButtonY.constant = 250
+            self.alignUUIDY.constant = -110
+            self.nameTextFieldTop.constant = 70
+            self.rangeLabelTopConstraint.constant = 170
+            self.qrBottomConstraint.constant = 20
+            self.cameraSize.isHidden = false
         }
+
+        
     }
     
     func screenHeight() -> CGFloat {
         return UIScreen.main.bounds.height;
     }
     
+    func  iOS10Gui (_ sender: Notification){
+        
+        let userInfo:NSDictionary = sender.userInfo! as NSDictionary
+        let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+        let keyboardRectangle = keyboardFrame.cgRectValue
+        let keyboardHeight = keyboardRectangle.height
+        
+        var y:CGFloat?
+        var x:CGFloat?
+        
+        if screenHeight() <= 490.0 {
+            y = self.view.frame.height - keyboardHeight - 40
+            x =   self.view.frame.width / 2 - 20
+            self.qrPic.frame = CGRect(x: x! , y: y!, width: 40, height: 40)
+        }else{
+            y = self.view.frame.height - keyboardHeight - 80
+            x =   self.view.frame.width / 2 - 40
+            self.qrPic.frame = CGRect(x: x! , y: y!, width: 80, height: 80)
+        }
+        
+        let navigationBarHeight: CGFloat = self.navigationController!.navigationBar.frame.height
+        self.rangeLabel.frame.origin.y = navigationBarHeight
+        self.nameTextField.frame.origin.y = navigationBarHeight + self.rangeLabel.frame.size.height+7
+        self.uuidTextField.frame.origin.y = self.nameTextField.frame.size.height + navigationBarHeight + self.rangeLabel.frame.size.height + 14
+        self.cameraBackground.isHidden = true
+        self.activationButton.frame.origin.y =  self.view.frame.height - keyboardHeight - 50
+        
+    }
     
+    func  iOS8Gui (_ sender: Notification){
+        
+        let userInfo:NSDictionary = sender.userInfo! as NSDictionary
+        let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+        let keyboardRectangle = keyboardFrame.cgRectValue
+        let keyboardHeight = keyboardRectangle.height
+
+        
+        if screenHeight() <= 490.0 {
+            self.qrCodeWidthConstraint.constant = 36
+            self.qrCodeHeightConstraint.constant = 36
+            self.alignUUIDY.constant = -100
+             self.nameTextFieldTop.constant = 55
+        }else{
+            
+            self.qrCodeWidthConstraint.constant = 80
+            self.qrCodeHeightConstraint.constant = 80
+             self.cameraSize.isHidden = true
+            self.cameraBackground.isHidden = true
+           Globals.log("iOS8Gui")
+        }
+        
+        self.cameraSize.isHidden = true
+          self.rangeLabelTopConstraint.constant = 1
+        self.qrBottomConstraint.constant = keyboardHeight
+        self.activationCodeConstraints.constant = keyboardHeight
+        //self.cameraBackground.isHidden = true
+ 
+        
+    }
+    
+    func iOS8Hide(){
+         self.cameraSize.isHidden = false
+        self.qrCodeWidthConstraint.constant = 80
+        self.qrCodeHeightConstraint.constant = 80
+       Globals.log("iOS8Hide")
+        self.rangeLabelTopConstraint.constant = 250
+        self.qrBottomConstraint.constant = 20
+        self.activationCodeConstraints.constant = 20
+        self.cameraBackground.isHidden = false
+        
+         //self.cameraTop.constant = 25
+    }
 }
