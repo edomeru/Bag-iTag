@@ -71,6 +71,16 @@ class NameYourTagViewController: UIViewController, AddPhotoViewControllerDelegat
     
     fileprivate func validateLuggage() -> Bool {
         
+        if let bTState =  bluetoothState {
+            Globals.log(" bTState \(bTState)")
+            if  bTState == false {
+                
+                Globals.log("showBluetoothState")
+                NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.showBluetoothWarning), object: nil, userInfo: nil)
+                return false
+            }
+            
+        }
         
         if (checkTagAvailability()) {
             showConfirmation(NSLocalizedString("warning", comment: ""), message: NSLocalizedString("err_luggage_exist", comment: ""))

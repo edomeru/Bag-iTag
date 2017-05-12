@@ -52,7 +52,15 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
     @IBAction func nextButton(_ sender: Any) {
         
         checkActivationCode()
-        
+//        if let bTState =  bluetoothState {
+//            Globals.log(" bTState \(bTState)")
+//            if  bTState == false {
+//                
+//                Globals.log("showBluetoothState")
+//                NotificationCenter.default.post(name: Notification.Name(rawValue: "didShowBluetoothState"), object: nil, userInfo: nil)
+//                
+//            }
+//        }
     }
     
     func checkActivationCode(){
@@ -291,6 +299,19 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
     }
     
     fileprivate func validateLuggage() -> Bool {
+        
+        if let bTState =  bluetoothState {
+            Globals.log(" bTState \(bTState)")
+            if  bTState == false {
+                
+                Globals.log("showBluetoothState")
+                NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.showBluetoothWarning), object: nil, userInfo: nil)
+                return false
+            }
+            
+        }
+        
+        
         if (codeTextField.text!.characters.count < 11) {
             showConfirmation(NSLocalizedString("warning", comment: ""), message: NSLocalizedString("error_activation_code", comment: ""))
             Globals.log("error_activation_code")

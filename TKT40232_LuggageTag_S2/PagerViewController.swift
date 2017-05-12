@@ -69,7 +69,11 @@ class PagerViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.enter_code_qr(_:)), name:NSNotification.Name(rawValue: Constants.Notification.NEXT_BUTTON_QR), object: nil);
         NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.sampleLuggageItem(_:)), name:NSNotification.Name(rawValue: Constants.Notification.Create_Sample_Item), object: nil);
         
+        NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.didShowBluetoothState(_:)), name:NSNotification.Name(rawValue: Constants.Notification.showBluetoothWarning), object: nil);
+        
     }
+    
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue:Constants.Notification.ShowCancel), object: nil)
@@ -127,7 +131,7 @@ class PagerViewController: UIViewController {
     }
     
     func sampleLuggageItem(_ sender: Notification){
-         Globals.log("sampleLuggageItem")
+        Globals.log("sampleLuggageItem")
         let luggageItem = LuggageTag()
         let photo = sender.object
         if let pic = photo {
@@ -146,7 +150,7 @@ class PagerViewController: UIViewController {
         
         NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.SavingNewLugguageItem), object: luggageItem, userInfo: nil)
     }
-
+    
     
     func enter_code(_ sender: Notification){
         
@@ -186,7 +190,7 @@ class PagerViewController: UIViewController {
                 powIndex += 1
             }
         }
-    
+        
         
         
         let hexString = String(BTAddress, radix: 16, uppercase: true)
@@ -257,7 +261,6 @@ class PagerViewController: UIViewController {
         
         if self.presentedViewController == nil {
             
-            
             timer = Timer.scheduledTimer(timeInterval: Constants.Time.FifteenSecondsTimeout, target: self, selector: #selector(PagerViewController.callDismissShakeDeviceAlert), userInfo: nil, repeats: false)
             
         }
@@ -308,6 +311,7 @@ class PagerViewController: UIViewController {
         delegate?.disconnectActivatingBeacon(item: luggageItem)
     }
     
+    
     func showNavigationItem(_ notification: Notification) {
         self.navigationController?.navigationBar.isTranslucent = true
         let shw = self.navigationItem.rightBarButtonItem
@@ -320,14 +324,23 @@ class PagerViewController: UIViewController {
         
         NotificationCenter.default.removeObserver(self)
         
-        //        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue:Constants.Notification.INPUT_ACTIVATION_CODE), object: nil)
-        //
-        //        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue:Constants.Notification.NEXT_BUTTON), object: nil)
-        //
-        //        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue:Constants.Notification.CallDismissShakeDeviceAlert), object: nil)
-        //
-        //        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessEnabled), object: nil)
-        //        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.StopActivatingKey), object: nil)
+    }
+    
+    
+    func didShowBluetoothState(_ notification: Notification) {
+        Globals.log(" didShowBluetoothState LIST ")
+        let alertController = UIAlertController(title: "Turn On Bluetooth", message: "Turn On Bluetooth to Allow Bag iTag to Connect", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Settings", style: .cancel) { (action) in
+            let url = NSURL(string: UIApplicationOpenSettingsURLString)
+            UIApplication.shared.openURL(url! as URL)
+        }
+        alertController.addAction(cancelAction)
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+            // do nothing
+            
+        }
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
     }
     
     

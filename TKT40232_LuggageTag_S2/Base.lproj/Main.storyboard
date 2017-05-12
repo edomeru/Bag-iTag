@@ -417,7 +417,7 @@
                                 <rect key="frame" x="0.0" y="89" width="320" height="200"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QVg-P1-dhs" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
-                                        <rect key="frame" x="70.5" y="10" width="180" height="180"/>
+                                        <rect key="frame" x="70" y="10" width="180" height="180"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="180" id="vLc-c4-qmz"/>
@@ -893,7 +893,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gwO-ZX-xGl" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
-                                <rect key="frame" x="83.5" y="515" width="150" height="45"/>
+                                <rect key="frame" x="84" y="515" width="150" height="45"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="7SY-Oe-4Wd"/>
@@ -919,7 +919,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OR  " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YHT-UF-ZWl">
-                                <rect key="frame" x="139.5" y="224.5" width="38" height="23"/>
+                                <rect key="frame" x="139.5" y="225" width="38" height="23"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="23" id="vDj-yK-Xp7"/>
                                 </constraints>
@@ -928,7 +928,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" -----------" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mZf-81-fGT">
-                                <rect key="frame" x="195.5" y="226.5" width="124.5" height="21"/>
+                                <rect key="frame" x="195.5" y="227" width="124.5" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="ulE-z4-sww"/>
                                 </constraints>
@@ -937,7 +937,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="        ----------" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1JO-ta-mgf">
-                                <rect key="frame" x="0.0" y="226.5" width="124.5" height="21"/>
+                                <rect key="frame" x="0.0" y="227" width="124.5" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="F7w-cs-QGs"/>
                                 </constraints>
@@ -1269,7 +1269,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rml-C9-RQL">
-                                <rect key="frame" x="-27.5" y="163.5" width="375" height="185"/>
+                                <rect key="frame" x="-27.5" y="164" width="375" height="185"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Click here to take a photo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y4e-Sl-DhC">
                                         <rect key="frame" x="80" y="136" width="207" height="21"/>
@@ -1290,7 +1290,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add your photo:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nbK-6v-eeh">
-                                <rect key="frame" x="16" y="105.5" width="273" height="50"/>
+                                <rect key="frame" x="16" y="106" width="273" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="273" id="RPJ-K1-V9w"/>
                                     <constraint firstAttribute="height" constant="50" id="wyY-Mb-QhD"/>
@@ -1350,7 +1350,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SkO-E6-iAV" customClass="CustomButton" customModule="LuggageFinder" customModuleProvider="target">
-                                <rect key="frame" x="70.5" y="166.5" width="180" height="180"/>
+                                <rect key="frame" x="70" y="167" width="180" height="180"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="180" id="itj-A2-P4C"/>

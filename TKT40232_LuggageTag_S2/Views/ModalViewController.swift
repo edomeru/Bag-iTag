@@ -75,6 +75,8 @@ class ModalViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     Globals.showAlert(self, title: NSLocalizedString("error", comment: ""), message: message, animated: true, completion: nil, actions: action)
   }
+    
+    
 
   @IBAction func takePhoto(_ sender: AnyObject) {
     // Check if we have permission taking Camera

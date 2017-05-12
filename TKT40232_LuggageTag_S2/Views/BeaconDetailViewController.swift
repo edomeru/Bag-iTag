@@ -32,6 +32,7 @@ extension String {
     
 }
 
+
 protocol BeaconDetailViewControllerDelegate: NSObjectProtocol {
     func beaconDetailViewController(_ controller: BeaconDetailViewController, didFinishAddingItem item: LuggageTag)
     func beaconDetailViewController(_ controller: BeaconDetailViewController, didFinishEditingItem item: LuggageTag)
@@ -188,6 +189,11 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     
     // MARK: Action Methods
     @IBAction func saveBeacon() {
+        
+        
+        
+        
+        
         nameTextField.resignFirstResponder()
         uuidTextField.resignFirstResponder()
         
@@ -220,10 +226,41 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
                     luggageItem.activation_code = uuidTextField.text!.lowercased()
                     luggageItem.activation_key = aKey
                     
-                    delegate?.beaconDetailViewController(self, didFinishEditingItem: luggageItem)
+                    if let bTState =  bluetoothState {
+                        Globals.log(" bTState \(bTState)")
+                        if  bTState == false {
+                            
+                            Globals.log("showBluetoothState")
+                            
+                            showPpopUp()
+                            Globals.log("EDITED 1")
+                            
+                        }else{
+                            Globals.log("EDITED 2")
+                            delegate?.beaconDetailViewController(self, didFinishEditingItem: luggageItem)
+                        }
+                    }
+                    
+                    
+                    
                 } else {
-                    Globals.log("No Changes made in LuggageTag")
-                    dismiss(animated: true, completion: nil)
+                    
+                    if let bTState =  bluetoothState {
+                        Globals.log(" bTState \(bTState)")
+                        if  bTState == false {
+                            
+                            
+                            Globals.log("NOT EDITED BT OFF")
+                            showPpopUp()
+                            
+                        }else{
+                            Globals.log("No Changes made in LuggageTag")
+                            //dismiss(animated: true, completion: nil)
+                            delegate?.beaconDetailViewController(self, didFinishEditingItem: luggageItem)
+                        }
+                    
+                    }
+                    
                 }
                 
             } else {
@@ -424,9 +461,9 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
         
         if Double(floatVersion)  <= 8.9 {
             if screenHeight() <= 490.0 {
-            FourSGui ()
+                FourSGui ()
             }else{
-            iOS8Hide()
+                iOS8Hide()
             }
         }
         
@@ -783,7 +820,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
             self.qrBottomConstraint.constant = 20
             self.cameraSize.isHidden = false
         }
-
+        
         
     }
     
@@ -826,41 +863,58 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
         let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
         let keyboardRectangle = keyboardFrame.cgRectValue
         let keyboardHeight = keyboardRectangle.height
-
+        
         
         if screenHeight() <= 490.0 {
             self.qrCodeWidthConstraint.constant = 36
             self.qrCodeHeightConstraint.constant = 36
             self.alignUUIDY.constant = -100
-             self.nameTextFieldTop.constant = 55
+            self.nameTextFieldTop.constant = 55
         }else{
             
             self.qrCodeWidthConstraint.constant = 80
             self.qrCodeHeightConstraint.constant = 80
-             self.cameraSize.isHidden = true
+            self.cameraSize.isHidden = true
             self.cameraBackground.isHidden = true
-           Globals.log("iOS8Gui")
+            Globals.log("iOS8Gui")
         }
         
         self.cameraSize.isHidden = true
-          self.rangeLabelTopConstraint.constant = 1
+        self.rangeLabelTopConstraint.constant = 1
         self.qrBottomConstraint.constant = keyboardHeight
         self.activationCodeConstraints.constant = keyboardHeight
         //self.cameraBackground.isHidden = true
- 
+        
         
     }
     
     func iOS8Hide(){
-         self.cameraSize.isHidden = false
+        self.cameraSize.isHidden = false
         self.qrCodeWidthConstraint.constant = 80
         self.qrCodeHeightConstraint.constant = 80
-       Globals.log("iOS8Hide")
+        Globals.log("iOS8Hide")
         self.rangeLabelTopConstraint.constant = 250
         self.qrBottomConstraint.constant = 20
         self.activationCodeConstraints.constant = 20
         self.cameraBackground.isHidden = false
         
-         //self.cameraTop.constant = 25
+        //self.cameraTop.constant = 25
     }
+    
+    func showPpopUp(){
+        Globals.log(" didShowBluetoothState LIST ")
+        let alertController = UIAlertController(title: "Turn On Bluetooth", message: "Turn On Bluetooth to Allow Bag iTag to Connect", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Settings", style: .cancel) { (action) in
+            let url = NSURL(string: UIApplicationOpenSettingsURLString)
+            UIApplication.shared.openURL(url! as URL)
+        }
+        alertController.addAction(cancelAction)
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+            // do nothing
+            
+        }
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
 }

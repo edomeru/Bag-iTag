@@ -20,7 +20,7 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     var qrCodeFrameView: UIView?
     let supportedCodeTypes = [AVMetadataObjectTypeQRCode]
     var QRCODE: String?
-    
+    weak var delegate: TKTCoreLocationDelegate?
     @IBOutlet weak var cancelConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageInputActivation: NSLayoutConstraint!
     
@@ -32,9 +32,11 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     override func viewDidLoad() {
         super.viewDidLoad()
         Globals.log(" SCREEN HEIGHT \(screenHeight())")
+        Globals.log(" bluetoothState \(bluetoothState!)")
+        
         
         if screenHeight() <= 490.0 {
-        self.imageInputActivation.constant = 90
+            self.imageInputActivation.constant = 90
             self.imageQrConstraint.constant = 80
             self.qrButtonConstraint.constant = 42
             self.inputActivationButtonConstraint.constant  = 42
@@ -43,14 +45,14 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         }
         self.activationCodeOutlet.setTitle(NSLocalizedString("input_activation_code",comment: ""), for: .normal)
         
-   self.qrCodeOutlet.setTitle(NSLocalizedString("scan_qr_code_to_activate",comment: ""), for: .normal)
+        self.qrCodeOutlet.setTitle(NSLocalizedString("scan_qr_code_to_activate",comment: ""), for: .normal)
         
         NotificationCenter.default.addObserver(self, selector: #selector(ChooseViewController.qrCancelButton(_:)), name: NSNotification.Name(rawValue: Constants.Notification.CancelQrScreen), object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         
-       // NotificationCenter.default.removeObserver(self)
+        // NotificationCenter.default.removeObserver(self)
     }
     
     func screenHeight() -> CGFloat {
@@ -63,6 +65,19 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     
     @IBAction func inputActivationCode(_ sender: Any) {
         NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.Go_To_Next_Page), object: nil, userInfo: nil)
+        
+        if let bTState =  bluetoothState {
+            Globals.log(" bTState \(bTState)")
+            if  bTState == false {
+                
+                Globals.log("showBluetoothState")
+                NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.showBluetoothWarning), object: nil, userInfo: nil)
+                
+            }
+        }
+        
+        
+        
     }
     
     @IBAction func cancel(_ sender: Any) {
@@ -70,6 +85,17 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     }
     
     @IBAction func qrButtonClicked(_ sender: Any) {
+        
+        if let bTState =  bluetoothState {
+            Globals.log(" bTState \(bTState)")
+            if  bTState == false {
+                
+                Globals.log("showBluetoothState")
+                NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.showBluetoothWarning), object: nil, userInfo: nil)
+               
+            }
+        }
+        
         let captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
         
         do {
@@ -150,27 +176,27 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
             if let qrCode = metadataObj.stringValue {
                 Globals.log("qrCodemetadataObj")
                 AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-//                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
+                //                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
                 
+                self.hideNavigationItem(item: self.navigationItem.rightBarButtonItem)
+                self.self.captureSession?.stopRunning()
+                self.qrCodeFrameView?.removeFromSuperview()
+                self.videoPreviewLayer?.removeFromSuperlayer()
+                Globals.log("videoPreviewLayer")
+                NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.cancelDisappear), object: nil, userInfo: nil)
+                
+                self.QRCODE = qrCode.lowercased()
+                Globals.log("QR CODE LOWERCASE \(qrCode.lowercased())")
+                let isValidLuggage = self.validateLuggage()
+                
+                if (isValidLuggage) {
                     self.hideNavigationItem(item: self.navigationItem.rightBarButtonItem)
-                    self.self.captureSession?.stopRunning()
-                    self.qrCodeFrameView?.removeFromSuperview()
-                    self.videoPreviewLayer?.removeFromSuperlayer()
-                     Globals.log("videoPreviewLayer")
-                  NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.cancelDisappear), object: nil, userInfo: nil)
                     
-                    self.QRCODE = qrCode.lowercased()
-                    Globals.log("QR CODE LOWERCASE \(qrCode.lowercased())")
-                    let isValidLuggage = self.validateLuggage()
+                    let myDict: [String: Any] = [ Constants.Key.ActivationOption: "qr"]
+                    Globals.log("qrCode.lowercased() \(qrCode.lowercased())")
                     
-                    if (isValidLuggage) {
-                        self.hideNavigationItem(item: self.navigationItem.rightBarButtonItem)
-                        
-                        let myDict: [String: Any] = [ Constants.Key.ActivationOption: "qr"]
-                        Globals.log("qrCode.lowercased() \(qrCode.lowercased())")
-                        
-                        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.NEXT_BUTTON_QR), object: qrCode.lowercased(), userInfo: myDict)
-                    }
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.NEXT_BUTTON_QR), object: qrCode.lowercased(), userInfo: myDict)
+                }
                 //}
             }
         }
@@ -179,6 +205,7 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     
     fileprivate func validateLuggage() -> Bool {
         
+       
         
         if (!checkActivationCodeAvailability()) {
             showConfirmation(NSLocalizedString("warning", comment: ""), message: NSLocalizedString("err_luggage_exist", comment: ""))
@@ -221,6 +248,13 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     }
     
     
+    //    func showBluetoothState(){
+    //        Globals.log("HELLLLLLOOOOO")
+    //        NotificationCenter.default.post(name: Notification.Name(rawValue: "didShowBluetoothState"), object: nil, userInfo: nil)
+    //
+    //
+    //    }
+    
     @IBAction func qrCancelButton(_ sender: Any) {
         
         hideNavigationItem(item: self.navigationItem.rightBarButtonItem)
@@ -234,5 +268,7 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         
         //NotificationCenter.default.removeObserver(self)
     }
+    
+    
     
 }

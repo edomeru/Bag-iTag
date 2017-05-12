@@ -68,19 +68,19 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     formatNavigationBar()
     applicationInfo()
     
-    let sample = LuggageTag()
-    
-    sample.name = "AAAAAAAAAAAA"
-    sample.uuid = "C2265660-5EC1-4935-9BB3-A1CBD9143388"
-    sample.major = "0"
-    sample.minor = "-1"
-    sample.regionState = Constants.Proximity.Inside
-    sample.isConnected = true
-    sample.activation_code = "aaobyoiummc"
-    sample.activation_key = "4392DF78126A00"
-    sample.activated = true
-    
-    row.append(sample)
+//    let sample = LuggageTag()
+//    
+//    sample.name = "AAAAAAAAAAAA"
+//    sample.uuid = "C2265660-5EC1-4935-9BB3-A1CBD9143388"
+//    sample.major = "0"
+//    sample.minor = "-1"
+//    sample.regionState = Constants.Proximity.Inside
+//    sample.isConnected = true
+//    sample.activation_code = "aaobyoiummc"
+//    sample.activation_key = "4392DF78126A00"
+//    sample.activated = true
+//    
+//    row.append(sample)
 
     
     centralManager = CBCentralManager(delegate: self, queue: nil)
@@ -112,8 +112,9 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     
     NotificationCenter.default.addObserver(self, selector: #selector(ListViewController.SavingNewLugguageItem(_:)), name: NSNotification.Name(rawValue: Constants.Notification.SavingNewLugguageItem), object: nil)
     
+     NotificationCenter.default.addObserver(self, selector: #selector(ListViewController.didShowBluetoothState(_:)), name: NSNotification.Name(rawValue: "ShowBluetoothState"), object: nil)
     
-  }
+     }
   
   func loadSampleItem() {
     Globals.log("loadSampleItem")
@@ -323,7 +324,9 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
       controller.delegate = self
       
       controller.beaconReference = row
-      
+
+        
+        
     }
     
     
@@ -1053,6 +1056,23 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     
     return 0
   }
+    
+   
+    func didShowBluetoothState(_ notification: Notification) {
+        Globals.log(" didShowBluetoothState LIST ")
+        let alertController = UIAlertController(title: "Turn On Bluetooth", message: "Turn On Bluetooth to Allow Bag iTag to Connect", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Settings", style: .cancel) { (action) in
+            let url = NSURL(string: UIApplicationOpenSettingsURLString)
+            UIApplication.shared.openURL(url! as URL)
+        }
+        alertController.addAction(cancelAction)
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+            // do nothing
+            
+        }
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
+    }
   
   deinit {
     

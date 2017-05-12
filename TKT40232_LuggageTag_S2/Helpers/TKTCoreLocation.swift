@@ -15,6 +15,7 @@ protocol TKTCoreLocationDelegate: NSObjectProtocol {
   func didStartMonitoring()
   func didStopMonitoring()
   func monitoringDidFail()
+  
   func didEnterRegion(_ region: CLBeaconRegion)
   func didExitRegion(_ region: CLBeaconRegion)
   func didRangeBeacon(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion)
@@ -22,6 +23,7 @@ protocol TKTCoreLocationDelegate: NSObjectProtocol {
 }
 
 var timer = Timer()
+var bluetoothState:Bool?
 
 class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerDelegate {
   
@@ -56,8 +58,11 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
     switch (peripheral.state) {
     case .poweredOn:
       Globals.log("Peripheral Manager powered on.")
+        bluetoothState = true
     case .poweredOff:
       Globals.log("Peripheral Manager powered off.")
+      
+      bluetoothState = false
       break
     default:
       Globals.log("Peripheral Manager state changed: \(peripheral.state)")
