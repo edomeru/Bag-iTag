@@ -11,7 +11,13 @@ import UIKit
 class EnterCodeViewController: UIViewController, UITextFieldDelegate {
     var hexString: String?
     @IBOutlet weak var codeTextField: CustomTextField!
+    @IBOutlet weak var cancelOutlet: CustomButton!
+    @IBOutlet weak var textLabel: UILabel!
     
+    @IBOutlet weak var enterLabelTopSpaceConstraint: NSLayoutConstraint!
+    @IBOutlet weak var nextBottomSpaceConstraints: NSLayoutConstraint!
+    @IBOutlet weak var CancelBottomSpace: KeyboardLayoutConstraint!
+    @IBOutlet weak var nextOutlet: CustomButton!
     @IBAction func cancel(_ sender: Any) {
         
         NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.CencelActivationScreen), object: nil, userInfo: nil)
@@ -19,20 +25,42 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        Globals.log(" SCREEN HEIGHT 2   \(screenHeight())")
+        
+        codeTextField.autocapitalizationType = .allCharacters
+       
+        
+        codeTextField.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(EnterCodeViewController.keyboardWillShow(_:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
         NotificationCenter.default.addObserver(self, selector: #selector(EnterCodeViewController.keyboardWillHide(_:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
+   
+       //codeTextField.addTarget(self, action: #selector(EnterCodeViewController.textFieldDidChange(_:)), for: UIControlEvents.editingChanged)
         
         
         
     }
+    
+    func screenHeight() -> CGFloat {
+        return UIScreen.main.bounds.height;
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         
-        NotificationCenter.default.removeObserver(self)
+        //NotificationCenter.default.removeObserver(self)
     }
     @IBAction func nextButton(_ sender: Any) {
         
         checkActivationCode()
-        
+//        if let bTState =  bluetoothState {
+//            Globals.log(" bTState \(bTState)")
+//            if  bTState == false {
+//                
+//                Globals.log("showBluetoothState")
+//                NotificationCenter.default.post(name: Notification.Name(rawValue: "didShowBluetoothState"), object: nil, userInfo: nil)
+//                
+//            }
+//        }
     }
     
     func checkActivationCode(){
@@ -43,21 +71,171 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
         if (isValidLuggage) {
             let aCode: String = codeTextField.text!.lowercased()
             let myDict: [String: Any] = [ Constants.Key.ActivationOption: "ac"]
+            
             NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.NEXT_BUTTON), object: aCode, userInfo: myDict)
         }
         
     }
     
+    func textFieldDidChange(_ textField: UITextField) {
+        NotificationCenter.default.addObserver(self, selector: #selector(EnterCodeViewController.keyboardWillShow(_:)), name:NSNotification.Name.UIKeyboardWillShow, object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(EnterCodeViewController.keyboardWillHide(_:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
+        codeTextField.text = textField.text?.uppercased()
+    }
     
     func keyboardWillShow(_ sender: Notification) {
-        self.view.frame.origin.y = -150
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
+        let floatVersion = (UIDevice.current.systemVersion as NSString).floatValue
+        
+        let systemVersion = UIDevice.current.systemVersion
+        Globals.log("SYSTEM VERSION FLOAT  \(floatVersion)")
+        Globals.log("SYSTEM VERSION   \(systemVersion)")
+    
+        //iOS version < 8.9
+        if Double(floatVersion)  <= 8.9 {
+            
+          
+            
+            self.textLabel.frame.origin.y = -80
+           
+            Globals.log("textLabel.frame.origin.y  1 \(textLabel.frame.size.height)")
+            
+              /// iphone 4S screen
+            if screenHeight() <= 490.0 {
+                
+                Globals.log("keyboardWillShow IF 1")
+              
+                //self.imageInputActivation.constant = 90
+                let userInfo:NSDictionary = sender.userInfo! as NSDictionary
+                let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+                let keyboardRectangle = keyboardFrame.cgRectValue
+                let keyboardHeight = keyboardRectangle.height
+                Globals.log("keyboardFrame 1\(keyboardHeight)")
+                  self.CancelBottomSpace.constant = keyboardHeight
+                self.nextBottomSpaceConstraints.constant = keyboardHeight
+                self.enterLabelTopSpaceConstraint.constant = screenHeight() - 450
+//                 self.codeTextField.frame.origin.y = screenHeight() - keyboardHeight
+//                self.cancelOutlet.frame.origin.y =  screenHeight() - keyboardHeight - 10
+//                self.nextOutlet.frame.origin.y =  self.view.frame.height - keyboardHeight  - 10
+                
+            }
+            else{
+                
+                  /// ! iphone 4S screen  && iOS version < 8.9
+                Globals.log("keyboardWillShow   ELSE  1")
+                let userInfo:NSDictionary = sender.userInfo! as NSDictionary
+                let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+                let keyboardRectangle = keyboardFrame.cgRectValue
+                let keyboardHeight = keyboardRectangle.height
+                
+                self.CancelBottomSpace.constant = keyboardHeight
+                self.nextBottomSpaceConstraints.constant = keyboardHeight
+                self.enterLabelTopSpaceConstraint.constant = self.view.frame.height - 500
+                
+//                let userInfo:NSDictionary = sender.userInfo! as NSDictionary
+//                let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+//                let keyboardRectangle = keyboardFrame.cgRectValue
+//                let keyboardHeight = keyboardRectangle.height
+//                
+//                self.cancelOutlet.frame.origin.y =  self.view.frame.height - keyboardHeight - 100
+//                self.nextOutlet.frame.origin.y =  self.view.frame.height - keyboardHeight - 100
+            }
+            
+            
+            
+            
+            
+            
+             //iOS version > 8.9
+        }else{
+            
+            self.textLabel.frame.origin.y = 7
+            self.codeTextField.frame.origin.y = 50
+            Globals.log("keyboardWillShow")
+            
+            //iOS version > 8.9 && iPhone 4S
+            if screenHeight() <= 490.0 {
+                
+                Globals.log("keyboardWillShow IF 2")
+                
+                //self.imageInputActivation.constant = 90
+                let userInfo:NSDictionary = sender.userInfo! as NSDictionary
+                let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+                let keyboardRectangle = keyboardFrame.cgRectValue
+                let keyboardHeight = keyboardRectangle.height
+                Globals.log("keyboardFrame \(keyboardHeight)")
+                self.cancelOutlet.frame.origin.y =  self.view.frame.height - keyboardHeight - 45
+                self.nextOutlet.frame.origin.y =  self.view.frame.height - keyboardHeight  - 45
+                
+            }else{
+                //iOS version > 8.9 && ! iPhone 4S
+                Globals.log("keyboardWillShow   ELSE 2")
+                let userInfo:NSDictionary = sender.userInfo! as NSDictionary
+                let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+                let keyboardRectangle = keyboardFrame.cgRectValue
+                let keyboardHeight = keyboardRectangle.height
+                
+                self.cancelOutlet.frame.origin.y =  self.view.frame.height - keyboardHeight - 100
+                self.nextOutlet.frame.origin.y =  self.view.frame.height - keyboardHeight - 100
+            }
+        }
     }
     
     func keyboardWillHide(_ sender: Notification) {
-        self.view.frame.origin.y = 0
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+         let floatVersion = (UIDevice.current.systemVersion as NSString).floatValue
+        
+        let systemVersion = UIDevice.current.systemVersion
+        
+        Globals.log("SYSTEM VERSION   \(systemVersion)")
+        
+        
+        if Double(floatVersion)  <= 8.9 {
+            
+            /// iOS 8
+            
+            self.textLabel.frame.origin.y = -80
+            
+            Globals.log("textLabel.frame.origin.y  \(textLabel.frame.size.height)")
+            if screenHeight() <= 490.0 {
+                
+                Globals.log("keyboardWillShow IF")
+                
+                //self.imageInputActivation.constant = 90
+                let userInfo:NSDictionary = sender.userInfo! as NSDictionary
+                let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+                let keyboardRectangle = keyboardFrame.cgRectValue
+                let keyboardHeight = keyboardRectangle.height
+                Globals.log("keyboardFrame \(keyboardHeight)")
+                self.CancelBottomSpace.constant = 27
+                self.nextBottomSpaceConstraints.constant = 27
+                self.enterLabelTopSpaceConstraint.constant = 126
+          
+                
+            }else{
+                Globals.log("keyboardWillShow   ELSE")
+                let userInfo:NSDictionary = sender.userInfo! as NSDictionary
+                let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+                let keyboardRectangle = keyboardFrame.cgRectValue
+                let keyboardHeight = keyboardRectangle.height
+                Globals.log("keyboardFrame \(keyboardHeight)")
+                self.CancelBottomSpace.constant = 27
+                self.nextBottomSpaceConstraints.constant = 27
+                self.enterLabelTopSpaceConstraint.constant = 126
+            }
+            
+            
+            
+            
+            
+            
+            
+        }else{
+            //  > iOS 8
+            self.view.frame.origin.y = 0
+        }
+
+//        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -67,22 +245,73 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+       
         
-        let currentCharacterCount = textField.text?.characters.count ?? 0
         
-        if (range.length + range.location > currentCharacterCount){
-            return false
-        }
-        let newLength = currentCharacterCount + string.characters.count - range.length
+       
         
-        if (textField.tag == 1000) {
-            return newLength <= 20 // Character Limit for Luggage Name
+            // Do not let specified text range to be changed
+       
+       
+        if string == "" {
+            // User presses backspace
+            textField.deleteBackward()
         } else {
-            return newLength <= 11 // Character Limit for Activation Code
+            // User presses a key or pastes
+            textField.insertText(string.uppercased())
+             return false
+            
+            let currentCharacterCount = textField.text?.characters.count ?? 0
+            
+            if (range.length + range.location > currentCharacterCount){
+                
+                
+                return false
+            }
+            let newLength = currentCharacterCount + string.characters.count - range.length
+            
+            if (textField.tag == 1000) {
+                return newLength <= 20 // Character Limit for Luggage Name
+            } else {
+                return newLength <= 11 // Character Limit for Activation Code
+            }
+
+            
+            
+            
+            
+            
+            
+            
+            
+           
         }
+        
+        
+        
+        
+        
+        
+        
+        return true
+        
+        
     }
     
     fileprivate func validateLuggage() -> Bool {
+        
+        if let bTState =  bluetoothState {
+            Globals.log(" bTState \(bTState)")
+            if  bTState == false {
+                
+                Globals.log("showBluetoothState")
+                NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.showBluetoothWarning), object: nil, userInfo: nil)
+                return false
+            }
+            
+        }
+        
+        
         if (codeTextField.text!.characters.count < 11) {
             showConfirmation(NSLocalizedString("warning", comment: ""), message: NSLocalizedString("error_activation_code", comment: ""))
             Globals.log("error_activation_code")
@@ -109,6 +338,7 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
         
         return true
     }
+  
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -147,11 +377,10 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(EnterCodeViewController.keyboardWillHide(_:)), name:NSNotification.Name.UIKeyboardWillHide, object: nil);
         
     }
-    
-    
+   
     deinit {
         
-        NotificationCenter.default.removeObserver(self)
+        //NotificationCenter.default.removeObserver(self)
         
     }
     

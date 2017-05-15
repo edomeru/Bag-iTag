@@ -17,6 +17,7 @@ protocol ShakeBeaconViewControllerDelegate: class {
 
 
 class ShakeBeaconViewController: UIViewController {
+    @IBOutlet weak var shakeTagLabel: UILabel!
 
      weak var delegate: ShakeBeaconViewControllerDelegate?
     
@@ -28,7 +29,7 @@ class ShakeBeaconViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+shakeTagLabel.text = NSLocalizedString("Tap_the_device_gently", comment: "")
     }
 
 }

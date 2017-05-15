@@ -15,6 +15,7 @@ protocol TKTCoreLocationDelegate: NSObjectProtocol {
   func didStartMonitoring()
   func didStopMonitoring()
   func monitoringDidFail()
+  
   func didEnterRegion(_ region: CLBeaconRegion)
   func didExitRegion(_ region: CLBeaconRegion)
   func didRangeBeacon(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion)
@@ -22,6 +23,7 @@ protocol TKTCoreLocationDelegate: NSObjectProtocol {
 }
 
 var timer = Timer()
+var bluetoothState:Bool?
 
 class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerDelegate {
   
@@ -56,8 +58,11 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
     switch (peripheral.state) {
     case .poweredOn:
       Globals.log("Peripheral Manager powered on.")
+        bluetoothState = true
     case .poweredOff:
       Globals.log("Peripheral Manager powered off.")
+      
+      bluetoothState = false
       break
     default:
       Globals.log("Peripheral Manager state changed: \(peripheral.state)")
@@ -176,7 +181,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
     
     let identifier = "\(Constants.UUID.Identifier)\(uuidString)"
     self.activatedBeaconUUID = identifier
-    
+    Globals.log("UUID =   \(identifier)")
     // Note: .authorizedAlways == 3
     if (CLLocationManager.authorizationStatus().rawValue == 3) {
          Globals.log("authorizedAlways____")
@@ -185,10 +190,12 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
         
       peripheralManager.startAdvertising(advertisingDic)// start ng Broadcasting
         Globals.log("PERIPHERAL STARTfsfafdabklfi99   \(advertisingDic)")
-      NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.AssignNameToActivatingKey), object: nil, userInfo: [Constants.Key.ActivatedUUID: identifier, Constants.Key.ActivationKey: activationKey])
-        //
+        
+      NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.AssignNameToActivatingKey), object: nil, userInfo: [Constants.Key.ActivatedUUID: identifier, Constants.Key.ActivationKey: activationKey])  ///// CHECK THIS
+      
         Globals.log("TIMER")
       timer = Timer.scheduledTimer(timeInterval: Constants.Time.FifteenSecondsTimeout, target: self, selector: #selector(TKTCoreLocation.stopAdvertising), userInfo: nil, repeats: false)
+        Globals.log("TIMER 2")
     } else {
       delegate?.onBackgroundLocationAccessDisabled(CLLocationManager.authorizationStatus().rawValue)
     }
@@ -230,7 +237,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
     //if (status == .authorizedWhenInUse || status == .authorizedAlways) && beaconRegion != nil {
     if (status == .authorizedAlways && beaconRegion != nil) {
       if pendingMonitorRequest {
-        locationManager!.startMonitoring(for: beaconRegion!)
+        locationManager!.startMonitoring(for: beaconRegion!)  ///LOCATION MANAGER STARTS BEING CALLED HERE
         pendingMonitorRequest = false
       }
       locationManager!.startUpdatingLocation()
@@ -250,9 +257,10 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
   }
   
   func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
-    Globals.log("didStartMonitoringForRegion BWAHAH: \(region.identifier)")
-    delegate?.didStartMonitoring()
+    Globals.log("didStartMonitoringForRegion : \(region.identifier)")
     locationManager.requestState(for: region)
+    delegate?.didStartMonitoring()
+    
   }
   
   func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
@@ -260,6 +268,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
   }
   
   func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
+    Globals.log("STATELOCATIONMANAGER   \(state)")
     switch state {
     case CLRegionState.inside:
       Globals.log(" - entered region spot \(region.identifier)")
@@ -304,7 +313,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
   }
   
   func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-    Globals.log("didEnterRegion")
+    Globals.log("didEnterRegion locationManager")
     // TODO: I don't know if I will be needing this in the Future for now I'll just comment it - Francis 08/02/2016
     // didDetermineState's Callback is asynchronous call, and it seems to be doing a good job tracking the RegionState
     /*let beaconRegion = region as! CLBeaconRegion
@@ -312,7 +321,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
   }
   
   func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-    Globals.log("didExitRegion")
+    Globals.log("didExitRegion locationManager")
     // TODO: I don't know if I will be needing this in the Future for now I'll just comment it - Francis 08/02/2016
     // didDetermineState's Callback is asynchronous call, and it seems to be doing a good job tracking the RegionState
     /*let beaconRegion = region as! CLBeaconRegion
@@ -378,7 +387,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
     deinit {
         Globals.log("DE INIT TKTCoreLocation")
         
-        NotificationCenter.default.removeObserver(self)
+        //NotificationCenter.default.removeObserver(self)
         
     }
 }

@@ -49,7 +49,19 @@ class AddPhotoViewController: UIViewController, ModalViewControllerDelegate {
             photo = nil
         }
         
-        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.SEND_PHOTO), object: photo, userInfo: nil)
+        if let bTState =  bluetoothState {
+            Globals.log(" bTState \(bTState)")
+            if  bTState == false {
+                
+                Globals.log("showBluetoothState")
+                NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.showBluetoothWarning), object: nil, userInfo: nil)
+            }else{
+            NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.SEND_PHOTO), object: photo, userInfo: nil)
+            }
+            
+        }
+        
+        
     }
     
     

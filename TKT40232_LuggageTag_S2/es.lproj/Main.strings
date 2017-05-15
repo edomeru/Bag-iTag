@@ -1,0 +1,99 @@
+
+/* Class = "UIButton"; normalTitle = "Take Photo"; ObjectID = "0Am-U9-1JW"; */
+"0Am-U9-1JW.normalTitle" = "Take Photo";
+
+/* Class = "UILabel"; text = "        ----------"; ObjectID = "1JO-ta-mgf"; */
+"1JO-ta-mgf.text" = "        ----------";
+
+/* Class = "UIButton"; normalTitle = "INPUT ACTIVATION CODE"; ObjectID = "4GZ-x5-Yqs"; */
+"4GZ-x5-Yqs.normalTitle" = "INPUT ACTIVATION CODE";
+
+/* Class = "UILabel"; text = "Beacon Name"; ObjectID = "6cT-cj-Irw"; */
+"6cT-cj-Irw.text" = "Beacon Name";
+
+/* Class = "UILabel"; text = "100%"; ObjectID = "DD6-nW-Lxz"; */
+"DD6-nW-Lxz.text" = "100%";
+
+/* Class = "UILabel"; text = "Name your tag:"; ObjectID = "DVa-e7-tdz"; */
+"DVa-e7-tdz.text" = "Name your tag:";
+
+/* Class = "UILabel"; text = "new"; ObjectID = "Hqd-dI-xMz"; */
+"Hqd-dI-xMz.text" = "new";
+
+/* Class = "UIButton"; normalTitle = "PREVIOUS"; ObjectID = "Jbc-6l-AC9"; */
+"Jbc-6l-AC9.normalTitle" = "PREVIOUS";
+
+/* Class = "UIButton"; normalTitle = "SCAN QR CODE TO ACTIVATE"; ObjectID = "KRg-yR-gez"; */
+"KRg-yR-gez.normalTitle" = "SCAN QR CODE TO ACTIVATE";
+
+/* Class = "UIButton"; normalTitle = "Choose Photo"; ObjectID = "LcE-dP-fcW"; */
+"LcE-dP-fcW.normalTitle" = "Choose Photo";
+
+/* Class = "UILabel"; text = "Out of Range"; ObjectID = "NuV-Hd-KOi"; */
+"NuV-Hd-KOi.text" = "Out of Range";
+
+/* Class = "UIButton"; normalTitle = "NEXT"; ObjectID = "SzH-j0-WkK"; */
+"SzH-j0-WkK.normalTitle" = "NEXT";
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "T4a-0F-9Jl"; */
+"T4a-0F-9Jl.normalTitle" = "Cancel";
+
+/* Class = "UITextField"; placeholder = "     Luggage 1"; ObjectID = "UC3-ss-nxL"; */
+"UC3-ss-nxL.placeholder" = "     Luggage 1";
+
+/* Class = "UITextField"; placeholder = "Activation Code"; ObjectID = "XKN-hw-mUC"; */
+"XKN-hw-mUC.placeholder" = "Activation Code";
+
+/* Class = "UILabel"; text = "OR  "; ObjectID = "YHT-UF-ZWl"; */
+"YHT-UF-ZWl.text" = "OR  ";
+
+/* Class = "UIButton"; normalTitle = "NEXT"; ObjectID = "dqo-yC-Pqi"; */
+"dqo-yC-Pqi.normalTitle" = "NEXT";
+
+/* Class = "UIButton"; normalTitle = "SKIP"; ObjectID = "e7V-Zk-Ipd"; */
+"e7V-Zk-Ipd.normalTitle" = "SKIP";
+
+/* Class = "UIButton"; normalTitle = "ACTIVATE"; ObjectID = "eWm-6B-a2H"; */
+"eWm-6B-a2H.normalTitle" = "ACTIVATE";
+
+/* Class = "UIButton"; normalTitle = "CANCEL"; ObjectID = "gwO-ZX-xGl"; */
+"gwO-ZX-xGl.normalTitle" = "CANCEL";
+
+/* Class = "UIButton"; normalTitle = "CANCEL"; ObjectID = "huW-ib-BZd"; */
+"huW-ib-BZd.normalTitle" = "CANCEL";
+
+/* Class = "UITextField"; placeholder = "Name"; ObjectID = "idS-w2-DuE"; */
+"idS-w2-DuE.placeholder" = "Name";
+
+/* Class = "UIButton"; normalTitle = "Take Photo"; ObjectID = "jMb-Pw-tCj"; */
+"jMb-Pw-tCj.normalTitle" = "Take Photo";
+
+/* Class = "UILabel"; text = "Enter Activation Code:"; ObjectID = "kEc-Bz-6ea"; */
+"kEc-Bz-6ea.text" = "Enter Activation Code:";
+
+/* Class = "UILabel"; text = " -----------"; ObjectID = "mZf-81-fGT"; */
+"mZf-81-fGT.text" = " -----------";
+
+/* Class = "UILabel"; text = "Add your photo:"; ObjectID = "nbK-6v-eeh"; */
+"nbK-6v-eeh.text" = "Add your photo:";
+
+/* Class = "UILabel"; text = "All rights reserved"; ObjectID = "oSB-ET-I7s"; */
+"oSB-ET-I7s.text" = "All rights reserved";
+
+/* Class = "UIButton"; normalTitle = "Choose Photo"; ObjectID = "oih-Qv-TZb"; */
+"oih-Qv-TZb.normalTitle" = "Choose Photo";
+
+/* Class = "UILabel"; text = "v0.0.0"; ObjectID = "pKa-8v-tbf"; */
+"pKa-8v-tbf.text" = "v0.0.0";
+
+/* Class = "UILabel"; text = "Shake tag to activate"; ObjectID = "vmL-Fx-SIm"; */
+"vmL-Fx-SIm.text" = "Shake tag to activate";
+
+/* Class = "UILabel"; text = "Tektos Limited © 2016"; ObjectID = "xTY-X6-0Vu"; */
+"xTY-X6-0Vu.text" = "Tektos Limited © 2016";
+
+/* Class = "UILabel"; text = "Click here to take a photo"; ObjectID = "y4e-Sl-DhC"; */
+"y4e-Sl-DhC.text" = "Click here to take a photo";
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "zEh-qc-q9q"; */
+"zEh-qc-q9q.normalTitle" = "Cancel";
