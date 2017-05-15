@@ -1140,22 +1140,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TapTheDeviceGently_TransaparentBG_HQ" translatesAutoresizingMaskIntoConstraints="NO" id="WdQ-ST-vlZ">
-<<<<<<< HEAD
                                 <rect key="frame" x="16" y="75" width="288" height="291"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="291" id="2Vc-Es-2BU"/>
-=======
-
->>>>>>> beta-1.0.x
                                     <constraint firstAttribute="width" constant="288" id="zzX-ov-xQU"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap the device gently on a hard surface until activation completed" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vmL-Fx-SIm">
-<<<<<<< HEAD
                                 <rect key="frame" x="16" y="383" width="288" height="81"/>
-=======
-                               
->>>>>>> beta-1.0.x
                                 <constraints>
                                     <constraint firstAttribute="height" constant="81" id="CDJ-Yl-Rbg"/>
                                     <constraint firstAttribute="width" constant="288" id="KZE-F8-UQr"/>
@@ -1170,11 +1162,7 @@
                             <constraint firstItem="WdQ-ST-vlZ" firstAttribute="centerY" secondItem="WCL-G7-wqr" secondAttribute="centerY" constant="-63.5" id="B9a-yn-XVa"/>
                             <constraint firstItem="WdQ-ST-vlZ" firstAttribute="centerX" secondItem="WCL-G7-wqr" secondAttribute="centerX" id="d8N-AN-oxf"/>
                             <constraint firstItem="vmL-Fx-SIm" firstAttribute="centerX" secondItem="WCL-G7-wqr" secondAttribute="centerX" id="lQk-sZ-qg4"/>
-<<<<<<< HEAD
                             <constraint firstItem="vmL-Fx-SIm" firstAttribute="top" secondItem="WdQ-ST-vlZ" secondAttribute="bottom" constant="17" id="xhl-eg-rEF"/>
-=======
-                            <constraint firstItem="vmL-Fx-SIm" firstAttribute="top" secondItem="WdQ-ST-vlZ" secondAttribute="bottom" constant="20" id="xhl-eg-rEF"/>
->>>>>>> beta-1.0.x
                         </constraints>
                     </view>
                     <connections>

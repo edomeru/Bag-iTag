@@ -44,6 +44,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
   var activatedBeaconUUID: String?
   
   init(delegate: TKTCoreLocationDelegate) {
+    Globals.log("initialized TKT CORELOCATION")
     self.beaconRegions = [String: [String: Int]]()
     monitoredRegions = [String: String]()
     super.init()
@@ -51,6 +52,9 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
     self.locationManager = CLLocationManager()
     self.locationManager!.delegate = self
     peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
+    
+    Globals.log("init monitoredRegions \(monitoredRegions)")
+    Globals.log("init beaconRegions \(beaconRegions)")
   }
 
   // MARK: CBPeripheralManagerDelegate Delegate
@@ -95,16 +99,20 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
   }
   
   func stopMonitoringBeacon(_ beaconRegion: CLBeaconRegion?, key: String) {
+    Globals.log("key UUID \(key)")
     Globals.log("Stop Monitoring stopMonitoringBeacon: \((beaconRegion?.proximityUUID.uuidString)!)")
     locationManager.stopRangingBeacons(in: beaconRegion!)
     locationManager.stopMonitoring(for: beaconRegion!)
     locationManager.stopUpdatingLocation()
-    
+    Globals.log("monitoredRegions \(monitoredRegions)")
+    Globals.log("beaconRegions \(beaconRegions)")
+    Globals.log("beaconRegion   \(beaconRegion)")
     if (key != "") {
       if let removedValue = monitoredRegions.removeValue(forKey: key) {
         Globals.log("Removed Dictionary: \(removedValue)")
       }
     }
+    Globals.log("after removing monitoredRegions \(monitoredRegions)")
     
     /*if(key != "") {
       if let removedValue = beaconRegions.removeValue(forKey: key) {
@@ -275,8 +283,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
       
       let beaconRegion = region as! CLBeaconRegion
       //locationManager.startRangingBeacons(in: beaconRegion)
-      delegate?.didEnterRegion(beaconRegion)
-      
+    
       if let abUUID = activatedBeaconUUID, let ak = activationKey, let ac = activationCode {
         // Success Activating the Beacon from Deep Sleep
          Globals.log("Stop UUID \(abUUID)  activationKey  \(ak)  activationCode  \(ac) ")
