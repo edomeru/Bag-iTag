@@ -66,15 +66,15 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     @IBAction func inputActivationCode(_ sender: Any) {
         NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.Go_To_Next_Page), object: nil, userInfo: nil)
         
-        if let bTState =  bluetoothState {
-            Globals.log(" bTState \(bTState)")
-            if  bTState == false {
-                
-                Globals.log("showBluetoothState")
-                NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.showBluetoothWarning), object: nil, userInfo: nil)
-                
-            }
-        }
+//        if let bTState =  bluetoothState {
+//            Globals.log(" bTState \(bTState)")
+//            if  bTState == false {
+//                
+//                Globals.log("showBluetoothState")
+//                NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.showBluetoothWarning), object: nil, userInfo: nil)
+//                
+//            }
+//        }
         
         
         
@@ -86,15 +86,15 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     
     @IBAction func qrButtonClicked(_ sender: Any) {
         
-        if let bTState =  bluetoothState {
-            Globals.log(" bTState \(bTState)")
-            if  bTState == false {
-                
-                Globals.log("showBluetoothState")
-                NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.showBluetoothWarning), object: nil, userInfo: nil)
-               
-            }
-        }
+//        if let bTState =  bluetoothState {
+//            Globals.log(" bTState \(bTState)")
+//            if  bTState == false {
+//                
+//                Globals.log("showBluetoothState")
+//                NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.showBluetoothWarning), object: nil, userInfo: nil)
+//               
+//            }
+//        }
         
         let captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
         
@@ -205,7 +205,16 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     
     fileprivate func validateLuggage() -> Bool {
         
-       
+        if let bTState =  bluetoothState {
+            Globals.log(" bTState \(bTState)")
+            if  bTState == false {
+                
+                Globals.log("showBluetoothState")
+                NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.showBluetoothWarning), object: nil, userInfo: nil)
+                return false
+            }
+            
+        }
         
         if (!checkActivationCodeAvailability()) {
             showConfirmation(NSLocalizedString("warning", comment: ""), message: NSLocalizedString("err_luggage_exist", comment: ""))

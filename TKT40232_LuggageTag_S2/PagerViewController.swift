@@ -329,7 +329,7 @@ class PagerViewController: UIViewController {
     
     func didShowBluetoothState(_ notification: Notification) {
         Globals.log(" didShowBluetoothState LIST ")
-        let alertController = UIAlertController(title: "Turn On Bluetooth", message: "Turn On Bluetooth to Allow Bag iTag to Connect", preferredStyle: .alert)
+        let alertController = UIAlertController(title: NSLocalizedString("Turn_on_Bluetooth", comment: ""), message: NSLocalizedString("turn_on_bluetooth", comment: ""), preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "Settings", style: .cancel) { (action) in
             let url = NSURL(string: UIApplicationOpenSettingsURLString)
             UIApplication.shared.openURL(url! as URL)
