@@ -24,7 +24,7 @@
 "delete_luggage_title" = "Delete Luggage Tag";
 "location_access_disabled" = "Background Location Access is Disabled";
 "shake_device" = "Shake Device";
-
+"Tap_the_device_gently" = "Tap the device gently on a hard surface until activation completed";
 /* Alert Box Messages */
 "turn_on_bluetooth" = "Turn On Bluetooth to detect nearby Bag iTag Beacon";
 "Turn_on_Bluetooth" = "Turn On Bluetooth";

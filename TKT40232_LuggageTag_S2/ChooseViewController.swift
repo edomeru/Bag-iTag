@@ -64,17 +64,21 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     }
     
     @IBAction func inputActivationCode(_ sender: Any) {
-        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.Go_To_Next_Page), object: nil, userInfo: nil)
         
-//        if let bTState =  bluetoothState {
-//            Globals.log(" bTState \(bTState)")
-//            if  bTState == false {
-//                
-//                Globals.log("showBluetoothState")
-//                NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.showBluetoothWarning), object: nil, userInfo: nil)
-//                
-//            }
-//        }
+        let isValidLuggage = validateLuggage()
+        
+        if (isValidLuggage) {
+            NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.Go_To_Next_Page), object: nil, userInfo: nil)
+        }
+        //        if let bTState =  bluetoothState {
+        //            Globals.log(" bTState \(bTState)")
+        //            if  bTState == false {
+        //
+        //                Globals.log("showBluetoothState")
+        //                NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.showBluetoothWarning), object: nil, userInfo: nil)
+        //
+        //            }
+        //        }
         
         
         
@@ -86,54 +90,59 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     
     @IBAction func qrButtonClicked(_ sender: Any) {
         
-//        if let bTState =  bluetoothState {
-//            Globals.log(" bTState \(bTState)")
-//            if  bTState == false {
-//                
-//                Globals.log("showBluetoothState")
-//                NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.showBluetoothWarning), object: nil, userInfo: nil)
-//               
-//            }
-//        }
+        //        if let bTState =  bluetoothState {
+        //            Globals.log(" bTState \(bTState)")
+        //            if  bTState == false {
+        //
+        //                Globals.log("showBluetoothState")
+        //                NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.showBluetoothWarning), object: nil, userInfo: nil)
+        //
+        //            }
+        //        }
+        
+        
         
         let captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
+        let isValidLuggage = validateLuggage()
         
-        do {
-            let input = try AVCaptureDeviceInput(device: captureDevice)
-            captureSession = AVCaptureSession()
-            captureSession?.addInput(input)
-            
-            let captureMetadataOutput = AVCaptureMetadataOutput()
-            captureSession?.addOutput(captureMetadataOutput)
-            
-            // Set delegate and use the default dispatch queue to execute the call back
-            captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
-            captureMetadataOutput.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
-            
-            // Initialize the video preview layer and add it as a sublayer to the viewPreview view's layer.
-            videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-            videoPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
-            videoPreviewLayer?.frame = view.layer.bounds
-            view.layer.addSublayer(videoPreviewLayer!)
-            
-            // Start video capture.
-            captureSession?.startRunning()
-            
-            // Initialize QR Code Frame to highlight the QR code
-            qrCodeFrameView = UIView()
-            
-            if let qrCodeFrameView = qrCodeFrameView {
-                qrCodeFrameView.layer.borderColor = UIColor.green.cgColor
-                qrCodeFrameView.layer.borderWidth = 2
-                view.addSubview(qrCodeFrameView)
-                view.bringSubview(toFront: qrCodeFrameView)
+        if (isValidLuggage) {
+            do {
+                let input = try AVCaptureDeviceInput(device: captureDevice)
+                captureSession = AVCaptureSession()
+                captureSession?.addInput(input)
                 
-                NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.ShowCancel), object: nil, userInfo: nil)
+                let captureMetadataOutput = AVCaptureMetadataOutput()
+                captureSession?.addOutput(captureMetadataOutput)
+                
+                // Set delegate and use the default dispatch queue to execute the call back
+                captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
+                captureMetadataOutput.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
+                
+                // Initialize the video preview layer and add it as a sublayer to the viewPreview view's layer.
+                videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+                videoPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
+                videoPreviewLayer?.frame = view.layer.bounds
+                view.layer.addSublayer(videoPreviewLayer!)
+                
+                // Start video capture.
+                captureSession?.startRunning()
+                
+                // Initialize QR Code Frame to highlight the QR code
+                qrCodeFrameView = UIView()
+                
+                if let qrCodeFrameView = qrCodeFrameView {
+                    qrCodeFrameView.layer.borderColor = UIColor.green.cgColor
+                    qrCodeFrameView.layer.borderWidth = 2
+                    view.addSubview(qrCodeFrameView)
+                    view.bringSubview(toFront: qrCodeFrameView)
+                    
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.ShowCancel), object: nil, userInfo: nil)
+                }
+            } catch {
+                Globals.log(error)
+                
+                return
             }
-        } catch {
-            Globals.log(error)
-            
-            return
         }
         
     }
