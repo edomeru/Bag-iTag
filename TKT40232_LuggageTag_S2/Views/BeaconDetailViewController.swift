@@ -138,9 +138,6 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
                 Globals.log("QR HERE \(image_qr)")
             }
             
-            
-            
-            
             if (beaconToEdit?.activated)! {
                 uuidTextField.isEnabled = false
                 qrCodeButton.isHidden = true
@@ -189,10 +186,6 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     
     // MARK: Action Methods
     @IBAction func saveBeacon() {
-        
-        
-        
-        
         
         nameTextField.resignFirstResponder()
         uuidTextField.resignFirstResponder()
@@ -258,7 +251,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
                             //dismiss(animated: true, completion: nil)
                             delegate?.beaconDetailViewController(self, didFinishEditingItem: luggageItem)
                         }
-                    
+                        
                     }
                     
                 }

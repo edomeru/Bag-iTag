@@ -36,15 +36,12 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
     
     weak var delegate: TKTCoreLocationDelegate?
     
-    
-    
     var activationName: String?
     var activationCode: String?
     var activationKey: String?
     var activatedBeaconUUID: String?
     
     init(delegate: TKTCoreLocationDelegate) {
-        Globals.log("initialized TKT CORELOCATION")
         self.beaconRegions = [String: [String: Int]]()
         monitoredRegions = [String: String]()
         super.init()
@@ -52,9 +49,6 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
         self.locationManager = CLLocationManager()
         self.locationManager!.delegate = self
         peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
-        
-        Globals.log("init monitoredRegions \(monitoredRegions)")
-        Globals.log("init beaconRegions \(beaconRegions)")
     }
     
     // MARK: CBPeripheralManagerDelegate Delegate
@@ -99,20 +93,17 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
     }
     
     func stopMonitoringBeacon(_ beaconRegion: CLBeaconRegion?, key: String) {
-        Globals.log("key UUID \(key)")
         Globals.log("Stop Monitoring stopMonitoringBeacon: \((beaconRegion?.proximityUUID.uuidString)!)")
+        
         locationManager.stopRangingBeacons(in: beaconRegion!)
         locationManager.stopMonitoring(for: beaconRegion!)
         locationManager.stopUpdatingLocation()
-        Globals.log("monitoredRegions \(monitoredRegions)")
-        Globals.log("beaconRegions \(beaconRegions)")
-        Globals.log("beaconRegion   \(beaconRegion)")
+
         if (key != "") {
             if let removedValue = monitoredRegions.removeValue(forKey: key) {
                 Globals.log("Removed Dictionary: \(removedValue)")
             }
         }
-        Globals.log("after removing monitoredRegions \(monitoredRegions)")
         
         /*if(key != "") {
          if let removedValue = beaconRegions.removeValue(forKey: key) {
@@ -124,7 +115,6 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
     
     
     func broadcastActivationKey(activationCode: String) {
-        Globals.log("broadcastActivationKey______\(activationCode)")
         let chars = Array(activationCode.characters)
         let byteArray: [UInt8] = stride(from: 0, to: chars.count, by: 2).map() {
             UInt8(strtoul(String(chars[$0 ..< min($0 + 2, chars.count)]), nil, 16))
@@ -137,9 +127,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
         let acDecimal5 = byteArray[1] ^ byteArray[5]
         let acDecimal6 = byteArray[0] ^ byteArray[4]
         
-        Globals.log("acDecimal1\(acDecimal1)")
         //////EDMER
-        
         let tensOfSeconds: Int? = numberOfDays(days: 7)
         let hexValue:String? = convertToHex(hexValue: tensOfSeconds!)
         var uIntHex1: UInt8 = 0
@@ -161,10 +149,8 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
         
         let data: Data = Data(bytes: [0x00, 0x00, 0x00, 0x00, 0x00, uIntHex1, uIntHex2, 0x00, 0x00, acDecimal6, acDecimal5, acDecimal4, acDecimal3, acDecimal2, acDecimal1, 0x00])
         
-        
-        Globals.log("HELLO_SCAN______\(data)")
         let cbuuid = CBUUID(data: data)
-        Globals.log("Hcbuuid_____\(cbuuid)")
+
         let service = [cbuuid]
         let advertisingDic = Dictionary(dictionaryLiteral: (CBAdvertisementDataServiceUUIDsKey, service))
         
@@ -172,7 +158,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
         
         self.activationCode = activationCode
         self.activationKey = activationKey
-        Globals.log("activationKey\(activationKey)")
+
         var uuidString = ""
         uuidString.append(chars[10])
         uuidString.append(chars[11])
@@ -189,21 +175,17 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
         
         let identifier = "\(Constants.UUID.Identifier)\(uuidString)"
         self.activatedBeaconUUID = identifier
-        Globals.log("UUID =   \(identifier)")
+
         // Note: .authorizedAlways == 3
         if (CLLocationManager.authorizationStatus().rawValue == 3) {
-            Globals.log("authorizedAlways____")
+
             NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.OnBackgroundAccessEnabled), object: nil, userInfo: nil) //KUNG pinayagan ni app na magscan ng mga beacon or permission
-            Globals.log("PERIPHERAL START  \(advertisingDic)")
             
             peripheralManager.startAdvertising(advertisingDic)// start ng Broadcasting
-            Globals.log("PERIPHERAL STARTfsfafdabklfi99   \(advertisingDic)")
             
             NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.AssignNameToActivatingKey), object: nil, userInfo: [Constants.Key.ActivatedUUID: identifier, Constants.Key.ActivationKey: activationKey])  ///// CHECK THIS
             
-            Globals.log("TIMER")
             timer = Timer.scheduledTimer(timeInterval: Constants.Time.FifteenSecondsTimeout, target: self, selector: #selector(TKTCoreLocation.stopAdvertising), userInfo: nil, repeats: false)
-            Globals.log("TIMER 2")
         } else {
             delegate?.onBackgroundLocationAccessDisabled(CLLocationManager.authorizationStatus().rawValue)
         }
@@ -211,29 +193,23 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
     
     
     func numberOfDays(days:Int)-> Int{
-        
         return days*24*60*60/10
     }
     
-    
     func convertToHex(hexValue:Int)->String{
-        
         let st = String(format:"%2X", hexValue)
         
         return st
     }
     
-    
-    
     func stopAdvertising() {
-        Globals.log("Stop Advertising STOP HERE")
+        Globals.log("Stop Advertising \(activatedBeaconUUID)")
+        
         peripheralManager.stopAdvertising()
-        Globals.log("activatedBeaconUUID  \(activatedBeaconUUID)")
         if let activatdBeaconUuiD = activatedBeaconUUID {
-            Globals.log("INSIDE stopAdvertising \(activatdBeaconUuiD)")
             NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.StopActivatingKey), object: nil, userInfo: [Constants.Key.ActivatedUUID: activatdBeaconUuiD])
         }
-        Globals.log("OUTSIDE IF stopAdvertising ")
+        
         activationCode = nil
         activationKey = nil
         activatedBeaconUUID = nil
@@ -276,13 +252,10 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
     }
     
     func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
-        Globals.log("STATELOCATIONMANAGER   \(state)")
         switch state {
         case CLRegionState.inside:
             Globals.log(" - entered region spot \(region)")
-            
-            Globals.log("init monitoredRegions \(monitoredRegions)")
-            
+
             let beaconRegion = region as! CLBeaconRegion
             //locationManager.startRangingBeacons(in: beaconRegion)
             
@@ -290,16 +263,12 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
             
             if let abUUID = activatedBeaconUUID, let ak = activationKey, let ac = activationCode {
                 // Success Activating the Beacon from Deep Sleep
-                Globals.log("Stop UUID \(abUUID)  activationKey  \(ak)  activationCode  \(ac) ")
                 if timer.isValid {
                     timer.invalidate()
-                    
                     Globals.log("Stop Advertising...")
                     peripheralManager.stopAdvertising()
-                    
                 }
-                
-                
+ 
                 let myDict: [String: Any] = [ Constants.Key.ActivatedUUID: abUUID, Constants.Key.ActivationKey: ak,Constants.Key.ActivationCode: ac]
                 
                 NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.Go_To_Next_Page), object: nil, userInfo: myDict)
@@ -319,7 +288,7 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
             delegate?.didExitRegion(beaconRegion)
             
         default:
-            Globals.log(" - unknown region \(region.identifier)")
+            Globals.log(" - unknown region \(region)")
         }
     }
     
@@ -397,8 +366,6 @@ class TKTCoreLocation: NSObject, CLLocationManagerDelegate, CBPeripheralManagerD
     
     deinit {
         Globals.log("DE INIT TKTCoreLocation")
-        
         //NotificationCenter.default.removeObserver(self)
-        
     }
 }

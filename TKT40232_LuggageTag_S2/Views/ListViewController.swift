@@ -68,31 +68,13 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         formatNavigationBar()
         applicationInfo()
         
-        //    let sample = LuggageTag()
-        //
-        //    sample.name = "AAAAAAAAAAAA"
-        //    sample.uuid = "C2265660-5EC1-4935-9BB3-A1CBD9143388"
-        //    sample.major = "0"
-        //    sample.minor = "-1"
-        //    sample.regionState = Constants.Proximity.Inside
-        //    sample.isConnected = true
-        //    sample.activation_code = "aaobyoiummc"
-        //    sample.activation_key = "4392DF78126A00"
-        //    sample.activated = true
-        //
-        //    row.append(sample)
-        
-        
         centralManager = CBCentralManager(delegate: self, queue: nil)
         tktCoreLocation = TKTCoreLocation(delegate: self)
         
         frc = getFRC()
         frc.delegate = self
         
-        
-        
         do {
-            
             try frc.performFetch()
             loadBeaconItems()
         } catch {
@@ -114,11 +96,6 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         
         NotificationCenter.default.addObserver(self, selector: #selector(ListViewController.didShowBluetoothState(_:)), name: NSNotification.Name(rawValue: "ShowBluetoothState"), object: nil)
         
-    }
-    
-    func loadSampleItem() {
-        Globals.log("loadSampleItem")
-        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.Create_Sample_Item), object: nil, userInfo: nil)
     }
     
     func setBattery(_ notification: Notification) {
@@ -166,7 +143,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
             
             return
         }
-        Globals.log("transmitActivationKey______\(key)")
+        
         tktCoreLocation.broadcastActivationKey(activationCode: key)
     }
     
@@ -293,43 +270,15 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
             
             if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
                 controller.beaconToEdit = row[(indexPath as NSIndexPath).row]
-                
-                Globals.log("ID \(controller.beaconToEdit?.id)")
-                Globals.log("NAME \(controller.beaconToEdit?.name)")
-                Globals.log("UUID \(controller.beaconToEdit?.uuid)")
-                Globals.log("ISCONNECTED \(controller.beaconToEdit?.isConnected)")
-                Globals.log("activation_code \(controller.beaconToEdit?.activation_code)")
-                Globals.log("activation_key \(controller.beaconToEdit?.activation_key)")
-                Globals.log("ACTIVATED \(controller.beaconToEdit?.activated)")
-                Globals.log("REGION STATE \(controller.beaconToEdit?.regionState)")
-                
                 controller.beaconReference = row
-                
-                
             }
-        }
-            
-            //    else if segue.identifier == Constants.Segue.ActivationOptions {
-            //        let navigationController = segue.destination as! UINavigationController
-            //        let controller = navigationController.topViewController as! ActivationOptionsController
-            //        controller.delegate = self
-            //
-            //        controller.beaconReference = row
-            //
-            //    }
-            
-        else if segue.identifier == Constants.Segue.PagerView {
+        } else if segue.identifier == Constants.Segue.PagerView {
             let navigationController = segue.destination as! UINavigationController
             let controller = navigationController.topViewController as! PagerViewController
             controller.delegate = self
             
             controller.beaconReference = row
-            
-            
-            
         }
-        
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -438,7 +387,6 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     
     func didStartMonitoring() {
         isMonitoring = true
-        Globals.log("didStartMonitoring LISTVIEW")
     }
     
     
@@ -450,16 +398,9 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     
     func didEnterRegion(_ region: CLBeaconRegion) {
         
-        Globals.log("REGION DIDENTER")
-        Globals.log("REGION DIDENTER REGION UUID \(region.proximityUUID.uuidString)")
-        Globals.log("REGION DIDENTER ROW \(row.count)")
-        
-        
         for beacon in row {
-            Globals.log("REGION DIDENTER BEACON UUID \(beacon.uuid)")
             if (beacon.uuid == region.proximityUUID.uuidString) {
                 if (beacon.regionState != Constants.Proximity.Inside) {
-                    Globals.log("REGION DIDENTER PROXIMITY")
                     
                     if let index = row.index(of: beacon) {
                         let indexPath = IndexPath(row: index, section: 0)
@@ -483,11 +424,10 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
                 }
             }
         }
+        
     }
     
     func didExitRegion(_ region: CLBeaconRegion) {  ///not updating ui od switch here
-        
-        Globals.log("didExitRegion")
         
         for beacon in row {
             if (beacon.uuid == region.proximityUUID.uuidString) {
@@ -505,6 +445,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
                 }
             }
         }
+        
     }
     
     func didRangeBeacon(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {}
@@ -565,10 +506,6 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         
     }
     
-    
-    
-    
-    
     func beaconDetailViewController(_ controller: BeaconDetailViewController, didFinishEditingItem item: LuggageTag) {
         if let index = row.index(of: item) {
             let indexPath = IndexPath(row: index, section: 0)
@@ -620,13 +557,10 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         //        }
         Globals.log("connectActivatingBeacon HERE")
         startMonitoringforBeacon(item)
-        
-        
     }
     
     func disconnectActivatingBeacon(item: LuggageTag) {  ///DISCONNECT IF ACTIVATION IS NOT SUCCESSFULL, DELEGATE OF BEACONVIEWCONTROLLER
         stopMonitoring(didStopMonitoring: item)
-        
     }
     
     func didFinishActivatingBeacon(_ controller: BeaconDetailViewController, item: LuggageTag, isFromEdit: Bool) {///CHECK THIS FUNC, CREATE NEW BEACON, INSERT TO TABLE
@@ -681,7 +615,6 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         let indexPath = tableView.indexPath(for: cell)
         let item = row[((indexPath as NSIndexPath?)?.row)!]
         item.isConnected = cell.customSwitch.on
-        Globals.log("cell.customSwitch.on   item.isConnected \(cell.customSwitch.on)")
         row[((indexPath as NSIndexPath?)?.row)!].regionState = Constants.Proximity.Outside
         
         if cell.customSwitch.on {
@@ -689,37 +622,30 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
                 showAlertForSettings()
                 
             }else{
-                Globals.log("Start Monitoring for this Beacon")
                 // Start Monitoring for this Beacon
                 var beaconRegion: CLBeaconRegion?
                 beaconRegion = CLBeaconRegion(proximityUUID: UUID(uuidString: item.uuid)!, identifier: item.uuid)
                 // later, these values can be set from the UI
-                Globals.log("later, these values can be set from the UI")
                 beaconRegion!.notifyEntryStateOnDisplay = true
                 beaconRegion!.notifyOnEntry = true
                 beaconRegion!.notifyOnExit = true
                 
                 tktCoreLocation.startMonitoring(beaconRegion)
-                
             }
-            
             
         } else {    ///WHEN OFF
             if let identifier = tktCoreLocation.monitoredRegions[item.uuid] {
                 // Delete LocalNotification
-                 Globals.log("Delete LocalNotification")
                 deleteLocalNotification(row[((indexPath as NSIndexPath?)?.row)!].name, identifier: row[((indexPath as NSIndexPath?)?.row)!].uuid)
                 
                 row[((indexPath as NSIndexPath?)?.row)!].regionState = Constants.Proximity.Outside
                 configureCellRegion(cell, withLuggageTag: item, connected: false)
                 
                 // Stop Monitoring for this Beacon
-                Globals.log("Stop Monitoring for this Beacon")
                 var beaconRegion: CLBeaconRegion?
                 beaconRegion = CLBeaconRegion(proximityUUID: UUID(uuidString: item.uuid)!, identifier: identifier)
                 
                 // Stop Monitoring this Specific Beacon.
-                Globals.log("Stop Monitoring this Specific Beacon.")
                 tktCoreLocation.stopMonitoringBeacon(beaconRegion, key: item.uuid)
             }
         }
@@ -808,7 +734,6 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     }
     
     fileprivate func startMonitoring() {//called WHEN BLUETOTH ON/OF
-        Globals.log("startMonitoring UPPER CALLLEDDD!!!")
         
         if row.count > 0 {
             for beacon in row {
@@ -834,7 +759,6 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     }
     
     fileprivate func startMonitoringforBeacon(_ beaconItem: LuggageTag) {/////   CALLED SWITCH ON/OFF
-        Globals.log("startMonitoringforBeacon CALLLEDDD!!!")
         
         var beaconRegion: CLBeaconRegion?
         beaconRegion = CLBeaconRegion(proximityUUID: UUID(uuidString: beaconItem.uuid)!, identifier: beaconItem.uuid)
@@ -844,10 +768,10 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
         beaconRegion!.notifyOnExit = true
         Globals.log("LISTVIEW startMonitoringforBeacon")
         tktCoreLocation.startMonitoring(beaconRegion)
+        
     }
     
     fileprivate func checkLuggageTagRegion() {  /// FOR BLUTOOTH, THIS FUNCTION TURNS OFF SCANNING OR MAKE GREEN RSSI TO GRAY
-        Globals.log("checkLuggageTagRegion CALLLEDDD!!!")
         
         if row.count > 0 {
             for beacon in row {
@@ -1078,7 +1002,6 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     
     
     func didShowBluetoothState(_ notification: Notification) {
-        Globals.log(" didShowBluetoothState LIST ")
         let alertController = UIAlertController(title: "Turn On Bluetooth", message: "Turn On Bluetooth to Allow Bag iTag to Connect", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "Settings", style: .cancel) { (action) in
             let url = NSURL(string: UIApplicationOpenSettingsURLString)
@@ -1094,7 +1017,6 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     }
     
     deinit {
-        
         //        NotificationCenter.default.removeObserver(self)
     }
     

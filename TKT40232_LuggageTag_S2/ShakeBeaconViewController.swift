@@ -18,18 +18,18 @@ protocol ShakeBeaconViewControllerDelegate: class {
 
 class ShakeBeaconViewController: UIViewController {
     @IBOutlet weak var shakeTagLabel: UILabel!
-
-     weak var delegate: ShakeBeaconViewControllerDelegate?
+    
+    weak var delegate: ShakeBeaconViewControllerDelegate?
     
     @IBAction func back(_ sender: Any) {
         delegate?.shakeBeaconDidCancel(self)
         
     }
     @IBOutlet weak var Back: UIBarButtonItem!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-shakeTagLabel.text = NSLocalizedString("Tap_the_device_gently", comment: "")
+        shakeTagLabel.text = NSLocalizedString("Tap_the_device_gently", comment: "")
     }
-
+    
 }
