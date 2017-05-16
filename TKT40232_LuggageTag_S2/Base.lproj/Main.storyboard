@@ -1072,7 +1072,7 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vhq-G6-SNe" customClass="CustomTextField" customModule="LuggageFinder" customModuleProvider="target">
+                            <textField opaque="NO" clipsSubviews="YES" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vhq-G6-SNe" customClass="CustomTextField" customModule="LuggageFinder" customModuleProvider="target">
                                 <rect key="frame" x="33" y="175" width="261" height="45"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -1080,7 +1080,7 @@
                                 </constraints>
                                 <color key="textColor" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" enablesReturnKeyAutomatically="YES"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="22.5"/>
@@ -1119,7 +1119,7 @@
                         <outlet property="codeTextField" destination="Vhq-G6-SNe" id="0UZ-Qm-VhK"/>
                         <outlet property="enterLabelTopSpaceConstraint" destination="OD9-of-hWo" id="CGl-zi-Vc2"/>
                         <outlet property="nextBottomSpaceConstraints" destination="EVQ-HV-rue" id="qsB-kz-jdI"/>
-                        <outlet property="nextOutlet" destination="SzH-j0-WkK" id="XDf-ET-EFz"/>
+                        <outlet property="nextOutlet" destination="SzH-j0-WkK" id="zR0-jZ-8qB"/>
                         <outlet property="textLabel" destination="kEc-Bz-6ea" id="nTc-Ja-AJI"/>
                     </connections>
                 </viewController>
@@ -1139,7 +1139,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TapTheDeviceGently_TransaparentBG_HQ" translatesAutoresizingMaskIntoConstraints="NO" id="WdQ-ST-vlZ">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TapTheDeviceGently_Transaparent_HQ" translatesAutoresizingMaskIntoConstraints="NO" id="WdQ-ST-vlZ">
                                 <rect key="frame" x="16" y="75" width="288" height="291"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="291" id="2Vc-Es-2BU"/>
@@ -1492,7 +1492,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="TapTheDeviceGently_TransaparentBG_HQ" width="1196" height="843"/>
+        <image name="TapTheDeviceGently_Transaparent_HQ" width="1196" height="843"/>
         <image name="TypeCode" width="325" height="445"/>
         <image name="add_button" width="50" height="50"/>
         <image name="back_button" width="22" height="22"/>

@@ -692,7 +692,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
                 Globals.log("Start Monitoring for this Beacon")
                 // Start Monitoring for this Beacon
                 var beaconRegion: CLBeaconRegion?
-                beaconRegion = CLBeaconRegion(proximityUUID: UUID(uuidString: item.uuid)!, identifier: item.name)
+                beaconRegion = CLBeaconRegion(proximityUUID: UUID(uuidString: item.uuid)!, identifier: item.uuid)
                 // later, these values can be set from the UI
                 Globals.log("later, these values can be set from the UI")
                 beaconRegion!.notifyEntryStateOnDisplay = true
@@ -700,8 +700,6 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
                 beaconRegion!.notifyOnExit = true
                 
                 tktCoreLocation.startMonitoring(beaconRegion)
-                
-                
                 
             }
             
@@ -797,8 +795,6 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
             item.major = beacon.major!
             item.minor = beacon.minor!
             item.regionState = Constants.Proximity.Unknown
-             Globals.log("loadBeaconItems item.isConnected \(item.isConnected)")
-            Globals.log("loadBeaconItems item.name \(item.name)")
             item.isConnected = isConnected
             item.activation_code = beacon.activation_code!
             item.activation_key = beacon.activation_key!
@@ -812,11 +808,13 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     }
     
     fileprivate func startMonitoring() {//called WHEN BLUETOTH ON/OF
+        Globals.log("startMonitoring UPPER CALLLEDDD!!!")
+        
         if row.count > 0 {
             for beacon in row {
                 if beacon.isConnected {
                     var beaconRegion: CLBeaconRegion?
-                    beaconRegion = CLBeaconRegion(proximityUUID: UUID(uuidString: beacon.uuid)!, identifier: beacon.name)
+                    beaconRegion = CLBeaconRegion(proximityUUID: UUID(uuidString: beacon.uuid)!, identifier: beacon.uuid)
                     // Stop Beacon First
                     tktCoreLocation.stopMonitoringBeacon(beaconRegion, key: "")
                     
@@ -836,8 +834,10 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     }
     
     fileprivate func startMonitoringforBeacon(_ beaconItem: LuggageTag) {/////   CALLED SWITCH ON/OFF
+        Globals.log("startMonitoringforBeacon CALLLEDDD!!!")
+        
         var beaconRegion: CLBeaconRegion?
-        beaconRegion = CLBeaconRegion(proximityUUID: UUID(uuidString: beaconItem.uuid)!, identifier: beaconItem.name)
+        beaconRegion = CLBeaconRegion(proximityUUID: UUID(uuidString: beaconItem.uuid)!, identifier: beaconItem.uuid)
         // later, these values can be set from the UI
         beaconRegion!.notifyEntryStateOnDisplay = true
         beaconRegion!.notifyOnEntry = true
@@ -847,12 +847,14 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     }
     
     fileprivate func checkLuggageTagRegion() {  /// FOR BLUTOOTH, THIS FUNCTION TURNS OFF SCANNING OR MAKE GREEN RSSI TO GRAY
+        Globals.log("checkLuggageTagRegion CALLLEDDD!!!")
+        
         if row.count > 0 {
             for beacon in row {
                 if (beacon.regionState == Constants.Proximity.Inside) {
                     // Stop Monitoring for this Beacon
                     var beaconRegion: CLBeaconRegion?
-                    beaconRegion = CLBeaconRegion(proximityUUID: UUID(uuidString: beacon.uuid)!, identifier: beacon.name)
+                    beaconRegion = CLBeaconRegion(proximityUUID: UUID(uuidString: beacon.uuid)!, identifier: beacon.uuid)
                     
                     // Stop Monitoring this Specific Beacon.
                     tktCoreLocation.stopMonitoringBeacon(beaconRegion, key: "")

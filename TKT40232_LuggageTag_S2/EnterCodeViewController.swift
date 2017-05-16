@@ -245,57 +245,37 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-       
         
+        // Do not let specified text range to be changed
+        let newString = NSString(string: textField.text!).replacingCharacters(in: range, with: string)
         
-       
+        Globals.log("newString \(newString.uppercased())")
         
-            // Do not let specified text range to be changed
-       
-       
         if string == "" {
             // User presses backspace
             textField.deleteBackward()
         } else {
             // User presses a key or pastes
-            textField.insertText(string.uppercased())
-             return false
+            textField.text = textField.text?.uppercased()
             
             let currentCharacterCount = textField.text?.characters.count ?? 0
             
             if (range.length + range.location > currentCharacterCount){
-                
-                
                 return false
             }
+            
             let newLength = currentCharacterCount + string.characters.count - range.length
             
             if (textField.tag == 1000) {
-                return newLength <= 20 // Character Limit for Luggage Name
-            } else {
-                return newLength <= 11 // Character Limit for Activation Code
+                if (newLength <= 11) {
+                    return newLength <= 11
+                } else {
+                    return newLength <= 11
+                }
             }
-
-            
-            
-            
-            
-            
-            
-            
-            
-           
         }
         
-        
-        
-        
-        
-        
-        
         return true
-        
-        
     }
     
     fileprivate func validateLuggage() -> Bool {
