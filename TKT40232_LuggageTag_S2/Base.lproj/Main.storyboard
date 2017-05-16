@@ -250,22 +250,22 @@
                                 </connections>
                             </tableView>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Llx-x9-ZSM">
-                                <rect key="frame" x="230.5" y="535" width="87.5" height="33"/>
+                                <rect key="frame" x="229" y="539.5" width="89" height="28.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tektos Limited © 2016" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xTY-X6-0Vu">
-                                        <rect key="frame" x="7" y="11" width="79.5" height="11"/>
+                                        <rect key="frame" x="7" y="9.5" width="81" height="9.5"/>
                                         <fontDescription key="fontDescription" name="Gadugi" family="Gadugi" pointSize="8"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All rights reserved" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oSB-ET-I7s">
-                                        <rect key="frame" x="7" y="20" width="79.5" height="11"/>
+                                        <rect key="frame" x="7" y="17" width="81" height="9.5"/>
                                         <fontDescription key="fontDescription" name="Gadugi" family="Gadugi" pointSize="8"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="v0.0.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pKa-8v-tbf">
-                                        <rect key="frame" x="7" y="2" width="79.5" height="11"/>
+                                        <rect key="frame" x="7" y="2" width="81" height="9.5"/>
                                         <fontDescription key="fontDescription" name="Gadugi" family="Gadugi" pointSize="8"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1072,7 +1072,7 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vhq-G6-SNe" customClass="CustomTextField" customModule="LuggageFinder" customModuleProvider="target">
+                            <textField opaque="NO" clipsSubviews="YES" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vhq-G6-SNe" customClass="CustomTextField" customModule="LuggageFinder" customModuleProvider="target">
                                 <rect key="frame" x="33" y="175" width="261" height="45"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -1080,7 +1080,7 @@
                                 </constraints>
                                 <color key="textColor" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="Gadugi-Bold" family="Gadugi" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" enablesReturnKeyAutomatically="YES"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="22.5"/>
@@ -1119,7 +1119,7 @@
                         <outlet property="codeTextField" destination="Vhq-G6-SNe" id="0UZ-Qm-VhK"/>
                         <outlet property="enterLabelTopSpaceConstraint" destination="OD9-of-hWo" id="CGl-zi-Vc2"/>
                         <outlet property="nextBottomSpaceConstraints" destination="EVQ-HV-rue" id="qsB-kz-jdI"/>
-                        <outlet property="nextOutlet" destination="SzH-j0-WkK" id="XDf-ET-EFz"/>
+                        <outlet property="nextOutlet" destination="SzH-j0-WkK" id="zR0-jZ-8qB"/>
                         <outlet property="textLabel" destination="kEc-Bz-6ea" id="nTc-Ja-AJI"/>
                     </connections>
                 </viewController>
@@ -1139,23 +1139,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TapTheDeviceGently_TransaparentBG_HQ" translatesAutoresizingMaskIntoConstraints="NO" id="WdQ-ST-vlZ">
-<<<<<<< HEAD
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TapTheDeviceGently_Transaparent_HQ" translatesAutoresizingMaskIntoConstraints="NO" id="WdQ-ST-vlZ">
                                 <rect key="frame" x="16" y="75" width="288" height="291"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="291" id="2Vc-Es-2BU"/>
-=======
-
->>>>>>> beta-1.0.x
                                     <constraint firstAttribute="width" constant="288" id="zzX-ov-xQU"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap the device gently on a hard surface until activation completed" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vmL-Fx-SIm">
-<<<<<<< HEAD
                                 <rect key="frame" x="16" y="383" width="288" height="81"/>
-=======
-                               
->>>>>>> beta-1.0.x
                                 <constraints>
                                     <constraint firstAttribute="height" constant="81" id="CDJ-Yl-Rbg"/>
                                     <constraint firstAttribute="width" constant="288" id="KZE-F8-UQr"/>
@@ -1170,11 +1162,7 @@
                             <constraint firstItem="WdQ-ST-vlZ" firstAttribute="centerY" secondItem="WCL-G7-wqr" secondAttribute="centerY" constant="-63.5" id="B9a-yn-XVa"/>
                             <constraint firstItem="WdQ-ST-vlZ" firstAttribute="centerX" secondItem="WCL-G7-wqr" secondAttribute="centerX" id="d8N-AN-oxf"/>
                             <constraint firstItem="vmL-Fx-SIm" firstAttribute="centerX" secondItem="WCL-G7-wqr" secondAttribute="centerX" id="lQk-sZ-qg4"/>
-<<<<<<< HEAD
                             <constraint firstItem="vmL-Fx-SIm" firstAttribute="top" secondItem="WdQ-ST-vlZ" secondAttribute="bottom" constant="17" id="xhl-eg-rEF"/>
-=======
-                            <constraint firstItem="vmL-Fx-SIm" firstAttribute="top" secondItem="WdQ-ST-vlZ" secondAttribute="bottom" constant="20" id="xhl-eg-rEF"/>
->>>>>>> beta-1.0.x
                         </constraints>
                     </view>
                     <connections>
@@ -1504,7 +1492,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="TapTheDeviceGently_TransaparentBG_HQ" width="1196" height="843"/>
+        <image name="TapTheDeviceGently_Transaparent_HQ" width="1196" height="843"/>
         <image name="TypeCode" width="325" height="445"/>
         <image name="add_button" width="50" height="50"/>
         <image name="back_button" width="22" height="22"/>

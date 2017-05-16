@@ -127,6 +127,16 @@ class PagerViewController: UIViewController {
         luggageItem.activation_key = ActivationKey
         luggageItem.activated = true
         
+        Globals.log("activateLuggageItem CALLED!!!")
+        Globals.log("NAME \(luggageItem.name)")
+        Globals.log("UUID \(luggageItem.uuid)")
+        Globals.log("MAJOR \(luggageItem.major)")
+        Globals.log("MINOR \(luggageItem.minor)")
+        Globals.log("regionState \(luggageItem.regionState)")
+        Globals.log("activation_code \(luggageItem.activation_code)")
+        Globals.log("activation_key \(luggageItem.activation_key)")
+        Globals.log("activated \(luggageItem.activated)")
+        
         NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.SavingNewLugguageItem), object: luggageItem, userInfo: nil)
     }
     
@@ -292,8 +302,7 @@ class PagerViewController: UIViewController {
         }
         luggageItem.activation_key = activationKey.uppercased()
         
-        delegate?.connectActivatingBeacon(item: luggageItem)
-        
+        delegate?.connectActivatingBeacon(item: luggageItem) 
     }
     
     

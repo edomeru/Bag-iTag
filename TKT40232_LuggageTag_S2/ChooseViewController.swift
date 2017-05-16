@@ -29,6 +29,7 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     @IBOutlet weak var imageQrConstraint: NSLayoutConstraint!
     @IBOutlet weak var activationCodeOutlet: CustomButton!
     @IBOutlet weak var qrCodeOutlet: CustomButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         Globals.log(" SCREEN HEIGHT \(screenHeight())")
@@ -70,18 +71,6 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         if (isValidLuggage) {
             NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.Go_To_Next_Page), object: nil, userInfo: nil)
         }
-        //        if let bTState =  bluetoothState {
-        //            Globals.log(" bTState \(bTState)")
-        //            if  bTState == false {
-        //
-        //                Globals.log("showBluetoothState")
-        //                NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.showBluetoothWarning), object: nil, userInfo: nil)
-        //
-        //            }
-        //        }
-        
-        
-        
     }
     
     @IBAction func cancel(_ sender: Any) {
@@ -89,19 +78,7 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     }
     
     @IBAction func qrButtonClicked(_ sender: Any) {
-        
-        //        if let bTState =  bluetoothState {
-        //            Globals.log(" bTState \(bTState)")
-        //            if  bTState == false {
-        //
-        //                Globals.log("showBluetoothState")
-        //                NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.showBluetoothWarning), object: nil, userInfo: nil)
-        //
-        //            }
-        //        }
-        
-        
-        
+
         let captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
         let isValidLuggage = validateLuggage()
         
@@ -265,14 +242,6 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         return true
     }
     
-    
-    //    func showBluetoothState(){
-    //        Globals.log("HELLLLLLOOOOO")
-    //        NotificationCenter.default.post(name: Notification.Name(rawValue: "didShowBluetoothState"), object: nil, userInfo: nil)
-    //
-    //
-    //    }
-    
     @IBAction func qrCancelButton(_ sender: Any) {
         
         hideNavigationItem(item: self.navigationItem.rightBarButtonItem)
@@ -283,7 +252,6 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     }
     
     deinit {
-        
         //NotificationCenter.default.removeObserver(self)
     }
     
