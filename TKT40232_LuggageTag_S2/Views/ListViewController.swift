@@ -527,7 +527,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
     
     func stopMonitoring(didStopMonitoring item: LuggageTag) {  ///STOP SCAN
         var beaconRegion: CLBeaconRegion?
-        beaconRegion = CLBeaconRegion(proximityUUID: UUID(uuidString: item.uuid)!, identifier: item.name)
+        beaconRegion = CLBeaconRegion(proximityUUID: UUID(uuidString: item.uuid)!, identifier: item.uuid)
         
         tktCoreLocation.stopMonitoringBeacon(beaconRegion, key: item.uuid)
     }

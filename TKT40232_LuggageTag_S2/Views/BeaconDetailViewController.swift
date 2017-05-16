@@ -466,7 +466,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
         let region = (notification as NSNotification).userInfo!["region"] as! CLBeaconRegion
         if let luggageTag = beaconToEdit {
             let connected = luggageTag.isConnected
-            if (region.identifier == luggageTag.name && region.proximityUUID.uuidString == luggageTag.uuid && connected) {
+            if (region.proximityUUID.uuidString == luggageTag.uuid && connected) {
                 rangeLabel.text = Constants.Range.InRange
                 
                 if (uuidTextField.isEnabled && !qrCodeButton.isHidden && !activationButton.isHidden && rangeLabel.isHidden) {
@@ -482,7 +482,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     func setExitRegion(_ notification: Notification) {
         let region = (notification as NSNotification).userInfo!["region"] as! CLBeaconRegion
         if let luggageTag = beaconToEdit {
-            if (region.identifier == luggageTag.name && region.proximityUUID.uuidString == luggageTag.uuid) {
+            if (region.proximityUUID.uuidString == luggageTag.uuid) {
                 rangeLabel.text = Constants.Range.OutOfRange
             }
         }

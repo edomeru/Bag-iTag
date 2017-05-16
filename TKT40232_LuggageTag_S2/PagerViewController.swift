@@ -296,21 +296,13 @@ class PagerViewController: UIViewController {
         luggageItem.regionState = Constants.Proximity.Inside
         luggageItem.isConnected = true
         
-        Globals.log("NAME ** \(luggageItem.name)")
-        Globals.log("UUID ** \(luggageItem.uuid)")
-        Globals.log("MAJOR ** \(luggageItem.major)")
-        Globals.log("MINOR ** \(luggageItem.minor)")
-        Globals.log("REGIONSTATE ** \(luggageItem.regionState)")
-        Globals.log("ISCONNECTED ** \(luggageItem.isConnected)")
-        
         if let Acode = activation_Code {
             luggageItem.activation_code = Acode.lowercased()
             Globals.log("A_CODE \(Acode)")
         }
         luggageItem.activation_key = activationKey.uppercased()
         
-        delegate?.connectActivatingBeacon(item: luggageItem)
-        
+        delegate?.connectActivatingBeacon(item: luggageItem) 
     }
     
     
