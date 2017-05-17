@@ -778,8 +778,8 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
             self.camBAckgroundHeightConstraint.constant = 20
             self.cameraTop.constant = 0
             self.activationButtonY.constant = 250
-            self.alignUUIDY.constant = -110
-            self.nameTextFieldTop.constant = 70
+            self.alignUUIDY.constant = 15
+            self.nameTextFieldTop.constant = 10
             self.rangeLabelTopConstraint.constant = 170
             self.qrBottomConstraint.constant = 20
             self.cameraSize.isHidden = false
