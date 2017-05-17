@@ -640,7 +640,7 @@ UITableViewDelegate, BeaconDetailViewControllerDelegate, NSFetchedResultsControl
                 
                 row[((indexPath as NSIndexPath?)?.row)!].regionState = Constants.Proximity.Outside
                 configureCellRegion(cell, withLuggageTag: item, connected: false)
-                
+                 
                 // Stop Monitoring for this Beacon
                 var beaconRegion: CLBeaconRegion?
                 beaconRegion = CLBeaconRegion(proximityUUID: UUID(uuidString: item.uuid)!, identifier: identifier)

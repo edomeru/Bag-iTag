@@ -35,15 +35,15 @@ class ChooseViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         Globals.log(" SCREEN HEIGHT \(screenHeight())")
         Globals.log(" bluetoothState \(bluetoothState!)")
         
-        
-        if screenHeight() <= 490.0 {
-            self.imageInputActivation.constant = 90
-            self.imageQrConstraint.constant = 80
-            self.qrButtonConstraint.constant = 42
-            self.inputActivationButtonConstraint.constant  = 42
-            self.cancelConstraint.constant  = 42
-            
-        }
+//        
+//        if screenHeight() <= 490.0 {
+//            self.imageInputActivation.constant = 90
+//            self.imageQrConstraint.constant = 80
+//            self.qrButtonConstraint.constant = 42
+//            self.inputActivationButtonConstraint.constant  = 42
+//            self.cancelConstraint.constant  = 42
+//            
+//        }
         self.activationCodeOutlet.setTitle(NSLocalizedString("input_activation_code",comment: ""), for: .normal)
         
         self.qrCodeOutlet.setTitle(NSLocalizedString("scan_qr_code_to_activate",comment: ""), for: .normal)

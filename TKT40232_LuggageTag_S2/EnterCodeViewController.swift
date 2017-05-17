@@ -132,13 +132,7 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
                 self.nextBottomSpaceConstraints.constant = keyboardHeight
                 self.enterLabelTopSpaceConstraint.constant = self.view.frame.height - 500
                 
-//                let userInfo:NSDictionary = sender.userInfo! as NSDictionary
-//                let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
-//                let keyboardRectangle = keyboardFrame.cgRectValue
-//                let keyboardHeight = keyboardRectangle.height
-//                
-//                self.cancelOutlet.frame.origin.y =  self.view.frame.height - keyboardHeight - 100
-//                self.nextOutlet.frame.origin.y =  self.view.frame.height - keyboardHeight - 100
+
             }
             
             
@@ -245,38 +239,41 @@ class EnterCodeViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
+   
         // Do not let specified text range to be changed
-        let newString = NSString(string: textField.text!).replacingCharacters(in: range, with: string)
-        
-        Globals.log("newString \(newString.uppercased())")
         
         if string == "" {
             // User presses backspace
-            textField.deleteBackward()
-        } else {
+         } else {
             // User presses a key or pastes
-            textField.text = textField.text?.uppercased()
+          
             
             let currentCharacterCount = textField.text?.characters.count ?? 0
             
             if (range.length + range.location > currentCharacterCount){
+                
+                textField.insertText(string.uppercased())
                 return false
             }
-            
             let newLength = currentCharacterCount + string.characters.count - range.length
             
             if (textField.tag == 1000) {
-                if (newLength <= 11) {
-                    return newLength <= 11
-                } else {
-                    return newLength <= 11
-                }
+            
+                return newLength <= 11 // Character Limit for Luggage Name
+            } else {
+                
+                Globals.log("string.uppercased()    \(string.uppercased())")
+                textField.insertText(string.uppercased())
+                
+                return newLength <= 11 // Character Limit for Activation Code
             }
+            
         }
-        
+
         return true
+
     }
+    
     
     fileprivate func validateLuggage() -> Bool {
         

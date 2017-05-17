@@ -300,6 +300,7 @@ class PagerViewController: UIViewController {
             luggageItem.activation_code = Acode.lowercased()
             Globals.log("A_CODE \(Acode)")
         }
+        
         luggageItem.activation_key = activationKey.uppercased()
         
         delegate?.connectActivatingBeacon(item: luggageItem) 
