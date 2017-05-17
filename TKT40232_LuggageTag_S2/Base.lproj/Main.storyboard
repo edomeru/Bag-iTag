@@ -252,22 +252,22 @@
                                 </connections>
                             </tableView>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Llx-x9-ZSM">
-                                <rect key="frame" x="230" y="535" width="88" height="33"/>
+                                <rect key="frame" x="230.5" y="535" width="87.5" height="33"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tektos Limited © 2016" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xTY-X6-0Vu">
-                                        <rect key="frame" x="7" y="11" width="80" height="11"/>
+                                        <rect key="frame" x="7" y="11" width="79.5" height="11"/>
                                         <fontDescription key="fontDescription" name="Gadugi" family="Gadugi" pointSize="8"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All rights reserved" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oSB-ET-I7s">
-                                        <rect key="frame" x="7" y="20" width="80" height="11"/>
+                                        <rect key="frame" x="7" y="20" width="79.5" height="11"/>
                                         <fontDescription key="fontDescription" name="Gadugi" family="Gadugi" pointSize="8"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="v0.0.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pKa-8v-tbf">
-                                        <rect key="frame" x="7" y="2" width="80" height="11"/>
+                                        <rect key="frame" x="7" y="2" width="79.5" height="11"/>
                                         <fontDescription key="fontDescription" name="Gadugi" family="Gadugi" pointSize="8"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1126,7 +1126,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="TapTheDeviceGently_Transaparent_HQ" translatesAutoresizingMaskIntoConstraints="NO" id="WdQ-ST-vlZ">
-                                <rect key="frame" x="16" y="-138" width="288" height="844"/>
+                                <rect key="frame" x="16" y="-137.5" width="288" height="843"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.93333333330000001" green="0.67450980390000004" blue="0.1215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1247,9 +1247,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rml-C9-RQL">
-                                <rect key="frame" x="-27.5" y="164" width="375" height="185"/>
+                                <rect key="frame" x="-28" y="164" width="375" height="185"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Click here to take a photo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y4e-Sl-DhC">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Click here to take a photo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y4e-Sl-DhC">
                                         <rect key="frame" x="80" y="136" width="207" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="207" id="eQI-B8-abL"/>
@@ -1264,6 +1264,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="185" id="2w4-Aa-2rO"/>
                                     <constraint firstAttribute="width" constant="375" id="MBy-l7-4Ji"/>
+                                    <constraint firstAttribute="bottom" secondItem="y4e-Sl-DhC" secondAttribute="bottom" constant="28" id="UWX-Jm-hU7"/>
                                     <constraint firstItem="y4e-Sl-DhC" firstAttribute="centerX" secondItem="Rml-C9-RQL" secondAttribute="centerX" constant="-4" id="nA0-do-Vgt"/>
                                 </constraints>
                             </view>
@@ -1371,6 +1372,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="lWg-Jz-gcU"/>
                     <connections>
+                        <outlet property="clickHereLabel" destination="y4e-Sl-DhC" id="J1E-OB-SZc"/>
                         <outlet property="imgButton" destination="SkO-E6-iAV" id="RZn-Yk-1b7"/>
                         <outlet property="nextSkipButton" destination="e7V-Zk-Ipd" id="0UQ-I2-zzd"/>
                     </connections>
