@@ -335,26 +335,26 @@ class PagerViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
         
     }
-    
-    
+  
     func didShowBluetoothState(_ notification: Notification) {
         Globals.log(" didShowBluetoothState LIST ")
-        let alertController = UIAlertController(title: NSLocalizedString("Turn_on_Bluetooth", comment: ""), message: NSLocalizedString("turn_on_bluetooth", comment: ""), preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Settings", style: .cancel) { (action) in
-            let url = NSURL(string: UIApplicationOpenSettingsURLString)
+        let alertController = UIAlertController(
+          title: NSLocalizedString("Turn_on_Bluetooth", comment: ""),
+          message: NSLocalizedString("turn_on_bluetooth", comment: ""),
+          preferredStyle: .alert
+        )
+      
+        let settingsAction = UIAlertAction(title: NSLocalizedString("settings", comment: ""), style: .cancel) { (action) in
+            let url = URL(string: "App-Prefs:root=Bluetooth")
             UIApplication.shared.openURL(url! as URL)
         }
-        alertController.addAction(cancelAction)
-        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
-            // do nothing
-            
-        }
+        alertController.addAction(settingsAction)
+      
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in }
         alertController.addAction(okAction)
-        present(alertController, animated: true, completion: nil)
+      
+      present(alertController, animated: true, completion: nil)
     }
-    
-    
-    
     
     @IBAction func qrCancel(_ sender: Any) {
         hideNavigationItem(item: self.navigationItem.rightBarButtonItem)
