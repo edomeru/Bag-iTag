@@ -218,41 +218,12 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
                     luggageItem.minor = (uuidTextField.text! != luggageItem.activation_code.uppercased()) ? "-1" : luggageItem.minor
                     luggageItem.activation_code = uuidTextField.text!.lowercased()
                     luggageItem.activation_key = aKey
-                    
-                    if let bTState =  bluetoothState {
-                        Globals.log(" bTState \(bTState)")
-                        if  bTState == false {
-                            
-                            Globals.log("showBluetoothState")
-                            
-                            showPpopUp()
-                            Globals.log("EDITED 1")
-                            
-                        }else{
-                            Globals.log("EDITED 2")
-                            delegate?.beaconDetailViewController(self, didFinishEditingItem: luggageItem)
-                        }
-                    }
-                    
-                    
-                    
+                  
+                    delegate?.beaconDetailViewController(self, didFinishEditingItem: luggageItem)
+
                 } else {
-                    
-                    if let bTState =  bluetoothState {
-                        Globals.log(" bTState \(bTState)")
-                        if  bTState == false {
-                            
-                            
-                            Globals.log("NOT EDITED BT OFF")
-                            showPpopUp()
-                            
-                        }else{
-                            Globals.log("No Changes made in LuggageTag")
-                            //dismiss(animated: true, completion: nil)
-                            delegate?.beaconDetailViewController(self, didFinishEditingItem: luggageItem)
-                        }
-                        
-                    }
+                  Globals.log("No Changes made in LuggageTag")
+                  dismiss(animated: true, completion: nil)
                     
                 }
                 
