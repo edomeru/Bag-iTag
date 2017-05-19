@@ -32,6 +32,7 @@ extension String {
     
 }
 
+
 protocol BeaconDetailViewControllerDelegate: NSObjectProtocol {
     func beaconDetailViewController(_ controller: BeaconDetailViewController, didFinishAddingItem item: LuggageTag)
     func beaconDetailViewController(_ controller: BeaconDetailViewController, didFinishEditingItem item: LuggageTag)
@@ -43,33 +44,56 @@ protocol BeaconDetailViewControllerDelegate: NSObjectProtocol {
 }
 
 class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UITextFieldDelegate, ModalViewControllerDelegate, AVCaptureMetadataOutputObjectsDelegate {
+    @IBOutlet weak var cameraTop: NSLayoutConstraint!
+    @IBOutlet weak var activationHeightCOnstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var cameraSizeCenterContraint: NSLayoutConstraint!
+    @IBOutlet weak var camBAckgroundHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var qrPic: UIImageView!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var uuidTextField: UITextField!
     @IBOutlet weak var imgButton: UIButton!
+    @IBOutlet weak var cameraAlignXConstraint: NSLayoutConstraint!
     @IBOutlet weak var rangeLabel: UILabel!
     @IBOutlet weak var activationButton: CustomButton!
     @IBOutlet weak var qrCodeButton: UIButton!
+    @IBOutlet weak var cameraViewCenter: NSLayoutConstraint!
     
+    @IBOutlet weak var rangeLabelTop: NSLayoutConstraint!
+    @IBOutlet weak var cameraHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var qrCodeWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var cameraBackground: UIView!
     var centralManager: CBCentralManager!
     
     weak var delegate: BeaconDetailViewControllerDelegate?
     
+    @IBOutlet weak var activationCodeConstraints: NSLayoutConstraint!
+    @IBOutlet weak var activationButtonY: NSLayoutConstraint!
+    let floatVersion = (UIDevice.current.systemVersion as NSString).floatValue
     var beaconReference: [LuggageTag]?
     var beaconToEdit: LuggageTag?
     var isPhotoEdited = false
     var trimmedName: String?
     
+    @IBOutlet weak var qrBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var cameraSize: CustomButton!
+    @IBOutlet weak var qrCodeHeightConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var cameraWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var nameHeightConstraint: NSLayoutConstraint!
     var captureSession:AVCaptureSession?
     var videoPreviewLayer:AVCaptureVideoPreviewLayer?
     var qrCodeFrameView:UIView?
     
+    @IBOutlet weak var rangeLabelTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var nameTextFieldTop: NSLayoutConstraint!
+    @IBOutlet weak var alignUUIDY: NSLayoutConstraint!
     let supportedCodeTypes = [AVMetadataObjectTypeQRCode]
-  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         formatNavigationBar()
+        FourSGui ()
         hideNavigationItem(item: self.navigationItem.rightBarButtonItem)
         
         // NSNotification Observer for Keyboard
@@ -103,14 +127,16 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
             }
             
             nameTextField.text = item.name
-            Globals.log("UPDATE ACT CODE \(beaconToEdit?.activation_code.uppercased())")
             
-            uuidTextField.text = beaconToEdit?.activation_code.uppercased()
             
-            let image_qr = generateQRCode(from: "\(beaconToEdit?.activation_code.uppercased())")
             
-            qrPic.image = image_qr
-            Globals.log("QR HERE \(image_qr)")
+            if let beaconEditActivationCode = beaconToEdit?.activation_code.uppercased(){
+                uuidTextField.text = beaconEditActivationCode
+                let image_qr = generateQRCode(from: "\(beaconEditActivationCode)")
+                Globals.log("UPDATE ACT CODE \(beaconEditActivationCode)")
+                qrPic.image = image_qr
+                Globals.log("QR HERE \(image_qr)")
+            }
             
             if (beaconToEdit?.activated)! {
                 uuidTextField.isEnabled = false
@@ -160,6 +186,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     
     // MARK: Action Methods
     @IBAction func saveBeacon() {
+        
         nameTextField.resignFirstResponder()
         uuidTextField.resignFirstResponder()
         
@@ -191,11 +218,13 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
                     luggageItem.minor = (uuidTextField.text! != luggageItem.activation_code.uppercased()) ? "-1" : luggageItem.minor
                     luggageItem.activation_code = uuidTextField.text!.lowercased()
                     luggageItem.activation_key = aKey
-                    
+                  
                     delegate?.beaconDetailViewController(self, didFinishEditingItem: luggageItem)
+
                 } else {
-                    Globals.log("No Changes made in LuggageTag")
-                    dismiss(animated: true, completion: nil)
+                  Globals.log("No Changes made in LuggageTag")
+                  dismiss(animated: true, completion: nil)
+                    
                 }
                 
             } else {
@@ -368,20 +397,47 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
         
     }
     
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    
     // MARK: NSNotificationCenter Functions
     func keyboardWillShow(_ sender: Notification) {
-        self.view.frame.origin.y = -150
+        
+        //self.imgButton.frame.size = CGSize(width:20, height: 20)
+        // self.cameraBackground.frame.origin.y = 10
+        
+        if Double(floatVersion)  <= 8.9 {
+            iOS8Gui(sender)
+        }else{
+            iOS10Gui(sender)
+        }
+        
+        
     }
     
     func keyboardWillHide(_ sender: Notification) {
         self.view.frame.origin.y = 0
+        self.cameraBackground.isHidden = false
+        self.imgButton.isHidden = false
+        
+        if Double(floatVersion)  <= 8.9 {
+            if screenHeight() <= 490.0 {
+                FourSGui ()
+            }else{
+                iOS8Hide()
+            }
+        }
+        
     }
     
     func setEnterRegion(_ notification: Notification) {
         let region = (notification as NSNotification).userInfo!["region"] as! CLBeaconRegion
         if let luggageTag = beaconToEdit {
             let connected = luggageTag.isConnected
-            if (region.identifier == luggageTag.name && region.proximityUUID.uuidString == luggageTag.uuid && connected) {
+            if (region.proximityUUID.uuidString == luggageTag.uuid && connected) {
                 rangeLabel.text = Constants.Range.InRange
                 
                 if (uuidTextField.isEnabled && !qrCodeButton.isHidden && !activationButton.isHidden && rangeLabel.isHidden) {
@@ -397,7 +453,7 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     func setExitRegion(_ notification: Notification) {
         let region = (notification as NSNotification).userInfo!["region"] as! CLBeaconRegion
         if let luggageTag = beaconToEdit {
-            if (region.identifier == luggageTag.name && region.proximityUUID.uuidString == luggageTag.uuid) {
+            if (region.proximityUUID.uuidString == luggageTag.uuid) {
                 rangeLabel.text = Constants.Range.OutOfRange
             }
         }
@@ -698,23 +754,131 @@ class BeaconDetailViewController: UIViewController, CBCentralManagerDelegate, UI
     
     
     
-    
     deinit {
         
         NotificationCenter.default.removeObserver(self)
-        //
-        //    NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        //    NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        //    
-        //    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Proximity.Inside), object: nil)
-        //    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Proximity.Outside), object: nil)
-        //
-        //    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessDisabled), object: nil)
-        //    
-        //    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.ActivationSuccessKey), object: nil)
-        //    
-        //    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.AssignNameToActivatingKey), object: nil)
-        //    
-        //    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.StopActivatingKey), object: nil)
+        
     }
+    func  FourSGui () {
+        
+        if screenHeight() <= 490.0 {
+            
+            Globals.log("FOUR S iOS 10")
+            self.cameraSizeCenterContraint.constant = 0
+            self.cameraWidthConstraint.constant = 120
+            self.cameraHeightConstraint.constant = 120
+            self.rangeLabelTop.constant = 10
+            self.nameHeightConstraint.constant = 45
+            self.activationHeightCOnstraint.constant = 45
+            self.qrCodeWidthConstraint.constant = 80
+            self.qrCodeHeightConstraint.constant = 80
+            self.cameraBackground.frame.origin.y = 10
+            self.cameraSize.cornerRadius = 60
+            self.qrCodeButton.frame.origin.y  = 5
+            self.camBAckgroundHeightConstraint.constant = 20
+            self.cameraTop.constant = 0
+            self.activationButtonY.constant = 250
+            self.alignUUIDY.constant = 15
+            self.nameTextFieldTop.constant = 10
+            self.rangeLabelTopConstraint.constant = 170
+            self.qrBottomConstraint.constant = 20
+            self.cameraSize.isHidden = false
+        }
+        
+        
+    }
+    
+    func screenHeight() -> CGFloat {
+        return UIScreen.main.bounds.height;
+    }
+    
+    func  iOS10Gui (_ sender: Notification){
+        
+        let userInfo:NSDictionary = sender.userInfo! as NSDictionary
+        let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+        let keyboardRectangle = keyboardFrame.cgRectValue
+        let keyboardHeight = keyboardRectangle.height
+        
+        var y:CGFloat?
+        var x:CGFloat?
+        
+        if screenHeight() <= 490.0 {
+            y = self.view.frame.height - keyboardHeight - 40
+            x =   self.view.frame.width / 2 - 20
+            self.qrPic.frame = CGRect(x: x! , y: y!, width: 40, height: 40)
+        }else{
+            y = self.view.frame.height - keyboardHeight - 80
+            x =   self.view.frame.width / 2 - 40
+            self.qrPic.frame = CGRect(x: x! , y: y!, width: 80, height: 80)
+        }
+        
+        let navigationBarHeight: CGFloat = self.navigationController!.navigationBar.frame.height
+        self.rangeLabel.frame.origin.y = navigationBarHeight
+        self.nameTextField.frame.origin.y = navigationBarHeight + self.rangeLabel.frame.size.height+7
+        self.uuidTextField.frame.origin.y = self.nameTextField.frame.size.height + navigationBarHeight + self.rangeLabel.frame.size.height + 14
+        self.cameraBackground.isHidden = true
+        self.activationButton.frame.origin.y =  self.view.frame.height - keyboardHeight - 50
+        
+    }
+    
+    func  iOS8Gui (_ sender: Notification){
+        
+        let userInfo:NSDictionary = sender.userInfo! as NSDictionary
+        let keyboardFrame:NSValue = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+        let keyboardRectangle = keyboardFrame.cgRectValue
+        let keyboardHeight = keyboardRectangle.height
+        
+        
+        if screenHeight() <= 490.0 {
+            self.qrCodeWidthConstraint.constant = 36
+            self.qrCodeHeightConstraint.constant = 36
+            self.alignUUIDY.constant = -100
+            self.nameTextFieldTop.constant = 55
+        }else{
+            
+            self.qrCodeWidthConstraint.constant = 80
+            self.qrCodeHeightConstraint.constant = 80
+            self.cameraSize.isHidden = true
+            self.cameraBackground.isHidden = true
+            Globals.log("iOS8Gui")
+        }
+        
+        self.cameraSize.isHidden = true
+        self.rangeLabelTopConstraint.constant = 1
+        self.qrBottomConstraint.constant = keyboardHeight
+        self.activationCodeConstraints.constant = keyboardHeight
+        //self.cameraBackground.isHidden = true
+        
+        
+    }
+    
+    func iOS8Hide(){
+        self.cameraSize.isHidden = false
+        self.qrCodeWidthConstraint.constant = 80
+        self.qrCodeHeightConstraint.constant = 80
+        Globals.log("iOS8Hide")
+        self.rangeLabelTopConstraint.constant = 250
+        self.qrBottomConstraint.constant = 20
+        self.activationCodeConstraints.constant = 20
+        self.cameraBackground.isHidden = false
+        
+        //self.cameraTop.constant = 25
+    }
+    
+    func showPpopUp(){
+        Globals.log(" didShowBluetoothState LIST ")
+        let alertController = UIAlertController(title: NSLocalizedString("Turn_on_Bluetooth", comment: ""), message: NSLocalizedString("turn_on_bluetooth", comment: ""), preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Settings", style: .cancel) { (action) in
+            let url = NSURL(string: UIApplicationOpenSettingsURLString)
+            UIApplication.shared.openURL(url! as URL)
+        }
+        alertController.addAction(cancelAction)
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+            // do nothing
+            
+        }
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
 }

@@ -67,8 +67,13 @@ class PagerViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.showNavigationItem(_:)), name:NSNotification.Name(rawValue: Constants.Notification.ShowCancel), object: nil);
         NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.qrCancel(_:)), name:NSNotification.Name(rawValue: Constants.Notification.cancelDisappear), object: nil);
         NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.enter_code_qr(_:)), name:NSNotification.Name(rawValue: Constants.Notification.NEXT_BUTTON_QR), object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.sampleLuggageItem(_:)), name:NSNotification.Name(rawValue: Constants.Notification.Create_Sample_Item), object: nil);
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(PagerViewController.didShowBluetoothState(_:)), name:NSNotification.Name(rawValue: Constants.Notification.showBluetoothWarning), object: nil);
         
     }
+    
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue:Constants.Notification.ShowCancel), object: nil)
@@ -122,6 +127,37 @@ class PagerViewController: UIViewController {
         luggageItem.activation_key = ActivationKey
         luggageItem.activated = true
         
+        Globals.log("activateLuggageItem CALLED!!!")
+        Globals.log("NAME \(luggageItem.name)")
+        Globals.log("UUID \(luggageItem.uuid)")
+        Globals.log("MAJOR \(luggageItem.major)")
+        Globals.log("MINOR \(luggageItem.minor)")
+        Globals.log("regionState \(luggageItem.regionState)")
+        Globals.log("activation_code \(luggageItem.activation_code)")
+        Globals.log("activation_key \(luggageItem.activation_key)")
+        Globals.log("activated \(luggageItem.activated)")
+        
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.SavingNewLugguageItem), object: luggageItem, userInfo: nil)
+    }
+    
+    func sampleLuggageItem(_ sender: Notification){
+        Globals.log("sampleLuggageItem")
+        let luggageItem = LuggageTag()
+        let photo = sender.object
+        if let pic = photo {
+            luggageItem.photo = pic as? Data
+        }
+        
+        luggageItem.name = "Sample Bag Item"
+        luggageItem.uuid = "C2265660-5EC1-4935-9BB3-A1CBD9143388"
+        luggageItem.major = "0"
+        luggageItem.minor = "-1"
+        luggageItem.regionState = Constants.Proximity.Inside
+        luggageItem.isConnected = true
+        luggageItem.activation_code = "aaobyoiummc"
+        luggageItem.activation_key = "92DF78126A00"
+        luggageItem.activated = true
+        
         NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.SavingNewLugguageItem), object: luggageItem, userInfo: nil)
     }
     
@@ -165,7 +201,12 @@ class PagerViewController: UIViewController {
             }
         }
         
+        
+        
         let hexString = String(BTAddress, radix: 16, uppercase: true)
+        
+        Globals.log("HEXSTRING  \(hexString)")
+        
         self.activation_Code = aCode
         
         NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.TransmitActivationKey), object: hexString, userInfo: nil)
@@ -230,14 +271,13 @@ class PagerViewController: UIViewController {
         
         if self.presentedViewController == nil {
             
-            
             timer = Timer.scheduledTimer(timeInterval: Constants.Time.FifteenSecondsTimeout, target: self, selector: #selector(PagerViewController.callDismissShakeDeviceAlert), userInfo: nil, repeats: false)
             
         }
     }
     
     func assignNameToActivatingBeacon(_ notification: Notification) {
-        
+        Globals.log("assignNameToActivatingBeacon")
         guard let uuid = notification.userInfo?[Constants.Key.ActivatedUUID] as? String, let activationKey = notification.userInfo?[Constants.Key.ActivationKey] as? String else {
             Globals.log("Invalid UUID/Activation Key from TKTCoreLocation")
             
@@ -260,10 +300,10 @@ class PagerViewController: UIViewController {
             luggageItem.activation_code = Acode.lowercased()
             Globals.log("A_CODE \(Acode)")
         }
+        
         luggageItem.activation_key = activationKey.uppercased()
         
-        delegate?.connectActivatingBeacon(item: luggageItem)
-        
+        delegate?.connectActivatingBeacon(item: luggageItem) 
     }
     
     
@@ -281,6 +321,7 @@ class PagerViewController: UIViewController {
         delegate?.disconnectActivatingBeacon(item: luggageItem)
     }
     
+    
     func showNavigationItem(_ notification: Notification) {
         self.navigationController?.navigationBar.isTranslucent = true
         let shw = self.navigationItem.rightBarButtonItem
@@ -293,18 +334,27 @@ class PagerViewController: UIViewController {
         
         NotificationCenter.default.removeObserver(self)
         
-        //        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue:Constants.Notification.INPUT_ACTIVATION_CODE), object: nil)
-        //
-        //        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue:Constants.Notification.NEXT_BUTTON), object: nil)
-        //
-        //        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue:Constants.Notification.CallDismissShakeDeviceAlert), object: nil)
-        //
-        //        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.OnBackgroundAccessEnabled), object: nil)
-        //        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: Constants.Notification.StopActivatingKey), object: nil)
     }
-    
-    
-    
+  
+    func didShowBluetoothState(_ notification: Notification) {
+        Globals.log(" didShowBluetoothState LIST ")
+        let alertController = UIAlertController(
+          title: NSLocalizedString("Turn_on_Bluetooth", comment: ""),
+          message: NSLocalizedString("turn_on_bluetooth", comment: ""),
+          preferredStyle: .alert
+        )
+      
+        let settingsAction = UIAlertAction(title: NSLocalizedString("settings", comment: ""), style: .cancel) { (action) in
+            let url = URL(string: "App-Prefs:root=Bluetooth")
+            UIApplication.shared.openURL(url! as URL)
+        }
+        alertController.addAction(settingsAction)
+      
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in }
+        alertController.addAction(okAction)
+      
+      present(alertController, animated: true, completion: nil)
+    }
     
     @IBAction func qrCancel(_ sender: Any) {
         hideNavigationItem(item: self.navigationItem.rightBarButtonItem)

@@ -71,6 +71,16 @@ class NameYourTagViewController: UIViewController, AddPhotoViewControllerDelegat
     
     fileprivate func validateLuggage() -> Bool {
         
+        if let bTState =  bluetoothState {
+            Globals.log(" bTState \(bTState)")
+            if  bTState == false {
+                
+                Globals.log("showBluetoothState")
+                NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.Notification.showBluetoothWarning), object: nil, userInfo: nil)
+                return false
+            }
+            
+        }
         
         if (checkTagAvailability()) {
             showConfirmation(NSLocalizedString("warning", comment: ""), message: NSLocalizedString("err_luggage_exist", comment: ""))
@@ -167,6 +177,13 @@ class NameYourTagViewController: UIViewController, AddPhotoViewControllerDelegat
         
         return true
     }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text else { return true }
+        let newLength = text.characters.count + string.characters.count - range.length
+        return newLength <= 40 // Bool
+    }
+    
     
     deinit {
         
