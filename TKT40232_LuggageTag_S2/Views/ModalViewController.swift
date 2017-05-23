@@ -75,6 +75,8 @@ class ModalViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     Globals.showAlert(self, title: NSLocalizedString("error", comment: ""), message: message, animated: true, completion: nil, actions: action)
   }
+    
+    
 
   @IBAction func takePhoto(_ sender: AnyObject) {
     // Check if we have permission taking Camera
@@ -87,10 +89,10 @@ class ModalViewController: UIViewController, UIImagePickerControllerDelegate, UI
           self.cameraPicker()
           
           return
+        } else {
+          self.showAlertforSettings(NSLocalizedString("camera_restricted", comment: ""))
         }
       })
-      
-      showAlertforSettings(NSLocalizedString("camera_restricted", comment: ""))
     }
   }
   
@@ -107,9 +109,6 @@ class ModalViewController: UIViewController, UIImagePickerControllerDelegate, UI
       PHPhotoLibrary.requestAuthorization({(status: PHAuthorizationStatus) -> Void in
         if status == .authorized {
           self.photoPicker()
-        }
-        else {
-          self.showAlertforSettings(NSLocalizedString("photo_restricted", comment: ""))
         }
       })
     case .restricted:
